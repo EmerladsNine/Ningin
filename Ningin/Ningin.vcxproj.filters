@@ -1,0 +1,401 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Header Files\math">
+      <UniqueIdentifier>{3db1998f-2111-4725-bec3-1f950f8c0a62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\math">
+      <UniqueIdentifier>{1a41c786-f614-4c5e-b61b-bdc0b43a7cc1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\shaders">
+      <UniqueIdentifier>{f7ca305e-0213-431f-839c-77d2831d26ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resource_manager">
+      <UniqueIdentifier>{d549b4da-00ab-4ef2-b022-9e5f5044b188}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resource_manager">
+      <UniqueIdentifier>{73a8ef6d-25dd-49c3-b5f5-999c53e444d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene_system">
+      <UniqueIdentifier>{51a48cc8-8ba2-4070-8a35-0131acdc6254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene_system">
+      <UniqueIdentifier>{13fe4735-302d-4c33-a4dc-912f49db7658}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene_system\components">
+      <UniqueIdentifier>{9a4a42df-4852-4fae-9303-88bddc4517a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene_system\components">
+      <UniqueIdentifier>{c62aba22-a2f7-48e2-9451-c0b4a68a9f6e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\system">
+      <UniqueIdentifier>{ffd810d8-8141-4b32-ae53-0bfff09011ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\system">
+      <UniqueIdentifier>{9a71de3f-7ecd-4494-91b7-299723c48905}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scripting">
+      <UniqueIdentifier>{3060f0d8-9000-41f0-b0a2-ba3689c28cec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scripting">
+      <UniqueIdentifier>{da6d3d48-e226-41b7-981b-8ad84a605ffc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scripting\mono">
+      <UniqueIdentifier>{d5b5718f-1be2-4bfc-98b3-9015bc70f1d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scripting\mono">
+      <UniqueIdentifier>{3e6ceeb4-1f74-451d-9be9-64a8b63c6357}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scripting\mono\raw">
+      <UniqueIdentifier>{7c50b342-9041-444c-b14c-4edb1b1e5263}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scripting\mono\wrapper">
+      <UniqueIdentifier>{44484ff6-26fe-44ac-b331-5a8cb049dbb0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scripting\mono\wrapper">
+      <UniqueIdentifier>{903766e4-5f31-4902-a84a-a74ab6e7f93b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scripting\mono\raw">
+      <UniqueIdentifier>{eddb518c-c144-49a4-ab81-35afb3a2142d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene_system\ecs">
+      <UniqueIdentifier>{621a7aa6-2377-49b3-880f-13e6fffb5279}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene_system\ecs">
+      <UniqueIdentifier>{f0a26f86-8f88-4487-86b1-c73bfc9a9cc4}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\math\vector3.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\dimensions2.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\dimensions3.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\math.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\point.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\math\vector2.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\atlas.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\character.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\color.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\colors.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\font.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\font_info.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\font_texture.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\resource_manager.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\shader.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\shader_info.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\sprite.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\sprite_info.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\sprite_sheet_info.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\sprite_tile.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\texture_info.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resource_manager\texture2d.cpp">
+      <Filter>Source Files\resource_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ningin.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\sprite_renderer.cpp">
+      <Filter>Source Files\scene_system\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\tarnsform.cpp">
+      <Filter>Source Files\scene_system\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\text_renderer.cpp">
+      <Filter>Source Files\scene_system\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\scriptable.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\scripting_engine.cpp">
+      <Filter>Source Files\scripting</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\mono\internal_calls.cpp">
+      <Filter>Source Files\scripting\mono</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\mono\mono.cpp">
+      <Filter>Source Files\scripting\mono</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\mono\script.cpp">
+      <Filter>Source Files\scripting\mono</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\mono\script_class.cpp">
+      <Filter>Source Files\scripting\mono</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\mono\raw\mono.cpp">
+      <Filter>Source Files\scripting\mono\raw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scripting\mono\wrapper\debug.cpp">
+      <Filter>Source Files\scripting\mono\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\scene.cpp">
+      <Filter>Source Files\scene_system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\world.cpp">
+      <Filter>Source Files\scene_system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\ecs\archetype.cpp">
+      <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\ecs\archetype_edge.cpp">
+      <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\ecs\archetype_manager.cpp">
+      <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\ecs\archetype_record.cpp">
+      <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\ecs\entity_manager.cpp">
+      <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\ecs\record.cpp">
+      <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\button.cpp">
+      <Filter>Source Files\scene_system\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\entity.cpp">
+      <Filter>Source Files\scene_system\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\renderer.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\scene_manager.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\scenes_loader.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\system\window.cpp">
+      <Filter>Source Files\system</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\math\vector3.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\dimensions2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\dimensions3.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\math.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\point.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\vector2.h">
+      <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\atlas.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\character.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\color.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\colors.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\font.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\font_info.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\font_texture.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\resource_manager.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\shader.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\shader_info.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\sprite.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\sprite_info.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\sprite_sheet_info.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\sprite_tile.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\texture_info.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resource_manager\texture2d.h">
+      <Filter>Header Files\resource_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ningin.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\components\sprite_renderer.h">
+      <Filter>Header Files\scene_system\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\components\transform.h">
+      <Filter>Header Files\scene_system\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\components\text_renderer.h">
+      <Filter>Header Files\scene_system\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\script_class.h">
+      <Filter>Header Files\scripting\mono</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\internal_calls.h">
+      <Filter>Header Files\scripting\mono</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\mono_paths.h">
+      <Filter>Header Files\scripting\mono</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\script.h">
+      <Filter>Header Files\scripting\mono</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\script_language.h">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\scripting_engine.h">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\scriptable.h">
+      <Filter>Header Files\scripting</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\wrapper\debug.h">
+      <Filter>Header Files\scripting\mono\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\raw\mono_type_def_enum.h">
+      <Filter>Header Files\scripting\mono\raw</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\raw\mono_meta_table_enum.h">
+      <Filter>Header Files\scripting\mono\raw</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\raw\mono.h">
+      <Filter>Header Files\scripting\mono\raw</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\mono\mono.h">
+      <Filter>Header Files\scripting\mono</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\scene.h">
+      <Filter>Header Files\scene_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\world.h">
+      <Filter>Header Files\scene_system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\ecs\archetype.h">
+      <Filter>Header Files\scene_system\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\ecs\archetype_edge.h">
+      <Filter>Header Files\scene_system\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\ecs\archetype_manager.h">
+      <Filter>Header Files\scene_system\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\ecs\archetype_record.h">
+      <Filter>Header Files\scene_system\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\ecs\entity_manager.h">
+      <Filter>Header Files\scene_system\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\ecs\record.h">
+      <Filter>Header Files\scene_system\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\components\button.h">
+      <Filter>Header Files\scene_system\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\components\entity.h">
+      <Filter>Header Files\scene_system\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\renderer.h">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\scene_manager.h">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\scenes_loader.h">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\window.h">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\system\window_options.h">
+      <Filter>Header Files\system</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\shaders\sprite_fs.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="src\shaders\sprite_vs.vs">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="src\shaders\text_fs.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="src\shaders\text_vs.vs">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+  </ItemGroup>
+</Project>

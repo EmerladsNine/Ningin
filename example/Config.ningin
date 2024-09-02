@@ -1,0 +1,33 @@
+// Types Starts With '!' followed by the name and the id
+// Value Types are Float,Int,String,Bool ... if you want more ask ahmad
+// okay
+
+//this really works
+!Transform:0{
+    Position(Float,Float,Float)
+    Rotation(Float,Float,Float)
+    Scale(Float,Float,Float)
+}
+
+//example
+//!Camera:1{
+//    Position(Float,Float,Float)
+//}
+
+!Sprite:1{
+    Alpha(Bool)
+    UseTint(Bool)
+    TintingColor(U8, U8, U8, U8)
+    TextureName(String)
+    Shader(String)
+}
+
+!Text:2{
+    TextColor(U8, U8, U8, U8)
+    FontName(String)
+    FontSize(U8)
+    Text(String)
+    Shader(String)
+}
+
+// Types ranges from I64 to I8 , U64 to U8 , F64 and F32

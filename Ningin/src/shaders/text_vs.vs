@@ -1,0 +1,17 @@
+#version 330 core
+layout (location = 0) in vec2 vertex; // <vec2 pos>
+
+out VS_OUT {
+    vec2 TexCoords;
+    flat int index;
+}data;
+
+uniform mat4 projection;
+uniform mat4 Transforms[100];
+
+void main()
+{
+    gl_Position = projection  * Transforms[gl_InstanceID] * vec4(vertex.xy, 0.0, 1.0);
+    data.index = gl_InstanceID;
+    data.TexCoords = vertex.xy;
+}

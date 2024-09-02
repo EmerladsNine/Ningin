@@ -1,0 +1,42 @@
+#Title("A Scene")
+
+@test{
+    <example "Class1">
+    Transform{
+        Position(50.0,50.0,0.0)
+        Rotation(0.0,0.0,30.0)
+        Scale(1.0,1.0,1.0)
+    }
+
+    Text{
+        TextColor(255, 255, 255, 255)
+        FontName("arial.ttf")
+        FontSize(48)
+        Text("string")
+        Shader("text")
+    }
+
+    // Sprite{
+    //     Alpha(true)
+    //     UseTint(true)
+    //     TintingColor(205, 155, 0, 255)
+    //     TextureName("name")
+    //     Shader("sprite")     
+    // }
+    
+    @test2{
+
+    }
+}
+
+@potato{
+    @potato2{
+        @potato3{
+            Transform {
+                Position(1.0,2.0,1.0)
+                Rotation(28.0,10.0,9.0)
+                Scale(28.0,10.0,9.0)
+            }
+        }
+    }
+}
