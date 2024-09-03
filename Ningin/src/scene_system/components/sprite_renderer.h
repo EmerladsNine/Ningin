@@ -13,12 +13,12 @@
 #include "../../math/math.h"
 #include "../../ningin.h"
 
-class Sprite {
+class SpriteRenderer {
 public:
-    Sprite( std::string& textureName,  std::string& shaderName,  Color& tintingColor, bool useTint, bool alpha);
-    ~Sprite();
+    SpriteRenderer( std::string& textureName,  std::string& shaderName,  Color& tintingColor, bool useTint, bool alpha);
+    ~SpriteRenderer();
 
-    void draw( Transform& transform);
+    void draw(Transform& transform);
     void setTintingColor( Color& newColor);
     void setUseTint(bool useTint);
     void setUserUniforms(std::function<void()> initFunc, std::function<void()> initDrawingFunc, std::function<void()> drawingFunc);

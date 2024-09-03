@@ -1,8 +1,8 @@
 #include "text_renderer.h"
 #include <gtc/matrix_transform.hpp>
 
-// Constructor
-Text::Text(const std::string& fontName, const std::string& shaderName, const Color& textColor, const std::string& text, uint8_t fontSize)
+// ructor
+Text::Text( std::string& fontName,  std::string& shaderName,  Color& textColor,  std::string& text, uint8_t fontSize)
     : isStarted(false),
     shader(resourceManager.getShader(shaderName)),
     font(resourceManager.getFont(fontName)),
@@ -57,7 +57,7 @@ void Text::initializeVao() {
 }
 
 void Text::initializeVbo() {
-    const float vertexData[] = {
+     float vertexData[] = {
         0.0f, 1.0f,
         1.0f, 1.0f,
         0.0f, 0.0f,
@@ -89,7 +89,7 @@ void Text::configureDrawingContext() {
     glBindVertexArray(vao);
 }
 
-void Text::draw(const Transform& transform) {
+void Text::draw(Transform& transform) {
     setInitDrawingUniforms();
     configureDrawingContext();
 
@@ -104,7 +104,7 @@ void Text::draw(const Transform& transform) {
     float xOffset = 0.0f;
 
     for (char c : text) {
-        const auto& ch = font.getCharMap().at(c);
+         auto& ch = font.getCharMap().at(c);
 
         if (c == '\n') {
             pos.y += ch.getSize().height * 1.3f * scale;
@@ -209,7 +209,7 @@ glm::mat4 Text::computeLetterTransform(float xOffset, float xpos, float ypos, fl
     return letterModel;
 }
 
-void Text::computeTextTransform(const Transform& transform) {
+void Text::computeTextTransform(Transform& transform) {
     Vector3 pos = transform.getPosition();
     float scale = static_cast<float>(fontSize) / 256.0f;
 
@@ -229,11 +229,11 @@ void Text::setUserUniforms(std::function<void()> initFunc, std::function<void()>
     userUniforms["drawing"] = drawingFunc;
 }
 
-void Text::setTextColor(const Color& newColor) {
+void Text::setTextColor( Color& newColor) {
     textColor = newColor;
 }
 
-void Text::setText(const std::string& text) {
+void Text::setText( std::string& text) {
     this->text = text;
     mustCalculate = true;
 }

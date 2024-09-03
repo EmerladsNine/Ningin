@@ -62,9 +62,9 @@ void Font::loadGlyphs(FT_Face face) {
 void Font::addGlyph(FT_GlyphSlot glyph, unsigned char charCode) {
     Character character{
         static_cast<int>(charCode),
-        { glyph->bitmap.width, glyph->bitmap.rows },
+        { static_cast<int>(glyph->bitmap.width), static_cast<int>(glyph->bitmap.rows) },
         { glyph->bitmap_left, glyph->bitmap_top },
-        glyph->advance.x >> 6 // Convert from 16.16 fixed point to integer
+        static_cast<unsigned int>(glyph->advance.x >> 6),
     };
 
     charMap[charCode] = character;

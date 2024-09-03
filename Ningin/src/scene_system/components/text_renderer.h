@@ -17,14 +17,14 @@
 
 class Text {
 public:
-    Text(const std::string& fontName, const std::string& shaderName, const Color& textColor, const std::string& text, uint8_t fontSize);
+    Text( std::string& fontName,  std::string& shaderName,  Color& textColor,  std::string& text, uint8_t fontSize);
     ~Text();
 
-    void setTextColor(const Color& newColor);
-    void setText(const std::string& text);
+    void setTextColor( Color& newColor);
+    void setText( std::string& text);
     void setFontSize(uint8_t fontSize);
     void setUserUniforms(std::function<void()> initFunc, std::function<void()> initDrawingFunc, std::function<void()> drawingFunc);
-    void draw(const Transform& transform);
+    void draw(Transform& transform);
 
     //static void system(EntityManager& entityManager);
 
@@ -58,7 +58,7 @@ private:
     std::pair<std::vector<std::vector<char>>, size_t> getTextInfo();
     void setInitDrawingUniforms();
     void setDrawingUniforms(int32_t length);
-    void computeTextTransform(const Transform& transform);
+    void computeTextTransform(Transform& transform);
     glm::mat4 computeLetterTransform(float xOffset, float xpos, float ypos, float scale);
     void calculateTextDimensions();
 };

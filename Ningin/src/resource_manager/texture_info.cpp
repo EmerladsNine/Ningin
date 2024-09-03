@@ -1,19 +1,19 @@
 #include "texture_info.h"
 
-// Constructor
-TextureInfo::TextureInfo(const std::filesystem::path& imgPath, bool alpha, const std::string& name)
+// ructor
+TextureInfo::TextureInfo( std::filesystem::path& imgPath, bool alpha,  std::string& name)
     : img_path(imgPath), alpha(alpha), name(name) {}
 
 // Getters
-bool TextureInfo::hasAlpha() const {
+bool TextureInfo::hasAlpha()  {
     return alpha;
 }
 
-const std::filesystem::path& TextureInfo::getImgPath() const {
+ std::filesystem::path& TextureInfo::getImgPath()  {
     return img_path;
 }
 
-const std::string& TextureInfo::getName() const {
+ std::string& TextureInfo::getName()  {
     return name;
 }
 
@@ -22,10 +22,10 @@ void TextureInfo::setAlpha(bool alpha) {
     this->alpha = alpha;
 }
 
-void TextureInfo::setImgPath(const std::filesystem::path& imgPath) {
+void TextureInfo::setImgPath( std::filesystem::path& imgPath) {
     this->img_path = imgPath;
 }
 
-void TextureInfo::setName(const std::string& name) {
+void TextureInfo::setName( std::string& name) {
     this->name = name;
 }

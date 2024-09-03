@@ -1,5 +1,7 @@
 #include "math.h"
 
+double const math::PI = 3.14159265358979323846;
+double const math::EPSILON =1e-6;
 float math::clamp(float val_to_clamp, float min, float max) 
 {
     if (val_to_clamp < min) {

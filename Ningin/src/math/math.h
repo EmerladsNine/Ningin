@@ -33,6 +33,6 @@ public:
 	 */
 	static double radical(double number, int n);
 
-	static const double PI = 3.14159265358979323846;
-	static const double EPSILON = 1e-6;
+	static const double PI;
+	static const double EPSILON;
 };

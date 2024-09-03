@@ -16,6 +16,7 @@ class Character {
 public:
     // Constructors
     Character(int ascii_index, const Dimensions2& size, const Dimensions2& bearing, unsigned int advance);
+    Character() = default;
 
     // Accessors
     int getAsciiIndex() const;

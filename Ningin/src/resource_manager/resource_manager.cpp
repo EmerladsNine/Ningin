@@ -2,13 +2,15 @@
 #include <fstream>
 #include <json/json.h>
 
-void ResourceManager::addSprite(const SpriteInfo& info) {
+void ResourceManager::addSprite( SpriteInfo& info) {
     if (atlases.empty() || !atlases.back().canAddSprite()) {
         atlases.emplace_back(atlases.size());
     }
 
     Atlas& atlas = atlases.back();
-    atlas.addSprite(info.getPath(), info.getName());
+    std::filesystem::path path = info.getPath();
+    std::string name = info.getName();
+    atlas.addSprite(path, name);
 
     SpriteInfo spriteInfo = info;
     spriteInfo.setAtlasId(atlases.size() - 1);
@@ -16,8 +18,8 @@ void ResourceManager::addSprite(const SpriteInfo& info) {
     sprites[spriteInfo.getName()] = spriteInfo;
 }
 
-void ResourceManager::loadSprites(const std::vector<SpriteInfo>& info) {
-    for (const auto& spriteInfo : info) {
+void ResourceManager::loadSprites( std::vector<SpriteInfo>& info) {
+    for ( auto& spriteInfo : info) {
         addSprite(spriteInfo);
     }
 }
@@ -26,17 +28,18 @@ void ResourceManager::loadSpriteSheet() {
     // TODO: Implement loading sprite sheet functionality
 }
 
-void ResourceManager::loadShader(const ShaderInfo& info) {
-    shaders[info.getName()] = Shader(info.getPath("vertex"), info.getPath("fragment"));
+void ResourceManager::loadShader( ShaderInfo& info) {
+    Shader shader(info.getPath("vertex"), info.getPath("fragment"));
+    shaders.insert(std::make_pair(info.getName(), shader));
 }
 
-void ResourceManager::loadShaders(const std::vector<ShaderInfo>& info) {
-    for (const auto& shaderInfo : info) {
+void ResourceManager::loadShaders( std::vector<ShaderInfo>& info) {
+    for ( auto& shaderInfo : info) {
         loadShader(shaderInfo);
     }
 }
 
-Shader ResourceManager::getShader(const std::string& name) const {
+Shader ResourceManager::getShader( std::string& name)  {
     auto it = shaders.find(name);
     if (it != shaders.end()) {
         return it->second;
@@ -44,17 +47,18 @@ Shader ResourceManager::getShader(const std::string& name) const {
     throw std::runtime_error("Shader not found");
 }
 
-void ResourceManager::loadTexture(const TextureInfo& info) {
-    textures[info.getName()] = Texture2D(info.getImgPath(), info.hasAlpha());
+void ResourceManager::loadTexture(TextureInfo& info) {
+    Texture2D texture(info.getImgPath(), info.hasAlpha());
+    textures.insert(std::make_pair(info.getName(), texture));
 }
 
-void ResourceManager::loadTextures(const std::vector<TextureInfo>& info) {
-    for (const auto& textureInfo : info) {
+void ResourceManager::loadTextures( std::vector<TextureInfo>& info) {
+    for ( auto& textureInfo : info) {
         loadTexture(textureInfo);
     }
 }
 
-Texture2D ResourceManager::getTexture(const std::string& name) const {
+Texture2D ResourceManager::getTexture( std::string& name)  {
     auto it = textures.find(name);
     if (it != textures.end()) {
         return it->second;
@@ -62,24 +66,25 @@ Texture2D ResourceManager::getTexture(const std::string& name) const {
     throw std::runtime_error("Texture not found");
 }
 
-void ResourceManager::loadFont(const FontInfo& info) {
-    fonts[info.getName()] = Font(info.getFontPath(), info.getFtLibrary());
+void ResourceManager::loadFont( FontInfo& info) {
+    Font font(info.getFontPath(), info.getFtLibrary());
+    fonts.insert(std::make_pair(info.getName(), font));
 }
 
-void ResourceManager::loadFonts(const std::vector<FontInfo>& info) {
-    for (const auto& fontInfo : info) {
+void ResourceManager::loadFonts( std::vector<FontInfo>& info) {
+    for ( auto& fontInfo : info) {
         loadFont(fontInfo);
     }
 }
 
-void ResourceManager::loadFontsFromFolder(const std::filesystem::path& path, FT_Library ftLibrary) {
+void ResourceManager::loadFontsFromFolder( std::filesystem::path& path, FT_Library ftLibrary) {
     std::vector<FontInfo> fontInfos = FontInfo::generateInfoFromFolder(path, ftLibrary);
-    for (const auto& fontInfo : fontInfos) {
+    for ( auto& fontInfo : fontInfos) {
         loadFont(fontInfo);
     }
 }
 
-Font ResourceManager::getFont(const std::string& name) const {
+Font ResourceManager::getFont( std::string& name)  {
     auto it = fonts.find(name);
     if (it != fonts.end()) {
         return it->second;

@@ -58,7 +58,7 @@ void Texture2D::createTextureMipmap() {
 
 void Texture2D::loadTexture() {
     int width, height, channels;
-    unsigned char* imgData = stbi_load(imgPath.string().c_str(), &width, &height, &channels, 4); // Force RGBA
+    unsigned char* imgData = stbi_load(imgPath.string().c_str(), &width, &height, &channels, 4);
 
     if (!imgData) {
         throw std::runtime_error("Failed to load image");

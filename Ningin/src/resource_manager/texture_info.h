@@ -5,18 +5,18 @@
 
 class TextureInfo {
 public:
-    // Constructor
-    TextureInfo(const std::filesystem::path& imgPath, bool alpha, const std::string& name);
+    // ructor
+    TextureInfo( std::filesystem::path& imgPath, bool alpha,  std::string& name);
 
     // Getters
-    bool hasAlpha() const;
-    const std::filesystem::path& getImgPath() const;
-    const std::string& getName() const;
+    bool hasAlpha() ;
+     std::filesystem::path& getImgPath() ;
+     std::string& getName() ;
 
     // Setters
     void setAlpha(bool alpha);
-    void setImgPath(const std::filesystem::path& imgPath);
-    void setName(const std::string& name);
+    void setImgPath( std::filesystem::path& imgPath);
+    void setName( std::string& name);
 
 private:
     bool alpha;

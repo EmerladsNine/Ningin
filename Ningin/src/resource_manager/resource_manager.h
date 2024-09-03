@@ -18,25 +18,25 @@ class ResourceManager {
 public:
     ResourceManager() = default;
 
-    void addSprite(const SpriteInfo& info);
-    void loadSprites(const std::vector<SpriteInfo>& info);
+    void addSprite( SpriteInfo& info);
+    void loadSprites( std::vector<SpriteInfo>& info);
     void loadSpriteSheet();
 
-    void loadShader(const ShaderInfo& info);
-    void loadShaders(const std::vector<ShaderInfo>& info);
+    void loadShader( ShaderInfo& info);
+    void loadShaders( std::vector<ShaderInfo>& info);
 
-    Shader getShader(const std::string& name) const;
+    Shader getShader( std::string& name) ;
 
-    void loadTexture(const TextureInfo& info);
-    void loadTextures(const std::vector<TextureInfo>& info);
+    void loadTexture( TextureInfo& info);
+    void loadTextures( std::vector<TextureInfo>& info);
 
-    Texture2D getTexture(const std::string& name) const;
+    Texture2D getTexture( std::string& name) ;
 
-    void loadFont(const FontInfo& info);
-    void loadFonts(const std::vector<FontInfo>& info);
-    void loadFontsFromFolder(const std::filesystem::path& path, FT_Library ftLibrary);
+    void loadFont( FontInfo& info);
+    void loadFonts( std::vector<FontInfo>& info);
+    void loadFontsFromFolder( std::filesystem::path& path, FT_Library ftLibrary);
 
-    Font getFont(const std::string& name) const;
+    Font getFont( std::string& name) ;
 
 private:
     std::unordered_map<std::string, Shader> shaders;

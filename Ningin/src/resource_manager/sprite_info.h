@@ -7,6 +7,7 @@ class SpriteInfo {
 public:
     // Constructor
     SpriteInfo(const std::string& name, const std::filesystem::path& path);
+    SpriteInfo() = default;
 
     // Getters
     std::string getName() const;

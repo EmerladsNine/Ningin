@@ -1,6 +1,6 @@
 #include "sprite_renderer.h"
 
-Sprite::Sprite(
+SpriteRenderer::SpriteRenderer(
      std::string& textureName,
      std::string& shaderName,
      Color& tintingColor,
@@ -19,23 +19,23 @@ Sprite::Sprite(
     setShaderInitialUniforms();
 }
 
-Sprite::~Sprite() {
+SpriteRenderer::~SpriteRenderer() {
     glDeleteVertexArrays(1, &quadVAO);
 }
 
-void Sprite::initializeRenderData() {
+void SpriteRenderer::initializeRenderData() {
     initializeVAO();
     initializeVBO();
     setupVertexAttrib();
     freeInitializationResources();
 }
 
-void Sprite::initializeVAO() {
+void SpriteRenderer::initializeVAO() {
     glGenVertexArrays(1, &quadVAO);
     glBindVertexArray(quadVAO);
 }
 
-void Sprite::initializeVBO() {
+void SpriteRenderer::initializeVBO() {
     GLuint vbo;
     GLfloat vertices[] = {
         0.0f, 1.0f, 0.0f, 1.0f,
@@ -51,17 +51,17 @@ void Sprite::initializeVBO() {
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 }
 
-void Sprite::setupVertexAttrib() {
+void SpriteRenderer::setupVertexAttrib() {
     glEnableVertexAttribArray(0);
     glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), nullptr);
 }
 
-void Sprite::freeInitializationResources() {
+void SpriteRenderer::freeInitializationResources() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
 
-void Sprite::setShaderInitialUniforms() {
+void SpriteRenderer::setShaderInitialUniforms() {
     std::string projectionMatrixName = std::string("projection");
     std::string SpriteSamplerName = std::string("sprite");
 
@@ -73,7 +73,7 @@ void Sprite::setShaderInitialUniforms() {
     }
 }
 
-void Sprite::draw( Transform& transform) {
+void SpriteRenderer::draw( Transform& transform) {
     setDrawingUniforms(transform);
 
     glActiveTexture(GL_TEXTURE0);
@@ -90,15 +90,15 @@ void Sprite::draw( Transform& transform) {
     freeDrawingResources();
 }
 
-void Sprite::setTintingColor( Color& newColor) {
+void SpriteRenderer::setTintingColor( Color& newColor) {
     tintingColor = newColor;
 }
 
-void Sprite::setUseTint(bool useTint) {
+void SpriteRenderer::setUseTint(bool useTint) {
     this->useTint = useTint;
 }
 
-void Sprite::setUserUniforms(
+void SpriteRenderer::setUserUniforms(
     std::function<void()> initFunc,
     std::function<void()> initDrawingFunc,
     std::function<void()> drawingFunc) {
@@ -110,7 +110,7 @@ void Sprite::setUserUniforms(
     if (drawingFunc) userUniforms["drawing"] = drawingFunc;
 }
 
-glm::mat4 Sprite::computeModelMatrix(Transform& transform) {
+glm::mat4 SpriteRenderer::computeModelMatrix(Transform& transform) {
     Vector3 pos = transform.getPosition();
     Vector3 scale = transform.getScale();
     Dimensions2 dimensions = texture.getDimensions();
@@ -125,7 +125,7 @@ glm::mat4 Sprite::computeModelMatrix(Transform& transform) {
     return model;
 }
 
-void Sprite::setDrawingUniforms( Transform& transform) {
+void SpriteRenderer::setDrawingUniforms( Transform& transform) {
     std::string projectionMatrixName = std::string("projection");
     std::string TintingColorName = std::string("TintingColor");
     std::string useTintName = std::string("useTint");
@@ -148,7 +148,7 @@ void Sprite::setDrawingUniforms( Transform& transform) {
         alpha ? tintingColor.a / 255.0f : 1.0f);
 }
 
-void Sprite::freeDrawingResources() {
+void SpriteRenderer::freeDrawingResources() {
     glBindVertexArray(0);
     glBindTexture(GL_TEXTURE_2D, 0);
 }
