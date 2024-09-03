@@ -181,6 +181,7 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" />
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -215,13 +216,13 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\mousa\OneDrive\Documents\libraries\jsoncpp-1.9.5\include;C:\Users\mousa\OneDrive\Documents\libraries\stb_image;C:\Users\mousa\OneDrive\Documents\libraries\glew-2.2.0\include;C:\Users\mousa\OneDrive\Documents\libraries\glm-1.0.1\glm;C:\Users\mousa\OneDrive\Documents\libraries\freetype-2.13.3\include;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\mousa\OneDrive\Documents\libraries\glew-2.2.0\lib\Release\x64;C:\Users\mousa\OneDrive\Documents\libraries\freetype-2.13.3\objs\x64\Debug\freetype.tlog;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)\external\freetype-2.13.3\objs\x64\Debug\freetype.tlog;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
