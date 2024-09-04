@@ -57,7 +57,7 @@
     <ClCompile Include="src\scene_system\world.cpp" />
     <ClCompile Include="src\scripting\mono\internal_calls.cpp" />
     <ClCompile Include="src\scripting\mono\mono.cpp" />
-    <ClCompile Include="src\scripting\mono\raw\mono.cpp" />
+    <ClCompile Include="src\scripting\mono\raw\mono_raw.cpp" />
     <ClCompile Include="src\scripting\mono\script.cpp" />
     <ClCompile Include="src\scripting\mono\script_class.cpp" />
     <ClCompile Include="src\scripting\mono\wrapper\debug.cpp" />
@@ -216,14 +216,14 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;$(ProjectDir)\external\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>$(ProjectDir)\external\freetype-2.13.3\objs\x64\Debug\freetype.tlog;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)\external\freetype-2.13.3\objs;$(ProjectDir)\external\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

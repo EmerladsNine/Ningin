@@ -174,7 +174,7 @@
     <ClCompile Include="src\scripting\mono\script_class.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\mono\raw\mono.cpp">
+    <ClCompile Include="src\scripting\mono\raw\mono_raw.cpp">
       <Filter>Source Files\scripting\mono\raw</Filter>
     </ClCompile>
     <ClCompile Include="src\scripting\mono\wrapper\debug.cpp">
