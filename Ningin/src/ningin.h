@@ -2,10 +2,13 @@
 
 #include "resource_manager/resource_manager.h"
 #include "system/window_options.h"
-#include "string"
+#include "system/window.h"
+#include "system/scenes_loader.h"
 #include "freetype/freetype.h"
 #include "GL/glew.h"
 #include <glm.hpp>
+#include <string>
+#include <vector>
 
 extern ResourceManager resourceManager;
 extern glm::mat4 projectionMatrix;
@@ -15,12 +18,13 @@ extern const int ATLAS_LIMIT;
 
 class Game {
 	public:
-		Game(std::string game_name);
-		uint16_t new_window(std::string window_name, WindowOptions windowOptions, uint16_t scene_id, Dimensions2& dimensions);
+		static std::vector<Window> openedWindows;
+		static SceneLoader sceneLoader;
+		static void init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions, std::vector<std::string> scenes);
+		static std::uint16_t new_window(std::string windowName, WindowOptions windowOptions, std::uint16_t sceneId, Dimensions2* dimensions);
 	private:
 		FT_Library init_freetype();
 		void init_gl2d(Dimensions2 &dimensions);
-		void init(WindowOptions windowOptions, Dimensions2 &dimensions, std::vector<std::string>);
 		void init_resource_manager();
 		void main_loop();
 
