@@ -44,7 +44,7 @@
     <ClCompile Include="src\resource_manager\texture2d.cpp" />
     <ClCompile Include="src\resource_manager\texture_info.cpp" />
     <ClCompile Include="src\scene_system\components\button.cpp" />
-    <ClCompile Include="src\scene_system\components\entity.cpp" />
+    <ClCompile Include="src\scene_system\components\id.cpp" />
     <ClCompile Include="src\scene_system\components\sprite_renderer.cpp" />
     <ClCompile Include="src\scene_system\components\tarnsform.cpp" />
     <ClCompile Include="src\scene_system\components\text_renderer.cpp" />
@@ -94,7 +94,7 @@
     <ClInclude Include="src\resource_manager\texture2d.h" />
     <ClInclude Include="src\resource_manager\texture_info.h" />
     <ClInclude Include="src\scene_system\components\button.h" />
-    <ClInclude Include="src\scene_system\components\entity.h" />
+    <ClInclude Include="src\scene_system\components\id.h" />
     <ClInclude Include="src\scene_system\components\sprite_renderer.h" />
     <ClInclude Include="src\scene_system\components\transform.h" />
     <ClInclude Include="src\scene_system\components\text_renderer.h" />

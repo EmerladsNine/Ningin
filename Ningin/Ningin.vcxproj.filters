@@ -207,9 +207,6 @@
     <ClCompile Include="src\scene_system\components\button.cpp">
       <Filter>Source Files\scene_system\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\scene_system\components\entity.cpp">
-      <Filter>Source Files\scene_system\components</Filter>
-    </ClCompile>
     <ClCompile Include="src\system\renderer.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
@@ -224,6 +221,9 @@
     </ClCompile>
     <ClCompile Include="archetype_type_hasher.cpp">
       <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\id.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -368,9 +368,6 @@
     <ClInclude Include="src\scene_system\components\button.h">
       <Filter>Header Files\scene_system\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\scene_system\components\entity.h">
-      <Filter>Header Files\scene_system\components</Filter>
-    </ClInclude>
     <ClInclude Include="src\system\renderer.h">
       <Filter>Header Files\system</Filter>
     </ClInclude>
@@ -388,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="src\scene_system\ecs\archetype_type_hasher.h">
       <Filter>Header Files\scene_system\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\components\id.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
