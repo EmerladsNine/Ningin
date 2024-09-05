@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="archetype_type_hasher.cpp" />
     <ClCompile Include="src\math\dimensions2.cpp" />
     <ClCompile Include="src\math\dimensions3.cpp" />
     <ClCompile Include="src\math\math.cpp" />
@@ -101,6 +102,7 @@
     <ClInclude Include="src\scene_system\ecs\archetype_edge.h" />
     <ClInclude Include="src\scene_system\ecs\archetype_manager.h" />
     <ClInclude Include="src\scene_system\ecs\archetype_record.h" />
+    <ClInclude Include="src\scene_system\ecs\archetype_type_hasher.h" />
     <ClInclude Include="src\scene_system\ecs\entity_manager.h" />
     <ClInclude Include="src\scene_system\ecs\record.h" />
     <ClInclude Include="src\scene_system\scene.h" />

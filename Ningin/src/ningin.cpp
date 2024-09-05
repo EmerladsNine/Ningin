@@ -9,9 +9,15 @@ SceneLoader Game::sceneLoader;
 const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
 
-void Game::init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions, std::vector<std::string> scenes)
+void Game::Init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions, std::vector<std::string> scenes)
 {
-
+    new_window(gameName, windowOptions, 0, dimensions);
+    init_gl2d(dimensions);
+    init_resource_manager();
+    for (auto& scene : scenes)
+    {
+        sceneLoader
+    }
 }
 
 uint16_t Game::new_window(std::string windowName, WindowOptions windowOptions, uint16_t scene_id, Dimensions2* dimensions)
@@ -21,11 +27,11 @@ uint16_t Game::new_window(std::string windowName, WindowOptions windowOptions, u
     case NoWindow:
         break;
     case FullScreen:
+        openedWindows.push_back(Window(windowName, true, sceneLoader.GetSceneFromId(scene_id), dimensions));
         break;
-        //openedWindows.push_back(Window(windowName, true, sceneLoader.GetSceneFromId(scene_id), dimensions));
     case Windowed:
+        openedWindows.push_back(Window(windowName, false, sceneLoader.GetSceneFromId(scene_id), dimensions));
         break;
-        //openedWindows.push_back(Window(windowName, false, sceneLoader.GetSceneFromId(scene_id), dimensions));
     default:
         break;
     }
@@ -40,9 +46,9 @@ FT_Library Game::init_freetype()
 	return ft;
 }
 
-void Game::init_gl2d(Dimensions2& dimensions)
+void Game::init_gl2d(Dimensions2* dimensions)
 {
-    glViewport(0, 0, dimensions.width, dimensions.height );
+    glViewport(0, 0, dimensions->width, dimensions->height );
     glEnable(GL_BLEND);
     glEnable(GL_CULL_FACE);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -11,6 +11,7 @@ public:
 	std::unordered_map<EntityId, Record> entityIndex;
 	ArchetypeManager archetypeManager;
 	EntityManager();
+	EntityId CreateNewEntity();
 private:
 	EntityId entityIdState;
 };

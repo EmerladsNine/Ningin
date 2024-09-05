@@ -222,6 +222,9 @@
     <ClCompile Include="src\system\window.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
+    <ClCompile Include="archetype_type_hasher.cpp">
+      <Filter>Source Files\scene_system\ecs</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\vector3.h">
@@ -382,6 +385,9 @@
     </ClInclude>
     <ClInclude Include="src\system\window_options.h">
       <Filter>Header Files\system</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\ecs\archetype_type_hasher.h">
+      <Filter>Header Files\scene_system\ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
