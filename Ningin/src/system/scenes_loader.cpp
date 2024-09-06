@@ -6,6 +6,14 @@
 #include <cstring>
 #include <stdexcept>
 #include <stdlib.h>
+#include "../math/vector3.h"
+#include "../scene_system/components/name.h"
+#include "../scene_system/components/parent.h"
+#include "../scene_system/components/children.h"
+#include "../scene_system/components/transform.h"
+#include "../scene_system/components/sprite_renderer.h"
+#include "../scene_system/components/text_renderer.h"
+#include "../resource_manager/color.h"
 
 union FloatBytes {
     float f;
@@ -95,10 +103,7 @@ void SceneLoader::LoadSceneFromFile(std::string path)
     filePointer += 4;
 
     //Check Version.
-    float version;
-    std::memcpy(&version, filePointer, sizeof(version));
-    version = swapFloatBytes(*reinterpret_cast<uint32_t*>(&version)); // Convert from big endian to host endian
-    filePointer += 4;
+    float version = ReadFloat(&filePointer);
 
     if (version == 1.0f)
     {
@@ -114,31 +119,11 @@ void SceneLoader::LoadSceneFromFile(std::string path)
         }
 
         //Reading Header Section.
-
-        uint32_t headSize;
-        std::memcpy(&headSize, filePointer, sizeof(headSize));
-        headSize = _byteswap_ulong(headSize);
-        filePointer += 4;
-
-        uint32_t objectsSize;
-        std::memcpy(&objectsSize, filePointer, sizeof(objectsSize));
-        objectsSize = _byteswap_ulong(objectsSize);
-        filePointer += 4;
-
-        uint32_t componentsSize;
-        std::memcpy(&componentsSize, filePointer, sizeof(componentsSize));
-        componentsSize = _byteswap_ulong(componentsSize);
-        filePointer += 4;
-
-        uint32_t propertiesSize;
-        std::memcpy(&propertiesSize, filePointer, sizeof(propertiesSize));
-        propertiesSize = _byteswap_ulong(propertiesSize);
-        filePointer += 4;
-
-        uint32_t stringsSize;
-        std::memcpy(&stringsSize, filePointer, sizeof(stringsSize));
-        stringsSize = _byteswap_ulong(stringsSize);
-        filePointer += 4;
+        uint32_t headSize = ReadU32(&filePointer);
+        uint32_t objectsSize = ReadU32(&filePointer);
+        uint32_t componentsSize = ReadU32(&filePointer);
+        uint32_t propertiesSize = ReadU32(&filePointer);
+        uint32_t stringsSize = ReadU32(&filePointer);
 
         uint32_t componentsPointer = headSize + objectsSize;
         uint32_t propertiesPointer = componentsPointer + componentsSize;
@@ -149,6 +134,9 @@ void SceneLoader::LoadSceneFromFile(std::string path)
         uint8_t* stopPoint = filePointer + stringsSize;
         std::vector<std::string> strings;
         std::string currentString;
+        auto fileComponentPointer = file.data() + componentsPointer;
+        auto filePropertiesPointer = file.data() + propertiesPointer;
+
         for (;filePointer < stopPoint;filePointer++)
         {
             if (*filePointer == 0)
@@ -167,9 +155,186 @@ void SceneLoader::LoadSceneFromFile(std::string path)
 
         //Read Entities 
         filePointer = file.data() + headSize;
+        stopPoint = filePointer + objectsSize;
         
+        //create a scene entity so ids will start from 1 not 0
+        scene.world.NewEntity();
+
+        while (filePointer < stopPoint)
+        {
+            EntityId entityId = scene.world.NewEntity();
+            // This Contains the entity id .. which is the same given from the function new_entity().
+            filePointer += 4;
+            
+            //The name of the entity
+            uint32_t nameIndex = ReadU32(&filePointer);
+            Name* name =  new Name(strings[nameIndex]);
+            scene.world.entityManager.AddComponent<Name>(entityId, name);
+
+            //parent id
+            uint32_t parentIndex = ReadU32(&filePointer);
+            Parent* parent = new Parent(parentIndex);
+            scene.world.entityManager.AddComponent<Parent>(entityId, parent);
+            //Children
+            Children* children = new Children(std::vector<EntityId>{});
+            scene.world.entityManager.AddComponent<Children>(entityId, children);
+
+            uint16_t componentsCount = ReadU16(&filePointer);
+            uint16_t componentPosition = 0;
+            while (componentPosition < componentsCount)
+            {
+                uint32_t pointer = ReadU32(&filePointer);
+                auto currentPointer = fileComponentPointer + pointer;
+                uint8_t componentId = ReadU8(&currentPointer);
+                uint16_t propertiesCount = ReadU16(&currentPointer);
+                uint16_t propertyPosition = 0;
+                std::vector<uint32_t> properties;
+                while (propertyPosition < propertiesCount)
+                {
+                    properties.push_back(ReadU32(&currentPointer));
+                    propertyPosition++;
+                }
+                AddComponent(componentId, entityId, scene.world, strings, properties, filePropertiesPointer);
+                componentPosition++;
+            }
+            uint16_t scriptsCount = ReadU16(&filePointer);
+            uint16_t scriptPositon = 0;
+            //Todo Scripting
+        }
     }
     else {
         throw std::runtime_error("Invalid version of scene file");
     }
 }
+
+void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, const std::vector<std::string>& strings, const std::vector<uint32_t>& propertiesPointers, uint8_t* filePropertiesPointer)
+{
+    switch (id)
+    {
+    case 0:
+    {
+        Transform* transform = new Transform();
+        for (uint32_t propertyPointer : propertiesPointers)
+        {
+            auto currentPointer = filePropertiesPointer + propertyPointer;
+            std::string name = strings[ReadU32(&currentPointer)];
+            if (name == "Position") {
+                Vector3 pos(ReadFloat(&currentPointer), ReadFloat(&currentPointer), ReadFloat(&currentPointer));
+                transform->setPosition(pos);
+            }
+            else if (name == "Rotation") {
+                Vector3 rot(ReadFloat(&currentPointer), ReadFloat(&currentPointer), ReadFloat(&currentPointer));
+                transform->setRotation(rot);
+            }
+            else if (name == "Scale") {
+                Vector3 scale(ReadFloat(&currentPointer), ReadFloat(&currentPointer), ReadFloat(&currentPointer));
+                transform->setScale(scale);
+            }
+        }
+        world.entityManager.AddComponent<Transform>(entityId, transform);
+        break;
+    }
+    case 1:
+    {
+        bool alpha = false;
+        bool useTint = true;
+        Color tintingColor = Color::defaultColor();
+        std::string shader = "";
+        std::string textureName = "";
+        for (uint32_t propertyPointer : propertiesPointers)
+        {
+            auto currentPointer = filePropertiesPointer + propertyPointer;
+            std::string name = strings[ReadU32(&currentPointer)];
+            if (name == "TextureName") {
+                textureName = strings[ReadU32(&currentPointer)];
+            }
+            else if (name == "TintingColor") {
+                tintingColor = Color(ReadU8(&currentPointer), ReadU8(&currentPointer), ReadU8(&currentPointer), ReadU8(&currentPointer));
+            }
+            else if (name == "UseTint") {
+                useTint = ReadU8(&currentPointer) != 0;
+            }
+            else if (name == "Alpha") {
+                alpha = ReadU8(&currentPointer) != 0;
+            }
+            else if (name == "Shader") {
+                shader = strings[ReadU32(&currentPointer)];
+            }
+        }
+        //JAWAD DO THE SPRITE
+        //Like THis :
+        //Sprite* sprite = new Sprite(...);
+        //world.entityManager.AddComponent<Sprite>(entityId, sprite);
+        break;
+    }
+    case 2:
+    {
+        Color textColor = Color::defaultColor();
+        std::string shader = "";
+        std::string fontName = "";
+        uint8_t fontSize = 0;
+        std::string text = "";
+        for (uint32_t propertyPointer : propertiesPointers)
+        {
+            auto currentPointer = filePropertiesPointer + propertyPointer;
+            std::string name = strings[ReadU32(&currentPointer)];
+            if (name == "FontName") {
+                fontName = strings[ReadU32(&currentPointer)];
+            }
+            else if (name == "FontSize") {
+                fontSize = ReadU8(&currentPointer);
+            }
+            else if (name == "TextColor") {
+                textColor = Color(ReadU8(&currentPointer), ReadU8(&currentPointer), ReadU8(&currentPointer), ReadU8(&currentPointer));
+            }
+            else if (name == "Text") {
+                text = strings[ReadU32(&currentPointer)];
+            }
+            else if (name == "Shader") {
+                shader = strings[ReadU32(&currentPointer)];
+            }
+        }
+        //Text* text = new Text(fontName,)
+        break;
+    }
+    default:
+        break;
+    }
+}
+
+float SceneLoader::ReadFloat(uint8_t** filePointer)
+{
+    float f;
+    std::memcpy(&f, filePointer, sizeof(f));
+    f = swapFloatBytes(f);
+    *filePointer += 4;
+    return f;
+}
+
+uint32_t SceneLoader::ReadU32(uint8_t** filePointer)
+{
+    uint32_t i;
+    std::memcpy(&i, *filePointer, sizeof(i));
+    i = _byteswap_ulong(i);
+    *filePointer += 4;
+    return i;
+}
+
+uint16_t SceneLoader::ReadU16(uint8_t** filePointer)
+{
+    uint16_t i;
+    std::memcpy(&i, *filePointer, sizeof(i));
+    i = _byteswap_ulong(i);
+    *filePointer += 2;
+    return i;
+}
+
+uint8_t SceneLoader::ReadU8(uint8_t** filePointer)
+{
+    uint8_t i;
+    std::memcpy(&i, *filePointer, sizeof(i));
+    i = _byteswap_ulong(i);
+    *filePointer += 1;
+    return i;
+}
+

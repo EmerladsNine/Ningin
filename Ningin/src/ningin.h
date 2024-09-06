@@ -21,7 +21,7 @@ class Game {
 		static std::vector<Window> openedWindows;
 		static SceneLoader sceneLoader;
 		static void Init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions, std::vector<std::string> scenes);
-		static std::uint16_t new_window(std::string windowName, WindowOptions windowOptions, std::uint16_t sceneId, Dimensions2* dimensions);
+		static std::size_t new_window(std::string windowName, WindowOptions windowOptions, std::uint16_t sceneId, Dimensions2* dimensions);
 	private:
 		FT_Library init_freetype();
 		static void init_gl2d(Dimensions2* dimensions);

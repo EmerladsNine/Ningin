@@ -1,4 +1,5 @@
 #include "ningin.h"
+#include "scene_system/world.h"
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
@@ -14,13 +15,14 @@ void Game::Init(std::string gameName, WindowOptions windowOptions, Dimensions2* 
     new_window(gameName, windowOptions, 0, dimensions);
     init_gl2d(dimensions);
     init_resource_manager();
+    World::InitDefaultComponentSystem();
     for (auto& scene : scenes)
     {
-        sceneLoader
+        //todo
     }
 }
 
-uint16_t Game::new_window(std::string windowName, WindowOptions windowOptions, uint16_t scene_id, Dimensions2* dimensions)
+std::size_t Game::new_window(std::string windowName, WindowOptions windowOptions, uint16_t scene_id, Dimensions2* dimensions)
 {
     switch (windowOptions)
     {

@@ -2,7 +2,13 @@
 
 ArchetypeManager::ArchetypeManager() : archetypeCount(0){}
 
-Archetype* ArchetypeManager::GetArchetypeByType(const ArchetypeType& type)
+template<typename T>
+inline void ArchetypeManager::RegisterComponentTypeDeleter()
+{
+	ArchetypeManager::deleters[typeid(T)] = [](void* p) { delete static_cast<T*>(p); };
+}
+
+std::optional<Archetype*> ArchetypeManager::GetArchetypeByType(const ArchetypeType& type)
 {
 	auto iterator = archetypeIndex.find(type);
 	if (iterator != archetypeIndex.end()) //if the iterator doesn't equal end of the map then archetype exists.
@@ -11,7 +17,7 @@ Archetype* ArchetypeManager::GetArchetypeByType(const ArchetypeType& type)
 	}
 	else 
 	{
-		return GenerateArchetype(type);
+		return std::nullopt;
 	}
 }
 
@@ -21,7 +27,7 @@ Archetype* ArchetypeManager::GenerateArchetype(ArchetypeType type)
 	archetypeCount++;
 
 	//Create Archetype instance
-	auto [it, inserted] = archetypeIndex.try_emplace(type, archetypeId, type);
+	auto [it, inserted] = archetypeIndex.try_emplace(type, archetypeId, &type);
 	Archetype& archetype = it->second;
 
 	//update component index
