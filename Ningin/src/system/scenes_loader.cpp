@@ -261,10 +261,8 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
                 shader = strings[ReadU32(&currentPointer)];
             }
         }
-        //JAWAD DO THE SPRITE
-        //Like THis :
-        //Sprite* sprite = new Sprite(...);
-        //world.entityManager.AddComponent<Sprite>(entityId, sprite);
+        SpriteRenderer* sprite = new SpriteRenderer(textureName, shader, tintingColor, useTint, alpha);
+        world.entityManager.AddComponent<SpriteRenderer>(entityId, sprite);
         break;
     }
     case 2:
@@ -294,7 +292,8 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
                 shader = strings[ReadU32(&currentPointer)];
             }
         }
-        //Text* text = new Text(fontName,)
+        Text* text_renderer = new Text(fontName, shader, textColor, text, fontSize);
+        world.entityManager.AddComponent<Text>(entityId, text_renderer);
         break;
     }
     default:
