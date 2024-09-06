@@ -64,3 +64,7 @@ void Game::init_resource_manager()
 {
     // TODO
 }
+
+void main() {
+    return ;
+}
