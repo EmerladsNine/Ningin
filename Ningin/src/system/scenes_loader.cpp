@@ -314,7 +314,7 @@ uint32_t SceneLoader::ReadU32(uint8_t** filePointer)
 {
     uint32_t i;
     std::memcpy(&i, *filePointer, sizeof(i));
-    i = _byteswap_ulong(i);
+    i = static_cast<uint16_t>(_byteswap_ulong(i));
     *filePointer += 4;
     return i;
 }
@@ -323,7 +323,7 @@ uint16_t SceneLoader::ReadU16(uint8_t** filePointer)
 {
     uint16_t i;
     std::memcpy(&i, *filePointer, sizeof(i));
-    i = _byteswap_ulong(i);
+    i = static_cast<uint16_t>(_byteswap_ulong(i));
     *filePointer += 2;
     return i;
 }
@@ -332,7 +332,7 @@ uint8_t SceneLoader::ReadU8(uint8_t** filePointer)
 {
     uint8_t i;
     std::memcpy(&i, *filePointer, sizeof(i));
-    i = _byteswap_ulong(i);
+    i = static_cast<uint8_t>(_byteswap_ulong(i));
     *filePointer += 1;
     return i;
 }

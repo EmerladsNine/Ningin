@@ -1,6 +1,6 @@
 #include "math.h"
 
-double const math::PI = 3.14159265358979323846;
+float const math::PI = 3.1415926f;
 double const math::EPSILON =1e-6;
 float math::clamp(float val_to_clamp, float min, float max) 
 {

@@ -234,7 +234,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\external\jsoncpp-1.9.5\out\build\x64-Debug\lib;.\external\mono;.\external\glew-2.1.0\lib\Release\x64;$(ProjectDir)\external\freetype-2.13.3\objs;$(ProjectDir)\external\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies);jsoncpp.lib;mono-2.0-sgen.lib;libmono-static-sgen.lib</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSCVRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -257,7 +257,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>.\external\jsoncpp-1.9.5\out\build\x64-Debug\lib;.\external\mono;.\external\glew-2.1.0\lib\Release\x64;C:\Users\mousa\OneDrive\Documents\libraries\glew-2.2.0\lib\Release\x64;C:\Users\mousa\OneDrive\Documents\libraries\freetype-2.13.3\objs\x64\Debug\freetype.tlog;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>glfw.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies);jsoncpp.lib;mono-2.0-sgen.lib;libmono-static-sgen.lib</AdditionalDependencies>
-      <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <IgnoreSpecificDefaultLibraries>MSCVRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

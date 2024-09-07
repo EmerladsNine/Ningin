@@ -30,7 +30,7 @@ void Atlas::generateAtlas() {
 
 void Atlas::addSprite( std::filesystem::path& path,  std::string& name) {
     auto img = loadTexture(path);
-    Dimensions2 dimensions(img.size(), img.size());
+    Dimensions2 dimensions(static_cast<int>(img.size()), static_cast<int>(img.size()));
 
     addSpriteFromData(img, dimensions, name);
 }
@@ -79,8 +79,8 @@ GLuint Atlas::generateFrameBuffer(GLuint texture)  {
 std::vector<uint8_t> Atlas::getSpriteTileData( SpriteTile& sprite)  {
     std::vector<uint8_t> pixels(sprite.getDimensions().width * sprite.getDimensions().height * 4);
     glReadPixels(
-        sprite.getInSheetPosition().x,
-        sprite.getInSheetPosition().y,
+        static_cast<GLint>(sprite.getInSheetPosition().x),
+        static_cast<GLint>(sprite.getInSheetPosition().y),
         sprite.getDimensions().width,
         sprite.getDimensions().height,
         GL_RGBA,
@@ -171,7 +171,7 @@ SpriteSheetInfo Atlas::parseJson( std::filesystem::path& infoPath)  {
             // Populate SpriteTile fields
             spriteTile.setName(tile["name"].asString());
             spriteTile.setDimensions(Dimensions2(tile["dimensions"]["width"].asInt(), tile["dimensions"]["height"].asInt()));
-            spriteTile.setInSheetPosition(Vector2(tile["inSheetPosition"]["x"].asInt(), tile["inSheetPosition"]["y"].asInt()));
+            spriteTile.setInSheetPosition(Vector2(static_cast<float>(tile["inSheetPosition"]["x"].asInt()), static_cast<float>(tile["inSheetPosition"]["y"].asInt())));
 
             // Add to the SpriteSheetInfo
             info.addSpriteTile(spriteTile);

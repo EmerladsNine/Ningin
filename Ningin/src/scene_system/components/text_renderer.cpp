@@ -99,7 +99,7 @@ void Text::draw(Transform& transform) {
 
     Vector3 pos = transform.getPosition();
     float scale = static_cast<float>(fontSize) / 256.0f;
-    float hBearing = font.getCharMap().at('H').getBearing().height;
+    float hBearing = static_cast<float>(font.getCharMap().at('H').getBearing().height);
     int32_t workingIndex = 0;
     float xOffset = 0.0f;
 
