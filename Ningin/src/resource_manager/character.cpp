@@ -1,4 +1,4 @@
-#include "Character.h"
+#include "character.h"
 
 // Constructor
 Character::Character(int ascii_index, const Dimensions2& size, const Dimensions2& bearing, unsigned int advance)

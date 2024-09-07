@@ -8,10 +8,10 @@ SpriteRenderer::SpriteRenderer(
 	bool alpha)
 	: isStarted(false),
 	alpha(alpha),
-	tintingColor(tintingColor),
-	useTint(useTint),
 	shader(resourceManager.getShader(shaderName)),
 	texture(resourceManager.getTexture(textureName)),
+	tintingColor(tintingColor),
+	useTint(useTint),
 	userShader(shaderName != "sprite"),
 	quadVAO(0) {
 	initializeRenderData();

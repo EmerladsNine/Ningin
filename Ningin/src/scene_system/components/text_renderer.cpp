@@ -1,7 +1,6 @@
 #include "text_renderer.h"
 #include <gtc/matrix_transform.hpp>
 
-// ructor
 Text::Text(std::string& fontName, std::string& shaderName, Color& textColor, std::string& text, uint8_t fontSize)
 	: isStarted(false),
 	shader(resourceManager.getShader(shaderName)),

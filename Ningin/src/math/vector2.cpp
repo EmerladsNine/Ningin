@@ -1,6 +1,6 @@
-#include "Vector2.h"
-#include "Vector3.h"
+#include "vector2.h"
 #include "math.h"
+#include "vector3.h"
 
 // Constants
 const Vector2 Vector2::UNIT_X = Vector2(1.0f, 0.0f);

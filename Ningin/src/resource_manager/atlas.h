@@ -1,17 +1,17 @@
 #pragma once
 
-#include <GL/glew.h>
-#include <vector>
-#include <unordered_map>
-#include <string>
-#include <filesystem>
-#include <stdexcept>
-#include <memory>
-#include <json/json.h>
-#include "texture2D.h"
 #include "sprite.h"
-#include "sprite_tile.h"
 #include "sprite_sheet_info.h"
+#include "sprite_tile.h"
+#include "texture2d.h"
+#include <GL/glew.h>
+#include <filesystem>
+#include <json/json.h>
+#include <memory>
+#include <stdexcept>
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 class Atlas {
 public:

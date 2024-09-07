@@ -1,18 +1,18 @@
 #pragma once
 
-#include <string>
-#include <vector>
-#include <unordered_map>
+#include "atlas.h"
+#include "font.h"
+#include "font_info.h"
+#include "shader.h"
+#include "shader_info.h"
+#include "sprite_info.h"
+#include "texture2d.h"
+#include "texture_info.h"
 #include <filesystem>
 #include <stdexcept>
-#include "Shader.h"
-#include "texture2d.h"
-#include "font.h"
-#include "sprite_info.h"
-#include "shader_info.h"
-#include "texture_info.h"
-#include "font_info.h"
-#include "atlas.h"
+#include <string>
+#include <unordered_map>
+#include <vector>
 
 class ResourceManager {
 public:

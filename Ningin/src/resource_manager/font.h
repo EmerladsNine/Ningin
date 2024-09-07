@@ -3,10 +3,10 @@
 #include <GL/glew.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include <unordered_map>
+#include "character.h"
 #include "font_texture.h"
-#include "Character.h"
 #include <filesystem>
+#include <unordered_map>
 
 class Font {
 public:

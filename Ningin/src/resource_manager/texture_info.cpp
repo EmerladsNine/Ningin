@@ -2,7 +2,7 @@
 
 // ructor
 TextureInfo::TextureInfo(std::filesystem::path& imgPath, bool alpha, std::string& name)
-	: img_path(imgPath), alpha(alpha), name(name) {}
+	: alpha(alpha), img_path(imgPath), name(name) {}
 
 // Getters
 bool TextureInfo::hasAlpha() {

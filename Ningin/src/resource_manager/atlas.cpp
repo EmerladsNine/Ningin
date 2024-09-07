@@ -1,10 +1,10 @@
 #include "atlas.h"
-#include <GL/glew.h>
-#include <iostream>
-#include <fstream>
-#include <stdexcept>
-#include "texture2D.h"
 #include "../ningin.h"
+#include "texture2d.h"
+#include <GL/glew.h>
+#include <fstream>
+#include <iostream>
+#include <stdexcept>
 
 Atlas::Atlas(size_t id) : atlasID(0), index(0), id(id) {
 	generateAtlas();

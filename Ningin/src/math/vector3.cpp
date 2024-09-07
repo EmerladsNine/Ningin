@@ -1,5 +1,5 @@
-#include "Vector3.h"
-#include "Vector2.h"
+#include "vector3.h"
+#include "vector2.h"
 #include "math.h"
 
 // Static Constants Initialization
