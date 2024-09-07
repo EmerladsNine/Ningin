@@ -149,6 +149,8 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\jsoncpp-1.9.5\out\build\x64-Debug\lib\jsoncpp.lib" />
+    <Library Include="external\mono\libmono-static-sgen.lib" />
+    <Library Include="external\mono\mono-2.0-sgen.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -237,7 +239,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;$(ProjectDir)\external\glfw-3.4.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;$(ProjectDir)\external\glfw-3.4.bin.WIN64\include;$(ProjectDir)\external\mono\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>

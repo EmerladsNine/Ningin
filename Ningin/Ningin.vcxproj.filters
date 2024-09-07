@@ -454,5 +454,7 @@
   </ItemGroup>
   <ItemGroup>
     <Library Include="external\jsoncpp-1.9.5\out\build\x64-Debug\lib\jsoncpp.lib" />
+    <Library Include="external\mono\libmono-static-sgen.lib" />
+    <Library Include="external\mono\mono-2.0-sgen.lib" />
   </ItemGroup>
 </Project>
