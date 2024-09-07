@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="archetype_type_hasher.cpp" />
+    <ClCompile Include="lib\stb_image.cpp" />
     <ClCompile Include="src\math\dimensions2.cpp" />
     <ClCompile Include="src\math\dimensions3.cpp" />
     <ClCompile Include="src\math\math.cpp" />
@@ -73,6 +73,16 @@
     <ClCompile Include="src\system\window.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\allocator.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\assertions.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\config.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\forwards.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json_features.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\reader.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\value.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\version.h" />
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\writer.h" />
     <ClInclude Include="src\math\dimensions2.h" />
     <ClInclude Include="src\math\dimensions3.h" />
     <ClInclude Include="src\math\math.h" />
@@ -136,6 +146,9 @@
     <None Include="src\shaders\sprite_vs.vs" />
     <None Include="src\shaders\text_fs.frag" />
     <None Include="src\shaders\text_vs.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="external\jsoncpp-1.9.5\out\build\x64-Debug\lib\jsoncpp.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

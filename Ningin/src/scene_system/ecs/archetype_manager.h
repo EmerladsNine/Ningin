@@ -19,7 +19,9 @@ public:
 	//These are used to remove components data depending on the component type
 	static std::unordered_map<std::type_index, std::function<void(void*)>> deleters;
 	template<typename T>
-	static void RegisterComponentTypeDeleter();
+	static void RegisterComponentTypeDeleter() {
+		ArchetypeManager::deleters[typeid(T)] = [](void* p) { delete static_cast<T*>(p); };
+	}
 	std::unordered_map<ComponentId, ArchetypeMap> componentIndex;
 	std::unordered_map<ArchetypeType, Archetype , VectorHasher> archetypeIndex;
 	ArchetypeManager();

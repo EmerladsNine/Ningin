@@ -1,12 +1,9 @@
 #include "archetype_manager.h"
 
+std::unordered_map<std::type_index, std::function<void(void*)>> ArchetypeManager::deleters;
+
 ArchetypeManager::ArchetypeManager() : archetypeCount(0){}
 
-template<typename T>
-inline void ArchetypeManager::RegisterComponentTypeDeleter()
-{
-	ArchetypeManager::deleters[typeid(T)] = [](void* p) { delete static_cast<T*>(p); };
-}
 
 std::optional<Archetype*> ArchetypeManager::GetArchetypeByType(const ArchetypeType& type)
 {

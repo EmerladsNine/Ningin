@@ -169,15 +169,15 @@ void SceneLoader::LoadSceneFromFile(std::string path)
             //The name of the entity
             uint32_t nameIndex = ReadU32(&filePointer);
             Name* name =  new Name(strings[nameIndex]);
-            scene.world.entityManager.AddComponent<Name>(entityId, name);
+            scene.world.entityManager.AddComponent(entityId, typeid(Name), name);
 
             //parent id
             uint32_t parentIndex = ReadU32(&filePointer);
             Parent* parent = new Parent(parentIndex);
-            scene.world.entityManager.AddComponent<Parent>(entityId, parent);
+            scene.world.entityManager.AddComponent(entityId, typeid(Parent), parent);
             //Children
             Children* children = new Children(std::vector<EntityId>{});
-            scene.world.entityManager.AddComponent<Children>(entityId, children);
+            scene.world.entityManager.AddComponent(entityId, typeid(Children), children);
 
             uint16_t componentsCount = ReadU16(&filePointer);
             uint16_t componentPosition = 0;
@@ -231,7 +231,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
                 transform->setScale(scale);
             }
         }
-        world.entityManager.AddComponent<Transform>(entityId, transform);
+        world.entityManager.AddComponent(entityId,typeid(Transform), transform);
         break;
     }
     case 1:
@@ -262,7 +262,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
             }
         }
         SpriteRenderer* sprite = new SpriteRenderer(textureName, shader, tintingColor, useTint, alpha);
-        world.entityManager.AddComponent<SpriteRenderer>(entityId, sprite);
+        world.entityManager.AddComponent(entityId, typeid(Sprite), sprite);
         break;
     }
     case 2:
@@ -293,7 +293,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
             }
         }
         Text* text_renderer = new Text(fontName, shader, textColor, text, fontSize);
-        world.entityManager.AddComponent<Text>(entityId, text_renderer);
+        world.entityManager.AddComponent(entityId, typeid(Text), text_renderer);
         break;
     }
     default:

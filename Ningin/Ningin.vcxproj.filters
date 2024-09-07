@@ -219,9 +219,6 @@
     <ClCompile Include="src\system\window.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
-    <ClCompile Include="archetype_type_hasher.cpp">
-      <Filter>Source Files\scene_system\ecs</Filter>
-    </ClCompile>
     <ClCompile Include="src\scene_system\components\id.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -232,6 +229,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\scene_system\components\children.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="lib\stb_image.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -407,6 +407,36 @@
     <ClInclude Include="src\scene_system\components\children.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\allocator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\assertions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\config.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\forwards.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json_features.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\reader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\value.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\version.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="external\jsoncpp-1.9.5\include\json\writer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\sprite_fs.frag">
@@ -421,5 +451,8 @@
     <None Include="src\shaders\text_vs.vs">
       <Filter>Resource Files\shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="external\jsoncpp-1.9.5\out\build\x64-Debug\lib\jsoncpp.lib" />
   </ItemGroup>
 </Project>

@@ -150,34 +150,34 @@ void Atlas::bind() {
     glBindTexture(GL_TEXTURE_2D_ARRAY, atlasID);
 }
 
-//SpriteSheetInfo Atlas::parseJson( std::filesystem::path& infoPath)  {
-//    //std::ifstream jsonFile(infoPath);
-//    //if (!jsonFile.is_open()) {
-//    //    throw std::runtime_error("Failed to open JSON file");
-//    //}
-//
-//    //Json::Value root;
-//    //jsonFile >> root;
-//
-//    //std::vector<SpriteTile> spriteTiles;
-//
-//    //SpriteSheetInfo info(spriteTiles);
-//
-//    //if (root.isMember("spriteTiles")) {
-//    //     Json::Value& spriteTiles = root["spriteTiles"];
-//    //    for ( auto& tile : spriteTiles) {
-//    //        SpriteTile spriteTile(std::string(""), Vector2(), Dimensions2());
-//
-//    //        // Populate SpriteTile fields
-//    //        spriteTile.setName(tile["name"].asString());
-//    //        spriteTile.setDimensions(Dimensions2(tile["dimensions"]["width"].asInt(), tile["dimensions"]["height"].asInt()));
-//    //        spriteTile.setInSheetPosition(Vector2(tile["inSheetPosition"]["x"].asInt(), tile["inSheetPosition"]["y"].asInt()));
-//
-//    //        // Add to the SpriteSheetInfo
-//    //        info.addSpriteTile(spriteTile);
-//    //    }
-//    //}
-//
-//    //return info;
-//}
+SpriteSheetInfo Atlas::parseJson( std::filesystem::path& infoPath)  {
+    std::ifstream jsonFile(infoPath);
+    if (!jsonFile.is_open()) {
+        throw std::runtime_error("Failed to open JSON file");
+    }
+
+    Json::Value root;
+    jsonFile >> root;
+
+    std::vector<SpriteTile> spriteTiles;
+
+    SpriteSheetInfo info(spriteTiles);
+
+    if (root.isMember("spriteTiles")) {
+         Json::Value& spriteTiles = root["spriteTiles"];
+        for ( auto& tile : spriteTiles) {
+            SpriteTile spriteTile(std::string(""), Vector2(), Dimensions2());
+
+            // Populate SpriteTile fields
+            spriteTile.setName(tile["name"].asString());
+            spriteTile.setDimensions(Dimensions2(tile["dimensions"]["width"].asInt(), tile["dimensions"]["height"].asInt()));
+            spriteTile.setInSheetPosition(Vector2(tile["inSheetPosition"]["x"].asInt(), tile["inSheetPosition"]["y"].asInt()));
+
+            // Add to the SpriteSheetInfo
+            info.addSpriteTile(spriteTile);
+        }
+    }
+
+    return info;
+}
 
