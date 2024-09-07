@@ -3,6 +3,8 @@
 #include <algorithm>
 #include <string>
 #include <iostream>
+#include <vector>
+#include <utility>
 
 class Vector3;  // Forward declaration
 
@@ -26,6 +28,7 @@ public:
     float dot(const Vector2& other) const;
     float magnitude() const;
     float magnitudeSquared() const;
+    void addInternalCalls();
 
     static void max(const Vector2& v1, const Vector2& v2, Vector2& out);
     static void min(const Vector2& v1, const Vector2& v2, Vector2& out);

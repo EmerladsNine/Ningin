@@ -65,6 +65,17 @@ void Game::init_resource_manager()
     // TODO
 }
 
+void Game::main_loop()
+{
+    while (true)
+    {
+        for (auto& win : openedWindows) 
+        {
+            
+        }
+    }
+}
+
 void main() {
     return ;
 }
