@@ -73,16 +73,6 @@
     <ClCompile Include="src\system\window.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\allocator.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\assertions.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\config.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\forwards.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json_features.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\reader.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\value.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\version.h" />
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\writer.h" />
     <ClInclude Include="src\math\dimensions2.h" />
     <ClInclude Include="src\math\dimensions3.h" />
     <ClInclude Include="src\math\math.h" />
@@ -146,11 +136,6 @@
     <None Include="src\shaders\sprite_vs.vs" />
     <None Include="src\shaders\text_fs.frag" />
     <None Include="src\shaders\text_vs.vs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="external\jsoncpp-1.9.5\out\build\x64-Debug\lib\jsoncpp.lib" />
-    <Library Include="external\mono\libmono-static-sgen.lib" />
-    <Library Include="external\mono\mono-2.0-sgen.lib" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -247,8 +232,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\mousa\OneDrive\Desktop\Ningin\Ningin\external\glew-2.2.0\lib\Release\x64;$(ProjectDir)\external\freetype-2.13.3\objs;$(ProjectDir)\external\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\external\jsoncpp-1.9.5\out\build\x64-Debug\lib;.\external\mono;.\external\glew-2.2.0\lib\Release\x64;$(ProjectDir)\external\freetype-2.13.3\objs;$(ProjectDir)\external\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies);jsoncpp.lib;mono-2.0-sgen.lib;libmono-static-sgen.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
@@ -270,8 +255,8 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Users\mousa\OneDrive\Desktop\Ningin\Ningin\external\glew-2.2.0\lib\Release\x64;C:\Users\mousa\OneDrive\Documents\libraries\glew-2.2.0\lib\Release\x64;C:\Users\mousa\OneDrive\Documents\libraries\freetype-2.13.3\objs\x64\Debug\freetype.tlog;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\external\jsoncpp-1.9.5\out\build\x64-Debug\lib;.\external\mono;.\external\glew-2.2.0\lib\Release\x64;C:\Users\mousa\OneDrive\Documents\libraries\glew-2.2.0\lib\Release\x64;C:\Users\mousa\OneDrive\Documents\libraries\freetype-2.13.3\objs\x64\Debug\freetype.tlog;C:\Users\mousa\OneDrive\Documents\libraries\glfw-3.4.bin.WIN64\lib-vc2022;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies);jsoncpp.lib;mono-2.0-sgen.lib;libmono-static-sgen.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
   </ItemDefinitionGroup>
