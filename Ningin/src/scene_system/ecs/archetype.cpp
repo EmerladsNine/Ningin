@@ -2,8 +2,7 @@
 #include "archetype_manager.h"
 #include "../components/id.h"
 
-
-Archetype::Archetype(size_t archetype_id, ArchetypeType* type) : archetypeId(archetype_id), type(type), current_row(0){}
+Archetype::Archetype(size_t archetype_id, ArchetypeType* type) : archetypeId(archetype_id), type(type), current_row(0) {}
 
 std::size_t Archetype::CreateEntity()
 {
@@ -52,7 +51,7 @@ Archetype::~Archetype()
 			if (it != ArchetypeManager::deleters.end()) {
 				it->second(component);
 			}
-			else {/*Memory Leak !*/}
+			else {/*Memory Leak !*/ }
 		}
 		columnIndex++;
 	}

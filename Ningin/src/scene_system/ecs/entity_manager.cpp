@@ -4,7 +4,7 @@
 #include <string>
 #include <algorithm>
 
-EntityManager::EntityManager() : entityIdState(0){}
+EntityManager::EntityManager() : entityIdState(0) {}
 
 EntityId EntityManager::CreateNewEntity()
 {
@@ -12,7 +12,7 @@ EntityId EntityManager::CreateNewEntity()
 	entityIdState++;
 	//Find default archetype (contains only Id of the entity).
 	ComponentId idComponent(std::type_index(typeid(Id)));
-	ArchetypeType type({idComponent});
+	ArchetypeType type({ idComponent });
 	auto result = archetypeManager.GetArchetypeByType(type);
 	Archetype* archetype;
 	if (result.has_value())
@@ -45,7 +45,7 @@ void EntityManager::edgeAdd(Archetype* oldArchetype, Archetype* newArchetype, Co
 	{
 		ArchetypeEdge edge;
 		edge.add = newArchetype;
-		oldArchetype->edges[componentId] =  edge;
+		oldArchetype->edges[componentId] = edge;
 	}
 }
 
@@ -64,7 +64,6 @@ void EntityManager::edgeRemove(Archetype* oldArchetype, Archetype* newArchetype,
 	}
 }
 
-
 void* EntityManager::GetComponent(EntityId entityId, ComponentId componentId)
 {
 	auto entityIterator = entityIndex.find(entityId);
@@ -76,7 +75,7 @@ void* EntityManager::GetComponent(EntityId entityId, ComponentId componentId)
 	else
 	{
 		throw std::runtime_error("Entity Not Found, Id :" + std::to_string(entityId));
-	}	
+	}
 }
 
 void* EntityManager::GetComponent(Record* entityRecord, ComponentId componentId)

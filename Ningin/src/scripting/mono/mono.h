@@ -4,5 +4,4 @@ class Mono
 public:
 	Mono();
 private:
-
 };

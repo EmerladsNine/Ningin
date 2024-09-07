@@ -3,13 +3,13 @@
 
 static void callback_function(GLFWwindow* window, int width, int height)
 {
-	//TODO 
+	//TODO
 }
 
-Window::Window(std::string title, bool is_fullscreen, Scene scene, Dimensions2* dimensions) : sceneManager(SceneManager(scene)) , dimensions(dimensions)
+Window::Window(std::string title, bool is_fullscreen, Scene scene, Dimensions2* dimensions) : sceneManager(SceneManager(scene)), dimensions(dimensions)
 {
 	InitGlfw();
-	GLFWwindow* window = StartWindow(title,is_fullscreen,dimensions);
+	GLFWwindow* window = StartWindow(title, is_fullscreen, dimensions);
 	InitOpenGL(window);
 	glfwSetFramebufferSizeCallback(window, callback_function);
 	_win = window;

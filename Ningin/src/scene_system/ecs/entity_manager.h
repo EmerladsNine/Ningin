@@ -12,10 +12,10 @@ public:
 	EntityId CreateNewEntity();
 	void AddComponent(EntityId entityId, ComponentId componentId, void* data);
 	void RemoveComponent(EntityId entityId, ComponentId componentId, void* data);
-	void* GetComponent(EntityId entityId,ComponentId componentId);
+	void* GetComponent(EntityId entityId, ComponentId componentId);
 	void* GetComponent(Record* entityRecord, ComponentId componentId);
 	//Sets a new instance of the component data.
-	void SetComponent(EntityId entityId,ComponentId componentId, void* data);
+	void SetComponent(EntityId entityId, ComponentId componentId, void* data);
 	void SetComponent(Record* entityRecord, ComponentId componentId, void* data);
 private:
 	void edgeAdd(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);

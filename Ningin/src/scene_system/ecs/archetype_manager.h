@@ -23,7 +23,7 @@ public:
 		ArchetypeManager::deleters[typeid(T)] = [](void* p) { delete static_cast<T*>(p); };
 	}
 	std::unordered_map<ComponentId, ArchetypeMap> componentIndex;
-	std::unordered_map<ArchetypeType, Archetype , VectorHasher> archetypeIndex;
+	std::unordered_map<ArchetypeType, Archetype, VectorHasher> archetypeIndex;
 	ArchetypeManager();
 	std::optional<Archetype*> GetArchetypeByType(const ArchetypeType& type);
 	Archetype* GenerateArchetype(ArchetypeType type);
