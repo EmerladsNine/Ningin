@@ -76,6 +76,6 @@ void Game::main_loop()
     }
 }
 
-void main() {
+int main() {
     return 0;
 }
