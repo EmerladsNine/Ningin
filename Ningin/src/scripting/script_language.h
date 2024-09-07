@@ -1,5 +1,6 @@
-enum ScriptLanguage {
-	CSHARP,
-	PYTHON,
-	NS,
+enum ScriptLanguage
+{
+    CSHARP,
+    PYTHON,
+    NS,
 };

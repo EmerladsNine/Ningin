@@ -3,8 +3,9 @@
 /**
  * Creates a `Color` instance with the specified RGBA values.
  */
-Color Colors::color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
-	return Color(r, g, b, a);
+Color Colors::color(uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+{
+    return Color(r, g, b, a);
 }
 
 // Define all the color constants
@@ -71,7 +72,8 @@ const Color Colors::ORANGE_RED = Colors::color(255, 69, 0, 255);
 const Color Colors::SEA_SHELL = Colors::color(255, 245, 238, 255);
 const Color Colors::SANDY_BROWN = Colors::color(244, 164, 96, 255);
 const Color Colors::PALE_GOLDENROD = Colors::color(238, 232, 170, 255);
-const Color Colors::PALE_GREEN = Colors::color(152, 251, 152, 255);;
+const Color Colors::PALE_GREEN = Colors::color(152, 251, 152, 255);
+;
 const Color Colors::PALE_VIOLET_RED = Colors::color(219, 112, 147, 255);
 const Color Colors::PAPAYA_WHIP = Colors::color(255, 239, 213, 255);
 const Color Colors::PEACH_PUFF = Colors::color(255, 218, 185, 255);

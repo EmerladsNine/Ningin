@@ -2,7 +2,7 @@
 #include <string>
 class Name
 {
-public:
-	std::string name;
-	Name(std::string name);
+  public:
+    std::string name;
+    Name(std::string name);
 };

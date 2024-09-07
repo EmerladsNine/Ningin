@@ -1,5 +1,6 @@
-enum WindowOptions {
-	NoWindow,
-	FullScreen,
-	Windowed,
+enum WindowOptions
+{
+    NoWindow,
+    FullScreen,
+    Windowed,
 };
