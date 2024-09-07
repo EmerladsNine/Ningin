@@ -4,7 +4,7 @@
  * Creates a `Color` instance with the specified RGBA values.
  */
 Color Colors::color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
-    return Color(r, g, b, a);
+	return Color(r, g, b, a);
 }
 
 // Define all the color constants

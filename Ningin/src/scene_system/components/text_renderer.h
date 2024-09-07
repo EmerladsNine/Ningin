@@ -17,48 +17,48 @@
 
 class Text {
 public:
-    Text( std::string& fontName,  std::string& shaderName,  Color& textColor,  std::string& text, uint8_t fontSize);
-    ~Text();
+	Text(std::string& fontName, std::string& shaderName, Color& textColor, std::string& text, uint8_t fontSize);
+	~Text();
 
-    void setTextColor( Color& newColor);
-    void setText( std::string& text);
-    void setFontSize(uint8_t fontSize);
-    void setUserUniforms(std::function<void()> initFunc, std::function<void()> initDrawingFunc, std::function<void()> drawingFunc);
-    void draw(Transform& transform);
+	void setTextColor(Color& newColor);
+	void setText(std::string& text);
+	void setFontSize(uint8_t fontSize);
+	void setUserUniforms(std::function<void()> initFunc, std::function<void()> initDrawingFunc, std::function<void()> drawingFunc);
+	void draw(Transform& transform);
 
-    //static void system(EntityManager& entityManager);
+	//static void system(EntityManager& entityManager);
 
 private:
-    bool isStarted;
-    Shader shader;
-    Font font;
-    Color textColor;
-    std::string text;
-    uint8_t fontSize;
-    std::vector<glm::mat4> transforms;
-    std::vector<int32_t> charsMap;
-    Dimensions2 textDimensions;
-    float letterDimensions;
-    glm::mat4 baseModel;
-    bool mustCalculate;
-    bool userShader;
-    std::unordered_map<std::string, std::function<void()>> userUniforms;
-    GLuint vao;
-    GLuint vbo;
+	bool isStarted;
+	Shader shader;
+	Font font;
+	Color textColor;
+	std::string text;
+	uint8_t fontSize;
+	std::vector<glm::mat4> transforms;
+	std::vector<int32_t> charsMap;
+	Dimensions2 textDimensions;
+	float letterDimensions;
+	glm::mat4 baseModel;
+	bool mustCalculate;
+	bool userShader;
+	std::unordered_map<std::string, std::function<void()>> userUniforms;
+	GLuint vao;
+	GLuint vbo;
 
-    void initializeRenderData();
-    void setShaderInitialUniforms();
-    void initializeShaderInfo();
-    void initializeVao();
-    void initializeVbo();
-    void setupVertexAttrib();
-    void freeResources(bool unbindTexture);
-    void configureDrawingContext();
-    void renderText(int32_t length);
-    std::pair<std::vector<std::vector<char>>, size_t> getTextInfo();
-    void setInitDrawingUniforms();
-    void setDrawingUniforms(int32_t length);
-    void computeTextTransform(Transform& transform);
-    glm::mat4 computeLetterTransform(float xOffset, float xpos, float ypos, float scale);
-    void calculateTextDimensions();
+	void initializeRenderData();
+	void setShaderInitialUniforms();
+	void initializeShaderInfo();
+	void initializeVao();
+	void initializeVbo();
+	void setupVertexAttrib();
+	void freeResources(bool unbindTexture);
+	void configureDrawingContext();
+	void renderText(int32_t length);
+	std::pair<std::vector<std::vector<char>>, size_t> getTextInfo();
+	void setInitDrawingUniforms();
+	void setDrawingUniforms(int32_t length);
+	void computeTextTransform(Transform& transform);
+	glm::mat4 computeLetterTransform(float xOffset, float xpos, float ypos, float scale);
+	void calculateTextDimensions();
 };

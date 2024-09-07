@@ -6,15 +6,15 @@
 
 class FontTexture {
 public:
-    FontTexture();
-    ~FontTexture();
+	FontTexture();
+	~FontTexture();
 
-    void generateTexture();
-    void setupCharTexture();
-    void createCharTexture(FT_GlyphSlot glyph, unsigned char charCode);
-    void unbind() const;
-    GLuint getTextureArray();
+	void generateTexture();
+	void setupCharTexture();
+	void createCharTexture(FT_GlyphSlot glyph, unsigned char charCode);
+	void unbind() const;
+	GLuint getTextureArray();
 
 private:
-    GLuint textureArray;
+	GLuint textureArray;
 };

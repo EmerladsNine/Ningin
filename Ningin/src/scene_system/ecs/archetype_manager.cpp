@@ -2,8 +2,7 @@
 
 std::unordered_map<std::type_index, std::function<void(void*)>> ArchetypeManager::deleters;
 
-ArchetypeManager::ArchetypeManager() : archetypeCount(0){}
-
+ArchetypeManager::ArchetypeManager() : archetypeCount(0) {}
 
 std::optional<Archetype*> ArchetypeManager::GetArchetypeByType(const ArchetypeType& type)
 {
@@ -12,7 +11,7 @@ std::optional<Archetype*> ArchetypeManager::GetArchetypeByType(const ArchetypeTy
 	{
 		return &(iterator->second);
 	}
-	else 
+	else
 	{
 		return std::nullopt;
 	}
@@ -43,10 +42,9 @@ Archetype* ArchetypeManager::GenerateArchetype(ArchetypeType type)
 			//Component doesn't exist we should create its archetype map.
 			ArchetypeMap archetypeMap;
 			archetypeMap.try_emplace(archetypeId, &archetype, i);
-			componentIndex.try_emplace(componentId,std::move(archetypeMap));
+			componentIndex.try_emplace(componentId, std::move(archetypeMap));
 		}
 		i++;
 	}
 	return &archetype;
 }
-

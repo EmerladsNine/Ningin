@@ -15,5 +15,4 @@ public:
 	World();
 	//Return Id of the entity created.
 	EntityId NewEntity();
-	
 };
