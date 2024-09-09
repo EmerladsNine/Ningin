@@ -1,68 +1,40 @@
 #include "point.h"
 
+using namespace std;
+
 // Define the ZERO constant.
 const Point Point::ZERO = Point(0, 0);
 
-/**
- * Creates a new point with the given x and y coordinates.
- */
 Point::Point(int x, int y) : x(x), y(y)
 {
 }
 
-/**
- * Creates a default `Point` instance with components set to zero.
- */
 Point::Point() : x(0), y(0)
 {
 }
 
-/**
- * Deconstructs the `Point` into a pair containing the x and y coordinates.
- */
-std::pair<int, int> Point::deconstruct() const
+pair<int, int> Point::deconstruct()
 {
-    return {x, y};
+	return { x, y };
 }
 
-/**
- * Sets the x and y coordinates of the point.
- */
 void Point::set(int x, int y)
 {
-    this->x = x;
-    this->y = y;
+	this->x = x;
+	this->y = y;
 }
 
-/**
- * Converts a `Vector2` to a `Point`.
- */
-Point Point::fromVector2(const Vector2 &vec)
+Point Point_fromVector2(Vector2& vec)
 {
-    return Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
+	return Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
 }
 
-/**
- * Converts a `Vector3` to a `Point`.
- */
-Point Point::fromVector3(const Vector3 &vec)
+Point Point_fromVector3(Vector3& vec)
 {
-    return Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
+	return Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
 }
 
-/**
- * Converts the point to a string representation.
- */
-std::string Point::toString() const
+string Point_toString(Point pt)
 {
-    return "Point - x: " + std::to_string(x) + ", y: " + std::to_string(y);
-}
-
-/**
- * Formats the point for debugging.
- */
-std::ostream &operator<<(std::ostream &os, const Point &point)
-{
-    os << "Point - x: " << point.x << ", y: " << point.y;
-    return os;
+	return format("Point - x: {}, y: {}", pt.x, pt.y);
 }

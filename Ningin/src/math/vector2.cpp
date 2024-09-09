@@ -2,129 +2,132 @@
 #include "math.h"
 #include "vector3.h"
 
+using namespace std;
+
 // Constants
-const Vector2 Vector2::UNIT_X = Vector2(1.0f, 0.0f);
-const Vector2 Vector2::UNIT_Y = Vector2(0.0f, 1.0f);
-const Vector2 Vector2::ZERO = Vector2(0.0f, 0.0f);
-const Vector2 Vector2::ONE = Vector2(1.0f, 1.0f);
+const Vector2 UNIT_X = Vector2(1.0f, 0.0f);
+const Vector2 UNIT_Y = Vector2(0.0f, 1.0f);
+const Vector2 ZERO = Vector2(0.0f, 0.0f);
+const Vector2 ONE = Vector2(1.0f, 1.0f);
 
-void Vector2::abs(Vector2 &out) const
+void Vector2_abs(Vector2 vec, Vector2& out)
 {
-    out = Vector2(std::fabs(x), std::fabs(y));
+	out = Vector2(std::fabs(vec.x), std::fabs(vec.y));
 }
 
-void Vector2::squareRoot(Vector2 &out) const
+void Vector2_squareRoot(Vector2 vec, Vector2& out)
 {
-    out = Vector2(std::sqrt(x), std::sqrt(y));
+	out = Vector2(std::sqrt(vec.x), std::sqrt(vec.y));
 }
 
-void Vector2::add(const Vector2 &other, Vector2 &out) const
+void Vector2_add(Vector2& v1, Vector2& v2, Vector2& out)
 {
-    out = Vector2(x + other.x, y + other.y);
+	out = Vector2(v1.x + v2.x, v1.y + v2.y);
 }
 
-float Vector2::distance(const Vector2 &other) const
+float Vector2_dot(Vector2& v1, Vector2& v2)
 {
-    return Vector2(x - other.x, y - other.y).magnitude();
+	return v1.x * v2.x + v1.y * v2.y;
 }
 
-float Vector2::distanceSquared(const Vector2 &other) const
+float Vector2_magnitude(Vector2& vec)
 {
-    float dist = distance(other);
-    return dist * dist;
+	return sqrt(Vector2_dot(vec, vec));
 }
 
-float Vector2::dot(const Vector2 &other) const
+float Vector2_distance(Vector2& v1, Vector2& v2)
 {
-    return x * other.x + y * other.y;
+	Vector2 vec = Vector2(v1.x - v2.x, v1.y - v2.y);
+	return Vector2_magnitude(vec);
 }
 
-float Vector2::magnitude() const
+float Vector2_distanceSquared(Vector2& v1, Vector2& v2)
 {
-    return std::sqrt(dot(*this));
+	float dist = Vector2_distance(v1, v2);
+	return dist * dist;
 }
 
-float Vector2::magnitudeSquared() const
+float Vector2_magnitudeSquared(Vector2& vec)
 {
-    return dot(*this);
+	return Vector2_dot(vec, vec);
 }
 
-void Vector2::max(const Vector2 &v1, const Vector2 &v2, Vector2 &out)
+void Vector2_max(Vector2& v1, Vector2& v2, Vector2& out)
 {
-    out = Vector2(std::max(v1.x, v2.x), std::max(v1.y, v2.y));
+	out = Vector2(std::max(v1.x, v2.x), std::max(v1.y, v2.y));
 }
 
-void Vector2::min(const Vector2 &v1, const Vector2 &v2, Vector2 &out)
+void Vector2_min(Vector2& v1, Vector2& v2, Vector2& out)
 {
-    out = Vector2(std::min(v1.x, v2.x), std::min(v1.y, v2.y));
+	out = Vector2(std::min(v1.x, v2.x), std::min(v1.y, v2.y));
 }
 
-void Vector2::clamp(const Vector2 &vec_to_clamp, const Vector2 &min, const Vector2 &max, Vector2 &out)
+void Vector2_clamp(Vector2& vec_to_clamp, Vector2& min, Vector2& max, Vector2& out)
 {
-    out = Vector2(math::clamp(vec_to_clamp.x, min.x, max.x), math::clamp(vec_to_clamp.y, min.y, max.y));
+	out = Vector2(math::clamp(vec_to_clamp.x, min.x, max.x), math::clamp(vec_to_clamp.y, min.y, max.y));
 }
 
-Vector2 Vector2::operator-() const
+Vector2 operator-(Vector2 vec)
 {
-    return Vector2(-x, -y);
+	return Vector2(-vec.x, -vec.y);
 }
 
-Vector2 Vector2::operator+(const Vector2 &other) const
+Vector2 operator+(Vector2 v1, Vector2 v2)
 {
-    return Vector2(x + other.x, y + other.y);
+	return Vector2(v1.x + v2.x, v1.y + v2.y);
 }
 
-Vector2 Vector2::operator-(const Vector2 &other) const
+Vector2 operator-(Vector2 v1, Vector2 v2)
 {
-    return Vector2(x - other.x, y - other.y);
+	return Vector2(v1.x - v2.x, v1.y - v2.y);
 }
 
-Vector2 Vector2::operator*(float a) const
+Vector2 operator*(Vector2 vec, float a)
 {
-    return Vector2(x * a, y * a);
+	return Vector2(vec.x * a, vec.y * a);
 }
 
-Vector2 Vector2::operator*(const Vector2 &other) const
+Vector2 operator*(Vector2 v1, Vector2 v2)
 {
-    return Vector2(x * other.x, y * other.y);
+	return Vector2(v1.x * v2.x, v1.y * v2.y);
 }
 
-Vector2 Vector2::operator/(const Vector2 &other) const
+Vector2 operator/(Vector2 v1, Vector2 v2)
 {
-    return Vector2(x / other.x, y / other.y);
+	return Vector2(v1.x / v2.x, v1.y / v2.y);
 }
 
-Vector2 Vector2::operator/(float a) const
+Vector2 operator/(Vector2 vec, float a)
 {
-    return Vector2(x / a, y / a);
+	return Vector2(vec.x / a, vec.y / a);
 }
 
-bool Vector2::operator==(const Vector2 &other) const
+bool operator==(Vector2 v1, Vector2 v2)
 {
-    return x == other.x && y == other.y;
+	return v1.x == v2.x && v1.y == v2.y;
 }
 
-bool Vector2::operator!=(const Vector2 &other) const
+bool operator!=(Vector2 v1, Vector2 v2)
 {
-    return !(*this == other);
+	return !(v1 == v2);
 }
 
-bool Vector2::operator<(const Vector2 &other) const
+bool operator<(Vector2& v1, Vector2 v2)
 {
-    return x < other.x && y < other.y;
+	return v1.x < v2.x && v1.y < v2.y;
 }
 
-bool Vector2::operator>(const Vector2 &other) const
+bool operator>(Vector2& v1, Vector2 v2)
 {
-    return x > other.x && y > other.y;
+	return v1.x > v2.x && v1.y > v2.y;
 }
 
-std::string Vector2::toString() const
+string Vector2_toString(Vector2 vec)
 {
-    return "Vector2 - x: " + std::to_string(x) + ", y: " + std::to_string(y);
+	return format("Vector2 - x: {}, y: {}", vec.x, vec.y);
 }
 
-Vector2 Vector2::fromVector3(const Vector3 &vec)
+Vector2 fromVector3(Vector3& vec)
 {
-    return Vector2(vec.x, vec.y);
+	return Vector2(vec.x, vec.y);
 }

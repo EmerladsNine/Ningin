@@ -1,5 +1,6 @@
 #include "dimensions3.h"
 
+using namespace std;
 /**
  * Creates a new `Dimensions3` instance with the specified width, height, and depth.
  */
@@ -14,28 +15,13 @@ Dimensions3::Dimensions3() : width(200), height(200), depth(200)
 {
 }
 
-/**
- * Deconstructs the `Dimensions3` into a tuple of width, height, and depth.
- */
-std::tuple<int, int, int> Dimensions3::deconstruct() const
+tuple<int, int, int> Dimensions3::deconstruct()
 {
-    return std::make_tuple(width, height, depth);
+	return std::make_tuple(width, height, depth);
 }
 
-/**
- * Converts the `Dimensions3` instance to a string representation.
- */
-std::string Dimensions3::toString() const
+string Dimensions3_toString(Dimensions3 dimensions)
 {
-    return "Dimensions3 - width: " + std::to_string(width) + ", height: " + std::to_string(height) +
-           ", depth: " + std::to_string(depth);
-}
-
-/**
- * Formats the `Dimensions3` instance for debugging.
- */
-std::ostream &operator<<(std::ostream &os, const Dimensions3 &dims)
-{
-    os << "Dimensions3 - width: " << dims.width << ", height: " << dims.height << ", depth: " << dims.depth;
-    return os;
+	return format("Dimensions3 - width: {}, height: {}, depth: {}", dimensions.width,
+		dimensions.height, dimensions.depth);
 }

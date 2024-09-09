@@ -1,9 +1,9 @@
 #include "math.h"
 
-float const math::PI = 3.1415926f;
-double const math::EPSILON = 1e-6;
+float const PI = 3.1415926f;
+double const EPSILON = 1e-6;
 
-float math::clamp(float val_to_clamp, float min, float max)
+float clamp(float val_to_clamp, float min, float max)
 {
     if (val_to_clamp < min)
     {
@@ -19,12 +19,12 @@ float math::clamp(float val_to_clamp, float min, float max)
     }
 }
 
-float math::degrees_to_radians(float deg)
+float degrees_to_radians(float deg)
 {
     return deg * PI / 180.0f;
 }
 
-double math::radical(double number, int n)
+double radical(double number, int n)
 {
     if (number < 0.0 && n % 2 == 0)
     {
