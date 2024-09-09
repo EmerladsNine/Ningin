@@ -13,5 +13,5 @@ class Dimensions2
 
     Dimensions2();
 
-    std::tuple<int, int> deconstruct();
+    std::pair<int, int> deconstruct();
 };

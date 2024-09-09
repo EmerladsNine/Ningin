@@ -10,9 +10,9 @@ Dimensions2::Dimensions2() : width(200), height(200)
 {
 }
 
-tuple<int, int> Dimensions2::deconstruct()
+pair<int, int> Dimensions2::deconstruct()
 {
-    return std::make_tuple(width, height);
+    return { width, height };
 }
 
 string Dimensions2_toString(Dimensions2 dimensions)
