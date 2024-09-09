@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Dimensions2::Dimensions2(int width, int height) : width(width), height(height)
+Dimensions2::Dimensions2(int width, int height) : width(fabs(width)), height(fabs(height))
 {
 }
 

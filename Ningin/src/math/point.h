@@ -20,3 +20,7 @@ class Point
 
     void set(int x, int y);
 };
+
+Point Point_fromVector2(Vector2& vec);
+Point Point_fromVector3(Vector3& vec);
+std::string Point_toString(Point pt);

@@ -20,7 +20,6 @@ Vector3::Vector3(Vector2& vec) : x(vec.x), y(vec.y), z(0.0f)
 {
 }
 
-// Methods
 void Vector3_abs(Vector3& vec, Vector3& out)
 {
 	out.x = std::abs(vec.x);
@@ -71,23 +70,19 @@ float Vector3_magnitudeSquared(Vector3& vec)
 
 void Vector3_max(Vector3& v1, Vector3& v2, Vector3& out)
 {
-	out.x = std::fmax(v1.x, v2.x);
-	out.y = std::fmax(v1.y, v2.y);
-	out.z = std::fmax(v1.z, v2.z);
+	out = Vector3(max(v1.x, v2.x), max(v1.y, v2.y), max(v1.z, v2.z));
 }
 
 void Vector3_min(Vector3& v1, Vector3& v2, Vector3& out)
 {
-	out.x = std::fmin(v1.x, v2.x);
-	out.y = std::fmin(v1.y, v2.y);
-	out.z = std::fmin(v1.z, v2.z);
+	out = Vector3(min(v1.x, v2.x), min(v1.y, v2.y), min(v1.z, v2.z));
 }
 
 void Vector3_clamp(Vector3& toClamp, Vector3& min, Vector3& max, Vector3& out)
 {
-	out.x = math::clamp(toClamp.x, min.x, max.x);
-	out.y = math::clamp(toClamp.y, min.y, max.y);
-	out.z = math::clamp(toClamp.z, min.z, max.z);
+	out.x = clamp(toClamp.x, min.x, max.x);
+	out.y = clamp(toClamp.y, min.y, max.y);
+	out.z = clamp(toClamp.z, min.z, max.z);
 }
 
 // Operator Overloads

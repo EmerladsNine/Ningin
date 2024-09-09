@@ -16,3 +16,5 @@ class Dimensions3
 
     std::tuple<int, int, int> deconstruct();
 };
+
+std::string Dimensions3_toString(Dimensions3 dimensions);

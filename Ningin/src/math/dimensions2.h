@@ -15,3 +15,5 @@ class Dimensions2
 
     std::pair<int, int> deconstruct();
 };
+
+std::string Dimensions2_toString(Dimensions2 dimensions);

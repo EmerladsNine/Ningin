@@ -21,3 +21,51 @@ class Vector2
     {
     }
 };
+
+void Vector2_abs(Vector2 vec, Vector2& out);
+
+void Vector2_squareRoot(Vector2 vec, Vector2& out);
+
+void Vector2_add(Vector2& v1, Vector2& v2, Vector2& out);
+
+float Vector2_dot(Vector2& v1, Vector2& v2);
+
+float Vector2_magnitude(Vector2& vec);
+
+float Vector2_distance(Vector2& v1, Vector2& v2);
+
+float Vector2_distanceSquared(Vector2& v1, Vector2& v2);
+
+float Vector2_magnitudeSquared(Vector2& vec);
+
+void Vector2_max(Vector2& v1, Vector2& v2, Vector2& out);
+
+void Vector2_min(Vector2& v1, Vector2& v2, Vector2& out);
+
+void Vector2_clamp(Vector2& vec_to_clamp, Vector2& min, Vector2& max, Vector2& out);
+
+Vector2 operator-(Vector2 vec);
+
+Vector2 operator+(Vector2 v1, Vector2 v2);
+
+Vector2 operator-(Vector2 v1, Vector2 v2);
+
+Vector2 operator*(Vector2 vec, float a);
+
+Vector2 operator*(Vector2 v1, Vector2 v2);
+
+Vector2 operator/(Vector2 v1, Vector2 v2);
+
+Vector2 operator/(Vector2 vec, float a);
+
+bool operator==(Vector2 v1, Vector2 v2);
+
+bool operator!=(Vector2 v1, Vector2 v2);
+
+bool operator<(Vector2& v1, Vector2 v2);
+
+bool operator>(Vector2& v1, Vector2 v2);
+
+std::string Vector2_toString(Vector2 vec);
+
+Vector2 fromVector3(Vector3& vec);

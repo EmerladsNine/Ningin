@@ -54,17 +54,17 @@ float Vector2_magnitudeSquared(Vector2& vec)
 
 void Vector2_max(Vector2& v1, Vector2& v2, Vector2& out)
 {
-	out = Vector2(std::max(v1.x, v2.x), std::max(v1.y, v2.y));
+	out = Vector2(max(v1.x, v2.x), max(v1.y, v2.y));
 }
 
 void Vector2_min(Vector2& v1, Vector2& v2, Vector2& out)
 {
-	out = Vector2(std::min(v1.x, v2.x), std::min(v1.y, v2.y));
+	out = Vector2(min(v1.x, v2.x), min(v1.y, v2.y));
 }
 
 void Vector2_clamp(Vector2& vec_to_clamp, Vector2& min, Vector2& max, Vector2& out)
 {
-	out = Vector2(math::clamp(vec_to_clamp.x, min.x, max.x), math::clamp(vec_to_clamp.y, min.y, max.y));
+	out = Vector2(clamp(vec_to_clamp.x, min.x, max.x), clamp(vec_to_clamp.y, min.y, max.y));
 }
 
 Vector2 operator-(Vector2 vec)

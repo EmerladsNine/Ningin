@@ -4,7 +4,7 @@ using namespace std;
 /**
  * Creates a new `Dimensions3` instance with the specified width, height, and depth.
  */
-Dimensions3::Dimensions3(int width, int height, int depth) : width(width), height(height), depth(depth)
+Dimensions3::Dimensions3(int width, int height, int depth) : width(fabs(width)), height(fabs(height)), depth(fabs(depth))
 {
 }
 
