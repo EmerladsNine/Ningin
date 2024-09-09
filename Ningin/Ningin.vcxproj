@@ -23,10 +23,11 @@
     <ClCompile Include="src\math\dimensions2.cpp" />
     <ClCompile Include="src\math\dimensions3.cpp" />
     <ClCompile Include="src\math\math.cpp" />
-    <ClCompile Include="src\math\point.cpp" />
     <ClCompile Include="src\math\vector2.cpp" />
     <ClCompile Include="src\math\vector3.cpp" />
     <ClCompile Include="src\ningin.cpp" />
+    <ClCompile Include="src\physics_manager\colliders\point.cpp" />
+    <ClCompile Include="src\physics_manager\colliders\polygon.cpp" />
     <ClCompile Include="src\resource_manager\atlas.cpp" />
     <ClCompile Include="src\resource_manager\character.cpp" />
     <ClCompile Include="src\resource_manager\color.cpp" />
@@ -76,10 +77,13 @@
     <ClInclude Include="src\math\dimensions2.h" />
     <ClInclude Include="src\math\dimensions3.h" />
     <ClInclude Include="src\math\math.h" />
-    <ClInclude Include="src\math\point.h" />
     <ClInclude Include="src\math\vector2.h" />
     <ClInclude Include="src\math\vector3.h" />
     <ClInclude Include="src\ningin.h" />
+    <ClInclude Include="src\physics_manager\colliders\circle.h" />
+    <ClInclude Include="src\physics_manager\colliders\point.h" />
+    <ClInclude Include="src\physics_manager\colliders\polygon.h" />
+    <ClInclude Include="src\physics_manager\colliders\rect.h" />
     <ClInclude Include="src\resource_manager\atlas.h" />
     <ClInclude Include="src\resource_manager\character.h" />
     <ClInclude Include="src\resource_manager\color.h" />

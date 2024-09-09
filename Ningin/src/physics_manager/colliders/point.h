@@ -1,7 +1,7 @@
 #pragma once
 
-#include "vector2.h"
-#include "vector3.h"
+#include "../../math/vector2.h"
+#include "../../math/vector3.h"
 #include <format>
 
 class Point
@@ -12,13 +12,9 @@ class Point
 
     static const Point ZERO;
 
-    Point(int x, int y);
+    Point(int x, int y): x(x), y(y) {}
 
-    Point();
-
-    std::pair<int, int> deconstruct();
-
-    void set(int x, int y);
+    Point(): x(0), y(0) {}
 };
 
 Point Point_fromVector2(Vector2& vec);

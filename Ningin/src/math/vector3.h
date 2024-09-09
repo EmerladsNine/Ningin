@@ -1,5 +1,7 @@
 #pragma once
 
+#include <string>
+
 class Vector2;
 
 class Vector3
@@ -66,6 +68,6 @@ bool operator>(Vector3 v1, Vector3 v2);
 
 bool operator>=(Vector3 v1, Vector3 v2);
 
-std::string Vector3_toString(Vector3 vec);
+std::string Vector3_toString(Vector3& vec);
 
 Vector3 fromVector2(Vector2& vec);

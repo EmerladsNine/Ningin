@@ -85,6 +85,18 @@
     <Filter Include="Header Files\scene_system\entity">
       <UniqueIdentifier>{d2b35cb9-c42e-49a1-8cba-f160506f0881}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\physics_manager">
+      <UniqueIdentifier>{f00962c7-a9da-4e3b-af12-54085a444579}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\physics_manager">
+      <UniqueIdentifier>{9ffc58cd-bf14-4b8a-9c8f-d1f51cfb91c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\physics_manager\colliders">
+      <UniqueIdentifier>{db0e671a-cdfb-4035-bfe5-3524c646cf8c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physics_manager\colliders">
+      <UniqueIdentifier>{416d0d89-30d3-4d1a-a24b-a478110db286}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\vector3.cpp">
@@ -97,9 +109,6 @@
       <Filter>Source Files\math</Filter>
     </ClCompile>
     <ClCompile Include="src\math\math.cpp">
-      <Filter>Source Files\math</Filter>
-    </ClCompile>
-    <ClCompile Include="src\math\point.cpp">
       <Filter>Source Files\math</Filter>
     </ClCompile>
     <ClCompile Include="src\math\vector2.cpp">
@@ -243,6 +252,12 @@
     <ClCompile Include="src\scene_system\components\children.cpp">
       <Filter>Source Files\scene_system\entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\physics_manager\colliders\point.cpp">
+      <Filter>Source Files\physics_manager\colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics_manager\colliders\polygon.cpp">
+      <Filter>Source Files\physics_manager\colliders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\vector3.h">
@@ -255,9 +270,6 @@
       <Filter>Header Files\math</Filter>
     </ClInclude>
     <ClInclude Include="src\math\math.h">
-      <Filter>Header Files\math</Filter>
-    </ClInclude>
-    <ClInclude Include="src\math\point.h">
       <Filter>Header Files\math</Filter>
     </ClInclude>
     <ClInclude Include="src\math\vector2.h">
@@ -415,6 +427,18 @@
     </ClInclude>
     <ClInclude Include="src\scene_system\components\children.h">
       <Filter>Header Files\scene_system\entity</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\colliders\rect.h">
+      <Filter>Header Files\physics_manager\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\colliders\circle.h">
+      <Filter>Header Files\physics_manager\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\colliders\point.h">
+      <Filter>Header Files\physics_manager\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\colliders\polygon.h">
+      <Filter>Header Files\physics_manager\colliders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

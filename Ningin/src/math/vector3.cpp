@@ -151,7 +151,7 @@ bool operator>=(Vector3 v1, Vector3 v2)
 	return v1.x >= v2.x && v1.y >= v2.y && v1.z >= v2.z;
 }
 
-string Vector3_toString(Vector3 vec)
+string Vector3_toString(Vector3& vec)
 {
 	return format("Vector2 - x: {}, y: {}, z: {}", vec.x, vec.y, vec.z);
 }
