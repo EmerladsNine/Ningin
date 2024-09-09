@@ -76,6 +76,15 @@
     <Filter Include="Header Files\scene_system\ecs">
       <UniqueIdentifier>{f0a26f86-8f88-4487-86b1-c73bfc9a9cc4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{8d80d73f-744e-4d80-b36e-07c7cd02e753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene_system\entity">
+      <UniqueIdentifier>{1f5729d3-aca2-40f8-858e-ebc402593254}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\scene_system\entity">
+      <UniqueIdentifier>{d2b35cb9-c42e-49a1-8cba-f160506f0881}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\vector3.cpp">
@@ -219,20 +228,20 @@
     <ClCompile Include="src\system\window.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
-    <ClCompile Include="src\scene_system\components\id.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scene_system\components\name.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="lib\stb_image.cpp">
+      <Filter>lib</Filter>
     </ClCompile>
     <ClCompile Include="src\scene_system\components\parent.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\scene_system\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\name.cpp">
+      <Filter>Source Files\scene_system\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene_system\components\id.cpp">
+      <Filter>Source Files\scene_system\entity</Filter>
     </ClCompile>
     <ClCompile Include="src\scene_system\components\children.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="lib\stb_image.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\scene_system\entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -395,47 +404,17 @@
     <ClInclude Include="src\scene_system\ecs\archetype_type_hasher.h">
       <Filter>Header Files\scene_system\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\scene_system\components\id.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\scene_system\components\parent.h">
+      <Filter>Header Files\scene_system\entity</Filter>
     </ClInclude>
     <ClInclude Include="src\scene_system\components\name.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\scene_system\entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\scene_system\components\parent.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="src\scene_system\components\id.h">
+      <Filter>Header Files\scene_system\entity</Filter>
     </ClInclude>
     <ClInclude Include="src\scene_system\components\children.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\allocator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\assertions.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\config.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\forwards.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\json_features.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\reader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\value.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\version.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="external\jsoncpp-1.9.5\include\json\writer.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\scene_system\entity</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -451,10 +430,5 @@
     <None Include="src\shaders\text_vs.vs">
       <Filter>Resource Files\shaders</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="external\jsoncpp-1.9.5\out\build\x64-Debug\lib\jsoncpp.lib" />
-    <Library Include="external\mono\libmono-static-sgen.lib" />
-    <Library Include="external\mono\mono-2.0-sgen.lib" />
   </ItemGroup>
 </Project>
