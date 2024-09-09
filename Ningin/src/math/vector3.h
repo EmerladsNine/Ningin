@@ -30,7 +30,6 @@ float Vector3_dot(Vector3& v1, Vector3& v2);
 
 float Vector3_distance(Vector3& v1, Vector3& v2);
 
-
 float Vector3_distanceSquared(Vector3& v1, Vector3& v2);
 
 float Vector3_magnitudeSquared(Vector3& vec);
