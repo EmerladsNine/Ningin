@@ -6,17 +6,17 @@
 
 class SceneLoader
 {
-  public:
-    SceneLoader();
-    Scene GetSceneFromId(std::size_t sceneId);
-    void LoadSceneFromFile(std::string path);
+public:
+	SceneLoader();
+	Scene GetSceneFromId(std::size_t sceneId);
+	void LoadSceneFromFile(std::string path);
 
-  private:
-    void AddComponent(uint8_t id, EntityId entityId, World &world, const std::vector<std::string> &strings,
-                      const std::vector<uint32_t> &propertiesPointers, uint8_t *filePropertiesPointer);
-    float ReadFloat(uint8_t **filePointer);
-    uint32_t ReadU32(uint8_t **filePointer);
-    uint16_t ReadU16(uint8_t **filePointer);
-    uint8_t ReadU8(uint8_t **filePointer);
-    std::vector<Scene> scenes;
+private:
+	void AddComponent(uint8_t id, EntityId entityId, World& world, const std::vector<std::string>& strings,
+		const std::vector<uint32_t>& propertiesPointers, uint8_t* filePropertiesPointer);
+	float ReadFloat(uint8_t** filePointer);
+	uint32_t ReadU32(uint8_t** filePointer);
+	uint16_t ReadU16(uint8_t** filePointer);
+	uint8_t ReadU8(uint8_t** filePointer);
+	std::vector<Scene> scenes;
 };

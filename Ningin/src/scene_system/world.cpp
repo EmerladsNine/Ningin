@@ -10,6 +10,6 @@ void World::InitDefaultComponentSystem()
 
 EntityId World::NewEntity()
 {
-    entitiesCount++;
-    return entityManager.CreateNewEntity();
+	entitiesCount++;
+	return entityManager.CreateNewEntity();
 }

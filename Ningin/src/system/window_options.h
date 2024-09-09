@@ -1,6 +1,6 @@
 enum WindowOptions
 {
-    NoWindow,
-    FullScreen,
-    Windowed,
+	NoWindow,
+	FullScreen,
+	Windowed,
 };

@@ -3,7 +3,7 @@
 #include <vector>
 class Children
 {
-  public:
-    std::vector<EntityId> children;
-    Children(std::vector<EntityId> children);
+public:
+	std::vector<EntityId> children;
+	Children(std::vector<EntityId> children);
 };

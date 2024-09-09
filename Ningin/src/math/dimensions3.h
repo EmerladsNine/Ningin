@@ -5,16 +5,16 @@
 
 class Dimensions3
 {
-  public:
-    int width;
-    int height;
-    int depth;
+public:
+	int width;
+	int height;
+	int depth;
 
-    Dimensions3(int width, int height, int depth);
+	Dimensions3(int width, int height, int depth);
 
-    Dimensions3();
+	Dimensions3();
 
-    std::tuple<int, int, int> deconstruct();
+	std::tuple<int, int, int> deconstruct();
 };
 
 std::string Dimensions3_toString(Dimensions3 dimensions);

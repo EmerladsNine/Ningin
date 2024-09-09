@@ -6,15 +6,15 @@
 
 class Point
 {
-  public:
-    int x;
-    int y;
+public:
+	int x;
+	int y;
 
-    static const Point ZERO;
+	static const Point ZERO;
 
-    Point(int x, int y): x(x), y(y) {}
+	Point(int x, int y) : x(x), y(y) {}
 
-    Point(): x(0), y(0) {}
+	Point() : x(0), y(0) {}
 };
 
 Point Point_fromVector2(Vector2& vec);

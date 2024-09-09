@@ -15,35 +15,35 @@
 
 class SpriteRenderer
 {
-  public:
-    SpriteRenderer(std::string &textureName, std::string &shaderName, Color &tintingColor, bool useTint, bool alpha);
-    ~SpriteRenderer();
+public:
+	SpriteRenderer(std::string& textureName, std::string& shaderName, Color& tintingColor, bool useTint, bool alpha);
+	~SpriteRenderer();
 
-    void draw(Transform &transform);
-    void setTintingColor(Color &newColor);
-    void setUseTint(bool useTint);
-    void setUserUniforms(std::function<void()> initFunc, std::function<void()> initDrawingFunc,
-                         std::function<void()> drawingFunc);
+	void draw(Transform& transform);
+	void setTintingColor(Color& newColor);
+	void setUseTint(bool useTint);
+	void setUserUniforms(std::function<void()> initFunc, std::function<void()> initDrawingFunc,
+		std::function<void()> drawingFunc);
 
-    // static void system(EntityManager& entityManager);
+	// static void system(EntityManager& entityManager);
 
-  private:
-    bool alpha;
-    Shader shader;
-    Texture2D texture;
-    Color tintingColor;
-    bool useTint;
-    bool userShader;
-    std::unordered_map<std::string, std::function<void()>> userUniforms;
-    GLuint quadVAO;
+private:
+	bool alpha;
+	Shader shader;
+	Texture2D texture;
+	Color tintingColor;
+	bool useTint;
+	bool userShader;
+	std::unordered_map<std::string, std::function<void()>> userUniforms;
+	GLuint quadVAO;
 
-    void initializeRenderData();
-    void initializeVAO();
-    void initializeVBO();
-    void setupVertexAttrib();
-    void freeInitializationResources();
-    void setShaderInitialUniforms();
-    void setDrawingUniforms(Transform &transform);
-    void freeDrawingResources();
-    glm::mat4 computeModelMatrix(Transform &transform);
+	void initializeRenderData();
+	void initializeVAO();
+	void initializeVBO();
+	void setupVertexAttrib();
+	void freeInitializationResources();
+	void setShaderInitialUniforms();
+	void setDrawingUniforms(Transform& transform);
+	void freeDrawingResources();
+	glm::mat4 computeModelMatrix(Transform& transform);
 };
