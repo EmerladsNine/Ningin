@@ -2,9 +2,8 @@
 
 SpriteRenderer::SpriteRenderer(std::string &textureName, std::string &shaderName, Color &tintingColor, bool useTint,
                                bool alpha)
-    : isStarted(false), alpha(alpha), shader(resourceManager.getShader(shaderName)),
-      texture(resourceManager.getTexture(textureName)), tintingColor(tintingColor), useTint(useTint),
-      userShader(shaderName != "sprite"), quadVAO(0)
+    : alpha(alpha), shader(resourceManager.getShader(shaderName)), texture(resourceManager.getTexture(textureName)),
+      tintingColor(tintingColor), useTint(useTint), userShader(shaderName != "sprite"), quadVAO(0)
 {
     initializeRenderData();
     setShaderInitialUniforms();
