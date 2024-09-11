@@ -97,6 +97,12 @@
     <Filter Include="Source Files\physics_manager\colliders">
       <UniqueIdentifier>{416d0d89-30d3-4d1a-a24b-a478110db286}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{4ddd0e95-30ee-49d1-9968-96f7f87ce5f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{f56c0019-381b-42d0-8f4d-1395cedbc39f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\vector3.cpp">
@@ -243,9 +249,6 @@
     <ClCompile Include="src\environment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\utills\file_reader.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\scripting\ningin_mono\wrapper\debug.cpp">
       <Filter>Source Files\scripting\mono\wrapper</Filter>
     </ClCompile>
@@ -263,6 +266,9 @@
     </ClCompile>
     <ClCompile Include="src\scripting\ningin_mono\raw\mono_raw.cpp">
       <Filter>Source Files\scripting\mono\raw</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utills\file_reader.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -425,9 +431,6 @@
     <ClInclude Include="src\environment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\utills\file_reader.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\scripting\ningin_mono\mono.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
@@ -454,6 +457,9 @@
     </ClInclude>
     <ClInclude Include="src\scripting\ningin_mono\wrapper\debug.h">
       <Filter>Header Files\scripting\mono\wrapper</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utills\file_reader.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
