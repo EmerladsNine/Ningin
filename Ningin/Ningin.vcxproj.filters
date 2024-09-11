@@ -440,6 +440,9 @@
     <ClInclude Include="src\physics_manager\colliders\polygon.h">
       <Filter>Header Files\physics_manager\colliders</Filter>
     </ClInclude>
+    <ClInclude Include="src\physics_manager\force.h">
+      <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\sprite_fs.frag">

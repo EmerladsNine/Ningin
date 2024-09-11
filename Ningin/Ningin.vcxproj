@@ -84,6 +84,7 @@
     <ClInclude Include="src\physics_manager\colliders\point.h" />
     <ClInclude Include="src\physics_manager\colliders\polygon.h" />
     <ClInclude Include="src\physics_manager\colliders\rect.h" />
+    <ClInclude Include="src\physics_manager\force.h" />
     <ClInclude Include="src\resource_manager\atlas.h" />
     <ClInclude Include="src\resource_manager\character.h" />
     <ClInclude Include="src\resource_manager\color.h" />
