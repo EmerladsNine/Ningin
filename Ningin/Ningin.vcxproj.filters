@@ -270,6 +270,12 @@
     <ClCompile Include="src\utills\file_reader.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
+    <ClCompile Include="src\physics_manager\body.cpp">
+      <Filter>Source Files\physics_manager</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physics_manager\force.cpp">
+      <Filter>Source Files\physics_manager</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\vector3.h">
@@ -460,6 +466,21 @@
     </ClInclude>
     <ClInclude Include="src\utills\file_reader.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\body.h">
+      <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\axes.h">
+      <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\force_type.h">
+      <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\force_computation.h">
+      <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\force_dynamics.h">
+      <Filter>Header Files\physics_manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

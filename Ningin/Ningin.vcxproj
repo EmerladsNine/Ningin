@@ -27,8 +27,10 @@
     <ClCompile Include="src\math\vector2.cpp" />
     <ClCompile Include="src\math\vector3.cpp" />
     <ClCompile Include="src\ningin.cpp" />
+    <ClCompile Include="src\physics_manager\body.cpp" />
     <ClCompile Include="src\physics_manager\colliders\point.cpp" />
     <ClCompile Include="src\physics_manager\colliders\polygon.cpp" />
+    <ClCompile Include="src\physics_manager\force.cpp" />
     <ClCompile Include="src\resource_manager\atlas.cpp" />
     <ClCompile Include="src\resource_manager\character.cpp" />
     <ClCompile Include="src\resource_manager\color.cpp" />
@@ -83,11 +85,16 @@
     <ClInclude Include="src\math\vector2.h" />
     <ClInclude Include="src\math\vector3.h" />
     <ClInclude Include="src\ningin.h" />
+    <ClInclude Include="src\physics_manager\body.h" />
     <ClInclude Include="src\physics_manager\colliders\circle.h" />
     <ClInclude Include="src\physics_manager\colliders\point.h" />
     <ClInclude Include="src\physics_manager\colliders\polygon.h" />
     <ClInclude Include="src\physics_manager\colliders\rect.h" />
     <ClInclude Include="src\physics_manager\force.h" />
+    <ClInclude Include="src\physics_manager\axes.h" />
+    <ClInclude Include="src\physics_manager\force_computation.h" />
+    <ClInclude Include="src\physics_manager\force_dynamics.h" />
+    <ClInclude Include="src\physics_manager\force_type.h" />
     <ClInclude Include="src\resource_manager\atlas.h" />
     <ClInclude Include="src\resource_manager\character.h" />
     <ClInclude Include="src\resource_manager\color.h" />
