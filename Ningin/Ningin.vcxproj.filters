@@ -180,22 +180,22 @@
     <ClCompile Include="src\scripting\scripting_engine.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\mono\internal_calls.cpp">
+    <ClCompile Include="src\scripting\ningin_mono\internal_calls.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\mono\mono.cpp">
+    <ClCompile Include="src\scripting\ningin_mono\mono.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\mono\script.cpp">
+    <ClCompile Include="src\scripting\ningin_mono\script.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\mono\script_class.cpp">
+    <ClCompile Include="src\scripting\ningin_mono\script_class.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\mono\raw\mono_raw.cpp">
+    <ClCompile Include="src\scripting\ningin_mono\raw\mono_raw.cpp">
       <Filter>Source Files\scripting\mono\raw</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\mono\wrapper\debug.cpp">
+    <ClCompile Include="src\scripting\ningin_mono\wrapper\debug.cpp">
       <Filter>Source Files\scripting\mono\wrapper</Filter>
     </ClCompile>
     <ClCompile Include="src\scene_system\scene.cpp">
@@ -257,6 +257,12 @@
     </ClCompile>
     <ClCompile Include="src\physics_manager\colliders\polygon.cpp">
       <Filter>Source Files\physics_manager\colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\environment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utills\file_reader.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -335,16 +341,16 @@
     <ClInclude Include="src\scene_system\components\text_renderer.h">
       <Filter>Header Files\scene_system\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\script_class.h">
+    <ClInclude Include="src\scripting\ningin_mono\script_class.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\internal_calls.h">
+    <ClInclude Include="src\scripting\ningin_mono\internal_calls.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\mono_paths.h">
+    <ClInclude Include="src\scripting\ningin_mono\mono_paths.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\script.h">
+    <ClInclude Include="src\scripting\ningin_mono\script.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
     <ClInclude Include="src\scripting\script_language.h">
@@ -356,19 +362,19 @@
     <ClInclude Include="src\scripting\scriptable.h">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\wrapper\debug.h">
+    <ClInclude Include="src\scripting\ningin_mono\wrapper\debug.h">
       <Filter>Header Files\scripting\mono\wrapper</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\raw\mono_type_def_enum.h">
+    <ClInclude Include="src\scripting\ningin_mono\raw\mono_type_def_enum.h">
       <Filter>Header Files\scripting\mono\raw</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\raw\mono_meta_table_enum.h">
+    <ClInclude Include="src\scripting\ningin_mono\raw\mono_meta_table_enum.h">
       <Filter>Header Files\scripting\mono\raw</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\raw\mono.h">
+    <ClInclude Include="src\scripting\ningin_mono\raw\mono.h">
       <Filter>Header Files\scripting\mono\raw</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\mono\mono.h">
+    <ClInclude Include="src\scripting\ningin_mono\mono.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
     <ClInclude Include="src\scene_system\scene.h">
@@ -439,6 +445,12 @@
     </ClInclude>
     <ClInclude Include="src\physics_manager\colliders\polygon.h">
       <Filter>Header Files\physics_manager\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\environment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utills\file_reader.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
