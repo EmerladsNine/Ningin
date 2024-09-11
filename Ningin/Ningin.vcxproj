@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\stb_image.cpp" />
+    <ClCompile Include="src\environment.cpp" />
     <ClCompile Include="src\math\dimensions2.cpp" />
     <ClCompile Include="src\math\dimensions3.cpp" />
     <ClCompile Include="src\math\math.cpp" />
@@ -60,20 +61,22 @@
     <ClCompile Include="src\scene_system\ecs\record.cpp" />
     <ClCompile Include="src\scene_system\scene.cpp" />
     <ClCompile Include="src\scene_system\world.cpp" />
-    <ClCompile Include="src\scripting\mono\internal_calls.cpp" />
-    <ClCompile Include="src\scripting\mono\mono.cpp" />
-    <ClCompile Include="src\scripting\mono\raw\mono_raw.cpp" />
-    <ClCompile Include="src\scripting\mono\script.cpp" />
-    <ClCompile Include="src\scripting\mono\script_class.cpp" />
-    <ClCompile Include="src\scripting\mono\wrapper\debug.cpp" />
+    <ClCompile Include="src\scripting\ningin_mono\internal_calls.cpp" />
+    <ClCompile Include="src\scripting\ningin_mono\mono.cpp" />
+    <ClCompile Include="src\scripting\ningin_mono\raw\mono_raw.cpp" />
+    <ClCompile Include="src\scripting\ningin_mono\script.cpp" />
+    <ClCompile Include="src\scripting\ningin_mono\script_class.cpp" />
+    <ClCompile Include="src\scripting\ningin_mono\wrapper\debug.cpp" />
     <ClCompile Include="src\scripting\scriptable.cpp" />
     <ClCompile Include="src\scripting\scripting_engine.cpp" />
     <ClCompile Include="src\system\renderer.cpp" />
     <ClCompile Include="src\system\scenes_loader.cpp" />
     <ClCompile Include="src\system\scene_manager.cpp" />
     <ClCompile Include="src\system\window.cpp" />
+    <ClCompile Include="src\utills\file_reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\environment.h" />
     <ClInclude Include="src\math\dimensions2.h" />
     <ClInclude Include="src\math\dimensions3.h" />
     <ClInclude Include="src\math\math.h" />
@@ -118,15 +121,15 @@
     <ClInclude Include="src\scene_system\ecs\record.h" />
     <ClInclude Include="src\scene_system\scene.h" />
     <ClInclude Include="src\scene_system\world.h" />
-    <ClInclude Include="src\scripting\mono\internal_calls.h" />
-    <ClInclude Include="src\scripting\mono\mono.h" />
-    <ClInclude Include="src\scripting\mono\mono_paths.h" />
-    <ClInclude Include="src\scripting\mono\raw\mono.h" />
-    <ClInclude Include="src\scripting\mono\raw\mono_meta_table_enum.h" />
-    <ClInclude Include="src\scripting\mono\raw\mono_type_def_enum.h" />
-    <ClInclude Include="src\scripting\mono\script.h" />
-    <ClInclude Include="src\scripting\mono\script_class.h" />
-    <ClInclude Include="src\scripting\mono\wrapper\debug.h" />
+    <ClInclude Include="src\scripting\ningin_mono\internal_calls.h" />
+    <ClInclude Include="src\scripting\ningin_mono\mono.h" />
+    <ClInclude Include="src\scripting\ningin_mono\mono_paths.h" />
+    <ClInclude Include="src\scripting\ningin_mono\raw\mono.h" />
+    <ClInclude Include="src\scripting\ningin_mono\raw\mono_meta_table_enum.h" />
+    <ClInclude Include="src\scripting\ningin_mono\raw\mono_type_def_enum.h" />
+    <ClInclude Include="src\scripting\ningin_mono\script.h" />
+    <ClInclude Include="src\scripting\ningin_mono\script_class.h" />
+    <ClInclude Include="src\scripting\ningin_mono\wrapper\debug.h" />
     <ClInclude Include="src\scripting\scriptable.h" />
     <ClInclude Include="src\scripting\scripting_engine.h" />
     <ClInclude Include="src\scripting\script_language.h" />
@@ -135,6 +138,7 @@
     <ClInclude Include="src\system\scene_manager.h" />
     <ClInclude Include="src\system\window.h" />
     <ClInclude Include="src\system\window_options.h" />
+    <ClInclude Include="src\utills\file_reader.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="src\shaders\sprite_fs.frag" />
