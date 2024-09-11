@@ -12,6 +12,9 @@ public:
 	static const Vector3 UNIT_X;
 	static const Vector3 UNIT_Y;
 	static const Vector3 UNIT_Z;
+	static const Vector3 UNIT_XY;
+	static const Vector3 UNIT_XZ;
+	static const Vector3 UNIT_YZ;
 	static const Vector3 ZERO;
 	static const Vector3 ONE;
 
