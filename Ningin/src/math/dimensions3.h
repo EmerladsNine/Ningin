@@ -6,15 +6,15 @@
 class Dimensions3
 {
 public:
-	int width;
-	int height;
-	int depth;
+	uint64_t width;
+	uint64_t height;
+	uint64_t depth;
 
-	Dimensions3(int width, int height, int depth);
+	Dimensions3(uint64_t width, uint64_t height, uint64_t depth);
 
 	Dimensions3();
 
-	std::tuple<int, int, int> deconstruct();
+	std::tuple<uint64_t, uint64_t, uint64_t> deconstruct();
 };
 
 std::string Dimensions3_toString(Dimensions3 dimensions);

@@ -35,6 +35,12 @@ float Vector2_magnitude(Vector2& vec)
 	return sqrt(Vector2_dot(vec, vec));
 }
 
+Vector2 Vector2_normalize(Vector2& vec)
+{
+	float length = Vector2_magnitude(vec);
+	return Vector2(vec.x/length, vec.y/length);
+}
+
 float Vector2_distance(Vector2& v1, Vector2& v2)
 {
 	Vector2 vec = Vector2(v1.x - v2.x, v1.y - v2.y);

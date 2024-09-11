@@ -46,6 +46,12 @@ float Vector3_magnitude(Vector3& vec)
 	return sqrt(Vector3_dot(vec, vec));
 }
 
+Vector3 Vector3_normalize(Vector3& vec)
+{
+	float length = Vector3_magnitude(vec);
+	return Vector3(vec.x / length, vec.y / length, vec.z/length);
+}
+
 float Vector3_dot(Vector3& v1, Vector3& v2)
 {
 	return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z;

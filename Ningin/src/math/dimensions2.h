@@ -6,14 +6,14 @@
 class Dimensions2
 {
 public:
-	int width;
-	int height;
+	uint64_t width;
+	uint64_t height;
 
-	Dimensions2(int width, int height);
+	Dimensions2(uint64_t width, uint64_t height);
 
 	Dimensions2();
 
-	std::pair<int, int> deconstruct();
+	std::pair<uint64_t, uint64_t> deconstruct();
 };
 
 std::string Dimensions2_toString(Dimensions2 dimensions);

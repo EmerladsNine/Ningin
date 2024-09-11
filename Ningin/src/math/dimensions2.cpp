@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Dimensions2::Dimensions2(int width, int height) : width(fabs(width)), height(fabs(height))
+Dimensions2::Dimensions2(uint64_t width, uint64_t height) : width(width), height(height)
 {
 }
 
@@ -10,7 +10,7 @@ Dimensions2::Dimensions2() : width(200), height(200)
 {
 }
 
-pair<int, int> Dimensions2::deconstruct()
+pair<uint64_t, uint64_t> Dimensions2::deconstruct()
 {
 	return { width, height };
 }

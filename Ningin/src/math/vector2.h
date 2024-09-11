@@ -32,6 +32,8 @@ float Vector2_dot(Vector2& v1, Vector2& v2);
 
 float Vector2_magnitude(Vector2& vec);
 
+Vector2 Vector2_normalize(Vector2& vec);
+
 float Vector2_distance(Vector2& v1, Vector2& v2);
 
 float Vector2_distanceSquared(Vector2& v1, Vector2& v2);

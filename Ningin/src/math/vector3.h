@@ -28,6 +28,8 @@ void Vector3_add(Vector3& v1, Vector3& v2, Vector3& out);
 
 float Vector3_magnitude(Vector3& vec);
 
+Vector3 Vector3_normalize(Vector3& vec);
+
 float Vector3_dot(Vector3& v1, Vector3& v2);
 
 float Vector3_distance(Vector3& v1, Vector3& v2);
