@@ -1,6 +1,5 @@
 #pragma once
 
-#include <tuple>
 #include <format>
 
 class Dimensions2
