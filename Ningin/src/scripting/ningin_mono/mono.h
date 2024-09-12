@@ -20,6 +20,7 @@ class Mono
     Script* GetScript(std::string scritpName);
     Script* BuildScript(ScriptClass* scriptClass);
     ScriptClass* LoadScript(std::string scriptFullName);
+    ~Mono();
   private:
     MonoDomain *rootDomain;
     MonoDomain *appDomain;
@@ -27,3 +28,4 @@ class Mono
 
 void InitScriptMethods(ScriptClass* scriptClass);
 MonoMethod* GetMethod(MonoClass* klass, std::string name, int paramsCount);
+void* InvokeMethod(MonoObject* obj, MonoMethod* method, std::vector<void*> params);

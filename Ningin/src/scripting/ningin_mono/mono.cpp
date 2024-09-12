@@ -12,6 +12,12 @@ Mono::Mono() : assembliesDirectory(Enironment::GetGameDirectory()) , rootDomain(
 
 }
 
+Mono::~Mono()
+{
+	mono_jit_cleanup(appDomain);
+	mono_jit_cleanup(rootDomain);
+}
+
 void Mono::Init(std::string libPath, std::string gameAssemblyFileName)
 {
 	// Set the path for dotnet assemblies
@@ -135,4 +141,27 @@ void InitScriptMethods(ScriptClass* scriptClass)
 MonoMethod* GetMethod(MonoClass* klass, std::string name, int paramsCount)
 {
 	return mono_class_get_method_from_name(klass, name.c_str(), paramsCount);
+}
+
+void* InvokeMethod(MonoObject* obj, MonoMethod* method,std::vector<void*> params)
+{
+	MonoObject* exception = nullptr;
+	MonoObject* result = mono_runtime_invoke(method, obj, params.data(), &exception);
+	if (exception != nullptr)
+	{
+		MonoString* excp_str = mono_object_to_string(exception, nullptr);
+		char* excep_cstr = mono_string_to_utf8(excp_str);
+		std::string error_message = "Mono exception: ";
+		error_message += excep_cstr;
+
+		mono_free(excep_cstr);
+		throw std::out_of_range(error_message);
+	}
+
+	if (result != nullptr)
+	{
+		return mono_object_unbox(result);
+	}
+
+	return nullptr;
 }
