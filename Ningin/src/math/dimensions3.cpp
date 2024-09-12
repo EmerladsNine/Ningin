@@ -4,7 +4,7 @@ using namespace std;
 /**
  * Creates a new `Dimensions3` instance with the specified width, height, and depth.
  */
-Dimensions3::Dimensions3(uint64_t width, uint64_t height, uint64_t depth) : width(fabs(width)), height(fabs(height)), depth(fabs(depth))
+Dimensions3::Dimensions3(unsigned int width, unsigned int height, unsigned int depth) : width(width), height(height), depth(depth)
 {
 }
 
@@ -15,12 +15,12 @@ Dimensions3::Dimensions3() : width(200), height(200), depth(200)
 {
 }
 
-tuple<uint64_t, uint64_t, uint64_t> Dimensions3::deconstruct()
+tuple<unsigned int, unsigned int, unsigned int> Dimensions3::Deconstruct()
 {
 	return make_tuple(width, height, depth);
 }
 
-string Dimensions3_toString(Dimensions3 dimensions)
+string Dimensions3ToString(Dimensions3 dimensions)
 {
 	return format("Dimensions3 - width: {}, height: {}, depth: {}", dimensions.width,
 		dimensions.height, dimensions.depth);

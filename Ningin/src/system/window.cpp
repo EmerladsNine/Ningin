@@ -6,11 +6,11 @@ static void callback_function(GLFWwindow* window, int width, int height)
 	// TODO
 }
 
-Window::Window(std::string title, bool is_fullscreen, Scene scene, Dimensions2* dimensions)
+Window::Window(std::string title, bool isFullscreen, Scene scene, Dimensions2* dimensions)
 	: sceneManager(SceneManager(scene)), dimensions(dimensions)
 {
 	InitGlfw();
-	GLFWwindow* window = StartWindow(title, is_fullscreen, dimensions);
+	GLFWwindow* window = StartWindow(title, isFullscreen, dimensions);
 	InitOpenGL(window);
 	glfwSetFramebufferSizeCallback(window, callback_function);
 	_win = window;
@@ -24,18 +24,21 @@ void Window::InitGlfw()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
-GLFWwindow* Window::StartWindow(std::string title, bool is_fullscreen, Dimensions2* dimensions)
+GLFWwindow* Window::StartWindow(std::string title, bool isFullscreen, Dimensions2* dimensions)
 {
-	if (is_fullscreen)
+	if (isFullscreen)
 	{
-		GLFWwindow* window =
-			glfwCreateWindow(dimensions->width, dimensions->height, title.c_str(), glfwGetPrimaryMonitor(), NULL);
+		GLFWwindow* window = glfwCreateWindow(static_cast<int>(dimensions->width)
+			, static_cast<int>(dimensions->height), title.c_str(), glfwGetPrimaryMonitor(), NULL);
+
 		glfwMakeContextCurrent(window);
 		return window;
 	}
 	else
 	{
-		GLFWwindow* window = glfwCreateWindow(dimensions->width, dimensions->height, title.c_str(), NULL, NULL);
+		GLFWwindow* window = glfwCreateWindow(static_cast<int>(dimensions->width)
+			, static_cast<int>(dimensions->height), title.c_str(), NULL, NULL);
+
 		glfwMakeContextCurrent(window);
 		return window;
 	}

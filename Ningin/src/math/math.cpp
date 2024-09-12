@@ -1,27 +1,27 @@
 #include "math.h"
 
-float clamp(float val_to_clamp, float min, float max)
+float Clamp(float valToClamp, float min, float max)
 {
-	if (val_to_clamp < min)
+	if (valToClamp < min)
 	{
 		return min;
 	}
-	else if (val_to_clamp > max)
+	else if (valToClamp > max)
 	{
 		return max;
 	}
 	else
 	{
-		return val_to_clamp;
+		return valToClamp;
 	}
 }
 
-float degrees_to_radians(float deg)
+float DegreesToRadians(float deg)
 {
 	return deg * PI / 180.0f;
 }
 
-double radical(double number, int n)
+double Radical(double number, int n)
 {
 	if (number < 0.0 && n % 2 == 0)
 	{

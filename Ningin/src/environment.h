@@ -4,6 +4,6 @@
 
 class Enironment
 {
-public:
-	static std::filesystem::path GetGameDirectory();
+	public:
+		static std::filesystem::path GetGameDirectory();
 };

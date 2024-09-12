@@ -1,4 +1,4 @@
-#include "ningin.h"
+#include "Ningin.h"
 #include "scene_system/world.h"
 
 ResourceManager resourceManager = ResourceManager();
@@ -23,22 +23,26 @@ void Game::Init(std::string gameName, WindowOptions windowOptions, Dimensions2* 
 	}
 }
 
-std::size_t Game::new_window(std::string windowName, WindowOptions windowOptions, uint16_t scene_id,
+std::size_t Game::new_window(std::string windowName, WindowOptions windowOptions, uint16_t sceneId,
 	Dimensions2* dimensions)
 {
 	switch (windowOptions)
 	{
-	case NoWindow:
-		break;
-	case FullScreen:
-		openedWindows.push_back(Window(windowName, true, sceneLoader.GetSceneFromId(scene_id), dimensions));
-		break;
-	case Windowed:
-		openedWindows.push_back(Window(windowName, false, sceneLoader.GetSceneFromId(scene_id), dimensions));
-		break;
-	default:
-		break;
+		case NoWindow: break;
+
+		case FullScreen:
+			openedWindows.push_back(Window(windowName, true, sceneLoader.GetSceneFromId(sceneId),
+				dimensions));
+			break;
+
+		case Windowed:
+			openedWindows.push_back(Window(windowName, false, sceneLoader.GetSceneFromId(sceneId),
+				dimensions));
+			break;
+
+		default: break;
 	}
+
 	return openedWindows.size() - 1;
 }
 
