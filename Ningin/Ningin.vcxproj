@@ -20,6 +20,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\stb_image.cpp" />
+    <ClCompile Include="src\physics_manager\mask2.cpp" />
+    <ClCompile Include="src\physics_manager\mask3.cpp" />
     <ClCompile Include="src\scene_system\components\rigidbody2d.cpp" />
     <ClCompile Include="src\scene_system\components\ScriptVec.cpp" />
     <ClCompile Include="src\environment.cpp" />
@@ -80,7 +82,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\physics_manager\bodyTypes.h" />
+    <ClInclude Include="src\physics_manager\CollisionDetectionMode.h" />
+    <ClInclude Include="src\physics_manager\InterpolationMode.h" />
+    <ClInclude Include="src\physics_manager\mask2.h" />
+    <ClInclude Include="src\physics_manager\mask3.h" />
     <ClInclude Include="src\physics_manager\physics_material2d.h" />
+    <ClInclude Include="src\physics_manager\SleepMode.h" />
     <ClInclude Include="src\physics_manager\SurfaceInteractionModes.h" />
     <ClInclude Include="src\scene_system\components\entity\id.h" />
     <ClInclude Include="src\scene_system\components\rigidbody2d.h" />
