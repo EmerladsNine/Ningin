@@ -13,6 +13,7 @@
 #include <string>
 #include <unordered_map>
 #include <vector>
+//#include "../physics_manager/physics_material2d.h"
 
 class ResourceManager
 {
@@ -41,6 +42,7 @@ public:
 
 private:
 	std::unordered_map<std::string, Shader> shaders;
+	//std::unordered_map<std::string, PhyscicsMaterial2D> physicsMaterials2D;
 	std::unordered_map<std::string, Texture2D> textures;
 	std::unordered_map<std::string, SpriteInfo> sprites;
 	std::unordered_map<std::string, Font> fonts;
