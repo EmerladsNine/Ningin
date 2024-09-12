@@ -25,7 +25,7 @@ public:
 	void setUserUniforms(std::function<void()> initFunc, std::function<void()> initDrawingFunc,
 		std::function<void()> drawingFunc);
 
-	// static void system(EntityManager& entityManager);
+	static void system(EntityManager* entityManager);
 
 private:
 	bool alpha;

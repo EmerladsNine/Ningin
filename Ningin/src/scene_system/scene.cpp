@@ -13,7 +13,7 @@ void Scene::NewFrame(float deltaTime)
 	}
 
 	// Late systems.
-	for (auto& system : World::late_systems)
+	for (auto& system : World::lateSystems)
 	{
 		system(deltaTime, &world.entityManager);
 	}

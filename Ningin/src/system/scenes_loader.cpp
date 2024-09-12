@@ -8,6 +8,9 @@
 #include "../scene_system/components/text_renderer.h"
 #include "../scene_system/components/transform.h"
 #include "../utills/file_reader.h"
+#include "../scene_system/components/ScriptVec.h"
+#include "../scripting/scripting_engine.h"
+#include "../scripting/script_language.h"
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
@@ -178,8 +181,23 @@ void SceneLoader::LoadSceneFromFile(std::string path)
 			}
 			uint16_t scriptsCount = ReadU16(&filePointer);
 			uint16_t scriptPositon = 0;
-			// Todo Scripting
+			ScriptVec* scriptVec = new ScriptVec();
+			while (scriptPositon < scriptsCount)
+			{
+				std::string scriptName = strings[ReadU32(&filePointer)];
+				//Implement multiple language script in Scene Loader !
+				Scriptable* script = ScriptingEngine::GetScript(scriptName, ScriptLanguage::CSHARP);
+				scriptVec->scripts.push_back(script);
+				scriptPositon++;
+			}
+			scene.world.entityManager.AddComponent(entityId, typeid(ScriptVec), scriptVec);
+			if (parentIndex != 0)
+			{
+				Children* parentChildren = static_cast<Children*>(scene.world.entityManager.GetComponent(parentIndex, typeid(Children)));
+				parentChildren->children.push_back(entityId);
+			}
 		}
+		scenes.push_back(scene);
 	}
 	else
 	{

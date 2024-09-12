@@ -7,7 +7,7 @@ class World
 {
 public:
 	static std::vector<void (*)(float, EntityManager*)> systems;
-	static std::vector<void (*)(float, EntityManager*)> late_systems;
+	static std::vector<void (*)(float, EntityManager*)> lateSystems;
 	static void InitDefaultComponentSystem();
 
 	std::size_t entitiesCount;

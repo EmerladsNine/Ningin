@@ -59,7 +59,7 @@ MonoAssembly* Mono::LoadAssembly(std::string fileName)
 	char* data = reinterpret_cast<char*>(data_vec.data());
 
 	MonoImageOpenStatus status;
-	MonoImage* image = mono_image_open_from_data_full(data, data_vec.size(), 1, &status, 0);
+	MonoImage* image = mono_image_open_from_data_full(data, static_cast<uint32_t>(data_vec.size()) , 1, &status, 0);
 
 	if (status != MONO_IMAGE_OK)
 	{
@@ -81,7 +81,7 @@ MonoAssembly* Mono::LoadAssembly(std::string fileName)
 	return assembly;
 }
 
-Script Mono::GetScript(std::string scritpName)
+Script* Mono::GetScript(std::string scritpName)
 {
 	auto it = loadedClasses.find(scritpName);
 	if (it != loadedClasses.end())
@@ -91,14 +91,14 @@ Script Mono::GetScript(std::string scritpName)
 	else
 	{
 		ScriptClass* scriptClass = LoadScript(scritpName);
-		BuildScript(scriptClass);
+		return BuildScript(scriptClass);
 	}
 }
 
-Script Mono::BuildScript(ScriptClass* scriptClass)
+Script* Mono::BuildScript(ScriptClass* scriptClass)
 {
 	MonoObject* obj = mono_object_new(appDomain, scriptClass->klass);
-	return Script(scriptClass, obj);
+	return new Script(scriptClass, obj);
 }
 
 ScriptClass* Mono::LoadScript(std::string scriptFullName)

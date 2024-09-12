@@ -152,6 +152,39 @@ void SpriteRenderer::freeDrawingResources()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-// void Sprite::system(EntityManager& entityManager) {
-//
-// }
+void SpriteRenderer::system(EntityManager* entityManager) 
+{
+	auto& transformArchetypeMap = entityManager->archetypeManager.componentIndex[typeid(Transform)];
+	for (auto& SpriteArchetype : entityManager->archetypeManager.componentIndex[typeid(SpriteRenderer)])
+	{
+		auto it = transformArchetypeMap.find(SpriteArchetype.first);
+		if (it != transformArchetypeMap.end())
+		{
+			std::size_t spriteColumn = SpriteArchetype.second.column;
+			std::size_t transformColumn = it->second.column;
+
+			int row = 0;
+			for (void* spriteData : SpriteArchetype.second.archetype->components[spriteColumn])
+			{
+				if (spriteData == nullptr)
+				{
+					return;
+				}
+
+				void* transformData = SpriteArchetype.second.archetype->components[transformColumn][row];
+
+				if (transformData == nullptr)
+				{
+					return;
+				}
+
+				SpriteRenderer* sprite = static_cast<SpriteRenderer*>(spriteData);
+				Transform* transform = static_cast<Transform*>(transformData);
+
+				sprite->draw(*transform);
+
+				row++;
+			}
+		}
+	}
+}

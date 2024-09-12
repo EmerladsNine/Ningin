@@ -10,6 +10,7 @@ public:
 	ArchetypeManager archetypeManager;
 	EntityManager();
 	EntityId CreateNewEntity();
+	template <typename T> static void DefineComponent();
 	void AddComponent(EntityId entityId, ComponentId componentId, void* data);
 	void RemoveComponent(EntityId entityId, ComponentId componentId, void* data);
 	void* GetComponent(EntityId entityId, ComponentId componentId);
@@ -23,3 +24,9 @@ private:
 	void edgeRemove(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);
 	EntityId entityIdState;
 };
+
+template<typename T>
+inline void EntityManager::DefineComponent()
+{
+	ArchetypeManager::RegisterComponentTypeDeleter<T>();
+}

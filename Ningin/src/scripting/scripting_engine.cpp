@@ -9,12 +9,12 @@ void ScriptingEngine::Init(std::optional<MonoPaths> monoPath)
 	}
 }
 
-void ScriptingEngine::GetScript(std::string scriptName, ScriptLanguage language)
+Scriptable* ScriptingEngine::GetScript(std::string scriptName, ScriptLanguage language)
 {
 	switch (language)
 	{
 	case CSHARP:
-		mono.GetScript(scriptName);
+		return mono.GetScript(scriptName);
 		break;
 	case PYTHON:
 		break;
@@ -23,4 +23,5 @@ void ScriptingEngine::GetScript(std::string scriptName, ScriptLanguage language)
 	default:
 		break;
 	}
+	return nullptr;
 }

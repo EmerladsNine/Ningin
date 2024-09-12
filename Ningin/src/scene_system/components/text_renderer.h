@@ -28,7 +28,7 @@ public:
 		std::function<void()> drawingFunc);
 	void draw(Transform& transform);
 
-	// static void system(EntityManager& entityManager);
+	static void system(EntityManager* entityManager);
 
 private:
 	bool isStarted;

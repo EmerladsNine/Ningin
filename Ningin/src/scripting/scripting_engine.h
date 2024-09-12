@@ -10,5 +10,5 @@ class ScriptingEngine
 public:
 	static Mono mono;
 	static void Init(std::optional<MonoPaths> monoPath);
-	static void GetScript(std::string scriptName , ScriptLanguage language);
+	static Scriptable* GetScript(std::string scriptName , ScriptLanguage language);
 };

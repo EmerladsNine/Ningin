@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\stb_image.cpp" />
+    <ClCompile Include="src\scene_system\components\ScriptVec.cpp" />
     <ClCompile Include="src\environment.cpp" />
     <ClCompile Include="src\math\dimensions2.cpp" />
     <ClCompile Include="src\math\dimensions3.cpp" />
@@ -78,6 +79,7 @@
     <ClCompile Include="src\utills\file_reader.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\scene_system\components\ScriptVec.h" />
     <ClInclude Include="src\environment.h" />
     <ClInclude Include="src\math\dimensions2.h" />
     <ClInclude Include="src\math\dimensions3.h" />

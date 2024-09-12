@@ -1,4 +1,5 @@
 #include "text_renderer.h"
+#include "transform.h"
 #include <gtc/matrix_transform.hpp>
 
 Text::Text(std::string& fontName, std::string& shaderName, Color& textColor, std::string& text, uint8_t fontSize)
@@ -263,6 +264,39 @@ void Text::setFontSize(uint8_t fontSize)
 	mustCalculate = true;
 }
 
-// void Text::system(EntityManager& entityManager) {
-//
-// }
+void Text::system(EntityManager* entityManager) 
+{
+	auto& transformArchetypeMap = entityManager->archetypeManager.componentIndex[typeid(Transform)];
+	for (auto& TextArchetype : entityManager->archetypeManager.componentIndex[typeid(Text)])
+	{
+		auto it = transformArchetypeMap.find(TextArchetype.first);
+		if (it != transformArchetypeMap.end())
+		{
+			std::size_t textColumn = TextArchetype.second.column;
+			std::size_t transformColumn = it->second.column;
+
+			int row = 0;
+			for (void* textData : TextArchetype.second.archetype->components[textColumn])
+			{
+				if (textData == nullptr)
+				{
+					return;
+				}
+
+				void* transformData = TextArchetype.second.archetype->components[transformColumn][row];
+				
+				if (transformData == nullptr)					
+				{
+					return;
+				}
+
+				Text* text = static_cast<Text*>(textData);
+				Transform* transform = static_cast<Transform*>(transformData);
+
+				text->draw(*transform);
+
+				row++;
+			}
+		}
+	}
+}

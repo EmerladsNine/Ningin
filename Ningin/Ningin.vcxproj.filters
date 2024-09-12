@@ -276,6 +276,9 @@
     <ClCompile Include="src\physics_manager\force.cpp">
       <Filter>Source Files\physics_manager</Filter>
     </ClCompile>
+    <ClCompile Include="src\scene_system\components\ScriptVec.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\vector3.h">
@@ -481,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="src\physics_manager\force_dynamics.h">
       <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene_system\components\ScriptVec.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

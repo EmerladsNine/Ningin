@@ -17,8 +17,8 @@ class Mono
     Mono();
     void Init(std::string libPath, std::string gameAssemblyFileName);
     MonoAssembly* LoadAssembly(std::string fileName);
-    Script GetScript(std::string scritpName);
-    Script BuildScript(ScriptClass* scriptClass);
+    Script* GetScript(std::string scritpName);
+    Script* BuildScript(ScriptClass* scriptClass);
     ScriptClass* LoadScript(std::string scriptFullName);
   private:
     MonoDomain *rootDomain;
