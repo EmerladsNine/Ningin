@@ -270,14 +270,11 @@
     <ClCompile Include="src\utills\file_reader.cpp">
       <Filter>Source Files\utils</Filter>
     </ClCompile>
-    <ClCompile Include="src\physics_manager\body.cpp">
-      <Filter>Source Files\physics_manager</Filter>
-    </ClCompile>
     <ClCompile Include="src\physics_manager\force.cpp">
       <Filter>Source Files\physics_manager</Filter>
     </ClCompile>
     <ClCompile Include="src\scene_system\components\ScriptVec.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\scene_system\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -470,9 +467,6 @@
     <ClInclude Include="src\utills\file_reader.h">
       <Filter>Header Files\utils</Filter>
     </ClInclude>
-    <ClInclude Include="src\physics_manager\body.h">
-      <Filter>Header Files\physics_manager</Filter>
-    </ClInclude>
     <ClInclude Include="src\physics_manager\axes.h">
       <Filter>Header Files\physics_manager</Filter>
     </ClInclude>
@@ -486,7 +480,16 @@
       <Filter>Header Files\physics_manager</Filter>
     </ClInclude>
     <ClInclude Include="src\scene_system\components\ScriptVec.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\scene_system\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\SurfaceInteractionModes.h">
+      <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\physics_material2d.h">
+      <Filter>Header Files\physics_manager</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physics_manager\bodyTypes.h">
+      <Filter>Header Files\physics_manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
