@@ -73,6 +73,7 @@ void Game::main_loop()
 	{
 		for (auto& win : openedWindows)
 		{
+			win.sceneManager.NewFrame(0);
 		}
 	}
 }
