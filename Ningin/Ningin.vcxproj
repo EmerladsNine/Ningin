@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\stb_image.cpp" />
+    <ClCompile Include="src\scene_system\components\rigidbody2d.cpp" />
     <ClCompile Include="src\scene_system\components\ScriptVec.cpp" />
     <ClCompile Include="src\environment.cpp" />
     <ClCompile Include="src\math\dimensions2.cpp" />
@@ -48,10 +49,10 @@
     <ClCompile Include="src\resource_manager\texture2d.cpp" />
     <ClCompile Include="src\resource_manager\texture_info.cpp" />
     <ClCompile Include="src\scene_system\components\button.cpp" />
-    <ClCompile Include="src\scene_system\components\children.cpp" />
-    <ClCompile Include="src\scene_system\components\id.cpp" />
-    <ClCompile Include="src\scene_system\components\name.cpp" />
-    <ClCompile Include="src\scene_system\components\parent.cpp" />
+    <ClCompile Include="src\scene_system\components\entity\children.cpp" />
+    <ClCompile Include="src\scene_system\components\entity\id.cpp" />
+    <ClCompile Include="src\scene_system\components\entity\name.cpp" />
+    <ClCompile Include="src\scene_system\components\entity\parent.cpp" />
     <ClCompile Include="src\scene_system\components\sprite_renderer.cpp" />
     <ClCompile Include="src\scene_system\components\tarnsform.cpp" />
     <ClCompile Include="src\scene_system\components\text_renderer.cpp" />
@@ -81,6 +82,8 @@
     <ClInclude Include="src\physics_manager\bodyTypes.h" />
     <ClInclude Include="src\physics_manager\physics_material2d.h" />
     <ClInclude Include="src\physics_manager\SurfaceInteractionModes.h" />
+    <ClInclude Include="src\scene_system\components\entity\id.h" />
+    <ClInclude Include="src\scene_system\components\rigidbody2d.h" />
     <ClInclude Include="src\scene_system\components\ScriptVec.h" />
     <ClInclude Include="src\environment.h" />
     <ClInclude Include="src\math\dimensions2.h" />
@@ -115,10 +118,9 @@
     <ClInclude Include="src\resource_manager\texture2d.h" />
     <ClInclude Include="src\resource_manager\texture_info.h" />
     <ClInclude Include="src\scene_system\components\button.h" />
-    <ClInclude Include="src\scene_system\components\children.h" />
-    <ClInclude Include="src\scene_system\components\id.h" />
-    <ClInclude Include="src\scene_system\components\name.h" />
-    <ClInclude Include="src\scene_system\components\parent.h" />
+    <ClInclude Include="src\scene_system\components\entity\children.h" />
+    <ClInclude Include="src\scene_system\components\entity\name.h" />
+    <ClInclude Include="src\scene_system\components\entity\parent.h" />
     <ClInclude Include="src\scene_system\components\sprite_renderer.h" />
     <ClInclude Include="src\scene_system\components\transform.h" />
     <ClInclude Include="src\scene_system\components\text_renderer.h" />
