@@ -8,11 +8,14 @@
 #include "../../physics_manager/bodyTypes.h"
 #include "../../physics_manager/physics_material2d.h"
 #include "../../math/vector2.h"
+#include "../../ningin.h"
 
 class RigidBody2D {
 	public:
 		RigidBody2D();
 		~RigidBody2D();
+
+		static void system(EntityManager* entityManager);
 
 	private:
 		float mass;
