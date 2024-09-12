@@ -31,7 +31,6 @@ public:
 	static void system(EntityManager* entityManager);
 
 private:
-	bool isStarted;
 	Shader shader;
 	Font font;
 	Color textColor;
