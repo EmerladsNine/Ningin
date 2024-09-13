@@ -3,9 +3,7 @@
 #include <iostream>
 #include <stdexcept>
 
-using namespace std;
-
-FontInfo::FontInfo(FT_Library& ftLibrary, filesystem::path& fontPath, string& name)
+FontInfo::FontInfo(FT_Library& ftLibrary, filesystem::path fontPath, string name)
 	: ftLibrary(ftLibrary), fontPath(fontPath), name(name) {}
 
 vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Library& ftLibrary)
@@ -17,7 +15,8 @@ vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Lib
 				string extension = entry.path().extension().string();
 				if (extension == ".ttf" || extension == ".TTF") {
 					string file_name = entry.path().filename().string();
-					fonts_info_vec.emplace_back(ftLibrary, entry.path(), file_name);
+					filesystem::path path = entry.path();
+					fonts_info_vec.push_back(FontInfo(ftLibrary, path, file_name));
 				}
 			}
 		}

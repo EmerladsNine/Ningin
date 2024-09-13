@@ -6,20 +6,22 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 class FontInfo
 {
 	public:
-		FontInfo(FT_Library& ftLibrary, std::filesystem::path& fontPath, std::string& name);
+		FontInfo(FT_Library& ftLibrary, filesystem::path fontPath, string name);
 
-		static std::vector<FontInfo> GenerateInfoFromFolder(std::filesystem::path& path,
+		static vector<FontInfo> GenerateInfoFromFolder(filesystem::path& path,
 			FT_Library& ftLibrary);
 
 		FT_Library& GetFtLibrary();
-		std::filesystem::path& GetFontPath();
-		std::string& GetName();
+		filesystem::path& GetFontPath();
+		string& GetName();
 
 	private:
 		FT_Library ftLibrary;
-		std::filesystem::path fontPath;
-		std::string name;
+		filesystem::path fontPath;
+		string name;
 };

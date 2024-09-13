@@ -13,6 +13,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 class Atlas
 {
 	public:
@@ -20,9 +22,9 @@ class Atlas
 
 		void GenerateAtlas();
 
-		void AddSprite(std::filesystem::path& path, std::string& name);
-		void AddSpritesWithJson(std::filesystem::path& spriteSheetPath, std::filesystem::path& infoPath);
-		void AddSprites(std::filesystem::path& spriteSheetPath, SpriteSheetInfo& info);
+		void AddSprite(filesystem::path& path, string& name);
+		void AddSpritesWithJson(filesystem::path& spriteSheetPath, filesystem::path& infoPath);
+		void AddSprites(filesystem::path& spriteSheetPath, SpriteSheetInfo& info);
 		
 		bool CanAddSprite();
 		bool CanAddSpriteSheet(SpriteSheetInfo& spriteSheet);
@@ -31,18 +33,18 @@ class Atlas
 		void Bind();
 
 	private:
-		std::unordered_map<std::string, Sprite> sprites;
+		unordered_map<string, Sprite> sprites;
 		GLuint atlasID;
 		size_t id;
 
 		int index;
 
-		void AddSpriteFromData(std::vector<uint8_t>& data, Dimensions2& dimensions, std::string& name);
+		void AddSpriteFromData(vector<uint8_t>& data, Dimensions2& dimensions, string& name);
 		GLuint GenerateFrameBuffer(GLuint texture);
-		std::vector<uint8_t> GetSpriteTileData(SpriteTile& sprite);
+		vector<uint8_t> GetSpriteTileData(SpriteTile& sprite);
 		void DeleteFrameBuffer(GLuint fbo);
-		std::vector<unsigned char> LoadTexture(std::filesystem::path& path);
+		vector<unsigned char> LoadTexture(filesystem::path& path);
 		void SetupSpriteTexture();
-		void CreateSpriteTexture(Dimensions2& dimensions, std::vector<uint8_t>& data);
-		SpriteSheetInfo ParseJson(std::filesystem::path& infoPath);
+		void CreateSpriteTexture(Dimensions2& dimensions, vector<uint8_t>& data);
+		SpriteSheetInfo ParseJson(filesystem::path& infoPath);
 };

@@ -20,7 +20,7 @@ void Atlas::GenerateAtlas()
 		GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 }
 
-void Atlas::AddSprite(std::filesystem::path& path, std::string& name)
+void Atlas::AddSprite(filesystem::path& path, string& name)
 {
 	auto img = LoadTexture(path);
 	Dimensions2 dimensions(static_cast<int>(img.size()), static_cast<int>(img.size()));
@@ -28,34 +28,34 @@ void Atlas::AddSprite(std::filesystem::path& path, std::string& name)
 	AddSpriteFromData(img, dimensions, name);
 }
 
-void Atlas::AddSpritesWithJson(std::filesystem::path& spriteSheetPath, std::filesystem::path& infoPath)
+void Atlas::AddSpritesWithJson(filesystem::path& spriteSheetPath, filesystem::path& infoPath)
 {
 	SpriteSheetInfo info = ParseJson(infoPath);
 	AddSprites(spriteSheetPath, info);
 }
 
-void Atlas::AddSprites(std::filesystem::path& spriteSheetPath, SpriteSheetInfo& info)
+void Atlas::AddSprites(filesystem::path& spriteSheetPath, SpriteSheetInfo& info)
 {
 	Texture2D texture(spriteSheetPath, true);
 
 	GLuint fbo = GenerateFrameBuffer(texture.GetID());
 	for (auto& sprite : info.GetSpriteTiles())
 	{
-		std::vector<uint8_t> data = GetSpriteTileData(sprite);
+		vector<uint8_t> data = GetSpriteTileData(sprite);
 		Dimensions2 dimensions = sprite.GetDimensions();
-		std::string name = sprite.GetName();
+		string name = sprite.GetName();
 		AddSpriteFromData(data, dimensions, name);
 	}
 
 	DeleteFrameBuffer(fbo);
 }
 
-void Atlas::AddSpriteFromData(std::vector<uint8_t>& data, Dimensions2& dimensions, std::string& name)
+void Atlas::AddSpriteFromData(vector<uint8_t>& data, Dimensions2& dimensions, string& name)
 {
 	CreateSpriteTexture(dimensions, data);
 	SetupSpriteTexture();
 
-	sprites.insert(std::make_pair(name, Sprite{ index, dimensions }));
+	sprites.insert(make_pair(name, Sprite{ index, dimensions }));
 	++index;
 }
 
@@ -68,9 +68,9 @@ GLuint Atlas::GenerateFrameBuffer(GLuint texture)
 	return fbo;
 }
 
-std::vector<uint8_t> Atlas::GetSpriteTileData(SpriteTile& sprite)
+vector<uint8_t> Atlas::GetSpriteTileData(SpriteTile& sprite)
 {
-	std::vector<uint8_t> pixels(sprite.GetDimensions().width * sprite.GetDimensions().height * 4);
+	vector<uint8_t> pixels(sprite.GetDimensions().width * sprite.GetDimensions().height * 4);
 	glReadPixels(static_cast<GLint>(sprite.GetInSheetPosition().x), static_cast<GLint>(sprite.GetInSheetPosition().y),
 		sprite.GetDimensions().width, sprite.GetDimensions().height, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
 	return pixels;
@@ -82,15 +82,15 @@ void Atlas::DeleteFrameBuffer(GLuint fbo)
 	glDeleteFramebuffers(1, &fbo);
 }
 
-std::vector<unsigned char> Atlas::LoadTexture(std::filesystem::path& path)
+vector<unsigned char> Atlas::LoadTexture(filesystem::path& path)
 {
 	int width, height, channels;
-	std::vector<unsigned char> data;
+	vector<unsigned char> data;
 	unsigned char* imgData = stbi_load(path.string().c_str(), &width, &height, &channels, 4);
 
 	if (!imgData)
 	{
-		throw std::runtime_error("Failed to load image");
+		throw runtime_error("Failed to load image");
 	}
 
 	Dimensions2 dimensions = Dimensions2(width, height);
@@ -108,7 +108,7 @@ void Atlas::SetupSpriteTexture()
 	glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 }
 
-void Atlas::CreateSpriteTexture(Dimensions2& dimensions, std::vector<uint8_t>& data)
+void Atlas::CreateSpriteTexture(Dimensions2& dimensions, vector<uint8_t>& data)
 {
 	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, index, dimensions.width, dimensions.height, 1, GL_RGBA,
 		GL_UNSIGNED_BYTE, data.data());
@@ -134,18 +134,18 @@ void Atlas::Bind()
 	glBindTexture(GL_TEXTURE_2D_ARRAY, atlasID);
 }
 
-SpriteSheetInfo Atlas::ParseJson(std::filesystem::path& infoPath)
+SpriteSheetInfo Atlas::ParseJson(filesystem::path& infoPath)
 {
-	std::ifstream jsonFile(infoPath);
+	ifstream jsonFile(infoPath);
 	if (!jsonFile.is_open())
 	{
-		throw std::runtime_error("Failed to open JSON file");
+		throw runtime_error("Failed to open JSON file");
 	}
 
 	Json::Value root;
 	jsonFile >> root;
 
-	std::vector<SpriteTile> spriteTiles;
+	vector<SpriteTile> spriteTiles;
 
 	SpriteSheetInfo info(spriteTiles);
 
@@ -154,14 +154,20 @@ SpriteSheetInfo Atlas::ParseJson(std::filesystem::path& infoPath)
 		Json::Value& spriteTiles = root["spriteTiles"];
 		for (auto& tile : spriteTiles)
 		{
-			SpriteTile spriteTile(std::string(""), Vector2(), Dimensions2());
+			SpriteTile spriteTile(string(""), Vector2(), Dimensions2());
+
+			Dimensions2 dimensions = Dimensions2(tile["dimensions"]["width"].asInt(),
+				tile["dimensions"]["height"].asInt());
+
+			Vector2 pos = Vector2(static_cast<float>(tile["inSheetPosition"]["x"].asInt()),
+				static_cast<float>(tile["inSheetPosition"]["y"].asInt()));
+
+			string name = tile["name"].asString();
 
 			// Populate SpriteTile fields
-			spriteTile.SetName(tile["name"].asString());
-			spriteTile.SetDimensions(
-				Dimensions2(tile["dimensions"]["width"].asInt(), tile["dimensions"]["height"].asInt()));
-			spriteTile.SetInSheetPosition(Vector2(static_cast<float>(tile["inSheetPosition"]["x"].asInt()),
-				static_cast<float>(tile["inSheetPosition"]["y"].asInt())));
+			spriteTile.SetName(name);
+			spriteTile.SetDimensions(dimensions);
+			spriteTile.SetInSheetPosition(pos);
 
 			// Add to the SpriteSheetInfo
 			info.AddSpriteTile(spriteTile);

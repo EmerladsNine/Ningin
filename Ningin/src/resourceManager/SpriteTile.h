@@ -4,21 +4,23 @@
 #include "../math/Vector2.h"
 #include <string>
 
+using namespace std;
+
 class SpriteTile
 {
 	public:
-		SpriteTile(std::string& name, Vector2& inSheetPosition, Dimensions2& dimensions);
+		SpriteTile(string name, Vector2 inSheetPosition, Dimensions2 dimensions);
 
 		Vector2 GetInSheetPosition();
 		Dimensions2 GetDimensions();
-		std::string GetName();
+		string GetName();
 
 		void SetInSheetPosition(Vector2& inSheetPosition);
 		void SetDimensions(Dimensions2& dimensions);
-		void SetName(std::string& name);
+		void SetName(string& name);
 
 	private:
 		Vector2 inSheetPosition;
 		Dimensions2 dimensions;
-		std::string name;
+		string name;
 };
