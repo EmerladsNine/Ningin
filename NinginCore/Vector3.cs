@@ -19,59 +19,50 @@ namespace NinginCore
             this.z = z;
         }
 
-        public void Abs()
+        public Vector3 Abs()
         {
             InternalCalls.Vector3Abs(ref this, out Vector3 result);
-            this.x = result.x;
-            this.y = result.y;
-            this.z = result.z;
+            return result;
         }
 
-        public void Negate()
+        public Vector3 Negate()
         {
             InternalCalls.Vector3Negate(ref this, out Vector3 result);
-            this.x = result.x;
-            this.y = result.y;
-            this.z = result.z;
+            return result;
         }
-        public void Scale(float scaler)
+        public Vector3 Scale(float scaler)
         {
             InternalCalls.Vector3Multiply(ref this, scaler, out Vector3 result);
-            this.x = result.x;
-            this.y = result.y;
-            this.z = result.z;
+            return result;
         }
 
-        public void Sqrt()
+        public Vector3 Sqrt()
         {
             InternalCalls.Vector3SquareRoot(ref this, out Vector3 result);
-            this.x = result.x;
-            this.y = result.y;
-            this.z = result.z;
+            return result;
         }
 
-        public void Add(Vector3 Other)
+        public Vector3 Add(Vector3 Other)
         {
             InternalCalls.Vector3Add(ref this, ref Other, out Vector3 result);
-            this.x = result.x;
-            this.y = result.y;
-            this.z = result.z;
+            return result;
         }
 
-        public void Clamp(Vector3 min, Vector3 max)
+        public Vector3 Clamp(Vector3 min, Vector3 max)
         {
             InternalCalls.Vector3Clamp(ref this, ref min, ref max, out Vector3 result);
-            this.x = result.x;
-            this.y = result.y;
-            this.z = result.z;
+            return result;
         }
 
-        public void Normalize()
+        public Vector3 Normalize()
         {
             InternalCalls.Vector3Normalize(ref this, out Vector3 result);
-            this.x = result.x;
-            this.y = result.y;
-            this.z = result.z;
+            return result;
+        }
+        public Vector3 Inverse()
+        {
+            InternalCalls.Vector3Inverse(ref this, out Vector3 result);
+            return result;
         }
 
         public float Distance(Vector3 Other) => InternalCalls.Vector3Distance(ref this, ref Other);
@@ -89,7 +80,8 @@ namespace NinginCore
         public static Vector3 Min(Vector3 V1, Vector3 V2) { InternalCalls.Vector3Min(ref V1, ref V2, out Vector3 result); return result; }
         public static Vector3 Clamp(Vector3 to_clamp, Vector3 min, Vector3 max) { InternalCalls.Vector3Clamp(ref to_clamp, ref min, ref max, out Vector3 result); return result; }
         public static Vector3 Normalize(Vector3 vec) { InternalCalls.Vector3Normalize(ref vec, out Vector3 result); return result; }
-
+        public static Vector3 Inverse(Vector3 vec) { InternalCalls.Vector3Inverse(ref vec, out Vector3 result); return result; }
+        
         // Operators
         public static Vector3 operator -(Vector3 vec)
         {

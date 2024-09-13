@@ -18,23 +18,22 @@ Vector3::Vector3(Vector2& vec) : x(vec.x), y(vec.y), z(0.0f) {}
 
 void Vector3Abs(Vector3& vec, Vector3& out)
 {
-	out.x = std::abs(vec.x);
-	out.y = std::abs(vec.y);
-	out.z = std::abs(vec.z);
+	out = Vector3(abs(vec.x), abs(vec.y), abs(vec.z));
+}
+
+void Vector3Inverse(Vector3 vec, Vector3& out)
+{
+	out = Vector3(1 / vec.x, 1 / vec.y, 1 / vec.z);
 }
 
 void Vector3SquareRoot(Vector3& vec, Vector3& out)
 {
-	out.x = sqrt(vec.x);
-	out.y = sqrt(vec.y);
-	out.z = sqrt(vec.z);
+	out = Vector3(sqrt(vec.x), sqrt(vec.y), sqrt(vec.z));
 }
 
 void Vector3Add(Vector3& v1, Vector3& v2, Vector3& out)
 {
-	out.x = v1.x + v2.x;
-	out.y = v1.y + v2.y;
-	out.z = v1.z + v2.z;
+	out = Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
 }
 
 float Vector3Magnitude(Vector3& vec)

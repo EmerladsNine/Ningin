@@ -16,52 +16,50 @@ namespace NinginCore
             this.y = y;
         }
 
-        public void Abs()
+        public Vector2 Abs()
         {
             InternalCalls.Vector2Abs(ref this, out Vector2 result);
-            this.x = result.x;
-            this.y = result.y;
+            return result;
         }
 
-        public void Negate()
+        public Vector2 Negate()
         {
             InternalCalls.Vector2Negate(ref this, out Vector2 result);
-            this.x = result.x;
-            this.y = result.y;
+            return result;
         }
-        public void Scale(float scaler)
+        public Vector2 Scale(float scaler)
         {
             InternalCalls.Vector2Multiply(ref this, scaler, out Vector2 result);
-            this.x = result.x;
-            this.y = result.y;
+            return result;
         }
 
-        public void Sqrt()
+        public Vector2 Sqrt()
         {
             InternalCalls.Vector2SquareRoot(ref this, out Vector2 result);
-            this.x = result.x;
-            this.y = result.y;
+            return result;
         }
 
-        public void Add(Vector2 Other)
+        public Vector2 Add(Vector2 Other)
         {
             InternalCalls.Vector2Add(ref this, ref Other, out Vector2 result);
-            this.x = result.x;
-            this.y = result.y;
+            return result;
         }
 
-        public void Clamp(Vector2 min, Vector2 max)
+        public Vector2 Clamp(Vector2 min, Vector2 max)
         {
             InternalCalls.Vector2Clamp(ref this, ref min, ref max, out Vector2 result);
-            this.x = result.x;
-            this.y = result.y;
+            return result;
         }
 
-        public void Normalize()
+        public Vector2 Normalize()
         {
             InternalCalls.Vector2Normalize(ref this, out Vector2 result);
-            this.x = result.x;
-            this.y = result.y;
+            return result;
+        }
+        public Vector2 Inverse()
+        {
+            InternalCalls.Vector2Inverse(ref this, out Vector2 result);
+            return result;
         }
 
         public float Distance(Vector2 Other) => InternalCalls.Vector2Distance(ref this, ref Other);
@@ -79,6 +77,7 @@ namespace NinginCore
         public static Vector2 Min(Vector2 V1, Vector2 V2) { InternalCalls.Vector2Min(ref V1, ref V2, out Vector2 result); return result; }
         public static Vector2 Clamp(Vector2 to_clamp, Vector2 min, Vector2 max) { InternalCalls.Vector2Clamp(ref to_clamp, ref min, ref max, out Vector2 result); return result; }
         public static Vector2 Normalize(Vector2 vec) { InternalCalls.Vector2Normalize(ref vec, out Vector2 result); return result; }
+        public static Vector2 Inverse(Vector2 vec) { InternalCalls.Vector2Inverse(ref vec, out Vector2 result); return result; }
 
         // Operators
         public static Vector2 operator -(Vector2 vec)

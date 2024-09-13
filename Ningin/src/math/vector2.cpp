@@ -13,6 +13,11 @@ void Vector2Abs(Vector2 vec, Vector2& out)
 	out = Vector2(std::fabs(vec.x), std::fabs(vec.y));
 }
 
+void Vector2Inverse(Vector2 vec, Vector2& out)
+{
+	out = Vector2(1 / vec.x, 1 / vec.y);
+}
+
 void Vector2SquareRoot(Vector2 vec, Vector2& out)
 {
 	out = Vector2(std::sqrt(vec.x), std::sqrt(vec.y));
