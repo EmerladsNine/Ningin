@@ -1,5 +1,5 @@
 ﻿using System;
-using Ningin;
+using NinginCore;
 
 namespace example
 {
@@ -7,7 +7,7 @@ namespace example
     {
         void Start()
         {
-            var vec = new Vector2(-10,-60);
+            var vec = new Vector2(-10, -60);
             Console.WriteLine("Hello");
             throw new Exception("Testing EXCEPTIONS !!");
         }
@@ -17,17 +17,17 @@ namespace example
         void Update(float deltatime)
         {
             time += deltatime;
-            if(time >= nextsecond)
+            if (time >= nextsecond)
             {
                 Console.WriteLine(nextsecond);
                 nextsecond++;
             }
         }
-        
+
         bool is_lupdated = false;
         void Late_Update(float deltatime)
         {
-            if(!is_lupdated)
+            if (!is_lupdated)
             {
                 Console.WriteLine("Hello In LAteeeeee Update WLak");
                 is_lupdated = true;

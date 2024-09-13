@@ -1,5 +1,3 @@
-using System;
-
 namespace NoExample
 {
     public class Classic
@@ -11,7 +9,7 @@ namespace NoExample
 
         void Update(float deltatime)
         {
-            
+
         }
     }
 }
