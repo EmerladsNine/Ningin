@@ -1,4 +1,5 @@
 using System;
+
 namespace NinginCore
 {
     public class Behavior
