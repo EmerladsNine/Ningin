@@ -19,6 +19,7 @@ void AddInternalCalls() {
         AddInternalCall(Vector2Max);
         AddInternalCall(Vector2Min);
         AddInternalCall(Vector2SquareRoot);
+        AddInternalCall(Vector2Inverse);
         AddInternalCall(Vector2ToString);
         AddInternalCall(Vector2FromVector3);
         AddInternalCall(Vector2Add);
@@ -41,6 +42,7 @@ void AddInternalCalls() {
         AddInternalCall(Vector3Clamp);
         AddInternalCall(Vector3Distance);
         AddInternalCall(Vector3DistanceSquared);
+        AddInternalCall(Vector3Inverse);
         AddInternalCall(Vector3Normalize);
         AddInternalCall(Vector3Dot);
         AddInternalCall(Vector3Magnitude);

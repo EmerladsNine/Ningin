@@ -6,6 +6,7 @@ namespace NinginCore
 
         #region Vector2
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern void Vector2Abs(ref Vector2 self, out Vector2 result);
+        [MethodImpl(MethodImplOptions.InternalCall)] internal static extern void Vector2Inverse(ref Vector2 self, out Vector2 result);
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern void Vector2Clamp(ref Vector2 to_clamp, ref Vector2 min, ref Vector2 max, out Vector2 result);
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern float Vector2Distance(ref Vector2 self, ref Vector2 other);
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern float Vector2DistanceSquared(ref Vector2 self, ref Vector2 other);
@@ -38,6 +39,7 @@ namespace NinginCore
 
         #region Vector3
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern void Vector3Abs(ref Vector3 self, out Vector3 result);
+        [MethodImpl(MethodImplOptions.InternalCall)] internal static extern void Vector3Inverse(ref Vector3 self, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern void Vector3Clamp(ref Vector3 to_clamp, ref Vector3 min, ref Vector3 max, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern float Vector3Distance(ref Vector3 self, ref Vector3 other);
         [MethodImpl(MethodImplOptions.InternalCall)] internal static extern float Vector3DistanceSquared(ref Vector3 self, ref Vector3 other);
