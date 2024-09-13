@@ -1,6 +1,6 @@
-#include "vector3.h"
-#include "math.h"
-#include "vector2.h"
+#include "Vector3.h"
+#include "Math.h"
+#include "Vector2.h"
 
 // Static Constants Initialization
 const Vector3 Vector3::UNIT_X = Vector3(1.0f, 0.0f, 0.0f);
@@ -103,37 +103,37 @@ void Vector3Multiply(Vector3& v1, Vector3& v2, Vector3& out){
 	out = Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
 }
 
-void Vector3Dvide(Vector3& v1, Vector3& v2, Vector3& out){
+void Vector3Divide(Vector3& v1, Vector3& v2, Vector3& out){
 	out = Vector3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
 }
 
-void Vector3DvideByFloat(Vector3& vec, float a, Vector3& out){
+void Vector3DivideByFloat(Vector3& vec, float a, Vector3& out){
 	out = Vector3(vec.x / a, vec.y / a, vec.z / a);
 
 }
 
-bool Vector3Equals(Vector3 v1, Vector3 v2){
+bool Vector3Equals(Vector3& v1, Vector3& v2){
 	return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
 }
 
-bool Vector3NotEqual(Vector3 v1, Vector3 v2){
+bool Vector3NotEqual(Vector3& v1, Vector3& v2){
 	return !(Vector3Equals(v1, v2));
 }
 
-bool Vector3L(Vector3& v1, Vector3 v2){
+bool Vector3L(Vector3& v1, Vector3& v2){
 	return v1.x < v2.x && v1.y < v2.y && v1.z < v2.z;
 }
 
-bool Vector3LE(Vector3& v1, Vector3 v2){
+bool Vector3LE(Vector3& v1, Vector3& v2){
 	return v1.x <= v2.x && v1.y <= v2.y && v1.z <= v2.z;
 
 }
 
-bool Vector3G(Vector3& v1, Vector3 v2){
+bool Vector3G(Vector3& v1, Vector3& v2){
 	return v1.x > v2.x && v1.y > v2.y && v1.z > v2.z;
 }
 
-bool Vector3GE(Vector3& v1, Vector3 v2){
+bool Vector3GE(Vector3& v1, Vector3& v2){
 	return v1.x >= v2.x && v1.y >= v2.y && v1.z >= v2.z;
 }
 

@@ -26,8 +26,8 @@ void AddInternalCalls() {
         AddInternalCall(Vector2Subtract);
         AddInternalCall(Vector2MultiplyByFloat);
         AddInternalCall(Vector2Multiply);
-        AddInternalCall(Vector2Dvide);
-        AddInternalCall(Vector2DvideByFloat);
+        AddInternalCall(Vector2Divide);
+        AddInternalCall(Vector2DivideByFloat);
         AddInternalCall(Vector2Equals);
         AddInternalCall(Vector2NotEqual);
         AddInternalCall(Vector2L);
@@ -55,8 +55,8 @@ void AddInternalCalls() {
         AddInternalCall(Vector3Subtract);
         AddInternalCall(Vector3MultiplyByFloat);
         AddInternalCall(Vector3Multiply);
-        AddInternalCall(Vector3Dvide);
-        AddInternalCall(Vector3DvideByFloat);
+        AddInternalCall(Vector3Divide);
+        AddInternalCall(Vector3DivideByFloat);
         AddInternalCall(Vector3Equals);
         AddInternalCall(Vector3NotEqual);
         AddInternalCall(Vector3L);

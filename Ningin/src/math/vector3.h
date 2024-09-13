@@ -57,21 +57,21 @@ void Vector3MultiplyByFloat(Vector3& vec, float a, Vector3& out);
 
 void Vector3Multiply(Vector3& v1, Vector3& v2, Vector3& out);
 
-void Vector3Dvide(Vector3& v1, Vector3& v2, Vector3& out);
+void Vector3Divide(Vector3& v1, Vector3& v2, Vector3& out);
 
-void Vector3DvideByFloat(Vector3& vec, float a, Vector3& out);
+void Vector3DivideByFloat(Vector3& vec, float a, Vector3& out);
 
-bool Vector3Equals(Vector3 v1, Vector3 v2);
+bool Vector3Equals(Vector3& v1, Vector3& v2);
 
-bool Vector3NotEqual(Vector3 v1, Vector3 v2);
+bool Vector3NotEqual(Vector3& v1, Vector3& v2);
 
-bool Vector3L(Vector3& v1, Vector3 v2);
+bool Vector3L(Vector3& v1, Vector3& v2);
 
-bool Vector3LE(Vector3& v1, Vector3 v2);
+bool Vector3LE(Vector3& v1, Vector3& v2);
 
-bool Vector3G(Vector3& v1, Vector3 v2);
+bool Vector3G(Vector3& v1, Vector3& v2);
 
-bool Vector3GE(Vector3& v1, Vector3 v2);
+bool Vector3GE(Vector3& v1, Vector3& v2);
 
 void Vector3ToString(Vector3& vec, string& out);
 

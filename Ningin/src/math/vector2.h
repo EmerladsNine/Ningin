@@ -56,21 +56,21 @@ void Vector2MultiplyByFloat(Vector2& vec, float a, Vector2& out);
 
 void Vector2Multiply(Vector2& v1, Vector2& v2, Vector2& out);
 
-void Vector2Dvide(Vector2& v1, Vector2& v2, Vector2& out);
+void Vector2Divide(Vector2& v1, Vector2& v2, Vector2& out);
 
-void Vector2DvideByFloat(Vector2& vec, float a, Vector2& out);
+void Vector2DivideByFloat(Vector2& vec, float a, Vector2& out);
 
-bool Vector2Equals(Vector2 v1, Vector2 v2);
+bool Vector2Equals(Vector2& v1, Vector2& v2);
 
-bool Vector2NotEqual(Vector2 v1, Vector2 v2);
+bool Vector2NotEqual(Vector2& v1, Vector2& v2);
 
-bool Vector2L(Vector2& v1, Vector2 v2);
+bool Vector2L(Vector2& v1, Vector2& v2);
 
-bool Vector2LE(Vector2& v1, Vector2 v2);
+bool Vector2LE(Vector2& v1, Vector2& v2);
 
-bool Vector2G(Vector2& v1, Vector2 v2);
+bool Vector2G(Vector2& v1, Vector2& v2);
 
-bool Vector2GE(Vector2& v1, Vector2 v2);
+bool Vector2GE(Vector2& v1, Vector2& v2);
 
 void Vector2ToString(Vector2& vec, string& out);
 

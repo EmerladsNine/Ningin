@@ -1,6 +1,6 @@
-#include "vector2.h"
-#include "math.h"
-#include "vector3.h"
+#include "Vector2.h"
+#include "Math.h"
+#include "Vector3.h"
 
 // Constants
 const Vector2 UNIT_X = Vector2(1.0f, 0.0f);
@@ -91,42 +91,42 @@ void Vector2Multiply(Vector2& v1, Vector2& v2, Vector2& out)
 	out = Vector2(v1.x * v2.x, v1.y * v2.y);
 }
 
-void Vector2Dvide(Vector2& v1, Vector2& v2, Vector2& out)
+void Vector2Divide(Vector2& v1, Vector2& v2, Vector2& out)
 {
 	out = Vector2(v1.x / v2.x, v1.y / v2.y);
 }
 
-void Vector2DvideByFloat(Vector2& vec, float a, Vector2& out)
+void Vector2DivideByFloat(Vector2& vec, float a, Vector2& out)
 {
 	out = Vector2(vec.x / a, vec.y / a);
 }
 
-bool Vector2Equals(Vector2 v1, Vector2 v2)
+bool Vector2Equals(Vector2& v1, Vector2& v2)
 {
 	return v1.x == v2.x && v1.y == v2.y;
 }
 
-bool Vector2NotEqual(Vector2 v1, Vector2 v2)
+bool Vector2NotEqual(Vector2& v1, Vector2& v2)
 {
 	return !(Vector2Equals(v1, v2));
 }
 
-bool Vector2L(Vector2& v1, Vector2 v2)
+bool Vector2L(Vector2& v1, Vector2& v2)
 {
 	return v1.x < v2.x && v1.y < v2.y;
 }
 
-bool Vector2G(Vector2& v1, Vector2 v2)
+bool Vector2G(Vector2& v1, Vector2& v2)
 {
 	return v1.x > v2.x && v1.y > v2.y;
 }
 
-bool Vector2LE(Vector2& v1, Vector2 v2)
+bool Vector2LE(Vector2& v1, Vector2& v2)
 {
 	return v1.x <= v2.x && v1.y <= v2.y;
 }
 
-bool Vector2GE(Vector2& v1, Vector2 v2)
+bool Vector2GE(Vector2& v1, Vector2& v2)
 {
 	return v1.x >= v2.x && v1.y >= v2.y;
 }
