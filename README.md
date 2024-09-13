@@ -68,7 +68,6 @@
   * $\color{#FFD700}{\textsf{Include Guards:}}$ Use include guards (`#ifndef`, `#define`, `#endif`) or `#pragma once` to prevent multiple inclusions of header files.
 ---
 ### General Formatting Guidelines
-- $\color{#00FA9A}{\textsf{Formatting:}}$
   * $\color{#00FA9A}{\textsf{Braces:}}$ Place opening braces `{` on the same line as the statement (except in cases where code is less readable) and closing braces `}` on their own line.
   * $\color{#00FA9A}{\textsf{Spaces:}}$ Use spaces around operators and after commas (e.g., `int result = a + b;`).
   * $\color{#00FA9A}{\textsf{Indentation:}}$ Use spaces for indentation always (4 space indentation).
