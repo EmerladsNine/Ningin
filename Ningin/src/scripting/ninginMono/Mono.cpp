@@ -7,10 +7,8 @@
 #include "../../math/vector2.h"
 #include "../../utills/FileReader.h"
 
-Mono::Mono() : assembliesDirectory(Enironment::GetGameDirectory()) , rootDomain(nullptr) , appDomain(nullptr) ,gameAssembly(nullptr) , ninginAssembly(nullptr) 
-{
-
-}
+Mono::Mono() : assembliesDirectory(Enironment::GetGameDirectory()), rootDomain(nullptr), appDomain(nullptr)
+	,gameAssembly(nullptr), ninginAssembly(nullptr) {}
 
 Mono::~Mono()
 {
@@ -43,7 +41,7 @@ void Mono::Init(std::string libPath, std::string gameAssemblyFileName)
 		throw std::runtime_error("failed to set app domain");
 	}
 
-    // Link C# Managed Functions To Rust UnManaged Functions.
+    // Link C# Managed Functions To C++ UnManaged Functions.
 	AddInternalCalls();
 
     //Load Needed Assemblies.
@@ -65,7 +63,8 @@ MonoAssembly* Mono::LoadAssembly(std::string fileName)
 	char* data = reinterpret_cast<char*>(data_vec.data());
 
 	MonoImageOpenStatus status;
-	MonoImage* image = mono_image_open_from_data_full(data, static_cast<uint32_t>(data_vec.size()) , 1, &status, 0);
+	MonoImage* image = mono_image_open_from_data_full(data, static_cast<uint32_t>(data_vec.size()),
+		1, &status, 0);
 
 	if (status != MONO_IMAGE_OK)
 	{
@@ -114,6 +113,7 @@ ScriptClass* Mono::LoadScript(std::string scriptFullName)
 	if (dotPos == std::string::npos) {
 		throw std::invalid_argument("Invalid script name format.");
 	}
+
 	//Split FullName : "namespace.classname"
 	std::string nameSpace = scriptFullName.substr(0, dotPos);
 	std::string className = scriptFullName.substr(dotPos + 1);
@@ -148,8 +148,10 @@ MonoMethod* GetMethod(MonoClass* klass, std::string name, int paramsCount)
 void* InvokeMethod(MonoObject* obj, MonoMethod* method,std::vector<void*> params)
 {
 	MonoObject* exception = nullptr;
+
 	//Invoke Method
 	MonoObject* result = mono_runtime_invoke(method, obj, params.data(), &exception);
+
 	//Handle Exceptions.
 	if (exception != nullptr)
 	{

@@ -40,17 +40,11 @@
     <Filter Include="Header Files\scripting\mono">
       <UniqueIdentifier>{3e6ceeb4-1f74-451d-9be9-64a8b63c6357}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\scripting\mono\raw">
-      <UniqueIdentifier>{7c50b342-9041-444c-b14c-4edb1b1e5263}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\scripting\mono\wrapper">
       <UniqueIdentifier>{44484ff6-26fe-44ac-b331-5a8cb049dbb0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\scripting\mono\wrapper">
       <UniqueIdentifier>{903766e4-5f31-4902-a84a-a74ab6e7f93b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\scripting\mono\raw">
-      <UniqueIdentifier>{eddb518c-c144-49a4-ab81-35afb3a2142d}</UniqueIdentifier>
     </Filter>
     <Filter Include="lib">
       <UniqueIdentifier>{8d80d73f-744e-4d80-b36e-07c7cd02e753}</UniqueIdentifier>
@@ -152,9 +146,6 @@
     </ClCompile>
     <ClCompile Include="src\Environment.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utills\Debug.cpp">
-      <Filter>Source Files\scripting\mono\wrapper</Filter>
     </ClCompile>
     <ClCompile Include="src\scripting\ninginMono\ScriptClass.cpp">
       <Filter>Source Files\scripting\mono</Filter>
@@ -285,9 +276,6 @@
     <ClCompile Include="src\sceneSystem\components\SpriteRenderer.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\sceneSystem\components\Tarnsform.cpp">
-      <Filter>Source Files\sceneSystem\components</Filter>
-    </ClCompile>
     <ClCompile Include="src\sceneSystem\components\ScriptVec.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
@@ -297,11 +285,14 @@
     <ClCompile Include="src\sceneSystem\components\Button.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\sceneSystem\components\transform.cpp">
-      <Filter>Source Files\sceneSystem\components</Filter>
-    </ClCompile>
     <ClCompile Include="src\scripting\ninginMono\wrapper\DebugWrapper.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\scripting\mono\wrapper</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utills\Debug.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sceneSystem\components\Transform.cpp">
+      <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -525,10 +516,10 @@
       <Filter>Header Files\sceneSystem\components</Filter>
     </ClInclude>
     <ClInclude Include="src\utills\Debug.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="src\scripting\ninginMono\wrapper\DebugWrapper.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\scripting\mono\wrapper</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

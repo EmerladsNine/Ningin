@@ -1,4 +1,5 @@
 #pragma once
+
 #include <mono/jit/jit.h>
 #include <filesystem>
 #include <string>
@@ -8,24 +9,33 @@
 
 class Mono
 {
-  public:
-    const std::string NINGIN_ASSEMBLY_NAME = "NinginCore.dll";
-    std::filesystem::path assembliesDirectory;
-    MonoAssembly* ninginAssembly;
-    MonoAssembly* gameAssembly;
-    std::unordered_map<std::string, ScriptClass> loadedClasses;
-    Mono();
-    void Init(std::string libPath, std::string gameAssemblyFileName);
-    MonoAssembly* LoadAssembly(std::string fileName);
-    Script* GetScript(std::string scritpName);
-    Script* BuildScript(ScriptClass* scriptClass);
-    ScriptClass* LoadScript(std::string scriptFullName);
-    ~Mono();
-  private:
-    MonoDomain *rootDomain;
-    MonoDomain *appDomain;
+      public:
+        Mono();
+        ~Mono();
+
+        void Init(std::string libPath, std::string gameAssemblyFileName);
+
+        MonoAssembly* LoadAssembly(std::string fileName);
+
+        Script* GetScript(std::string scritpName);
+        Script* BuildScript(ScriptClass* scriptClass);
+        ScriptClass* LoadScript(std::string scriptFullName);
+
+        const std::string NINGIN_ASSEMBLY_NAME = "NinginCore.dll";
+        std::filesystem::path assembliesDirectory;
+
+        MonoAssembly* ninginAssembly;
+        MonoAssembly* gameAssembly;
+
+        std::unordered_map<std::string, ScriptClass> loadedClasses;
+
+      private:
+        MonoDomain *rootDomain;
+        MonoDomain *appDomain;
 };
 
 void InitScriptMethods(ScriptClass* scriptClass);
+
 MonoMethod* GetMethod(MonoClass* klass, std::string name, int paramsCount);
+
 void* InvokeMethod(MonoObject* obj, MonoMethod* method, std::vector<void*> params);

@@ -1,9 +1,9 @@
 #include "InternalCalls.h"
-#include "../../math/vector2.h"
-#include "../../math/vector3.h"
-#include "../../math/math.h"
-#include "../../math/dimensions2.h"
-#include "../../math/dimensions3.h"
+#include "../../math/Vector2.h"
+#include "../../math/Vector3.h"
+#include "../../math/Math.h"
+#include "../../math/Dimensions2.h"
+#include "../../math/Dimensions3.h"
 #include "wrapper/DebugWrapper.h"
 
 void AddInternalCalls() {

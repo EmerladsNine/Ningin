@@ -1,5 +1,9 @@
-#include "script.h"
-#include "mono.h"
+#include "Script.h"
+#include "Mono.h"
+
+Script::Script(ScriptClass* klass, MonoObject* obj) : klass(klass), obj(obj) {}
+
+Script::Script() : klass(nullptr), obj(nullptr) {}
 
 bool Script::IsStarted()
 {
@@ -26,9 +30,3 @@ void Script::Destroy()
 {
     InvokeMethod(obj, klass->destroyMethod, {});
 }
-
-Script::Script() : klass(nullptr) , obj(nullptr)
-{
-}
-
-Script::Script(ScriptClass* klass, MonoObject* obj) : klass(klass) ,  obj(obj) {}

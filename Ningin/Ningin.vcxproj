@@ -55,9 +55,8 @@
     <ClCompile Include="src\sceneSystem\components\RigidBody2D.cpp" />
     <ClCompile Include="src\sceneSystem\components\ScriptVec.cpp" />
     <ClCompile Include="src\sceneSystem\components\SpriteRenderer.cpp" />
-    <ClCompile Include="src\sceneSystem\components\Tarnsform.cpp" />
     <ClCompile Include="src\sceneSystem\components\TextRenderer.cpp" />
-    <ClCompile Include="src\sceneSystem\components\transform.cpp" />
+    <ClCompile Include="src\sceneSystem\components\Transform.cpp" />
     <ClCompile Include="src\sceneSystem\ecs\archetype.cpp" />
     <ClCompile Include="src\sceneSystem\ecs\archetype_edge.cpp" />
     <ClCompile Include="src\sceneSystem\ecs\archetype_manager.cpp" />

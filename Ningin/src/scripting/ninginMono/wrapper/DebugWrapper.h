@@ -1,4 +1,5 @@
 #pragma once
+
 #include <mono/jit/jit.h>
 
 void DebugLogInfo(MonoString* message);
