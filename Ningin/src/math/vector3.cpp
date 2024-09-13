@@ -2,10 +2,7 @@
 #include "math.h"
 #include "vector2.h"
 
-using namespace std;
-
 // Static Constants Initialization
-
 const Vector3 Vector3::UNIT_X = Vector3(1.0f, 0.0f, 0.0f);
 const Vector3 Vector3::UNIT_Y = Vector3(0.0f, 1.0f, 0.0f);
 const Vector3 Vector3::UNIT_Z = Vector3(0.0f, 0.0f, 1.0f);
@@ -15,13 +12,9 @@ const Vector3 Vector3::UNIT_YZ = Vector3(0.0f, 1.0f, 1.0f);
 const Vector3 Vector3::ZERO = Vector3(0.0f, 0.0f, 0.0f);
 const Vector3 Vector3::ONE = Vector3(1.0f, 1.0f, 1.0f);
 
-Vector3::Vector3(float x, float y, float z) : x(x), y(y), z(z)
-{
-}
+Vector3::Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
-Vector3::Vector3(Vector2& vec) : x(vec.x), y(vec.y), z(0.0f)
-{
-}
+Vector3::Vector3(Vector2& vec) : x(vec.x), y(vec.y), z(0.0f) {}
 
 void Vector3Abs(Vector3& vec, Vector3& out)
 {
@@ -49,10 +42,10 @@ float Vector3Magnitude(Vector3& vec)
 	return sqrt(Vector3Dot(vec, vec));
 }
 
-Vector3 Vector3Normalize(Vector3& vec)
+void Vector3Normalize(Vector3& vec, Vector3& out)
 {
 	float length = Vector3Magnitude(vec);
-	return Vector3(vec.x / length, vec.y / length, vec.z/length);
+	out = Vector3(vec.x / length, vec.y / length, vec.z/length);
 }
 
 float Vector3Dot(Vector3& v1, Vector3& v2)
@@ -94,78 +87,62 @@ void Vector3Clamp(Vector3& vecToClamp, Vector3& min, Vector3& max, Vector3& out)
 	out.z = Clamp(vecToClamp.z, min.z, max.z);
 }
 
-// Operator Overloads
-Vector3 operator-(Vector3 vec)
-{
-	return Vector3(-vec.x, -vec.y, -vec.z);
+void Vector3Negate(Vector3& vec, Vector3& out) {
+	out = Vector3(-vec.x, -vec.y, -vec.z);
 }
 
-Vector3 operator+(Vector3 v1, Vector3 v2)
-{
-	return Vector3(v1.x + v2.x, v1.y + v2.y, v1.z + v2.z);
+void Vector3Subtract(Vector3& v1, Vector3& v2, Vector3& out){
+	out = Vector3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
 }
 
-Vector3 operator-(Vector3 v1, Vector3 v2)
-{
-	return Vector3(v1.x - v2.x, v1.y - v2.y, v1.z - v2.z);
+void Vector3MultiplyByFloat(Vector3& vec, float a, Vector3& out){
+	out = Vector3(vec.x * a, vec.y * a, vec.z * a);
 }
 
-Vector3 operator*(Vector3 vec, float a)
-{
-	return Vector3(vec.x * a, vec.y * a, vec.z * a);
+void Vector3Multiply(Vector3& v1, Vector3& v2, Vector3& out){
+	out = Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
 }
 
-Vector3 operator*(Vector3 v1, Vector3 v2)
-{
-	return Vector3(v1.x * v2.x, v1.y * v2.y, v1.z * v2.z);
+void Vector3Dvide(Vector3& v1, Vector3& v2, Vector3& out){
+	out = Vector3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
 }
 
-Vector3 operator/(Vector3 vec, float a)
-{
-	return Vector3(vec.x / a, vec.y / a, vec.z / a);
+void Vector3DvideByFloat(Vector3& vec, float a, Vector3& out){
+	out = Vector3(vec.x / a, vec.y / a, vec.z / a);
+
 }
 
-Vector3 operator/(Vector3 v1, Vector3 v2)
-{
-	return Vector3(v1.x / v2.x, v1.y / v2.y, v1.z / v2.z);
-}
-
-bool operator==(Vector3 v1, Vector3 v2)
-{
+bool Vector3Equals(Vector3 v1, Vector3 v2){
 	return v1.x == v2.x && v1.y == v2.y && v1.z == v2.z;
 }
 
-bool operator!=(Vector3 v1, Vector3 v2)
-{
-	return !(v1 == v2);
+bool Vector3NotEqual(Vector3 v1, Vector3 v2){
+	return !(Vector3Equals(v1, v2));
 }
 
-bool operator<(Vector3 v1, Vector3 v2)
-{
+bool Vector3L(Vector3& v1, Vector3 v2){
 	return v1.x < v2.x && v1.y < v2.y && v1.z < v2.z;
 }
 
-bool operator<=(Vector3 v1, Vector3 v2)
-{
+bool Vector3LE(Vector3& v1, Vector3 v2){
 	return v1.x <= v2.x && v1.y <= v2.y && v1.z <= v2.z;
+
 }
 
-bool operator>(Vector3 v1, Vector3 v2)
-{
+bool Vector3G(Vector3& v1, Vector3 v2){
 	return v1.x > v2.x && v1.y > v2.y && v1.z > v2.z;
 }
 
-bool operator>=(Vector3 v1, Vector3 v2)
-{
+bool Vector3GE(Vector3& v1, Vector3 v2){
 	return v1.x >= v2.x && v1.y >= v2.y && v1.z >= v2.z;
 }
 
-string Vector3ToString(Vector3& vec)
+void Vector3ToString(Vector3& vec, string& out)
 {
-	return format("Vector2 - x: {}, y: {}, z: {}", vec.x, vec.y, vec.z);
+	out = format("Vector2 - x: {}, y: {}, z: {}", vec.x, vec.y, vec.z);
 }
 
-Vector3 FromVector2(Vector2& vec)
+void Vector3FromVector2(Vector2& vec, Vector3& out)
 {
-	return Vector3(vec.x, vec.y);
+	out = Vector3(vec.x, vec.y);
 }

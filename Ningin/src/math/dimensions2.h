@@ -2,6 +2,8 @@
 
 #include <format>
 
+using namespace std;
+
 class Dimensions2
 {
 	public:
@@ -15,4 +17,4 @@ class Dimensions2
 		std::pair<unsigned int, unsigned int> Deconstruct();
 };
 
-std::string Dimensions2ToString(Dimensions2 dimensions);
+void Dimensions2ToString(Dimensions2& dimensions, string& out);

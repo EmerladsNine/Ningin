@@ -2,6 +2,8 @@
 
 #include <format>
 
+using namespace std;
+
 class Vector3; // Forward declaration
 
 class Vector2
@@ -26,13 +28,11 @@ void Vector2Abs(Vector2 vec, Vector2& out);
 
 void Vector2SquareRoot(Vector2 vec, Vector2& out);
 
-void Vector2Add(Vector2& v1, Vector2& v2, Vector2& out);
-
 float Vector2Dot(Vector2& v1, Vector2& v2);
 
 float Vector2Magnitude(Vector2& vec);
 
-Vector2 Vector2Normalize(Vector2& vec);
+void Vector2Normalize(Vector2& vec, Vector2& out);
 
 float Vector2Distance(Vector2& v1, Vector2& v2);
 
@@ -46,28 +46,32 @@ void Vector2Min(Vector2& v1, Vector2& v2, Vector2& out);
 
 void Vector2Clamp(Vector2& vecToClamp, Vector2& min, Vector2& max, Vector2& out);
 
-Vector2 operator-(Vector2 vec);
+void Vector2Add(Vector2& v1, Vector2& v2, Vector2& out);
 
-Vector2 operator+(Vector2 v1, Vector2 v2);
+void Vector2Negate(Vector2& vec, Vector2& out);
 
-Vector2 operator-(Vector2 v1, Vector2 v2);
+void Vector2Subtract(Vector2& v1, Vector2& v2, Vector2& out);
 
-Vector2 operator*(Vector2 vec, float a);
+void Vector2MultiplyByFloat(Vector2& vec, float a, Vector2& out);
 
-Vector2 operator*(Vector2 v1, Vector2 v2);
+void Vector2Multiply(Vector2& v1, Vector2& v2, Vector2& out);
 
-Vector2 operator/(Vector2 v1, Vector2 v2);
+void Vector2Dvide(Vector2& v1, Vector2& v2, Vector2& out);
 
-Vector2 operator/(Vector2 vec, float a);
+void Vector2DvideByFloat(Vector2& vec, float a, Vector2& out);
 
-bool operator==(Vector2 v1, Vector2 v2);
+bool Vector2Equals(Vector2 v1, Vector2 v2);
 
-bool operator!=(Vector2 v1, Vector2 v2);
+bool Vector2NotEqual(Vector2 v1, Vector2 v2);
 
-bool operator<(Vector2& v1, Vector2 v2);
+bool Vector2L(Vector2& v1, Vector2 v2);
 
-bool operator>(Vector2& v1, Vector2 v2);
+bool Vector2LE(Vector2& v1, Vector2 v2);
 
-std::string Vector2ToString(Vector2 vec);
+bool Vector2G(Vector2& v1, Vector2 v2);
 
-Vector2 FromVector3(Vector3& vec);
+bool Vector2GE(Vector2& v1, Vector2 v2);
+
+void Vector2ToString(Vector2& vec, string& out);
+
+void Vector2FromVector3(Vector3& vec, Vector2& out);

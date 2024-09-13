@@ -2,6 +2,8 @@
 
 #include <string>
 
+using namespace std;
+
 class Vector2;
 
 class Vector3
@@ -27,11 +29,9 @@ void Vector3Abs(Vector3& vec, Vector3& out);
 
 void Vector3SquareRoot(Vector3& vec, Vector3& out);
 
-void Vector3Add(Vector3& v1, Vector3& v2, Vector3& out);
-
 float Vector3Magnitude(Vector3& vec);
 
-Vector3 Vector3Normalize(Vector3& vec);
+void Vector3Normalize(Vector3& vec, Vector3& out);
 
 float Vector3Dot(Vector3& v1, Vector3& v2);
 
@@ -47,32 +47,32 @@ void Vector3Min(Vector3& v1, Vector3& v2, Vector3& out);
 
 void Vector3Clamp(Vector3& vecToClamp, Vector3& min, Vector3& max, Vector3& out);
 
-Vector3 operator-(Vector3 vec);
+void Vector3Add(Vector3& v1, Vector3& v2, Vector3& out);
 
-Vector3 operator+(Vector3 v1, Vector3 v2);
+void Vector3Negate(Vector3& vec, Vector3& out);
 
-Vector3 operator-(Vector3 v1, Vector3 v2);
+void Vector3Subtract(Vector3& v1, Vector3& v2, Vector3& out);
 
-Vector3 operator*(Vector3 vec, float a);
+void Vector3MultiplyByFloat(Vector3& vec, float a, Vector3& out);
 
-Vector3 operator*(Vector3 v1, Vector3 v2);
+void Vector3Multiply(Vector3& v1, Vector3& v2, Vector3& out);
 
-Vector3 operator/(Vector3 vec, float a);
+void Vector3Dvide(Vector3& v1, Vector3& v2, Vector3& out);
 
-Vector3 operator/(Vector3 v1, Vector3 v2);
+void Vector3DvideByFloat(Vector3& vec, float a, Vector3& out);
 
-bool operator==(Vector3 v1, Vector3 v2);
+bool Vector3Equals(Vector3 v1, Vector3 v2);
 
-bool operator!=(Vector3 v1, Vector3 v2);
+bool Vector3NotEqual(Vector3 v1, Vector3 v2);
 
-bool operator<(Vector3 v1, Vector3 v2);
+bool Vector3L(Vector3& v1, Vector3 v2);
 
-bool operator<=(Vector3 v1, Vector3 v2);
+bool Vector3LE(Vector3& v1, Vector3 v2);
 
-bool operator>(Vector3 v1, Vector3 v2);
+bool Vector3G(Vector3& v1, Vector3 v2);
 
-bool operator>=(Vector3 v1, Vector3 v2);
+bool Vector3GE(Vector3& v1, Vector3 v2);
 
-std::string Vector3ToString(Vector3& vec);
+void Vector3ToString(Vector3& vec, string& out);
 
-Vector3 FromVector2(Vector2& vec);
+void Vector3FromVector2(Vector2& vec, Vector3& out);
