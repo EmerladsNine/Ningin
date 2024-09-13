@@ -3,8 +3,8 @@
 #include <filesystem>
 #include <string>
 #include <unordered_map>
-#include "script_class.h"
-#include "script.h"
+#include "ScriptClass.h"
+#include "Script.h"
 
 class Mono
 {

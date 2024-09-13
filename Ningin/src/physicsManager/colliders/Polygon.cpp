@@ -15,4 +15,5 @@ string Polygon::ToString()
 		polygon_string += format("Vertex {}: Pos(x={}. y={})", i, vertex.x, vertex.y);
 		i++;
 	}
+	return polygon_string;
 }

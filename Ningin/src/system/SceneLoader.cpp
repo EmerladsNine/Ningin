@@ -1,16 +1,16 @@
 #include "SceneLoader.h"
 #include "../math/vector3.h"
-#include "../resource_manager/color.h"
-#include "../scene_system/entity/children.h"
-#include "../scene_system/entity/name.h"
-#include "../scene_system/entity/parent.h"
-#include "../scene_system/components/sprite_renderer.h"
-#include "../scene_system/components/text_renderer.h"
-#include "../scene_system/components/transform.h"
+#include "../resourceManager/color.h"
+#include "../sceneSystem/entity/children.h"
+#include "../sceneSystem/entity/name.h"
+#include "../sceneSystem/entity/parent.h"
+#include "../sceneSystem/components/SpriteRenderer.h"
+#include "../sceneSystem/components/TextRenderer.h"
+#include "../sceneSystem/components/transform.h"
 #include "../utills/FileReader.h"
-#include "../scene_system/components/ScriptVec.h"
-#include "../scripting/scripting_engine.h"
-#include "../scripting/script_language.h"
+#include "../sceneSystem/components/ScriptVec.h"
+#include "../scripting/ScriptingEngine.h"
+#include "../scripting/ScriptLanguage.h"
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
@@ -219,19 +219,19 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 				{
 					Vector3 pos(ReadFloat(&currentPointer), ReadFloat(&currentPointer),
 						ReadFloat(&currentPointer));
-					transform->setPosition(pos);
+					transform->SetPosition(pos);
 				}
 				else if (name == "Rotation")
 				{
 					Vector3 rot(ReadFloat(&currentPointer), ReadFloat(&currentPointer),
 						ReadFloat(&currentPointer));
-					transform->setRotation(rot);
+					transform->SetRotation(rot);
 				}
 				else if (name == "Scale")
 				{
 					Vector3 scale(ReadFloat(&currentPointer), ReadFloat(&currentPointer),
 						ReadFloat(&currentPointer));
-					transform->setScale(scale);
+					transform->SetScale(scale);
 				}
 			}
 
@@ -242,7 +242,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 		case 1: {
 			bool alpha = false;
 			bool useTint = true;
-			Color tintingColor = Color::defaultColor();
+			Color tintingColor = Color::DefaultColor();
 			std::string shader = "";
 			std::string textureName = "";
 
@@ -280,7 +280,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 		}
 
 		case 2: {
-			Color textColor = Color::defaultColor();
+			Color textColor = Color::DefaultColor();
 			std::string shader = "";
 			std::string fontName = "";
 			uint8_t fontSize = 0;

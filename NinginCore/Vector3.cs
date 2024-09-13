@@ -1,5 +1,5 @@
 using System.Runtime.CompilerServices;
-namespace Ningin
+namespace NinginCore
 {
     public struct Vector3
     {
@@ -20,48 +20,16 @@ namespace Ningin
             this.z = z;
         }
 
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern void _Abs(ref Vector3 self, out Vector3 result);
-        public Vector3 Abs() { _Abs(ref this, out Vector3 result); return result; }
-        
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern void _sqrt(ref Vector3 self, out Vector3 result);
-        public Vector3 Sqrt() { _sqrt(ref this, out Vector3 result); return result; }
-           
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern void _add(ref Vector3 self,ref Vector3 other, out Vector3 result);
-        public Vector3 Add(Vector3 Other) { _add(ref this,ref Other, out Vector3 result); return result; }
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern float _distance(ref Vector3 self,ref Vector3 other);
-        public float Distance(Vector3 Other) => _distance(ref this,ref Other);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern float _distanceSquared(ref Vector3 self,ref Vector3 other);
-        public float DistanceSquared(Vector3 Other) => _distanceSquared(ref this,ref Other);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern float _dot(ref Vector3 self,ref Vector3 other);
-        public float Dot(Vector3 Other) => _dot(ref this,ref Other);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern float _magnitude(ref Vector3 self);
-        public float Magnitude() => _magnitude(ref this);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern float _magnitudeSquared(ref Vector3 self);
-        public float MagnitudeSquared() => _magnitudeSquared(ref this);
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern void _max(ref Vector3 V1,ref Vector3 V2,out Vector3 result);
-        public static Vector3 Max(Vector3 V1,Vector3 V2) { _max(ref V1, ref V2, out Vector3 result); return result; }
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern void _min(ref Vector3 V1,ref Vector3 V2,out Vector3 result);
-        public static Vector3 Min(Vector3 V1,Vector3 V2) { _min(ref V1, ref V2, out Vector3 result); return result; }
-
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        private static extern void _clamp(ref Vector3 to_clamp,ref Vector3 min,ref Vector3 max,out Vector3 result);
-        public static Vector3 Clamp(Vector3 to_clamp,Vector3 min,Vector3 max) { _clamp(ref to_clamp,ref min, ref max, out Vector3 result); return result; }
+        public Vector3 Abs() { InternalCalls.Vector3Abs(ref this, out Vector3 result); return result; }
+        public Vector3 Sqrt() { InternalCalls.Vector3SquareRoot(ref this, out Vector3 result); return result; }
+        public Vector3 Add(Vector3 Other) { InternalCalls.Vector3Add(ref this,ref Other, out Vector3 result); return result; }
+        public float Distance(Vector3 Other) => InternalCalls.Vector3Distance(ref this,ref Other);
+        public float DistanceSquared(Vector3 Other) => InternalCalls.Vector3DistanceSquared(ref this,ref Other);
+        public float Dot(Vector3 Other) => InternalCalls.Vector3Dot(ref this,ref Other);
+        public float Magnitude() => InternalCalls.Vector3Magnitude(ref this);
+        public float MagnitudeSquared() => InternalCalls.Vector3MagnitudeSquared(ref this);
+        public static Vector3 Max(Vector3 V1,Vector3 V2) { InternalCalls.Vector3Max(ref V1, ref V2, out Vector3 result); return result; }
+        public static Vector3 Min(Vector3 V1,Vector3 V2) { InternalCalls.Vector3Min(ref V1, ref V2, out Vector3 result); return result; }
+        public static Vector3 Clamp(Vector3 to_clamp,Vector3 min,Vector3 max) { InternalCalls.Vector3Clamp(ref to_clamp,ref min, ref max, out Vector3 result); return result; }
     }
 }

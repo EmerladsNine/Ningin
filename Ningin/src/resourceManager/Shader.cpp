@@ -103,7 +103,7 @@ void Shader::DeleteShaders()
 void Shader::CheckExtension(filesystem::path& path, string& expectedExtension)
 {
 	if (path.extension() != expectedExtension) {
-		throw runtime_error(format("Invalid shader(path: {}) file extension.]\nExpected a file extension of: {}\n", path, expectedExtension));
+		throw runtime_error(format("Invalid shader(path: {}) file extension.]\nExpected a file extension of: {}\n", path.string(), expectedExtension));
 	}
 }
 
@@ -111,7 +111,7 @@ string Shader::LoadShader(filesystem::path& path)
 {
 	ifstream file(path);
 	if (!file.is_open()) {
-		throw runtime_error(format("Shader file of path: {} not found", path));
+		throw runtime_error(format("Shader file of path: {} not found", path.string()));
 	}
 	stringstream buffer;
 	buffer << file.rdbuf();

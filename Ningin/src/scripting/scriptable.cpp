@@ -1,5 +1,5 @@
 #include "scriptable.h"
-#include "../scene_system/components/ScriptVec.h"
+#include "../sceneSystem/components/ScriptVec.h"
 
 void ScriptSystem(float deltatime, EntityManager* entityManager)
 {

@@ -14,8 +14,6 @@ class SpriteSheetInfo
 
 		void AddSpriteTile(SpriteTile& spriteTile);
 
-		std::vector<SpriteTile> GetSpriteTiles();
-
 	private:
 		std::vector<SpriteTile> spriteTiles;
 };

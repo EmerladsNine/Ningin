@@ -129,10 +129,10 @@
     <ClCompile Include="src\Ningin.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\scriptable.cpp">
+    <ClCompile Include="src\scripting\Scriptable.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\scripting_engine.cpp">
+    <ClCompile Include="src\scripting\ScriptingEngine.cpp">
       <Filter>Source Files\scripting</Filter>
     </ClCompile>
     <ClCompile Include="src\system\Renderer.cpp">
@@ -153,23 +153,20 @@
     <ClCompile Include="src\Environment.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\ningin_mono\wrapper\debug.cpp">
+    <ClCompile Include="src\utills\Debug.cpp">
       <Filter>Source Files\scripting\mono\wrapper</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\ningin_mono\script_class.cpp">
+    <ClCompile Include="src\scripting\ninginMono\ScriptClass.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\ningin_mono\script.cpp">
+    <ClCompile Include="src\scripting\ninginMono\Script.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\ningin_mono\mono.cpp">
+    <ClCompile Include="src\scripting\ninginMono\Mono.cpp">
       <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\ningin_mono\internal_calls.cpp">
+    <ClCompile Include="src\scripting\ninginMono\InternalCalls.cpp">
       <Filter>Source Files\scripting\mono</Filter>
-    </ClCompile>
-    <ClCompile Include="src\scripting\ningin_mono\raw\mono_raw.cpp">
-      <Filter>Source Files\scripting\mono\raw</Filter>
     </ClCompile>
     <ClCompile Include="src\utills\FileReader.cpp">
       <Filter>Source Files\utils</Filter>
@@ -303,6 +300,9 @@
     <ClCompile Include="src\sceneSystem\components\transform.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
+    <ClCompile Include="src\scripting\ninginMono\wrapper\DebugWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector3.h">
@@ -323,13 +323,13 @@
     <ClInclude Include="src\Ningin.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\script_language.h">
+    <ClInclude Include="src\scripting\ScriptLanguage.h">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\scripting_engine.h">
+    <ClInclude Include="src\scripting\ScriptingEngine.h">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\scriptable.h">
+    <ClInclude Include="src\scripting\Scriptable.h">
       <Filter>Header Files\scripting</Filter>
     </ClInclude>
     <ClInclude Include="src\system\Renderer.h">
@@ -350,32 +350,20 @@
     <ClInclude Include="src\Environment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\mono.h">
+    <ClInclude Include="src\scripting\ninginMono\Mono.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\internal_calls.h">
+    <ClInclude Include="src\scripting\ninginMono\InternalCalls.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\script.h">
+    <ClInclude Include="src\scripting\ninginMono\Script.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\script_class.h">
+    <ClInclude Include="src\scripting\ninginMono\ScriptClass.h">
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\mono_paths.h">
+    <ClInclude Include="src\scripting\ninginMono\MonoPaths.h">
       <Filter>Header Files\scripting\mono</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\raw\mono.h">
-      <Filter>Header Files\scripting\mono\raw</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\raw\mono_type_def_enum.h">
-      <Filter>Header Files\scripting\mono\raw</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\raw\mono_meta_table_enum.h">
-      <Filter>Header Files\scripting\mono\raw</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\ningin_mono\wrapper\debug.h">
-      <Filter>Header Files\scripting\mono\wrapper</Filter>
     </ClInclude>
     <ClInclude Include="src\utills\FileReader.h">
       <Filter>Header Files\utils</Filter>
@@ -535,6 +523,12 @@
     </ClInclude>
     <ClInclude Include="src\sceneSystem\components\Button.h">
       <Filter>Header Files\sceneSystem\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utills\Debug.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scripting\ninginMono\wrapper\DebugWrapper.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

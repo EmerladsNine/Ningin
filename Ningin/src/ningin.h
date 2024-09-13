@@ -2,10 +2,10 @@
 
 #include "GL/glew.h"
 #include "freetype/freetype.h"
-#include "resource_manager/resource_manager.h"
-#include "system/scenes_loader.h"
+#include "resourceManager/ResourceManager.h"
+#include "system/SceneLoader.h"
 #include "system/window.h"
-#include "system/window_options.h"
+#include "system/WindowOptions.h"
 #include <glm.hpp>
 #include <string>
 #include <vector>

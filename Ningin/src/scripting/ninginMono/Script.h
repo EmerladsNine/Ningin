@@ -1,6 +1,6 @@
 #pragma once
 #include <mono/metadata/metadata.h>
-#include "script_class.h"
+#include "ScriptClass.h"
 #include "../scriptable.h"
 class Script : public Scriptable
 {

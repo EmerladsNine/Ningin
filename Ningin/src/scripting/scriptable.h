@@ -1,5 +1,5 @@
 #pragma once
-#include "../scene_system/ecs/entity_manager.h"
+#include "../sceneSystem/ecs/EntityManager.h"
 
 class Scriptable
 {

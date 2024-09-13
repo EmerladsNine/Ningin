@@ -1,5 +1,5 @@
 #include "Ningin.h"
-#include "scene_system/world.h"
+#include "sceneSystem/World.h"
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);

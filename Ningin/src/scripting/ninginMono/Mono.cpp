@@ -2,7 +2,7 @@
 #include <mono/metadata/assembly.h>
 #include <stdexcept>
 #include <iostream>
-#include "internal_calls.h"
+#include "InternalCalls.h"
 #include "../../environment.h"
 #include "../../math/vector2.h"
 #include "../../utills/FileReader.h"
@@ -96,6 +96,7 @@ Script* Mono::GetScript(std::string scritpName)
 	}
 	else
 	{
+		//Script is not loaded.
 		ScriptClass* scriptClass = LoadScript(scritpName);
 		return BuildScript(scriptClass);
 	}
@@ -113,10 +114,11 @@ ScriptClass* Mono::LoadScript(std::string scriptFullName)
 	if (dotPos == std::string::npos) {
 		throw std::invalid_argument("Invalid script name format.");
 	}
-
+	//Split FullName : "namespace.classname"
 	std::string nameSpace = scriptFullName.substr(0, dotPos);
 	std::string className = scriptFullName.substr(dotPos + 1);
 
+	//Load the class.
 	MonoImage* image = mono_assembly_get_image(gameAssembly);
 	MonoClass* klass = mono_class_from_name(image, nameSpace.c_str(), className.c_str());
 
@@ -146,7 +148,9 @@ MonoMethod* GetMethod(MonoClass* klass, std::string name, int paramsCount)
 void* InvokeMethod(MonoObject* obj, MonoMethod* method,std::vector<void*> params)
 {
 	MonoObject* exception = nullptr;
+	//Invoke Method
 	MonoObject* result = mono_runtime_invoke(method, obj, params.data(), &exception);
+	//Handle Exceptions.
 	if (exception != nullptr)
 	{
 		MonoString* excp_str = mono_object_to_string(exception, nullptr);
@@ -158,6 +162,7 @@ void* InvokeMethod(MonoObject* obj, MonoMethod* method,std::vector<void*> params
 		throw std::out_of_range(error_message);
 	}
 
+	//Unbox result to void*.
 	if (result != nullptr)
 	{
 		return mono_object_unbox(result);

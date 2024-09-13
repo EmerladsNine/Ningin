@@ -4,6 +4,6 @@
 
 void RendererSystem(float deltaTime, EntityManager* entityManager)
 {
-	Text::system(entityManager);
-	SpriteRenderer::system(entityManager);
+	Text::System(entityManager);
+	SpriteRenderer::System(entityManager);
 }

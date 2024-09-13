@@ -1,8 +1,8 @@
 #include "SpriteRenderer.h"
 
 SpriteRenderer::SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor,
-	bool uSetint, bool alpha) : alpha(alpha), shader(resourceManager.getShader(shaderName)), quadVAO(0),
-	texture(resourceManager.getTexture(textureName)), tintingColor(tintingColor), usetint(usetint),
+	bool uSetint, bool alpha) : alpha(alpha), shader(resourceManager.GetShader(shaderName)), quadVAO(0),
+	texture(resourceManager.GetTexture(textureName)), tintingColor(tintingColor), usetint(usetint),
 	userShader(shaderName != "sprite")
 {
 	InitializeRenderData();

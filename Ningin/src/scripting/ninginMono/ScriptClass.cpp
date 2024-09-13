@@ -1,4 +1,4 @@
-#include "script_class.h"
+#include "ScriptClass.h"
 
 ScriptClass::ScriptClass() : klass(nullptr) , startMethod(nullptr) , updateMethod(nullptr) , lateUpdateMethod(nullptr) , destroyMethod(nullptr)
 {

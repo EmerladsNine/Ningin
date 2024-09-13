@@ -1,12 +1,12 @@
 #pragma once
 
-#include "../../physics_manager/CollisionDetectionMode.h"
-#include "../../physics_manager/PhysicsMaterial2D.h"
-#include "../../physics_manager/InterpolationMode.h"
-#include "../../physics_manager/force/force.h"
-#include "../../physics_manager/SleepMode.h"
-#include "../../physics_manager/bodyTypes.h"
-#include "../../physics_manager/mask2.h"
+#include "../../physicsManager/CollisionDetectionMode.h"
+#include "../../physicsManager/PhysicsMaterial2D.h"
+#include "../../physicsManager/InterpolationMode.h"
+#include "../../physicsManager/force/force.h"
+#include "../../physicsManager/SleepMode.h"
+#include "../../physicsManager/bodyTypes.h"
+#include "../../physicsManager/mask2.h"
 #include "../../math/vector2.h"
 #include "../../ningin.h"
 #include <vector>

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../math/dimensions2.h"
-#include "../scene_system/scene.h"
+#include "../math/Dimensions2.h"
+#include "../sceneSystem/Scene.h"
 #include "SceneManager.h"
 #include <GLFW/glfw3.h>
 #include <string>

@@ -38,12 +38,12 @@ void Atlas::AddSprites(std::filesystem::path& spriteSheetPath, SpriteSheetInfo& 
 {
 	Texture2D texture(spriteSheetPath, true);
 
-	GLuint fbo = GenerateFrameBuffer(texture.getID());
-	for (auto& sprite : info.getSpriteTiles())
+	GLuint fbo = GenerateFrameBuffer(texture.GetID());
+	for (auto& sprite : info.GetSpriteTiles())
 	{
 		std::vector<uint8_t> data = GetSpriteTileData(sprite);
-		Dimensions2 dimensions = sprite.getDimensions();
-		std::string name = sprite.getName();
+		Dimensions2 dimensions = sprite.GetDimensions();
+		std::string name = sprite.GetName();
 		AddSpriteFromData(data, dimensions, name);
 	}
 
@@ -70,9 +70,9 @@ GLuint Atlas::GenerateFrameBuffer(GLuint texture)
 
 std::vector<uint8_t> Atlas::GetSpriteTileData(SpriteTile& sprite)
 {
-	std::vector<uint8_t> pixels(sprite.getDimensions().width * sprite.getDimensions().height * 4);
-	glReadPixels(static_cast<GLint>(sprite.getInSheetPosition().x), static_cast<GLint>(sprite.getInSheetPosition().y),
-		sprite.getDimensions().width, sprite.getDimensions().height, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
+	std::vector<uint8_t> pixels(sprite.GetDimensions().width * sprite.GetDimensions().height * 4);
+	glReadPixels(static_cast<GLint>(sprite.GetInSheetPosition().x), static_cast<GLint>(sprite.GetInSheetPosition().y),
+		sprite.GetDimensions().width, sprite.GetDimensions().height, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
 	return pixels;
 }
 
@@ -121,7 +121,7 @@ bool Atlas::CanAddSprite()
 
 bool Atlas::CanAddSpriteSheet(SpriteSheetInfo& spriteSheet)
 {
-	return (index + spriteSheet.getSpriteTiles().size()) < ATLAS_LIMIT - 1;
+	return (index + spriteSheet.GetSpriteTiles().size()) < ATLAS_LIMIT - 1;
 }
 
 void Atlas::Unbind()
@@ -157,10 +157,10 @@ SpriteSheetInfo Atlas::ParseJson(std::filesystem::path& infoPath)
 			SpriteTile spriteTile(std::string(""), Vector2(), Dimensions2());
 
 			// Populate SpriteTile fields
-			spriteTile.setName(tile["name"].asString());
-			spriteTile.setDimensions(
+			spriteTile.SetName(tile["name"].asString());
+			spriteTile.SetDimensions(
 				Dimensions2(tile["dimensions"]["width"].asInt(), tile["dimensions"]["height"].asInt()));
-			spriteTile.setInSheetPosition(Vector2(static_cast<float>(tile["inSheetPosition"]["x"].asInt()),
+			spriteTile.SetInSheetPosition(Vector2(static_cast<float>(tile["inSheetPosition"]["x"].asInt()),
 				static_cast<float>(tile["inSheetPosition"]["y"].asInt())));
 
 			// Add to the SpriteSheetInfo

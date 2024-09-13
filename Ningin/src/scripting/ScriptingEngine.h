@@ -1,7 +1,7 @@
 #pragma once
-#include "ningin_mono/mono.h"
-#include "ningin_mono/mono_paths.h"
-#include "script_language.h"
+#include "ninginMono/mono.h"
+#include "ninginMono/MonoPaths.h"
+#include "ScriptLanguage.h"
 #include <optional>
 #include <string>
 
