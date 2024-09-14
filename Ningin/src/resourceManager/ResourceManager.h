@@ -41,11 +41,11 @@ class ResourceManager
 		Font GetFont(std::string& name);
 
 	private:
-		std::unordered_map<std::string, Texture2D> textures;
-		std::unordered_map<std::string, SpriteInfo> sprites;
-		std::unordered_map<std::string, Shader> shaders;
-		std::unordered_map<std::string, Font> fonts;
-		std::vector<Atlas> atlases;
+		std::unordered_map<std::string, Texture2D> _textures;
+		std::unordered_map<std::string, SpriteInfo> _sprites;
+		std::unordered_map<std::string, Shader> _shaders;
+		std::unordered_map<std::string, Font> _fonts;
+		std::vector<Atlas> _atlases;
 
 		//std::unordered_map<std::string, PhyscicsMaterial2D> physicsMaterials2D;
 };

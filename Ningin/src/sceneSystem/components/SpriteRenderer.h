@@ -17,40 +17,40 @@ using namespace std;
 
 class SpriteRenderer
 {
-public:
-	SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor, bool usetint, bool alpha);
-	~SpriteRenderer();
+	public:
+		SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor, bool usetint, bool alpha);
+		~SpriteRenderer();
 
-	void SetTintingColor(Color& newColor);
-	void SetUseTint(bool uSetint);
+		void SetTintingColor(Color& newColor);
+		void SetUseTint(bool uSetint);
 
-	void SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
-		function<void()> drawingFunc);
+		void SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
+			function<void()> drawingFunc);
 
-	static void System(EntityManager* entityManager);
-	void Draw(Transform& transform);
+		static void System(EntityManager* entityManager);
+		void Draw(Transform& transform);
 
-private:
-	void InitializeRenderData();
-	void InitializeVAO();
-	void InitializeVBO();
+	private:
+		void InitializeRenderData();
+		void InitializeVAO();
+		void InitializeVBO();
 
-	void SetDrawingUniforms(Transform& transform);
-	void SetShaderInitialUniforms();
+		void SetDrawingUniforms(Transform& transform);
+		void SetShaderInitialUniforms();
 
-	void SetupVertexAttrib();
+		void SetupVertexAttrib();
 
-	glm::mat4 ComputeModelMatrix(Transform& transform);
+		glm::mat4 ComputeModelMatrix(Transform& transform);
 
-	void FreeInitializationResources();
-	void FreeDrawingResources();
+		void FreeInitializationResources();
+		void FreeDrawingResources();
 
-	unordered_map<string, function<void()>> userUniforms;
-	Color tintingColor;
-	Texture2D texture;
-	bool userShader;
-	GLuint quadVAO;
-	Shader shader;
-	bool usetint;
-	bool alpha;
+		unordered_map<string, function<void()>> _userUniforms;
+		Color _tintingColor;
+		Texture2D _texture;
+		bool _userShader;
+		GLuint _quadVAO;
+		Shader _shader;
+		bool _useTint;
+		bool _alpha;
 };

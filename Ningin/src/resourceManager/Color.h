@@ -4,6 +4,8 @@
 #include <format>
 #include <string>
 
+using namespace std;
+
 class Color
 {
 	public:
@@ -20,7 +22,7 @@ class Color
 
 		void SetAlpha(uint8_t a);
 
-		std::string ToString();
+		string ToString();
 
 		static Color DefaultColor();
 };

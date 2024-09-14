@@ -2,41 +2,41 @@
 #include <iostream>
 #include <stdexcept>
 
-Texture2D::Texture2D( std::filesystem::path& imgPath, bool alpha) : id(0), imgPath(imgPath),
-	imgFormat(alpha ? GL_RGBA : GL_RGB)
+Texture2D::Texture2D(filesystem::path& imgPath, bool alpha) : _id(0), _imgPath(imgPath),
+	_imgFormat(alpha ? GL_RGBA : GL_RGB)
 {
 	LoadTexture();
-	SetupTexture(dimensions.width, dimensions.height);
+	SetupTexture(_dimensions.width, _dimensions.height);
 	CreateTextureMipmap();
 }
 
 Texture2D::~Texture2D()
 {
-	glDeleteTextures(1, &id);
+	glDeleteTextures(1, &_id);
 }
 
 void Texture2D::Bind() 
 {
-	glBindTexture(GL_TEXTURE_2D, id);
+	glBindTexture(GL_TEXTURE_2D, _id);
 }
 
 GLuint Texture2D::GetID()
 {
-	return id;
+	return _id;
 }
 
 Dimensions2 Texture2D::GetDimensions()
 {
-	return dimensions;
+	return _dimensions;
 }
 
 void Texture2D::SetupTexture(int width, int height)
 {
-	glGenTextures(1, &id);
-	glBindTexture(GL_TEXTURE_2D, id);
+	glGenTextures(1, &_id);
+	glBindTexture(GL_TEXTURE_2D, _id);
 
-	glTexImage2D(GL_TEXTURE_2D, 0, imgFormat, width, height, 0, imgFormat, GL_UNSIGNED_BYTE,
-		data.empty() ? nullptr : data.data());
+	glTexImage2D(GL_TEXTURE_2D, 0, _imgFormat, width, height, 0, _imgFormat, GL_UNSIGNED_BYTE,
+		_data.empty() ? nullptr : _data.data());
 
 	// Set texture wrapping parameters
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -55,14 +55,14 @@ void Texture2D::CreateTextureMipmap()
 void Texture2D::LoadTexture()
 {
 	int width, height, channels;
-	unsigned char* imgData = stbi_load(imgPath.string().c_str(), &width, &height, &channels, 4);
+	unsigned char* imgData = stbi_load(_imgPath.string().c_str(), &width, &height, &channels, 4);
 
 	if (!imgData)
 	{
-		throw std::runtime_error("Failed to load image");
+		throw runtime_error("Failed to load image");
 	}
 
-	dimensions = Dimensions2(width, height);
-	data.assign(imgData, imgData + width * height * 4);
+	_dimensions = Dimensions2(width, height);
+	_data.assign(imgData, imgData + width * height * 4);
 	stbi_image_free(imgData);
 }

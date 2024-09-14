@@ -1,23 +1,21 @@
 #include "FontTexture.h"
 #include <stdexcept>
 
-FontTexture::FontTexture() : textureArray(0)
-{
-}
+FontTexture::FontTexture() : _textureArray(0) {}
 
 FontTexture::~FontTexture()
 {
-	if (textureArray != 0)
+	if (_textureArray != 0)
 	{
-		glDeleteTextures(1, &textureArray);
+		glDeleteTextures(1, &_textureArray);
 	}
 }
 
 void FontTexture::GenerateTexture()
 {
-	glGenTextures(1, &textureArray);
+	glGenTextures(1, &_textureArray);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, textureArray);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, _textureArray);
 
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_R8, 256, 256, 128, 0, GL_RED, GL_UNSIGNED_BYTE, nullptr);
 }
@@ -43,5 +41,5 @@ void FontTexture::Unbind()
 
 GLuint FontTexture::GetTextureArray()
 {
-	return textureArray;
+	return _textureArray;
 }

@@ -3,16 +3,17 @@
 #include <tuple>
 #include <format>
 
+using namespace std;
+
 class Mask3
 {
-public:
-	bool x, y, z;
+	public:
+		Mask3(bool x, bool y, bool z);
+		Mask3();
 
-	Mask3(bool x, bool y, bool z);
+		tuple<bool, bool, bool> Deconstruct();
 
-	Mask3();
-
-	std::tuple<bool, bool, bool> Deconstruct();
+		bool x, y, z;
 };
 
-std::string Mask3ToString(Mask3 mask);
+string Mask3ToString(Mask3 mask);

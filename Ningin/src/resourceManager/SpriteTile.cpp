@@ -1,34 +1,34 @@
 #include "SpriteTile.h"
 
 SpriteTile::SpriteTile(string name, Vector2 inSheetPosition, Dimensions2 dimensions)
-	: name(name), inSheetPosition(inSheetPosition), dimensions(dimensions) {}
+	: _name(name), _inSheetPosition(inSheetPosition), _dimensions(dimensions) {}
 
 string SpriteTile::GetName()
 {
-	return name;
+	return _name;
 }
 
 Vector2 SpriteTile::GetInSheetPosition()
 {
-	return inSheetPosition;
+	return _inSheetPosition;
 }
 
 Dimensions2 SpriteTile::GetDimensions()
 {
-	return dimensions;
+	return _dimensions;
 }
 
 void SpriteTile::SetName(string& name)
 {
-	this->name = name;
+	this->_name = name;
 }
 
 void SpriteTile::SetInSheetPosition(Vector2& inSheetPosition)
 {
-	inSheetPosition = inSheetPosition;
+	_inSheetPosition = inSheetPosition;
 }
 
 void SpriteTile::SetDimensions(Dimensions2& dimensions)
 {
-	this->dimensions = dimensions;
+	this->_dimensions = dimensions;
 }

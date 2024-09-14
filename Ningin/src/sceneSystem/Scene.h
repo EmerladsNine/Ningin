@@ -3,13 +3,16 @@
 #include "World.h"
 #include <string>
 
+using namespace std;
+
 class Scene
 {
 	public:
-		Scene(std::string name);
-
-		std::string name;
-		World world;
+		Scene(string name);
 
 		void NewFrame(float deltaTime);
+
+		string name;
+		World world;
+
 };

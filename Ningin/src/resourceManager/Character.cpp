@@ -1,24 +1,24 @@
 #include "Character.h"
 
 Character::Character(int asciiIndex, Dimensions2 size, Dimensions2 bearing, unsigned int advance)
-	: asciiIndex(asciiIndex), size(size), bearing(bearing), advance(advance) {}
+	: _asciiIndex(asciiIndex), _size(size), _bearing(bearing), _advance(advance) {}
 
 int Character::GetAsciiIndex()
 {
-	return asciiIndex;
+	return _asciiIndex;
 }
 
 Dimensions2& Character::GetSize()
 {
-	return size;
+	return _size;
 }
 
 Dimensions2& Character::GetBearing()
 {
-	return bearing;
+	return _bearing;
 }
 
 unsigned int Character::GetAdvance()
 {
-	return advance;
+	return _advance;
 }

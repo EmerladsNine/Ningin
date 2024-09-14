@@ -20,5 +20,5 @@ class FontTexture
 		void Unbind();
 
 	private:
-		GLuint textureArray;
+		GLuint _textureArray;
 };

@@ -19,38 +19,38 @@ class RigidBody2D {
 		static void System(EntityManager* entityManager);
 
 	private:
-		float mass;
-		float inertia;
+		float _mass;
+		float _inertia;
 
-		float linearDamping;
-		float angularDamping;
+		float _linearDamping;
+		float _angularDamping;
 
-		bool Simulated; // Forces are no longer applied
-		bool useAutoInertia; // Calculates inertia using the mass
+		bool _simulated; // Forces are no longer applied
+		bool _useAutoInertia; // Calculates inertia using the mass
 
-		BodyTypes bodyType;
+		BodyTypes _bodyType;
 
-		PhyscicsMaterial2D physcisMaterial;
+		PhyscicsMaterial2D _physcisMaterial;
 
-		CollisionDetectionMode collisionDetectionMode;
-		InterpolationMode interpolationMode;
-		SleepMode sleepMode;
+		CollisionDetectionMode _collisionDetectionMode;
+		InterpolationMode _interpolationMode;
+		SleepMode _sleepMode;
 
-		std::vector<Force2D> forces;
-		//std::vector<Torque2D> torques;
+		std::vector<Force2D> _forces;
+		//std::vector<Torque2D> _torques;
 
-		Force2D constantForce; // Total positional forces applied during each frame
-		//Torque2D constantTorque; // Total rotational forces applied during each frame
+		Force2D _constantForce; // Total positional forces applied during each frame
+		//Torque2D _constantTorque; // Total rotational forces applied during each frame
 
-		Force2D gravity;
+		Force2D _gravity;
 
-		Vector2 centerOfMass;
+		Vector2 _centerOfMass;
 
-		Vector2 linearVelocity;
-		Vector2 angularVelocity;
+		Vector2 _linearVelocity;
+		Vector2 _angularVelocity;
 
-		Mask2 freezePosition;
-		bool freezeRotation;
+		Mask2 _freezePosition;
+		bool _freezeRotation;
 
 		void Update();
 };

@@ -17,7 +17,7 @@
     }
 
     // Sprite{
-    //     Alpha(true)
+    //     useAlpha(true)
     //     UseTint(true)
     //     TintingColor(205, 155, 0, 255)
     //     TextureName("name")

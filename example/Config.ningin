@@ -15,7 +15,7 @@
 //}
 
 !Sprite:1{
-    Alpha(Bool)
+    useAlpha(Bool)
     UseTint(Bool)
     TintingColor(U8, U8, U8, U8)
     TextureName(String)

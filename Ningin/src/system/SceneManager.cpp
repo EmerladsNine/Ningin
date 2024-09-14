@@ -1,8 +1,6 @@
 #include "SceneManager.h"
 
-SceneManager::SceneManager(Scene* currentScene) : currentScene(currentScene)
-{
-}
+SceneManager::SceneManager(Scene* currentScene) : currentScene(currentScene) {}
 
 void SceneManager::NewFrame(float deltaTime)
 {

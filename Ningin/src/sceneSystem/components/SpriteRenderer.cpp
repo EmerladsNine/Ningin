@@ -1,9 +1,9 @@
 #include "SpriteRenderer.h"
 
 SpriteRenderer::SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor,
-	bool uSetint, bool alpha) : alpha(alpha), shader(resourceManager.GetShader(shaderName)), quadVAO(0),
-	texture(resourceManager.GetTexture(textureName)), tintingColor(tintingColor), usetint(usetint),
-	userShader(shaderName != "sprite")
+	bool useTint, bool alpha) : _alpha(alpha), _shader(resourceManager.GetShader(shaderName)), _quadVAO(0),
+	_texture(resourceManager.GetTexture(textureName)), _tintingColor(tintingColor), _useTint(useTint),
+	_userShader(shaderName != "sprite")
 {
 	InitializeRenderData();
 	SetShaderInitialUniforms();
@@ -11,7 +11,7 @@ SpriteRenderer::SpriteRenderer(string& textureName, string& shaderName, Color& t
 
 SpriteRenderer::~SpriteRenderer()
 {
-	glDeleteVertexArrays(1, &quadVAO);
+	glDeleteVertexArrays(1, &_quadVAO);
 }
 
 void SpriteRenderer::InitializeRenderData()
@@ -24,8 +24,8 @@ void SpriteRenderer::InitializeRenderData()
 
 void SpriteRenderer::InitializeVAO()
 {
-	glGenVertexArrays(1, &quadVAO);
-	glBindVertexArray(quadVAO);
+	glGenVertexArrays(1, &_quadVAO);
+	glBindVertexArray(_quadVAO);
 }
 
 void SpriteRenderer::InitializeVBO()
@@ -56,11 +56,12 @@ void SpriteRenderer::SetShaderInitialUniforms()
 	string projectionMatrixName = string("projection");
 	string SpriteSamplerName = string("sprite");
 
-	shader.SetMatrix4(projectionMatrixName, projectionMatrix);
-	shader.SetInt(SpriteSamplerName, 0);
+	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
+	_shader.SetInt(SpriteSamplerName, 0);
 
-	if (userUniforms.find("init") != userUniforms.end()) {
-		userUniforms["init"]();
+	if (_userUniforms.find("init") != _userUniforms.end())
+	{
+		_userUniforms["init"]();
 	}
 }
 
@@ -69,15 +70,15 @@ void SpriteRenderer::Draw(Transform& transform)
 	SetDrawingUniforms(transform);
 
 	glActiveTexture(GL_TEXTURE0);
-	texture.Bind();
+	_texture.Bind();
 
-	if (userUniforms.find("drawing") != userUniforms.end())
+	if (_userUniforms.find("drawing") != _userUniforms.end())
 	{
-		userUniforms["drawing"]();
+		_userUniforms["drawing"]();
 		return;
 	}
 
-	glBindVertexArray(quadVAO);
+	glBindVertexArray(_quadVAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	FreeDrawingResources();
@@ -85,31 +86,31 @@ void SpriteRenderer::Draw(Transform& transform)
 
 void SpriteRenderer::SetTintingColor(Color& newColor)
 {
-	tintingColor = newColor;
+	_tintingColor = newColor;
 }
 
-void SpriteRenderer::SetUseTint(bool ustint)
+void SpriteRenderer::SetUseTint(bool useTint)
 {
-	this->usetint = usetint;
+	this->_useTint = useTint;
 }
 
 void SpriteRenderer::SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
 	function<void()> drawingFunc)
 {
-	if (!userShader) return;
+	if (!_userShader) return;
 
-	if (initFunc) userUniforms["init"] = initFunc;
+	if (initFunc) _userUniforms["init"] = initFunc;
 
-	if (initDrawingFunc) userUniforms["init_drawing"] = initDrawingFunc;
+	if (initDrawingFunc) _userUniforms["init_drawing"] = initDrawingFunc;
 
-	if (drawingFunc) userUniforms["drawing"] = drawingFunc;
+	if (drawingFunc) _userUniforms["drawing"] = drawingFunc;
 }
 
 glm::mat4 SpriteRenderer::ComputeModelMatrix(Transform& transform)
 {
 	Vector3 pos = transform.GetPosition();
 	Vector3 scale = transform.GetScale();
-	Dimensions2 dimensions = texture.GetDimensions();
+	Dimensions2 dimensions = _texture.GetDimensions();
 
 	glm::mat4 model(1.0f);
 	model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
@@ -125,22 +126,22 @@ void SpriteRenderer::SetDrawingUniforms(Transform& transform)
 {
 	string projectionMatrixName = string("projection");
 	string TintingColorName = string("TintingColor");
-	string usetintName = string("usetint");
+	string usetintName = string("useTint");
 	string modelName = string("model");
 
 	glm::mat4 model = ComputeModelMatrix(transform);
 
-	shader.SetMatrix4(projectionMatrixName, projectionMatrix);
-	shader.SetMatrix4(modelName, model);
-	shader.SetBool(usetintName, usetint);
+	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
+	_shader.SetMatrix4(modelName, model);
+	_shader.SetBool(usetintName, _useTint);
 
-	if (userUniforms.find("init_drawing") != userUniforms.end())
+	if (_userUniforms.find("init_drawing") != _userUniforms.end())
 	{
-		userUniforms["init_drawing"]();
+		_userUniforms["init_drawing"]();
 	}
 
-	shader.SetFloatVec4(TintingColorName, tintingColor.r / 255.0f, tintingColor.g / 255.0f, tintingColor.b / 255.0f,
-		alpha ? tintingColor.a / 255.0f : 1.0f);
+	_shader.SetFloatVec4(TintingColorName, _tintingColor.r / 255.0f, _tintingColor.g / 255.0f,
+		_tintingColor.b / 255.0f, _alpha ? _tintingColor.a / 255.0f : 1.0f);
 }
 
 void SpriteRenderer::FreeDrawingResources()
@@ -153,23 +154,28 @@ void SpriteRenderer::System(EntityManager* entityManager)
 {
 	auto& transformArchetypeMap = entityManager->archetypeManager.componentIndex[typeid(Transform)];
 
-	for (auto& SpriteArchetype : entityManager->archetypeManager.componentIndex[typeid(SpriteRenderer)]) {
+	for (auto& SpriteArchetype : entityManager->archetypeManager.componentIndex[typeid(SpriteRenderer)])
+	{
 		auto it = transformArchetypeMap.find(SpriteArchetype.first);
 
-		if (it != transformArchetypeMap.end()) {
+		if (it != transformArchetypeMap.end())
+		{
 			size_t spriteColumn = SpriteArchetype.second.column;
 			size_t transformColumn = it->second.column;
 
 			int row = 0;
 
-			for (void* spriteData : SpriteArchetype.second.archetype->components[spriteColumn]) {
-				if (spriteData == nullptr) {
+			for (void* spriteData : SpriteArchetype.second.archetype->components[spriteColumn])
+			{
+				if (spriteData == nullptr)
+				{
 					return;
 				}
 
 				void* transformData = SpriteArchetype.second.archetype->components[transformColumn][row];
 
-				if (transformData == nullptr) {
+				if (transformData == nullptr)
+				{
 					return;
 				}
 

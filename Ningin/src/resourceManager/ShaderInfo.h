@@ -4,17 +4,20 @@
 #include <filesystem>
 #include <string>
 
+using namespace std;
+
 class ShaderInfo
 {
 	public:
-		ShaderInfo(std::filesystem::path& vertexPath, std::filesystem::path& fragmentPath,
-			std::string& name);
+		ShaderInfo(filesystem::path& vertexPath, filesystem::path& fragmentPath,
+			string& name);
 
-		void AddPaths(std::filesystem::path& vertexPath, std::filesystem::path& fragmentPath);
-		std::string GetName();
-		std::filesystem::path GetPath(std::string name);
+		void AddPaths(filesystem::path& vertexPath, filesystem::path& fragmentPath);
+		string GetName();
+
+		filesystem::path GetPath(string name);
 
 	private:
-		std::unordered_map<std::string, std::filesystem::path> paths;
-		std::string name;
+		unordered_map<string, filesystem::path> _paths;
+		string _name;
 };

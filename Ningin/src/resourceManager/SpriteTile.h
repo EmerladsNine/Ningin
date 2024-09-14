@@ -20,7 +20,7 @@ class SpriteTile
 		void SetName(string& name);
 
 	private:
-		Vector2 inSheetPosition;
-		Dimensions2 dimensions;
-		string name;
+		Vector2 _inSheetPosition;
+		Dimensions2 _dimensions;
+		string _name;
 };

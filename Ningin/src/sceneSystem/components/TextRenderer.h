@@ -17,11 +17,11 @@
 
 using namespace std;
 
-class Text
+class TextRenderer
 {
 	public:
-		Text(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize);
-		~Text();
+		TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize);
+		~TextRenderer();
 
 		void SetTextColor(Color& newColor);
 		void SetFontSize(uint8_t fontSize);
@@ -55,19 +55,19 @@ class Text
 		void ConfigureDrawingContext();
 		void RenderText(int32_t length);
 
-		unordered_map<string, function<void()>> userUniforms;
-		vector<glm::mat4> transforms;
-		vector<int32_t> charsMap;
-		Dimensions2 textDimensions;
-		float letterDimensions;
-		glm::mat4 baseModel;
-		bool mustCalculate;
-		string text;
-		uint8_t fontSize;
-		Color textColor;
-		bool userShader;
-		Shader shader;
-		GLuint vao;
-		GLuint vbo;
-		Font font;
+		unordered_map<string, function<void()>> _userUniforms;
+		vector<glm::mat4> _transforms;
+		vector<int32_t> _charsMap;
+		Dimensions2 _textDimensions;
+		float _letterDimensions;
+		glm::mat4 _baseModel;
+		bool _mustCalculate;
+		string _text;
+		uint8_t _fontSize;
+		Color _textColor;
+		bool _userShader;
+		Shader _shader;
+		GLuint _vao;
+		GLuint _vbo;
+		Font _font;
 };

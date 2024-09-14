@@ -17,9 +17,9 @@ class Font
 		std::unordered_map<unsigned char, Character> GetCharMap();
 
 	private:
-		std::filesystem::path fontPath;
-		std::unordered_map<unsigned char, Character> charMap;
-		FontTexture fontTexture;
+		std::filesystem::path _fontPath;
+		std::unordered_map<unsigned char, Character> _charMap;
+		FontTexture _fontTexture;
 
 		void PrepareFont(FT_Library ftLibrary);
 		FT_Face LoadFont(FT_Library ftLibrary);

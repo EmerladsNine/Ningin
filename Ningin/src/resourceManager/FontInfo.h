@@ -21,7 +21,7 @@ class FontInfo
 		string& GetName();
 
 	private:
-		FT_Library ftLibrary;
-		filesystem::path fontPath;
-		string name;
+		FT_Library _ftLibrary;
+		filesystem::path _fontPath;
+		string _name;
 };

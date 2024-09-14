@@ -1,17 +1,17 @@
 #include "Debug.h"
 #include <iostream>
 
-void LogInfo(const std::string& message)
+void LogInfo(const string& message)
 {
-	std::cerr << "[Info] " << message << std::endl;
+	cerr << "[Info] " << message << endl;
 }
 
-void LogError(const std::string& message)
+void LogError(const string& message)
 {
-	std::cerr << "[Error] " << message << std::endl;
+	cerr << "[Error] " << message << endl;
 }
 
-void LogWarning(const std::string& message)
+void LogWarning(const string& message)
 {
-	std::cerr << "[Warning] " << message << std::endl;
+	cerr << "[Warning] " << message << endl;
 }

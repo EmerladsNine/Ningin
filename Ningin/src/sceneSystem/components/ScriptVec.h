@@ -3,11 +3,13 @@
 #include "../../scripting/Scriptable.h"
 #include <vector>
 
+using namespace std;
+
 class ScriptVec
 {
 	public:
 		ScriptVec();
 		~ScriptVec();
 
-		std::vector<Scriptable*> scripts;
+		vector<Scriptable*> scripts;
 };

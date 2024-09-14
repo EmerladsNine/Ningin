@@ -8,35 +8,37 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 class Shader
 {
 	public:
-		Shader(std::filesystem::path vertexPath, std::filesystem::path fragmentPath);
+		Shader(filesystem::path vertexPath, filesystem::path fragmentPath);
 		~Shader();
 
 		void Use();
-		void SetBool(std::string& name, bool value);
-		void SetInt(std::string& name, int value);
-		void SetIntWithLength(std::string& name, int length, std::vector<int>& values);
-		void SetFloat(std::string& name, float value);
-		void SetFloatVec4(std::string& name, float value1, float value2, float value3, float value4);
-		void SetMatrix4(std::string& name, glm::mat4& matrix);
-		void SetMatrix4WithLength(std::string& name, int length, std::vector<glm::mat4>& matrices);
+		void SetBool(string& name, bool value);
+		void SetInt(string& name, int value);
+		void SetIntWithLength(string& name, int length, vector<int>& values);
+		void SetFloat(string& name, float value);
+		void SetFloatVec4(string& name, float value1, float value2, float value3, float value4);
+		void SetMatrix4(string& name, glm::mat4& matrix);
+		void SetMatrix4WithLength(string& name, int length, vector<glm::mat4>& matrices);
 
 	private:
-		GLuint vertexShader;
-		GLuint fragmentShader;
-		GLuint shaderProgram;
+		GLuint _vertexShader;
+		GLuint _fragmentShader;
+		GLuint _shaderProgram;
 
-		std::unordered_map<std::string, std::filesystem::path> paths;
-		std::unordered_map<std::string, std::string> code;
+		unordered_map<string, filesystem::path> _paths;
+		unordered_map<string, string> _code;
 
 		void LoadShaders();
 		void DeleteShaders();
 		void CompileShaders();
 		void CreateShaderProgram();
-		void CheckExtension(std::filesystem::path& path, std::string& expectedExtension);
+		void CheckExtension(filesystem::path& path, string& expectedExtension);
 
-		std::string LoadShader(std::filesystem::path& path);
-		GLuint CompileShader(GLenum shaderType, std::string& source);
+		string LoadShader(filesystem::path& path);
+		GLuint CompileShader(GLenum shaderType, string& source);
 };

@@ -4,12 +4,12 @@
 #include <stdexcept>
 #include <string>
 
-EntityManager::EntityManager() : entityIdState(0) {}
+EntityManager::EntityManager() : _entityIdState(0) {}
 
 EntityId EntityManager::CreateNewEntity()
 {
-	EntityId entityId = entityIdState;
-	entityIdState++;
+	EntityId entityId = _entityIdState;
+	_entityIdState++;
 
 	// Find default archetype (contains only Id of the entity).
 	ComponentId idComponent(type_index(typeid(Id)));
@@ -18,29 +18,33 @@ EntityId EntityManager::CreateNewEntity()
 	auto result = archetypeManager.GetArchetypeByType(type);
 	Archetype* archetype;
 
-	if (result.has_value()) {
+	if (result.has_value())
+	{
 		archetype = result.value();
 	}
-	else {
-		// Doesn't exist so we create it.
+	else
+	{ // Doesn't exist so we create it.
 		ArchetypeManager::RegisterComponentTypeDeleter<Id>();
-		archetype = archetypeManager.GenerateArchetype(std::move(type));
+		archetype = archetypeManager.GenerateArchetype(move(type));
 	}
 
 	// Create Entity
 	size_t entityRow = archetype->CreateEntity();
 	archetype->components[0][entityRow] = new Id(entityId);
 	entityIndex.try_emplace(entityId, archetype, entityRow);
+
 	return entityId;
 }
 
 void EntityManager::edgeAdd(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId)
 {
 	auto edgeIterator = oldArchetype->edges.find(componentId);
-	if (edgeIterator != oldArchetype->edges.end()) {
+	if (edgeIterator != oldArchetype->edges.end())
+	{
 		edgeIterator->second.add = newArchetype;
 	}
-	else {
+	else
+	{
 		ArchetypeEdge edge;
 		edge.add = newArchetype;
 		oldArchetype->edges[componentId] = edge;
@@ -50,10 +54,12 @@ void EntityManager::edgeAdd(Archetype* oldArchetype, Archetype* newArchetype, Co
 void EntityManager::edgeRemove(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId)
 {
 	auto edgeIterator = oldArchetype->edges.find(componentId);
-	if (edgeIterator != oldArchetype->edges.end()) {
+	if (edgeIterator != oldArchetype->edges.end())
+	{
 		edgeIterator->second.rmv = newArchetype;
 	}
-	else {
+	else
+	{
 		ArchetypeEdge edge;
 		edge.rmv = newArchetype;
 		oldArchetype->edges[componentId] = edge;
@@ -65,7 +71,8 @@ void* EntityManager::GetComponent(EntityId entityId, ComponentId componentId)
 	auto entityIterator = entityIndex.find(entityId);
 
 	// Read entity record.
-	if (entityIterator != entityIndex.end()) {
+	if (entityIterator != entityIndex.end())
+	{
 		return GetComponent(&entityIterator->second, componentId);
 	}
 	else
@@ -81,7 +88,8 @@ void* EntityManager::GetComponent(Record* entityRecord, ComponentId componentId)
 	// Find the archetypeMap of the component
 	auto componentIterator = archetypeManager.componentIndex.find(componentId);
 
-	if (componentIterator == archetypeManager.componentIndex.end()) {
+	if (componentIterator == archetypeManager.componentIndex.end())
+	{
 		return nullptr;
 	}
 	ArchetypeMap* archetypes = &componentIterator->second;
@@ -89,7 +97,8 @@ void* EntityManager::GetComponent(Record* entityRecord, ComponentId componentId)
 	// Get the archetypeRecord of the component.
 	auto archetypeIterator = archetypes->find(archetype->archetypeId);
 
-	if (archetypeIterator == archetypes->end()) {
+	if (archetypeIterator == archetypes->end())
+	{
 		return nullptr;
 	}
 
@@ -103,11 +112,13 @@ void EntityManager::SetComponent(EntityId entityId, ComponentId componentId, voi
 	auto entityIterator = entityIndex.find(entityId);
 
 	// Read entity record.
-	if (entityIterator != entityIndex.end()) {
+	if (entityIterator != entityIndex.end())
+	{
 		Record* entityRecord = &entityIterator->second;
 		SetComponent(entityRecord, componentId, data);
 	}
-	else {
+	else
+	{
 		throw runtime_error("Entity Not Found, Id :" + to_string(entityId));
 	}
 }
@@ -119,7 +130,8 @@ void EntityManager::SetComponent(Record* entityRecord, ComponentId componentId, 
 	// Find the archetypeMap of the component
 	auto componentIterator = archetypeManager.componentIndex.find(componentId);
 
-	if (componentIterator == archetypeManager.componentIndex.end()) {
+	if (componentIterator == archetypeManager.componentIndex.end())
+	{
 		return;
 	}
 
@@ -128,7 +140,8 @@ void EntityManager::SetComponent(Record* entityRecord, ComponentId componentId, 
 	// Get the archetypeRecord of the component.
 	auto archetypeIterator = archetypes->find(archetype->archetypeId);
 
-	if (archetypeIterator == archetypes->end()) {
+	if (archetypeIterator == archetypes->end())
+	{
 		return;
 	}
 
@@ -137,12 +150,14 @@ void EntityManager::SetComponent(Record* entityRecord, ComponentId componentId, 
 	// delete old data
 	auto it = ArchetypeManager::deleters.find(componentId);
 
-	if (it != ArchetypeManager::deleters.end()) {
+	if (it != ArchetypeManager::deleters.end())
+	{
 		it->second(archetype->components[archetypeRecord->column][entityRecord->row]);
 		// Assign new data.
 		archetype->components[archetypeRecord->column][entityRecord->row] = data;
 	}
-	else {
+	else
+	{
 		throw runtime_error("Unknown component type");
 	}
 }
@@ -153,10 +168,12 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 
 	// Read entity record.
 	Record* record = nullptr;
-	if (entityIterator != entityIndex.end()) {
+	if (entityIterator != entityIndex.end())
+	{
 		record = &entityIterator->second;
 	}
-	else {
+	else
+	{
 		throw runtime_error("Entity Not Found, Id :" + to_string(entityId));
 	}
 
@@ -166,16 +183,17 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	// Use Cache If exists so we don't need to waste time on search.
 	auto edgeComponentIterator = oldArchetype->edges.find(componentId);
 
-	if (edgeComponentIterator != oldArchetype->edges.end() && edgeComponentIterator->second.add != nullptr) {
+	if (edgeComponentIterator != oldArchetype->edges.end() && edgeComponentIterator->second.add != nullptr)
+	{
 		newArchetype = edgeComponentIterator->second.add;
 	}
-	else {
-		// Cache Doesn't Exist We need to create one.
-
+	else // Cache Doesn't Exist We need to create one.
+	{
 		ArchetypeType newType(*oldArchetype->type); // Clone The Type.
+
 		// Define the new type after adding component
-		if (find(newType.begin(), newType.end(), componentId) != newType.end()) {
-			// Component Already Exist !!
+		if (find(newType.begin(), newType.end(), componentId) != newType.end()) // Component Already Exist !!
+		{
 			return;
 		}
 
@@ -185,11 +203,13 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 		// Create Cache.
 		auto result = archetypeManager.GetArchetypeByType(newType);
 
-		if (result.has_value()) {
+		if (result.has_value())
+		{
 			newArchetype = result.value();
 		}
-		else {
-			newArchetype = archetypeManager.GenerateArchetype(std::move(newType));
+		else
+		{
+			newArchetype = archetypeManager.GenerateArchetype(move(newType));
 		}
 
 		edgeAdd(oldArchetype, newArchetype, componentId);
@@ -211,7 +231,8 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	// Move overlapping components over to the destination archetype.
 	size_t oldColumnIndex = 0;
 
-	for (auto& component : *oldArchetype->type) {
+	for (auto& component : *oldArchetype->type)
+	{
 		void* compData = oldArchetype->components[oldColumnIndex][record->row];
 		SetComponent(&newRecord, component, compData);
 		oldColumnIndex++;
@@ -220,7 +241,8 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	// Remove the entity from the current archetype.
 	auto result = oldArchetype->SwapRemoveEntity(record->row);
 
-	if (result.has_value()) {
+	if (result.has_value())
+	{
 		auto entityIterator = entityIndex.find(result.value());
 
 		// Update swapped entity record.
@@ -238,7 +260,8 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	// Read entity record.
 	Record* record = nullptr;
 
-	if (entityIterator != entityIndex.end()) {
+	if (entityIterator != entityIndex.end())
+	{
 		record = &entityIterator->second;
 	}
 	else {
@@ -251,7 +274,8 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	// Use Cache If exists so we don't need to waste time on search.
 	auto edgeComponentIterator = oldArchetype->edges.find(componentId);
 	
-	if (edgeComponentIterator != oldArchetype->edges.end() && edgeComponentIterator->second.rmv != nullptr) {
+	if (edgeComponentIterator != oldArchetype->edges.end() && edgeComponentIterator->second.rmv != nullptr)
+	{
 		newArchetype = edgeComponentIterator->second.rmv;
 	}
 	else {
@@ -261,22 +285,25 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 		// Define the new type after adding component
 		auto compIterator = find(newType.begin(), newType.end(), componentId);
 
-		if (compIterator != newType.end()) {
+		if (compIterator != newType.end())
+		{
 			newType.erase(compIterator);
 		}
-		else {
-			// component doesn't exist in the archetype(The archetype will stay the same)
+		else // component doesn't exist in the archetype(The archetype will stay the same)
+		{
 			return;
 		}
 
 		// Create Cache.
 		auto result = archetypeManager.GetArchetypeByType(newType);
 
-		if (result.has_value()) {
+		if (result.has_value())
+		{
 			newArchetype = result.value();
 		}
-		else {
-			newArchetype = archetypeManager.GenerateArchetype(std::move(newType));
+		else
+		{
+			newArchetype = archetypeManager.GenerateArchetype(move(newType));
 		}
 		edgeRemove(oldArchetype, newArchetype, componentId);
 	}
@@ -287,7 +314,8 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	// Move overlapping components over to the destination archetype.
 	size_t newColumnIndex = 0;
 
-	for (auto& component : *newArchetype->type) {
+	for (auto& component : *newArchetype->type)
+	{
 		newArchetype->components[newColumnIndex][row] = GetComponent(record, component);
 		newColumnIndex++;
 	}
@@ -295,7 +323,8 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	// Remove the entity from the current archetype.
 	auto result = oldArchetype->SwapRemoveEntity(record->row);
 
-	if (result.has_value()) {
+	if (result.has_value())
+	{
 		auto entityIterator = entityIndex.find(result.value());
 
 		// Update swapped entity record.

@@ -3,21 +3,23 @@
 #include <filesystem>
 #include <string>
 
+using namespace std;
+
 class TextureInfo
 {
 	public:
-		TextureInfo(std::filesystem::path& imgPath, bool alpha, std::string& name);
+		TextureInfo(filesystem::path& imgPath, bool alpha, string& name);
 
 		bool HasAlpha();
-		std::filesystem::path& GetImgPath();
-		std::string& GetName();
+		filesystem::path& GetImgPath();
+		string& GetName();
 
 		void SetAlpha(bool alpha);
-		void SetImgPath(std::filesystem::path& imgPath);
-		void SetName(std::string& name);
+		void SetImgPath(filesystem::path& imgPath);
+		void SetName(string& name);
 
 	private:
-		std::filesystem::path imgPath;
-		std::string name;
-		bool alpha;
+		filesystem::path _imgPath;
+		string _name;
+		bool _alpha;
 };

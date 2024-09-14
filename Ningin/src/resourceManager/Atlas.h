@@ -33,11 +33,11 @@ class Atlas
 		void Bind();
 
 	private:
-		unordered_map<string, Sprite> sprites;
-		GLuint atlasID;
-		size_t id;
+		unordered_map<string, Sprite> _sprites;
+		GLuint _atlasID;
+		size_t _id;
 
-		int index;
+		int _index;
 
 		void AddSpriteFromData(vector<uint8_t>& data, Dimensions2& dimensions, string& name);
 		GLuint GenerateFrameBuffer(GLuint texture);

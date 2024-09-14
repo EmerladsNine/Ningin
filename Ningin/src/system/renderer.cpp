@@ -1,9 +1,9 @@
 #include "renderer.h"
-#include "../sceneSystem/components/textRenderer.h"
-#include "../sceneSystem/components/spriteRenderer.h"
+#include "../sceneSystem/components/TextRenderer.h"
+#include "../sceneSystem/components/SpriteRenderer.h"
 
 void RendererSystem(float deltaTime, EntityManager* entityManager)
 {
-	Text::System(entityManager);
+	TextRenderer::System(entityManager);
 	SpriteRenderer::System(entityManager);
 }

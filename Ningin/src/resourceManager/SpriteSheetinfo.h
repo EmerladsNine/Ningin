@@ -3,17 +3,19 @@
 #include "SpriteTile.h"
 #include <vector>
 
+using namespace std;
+
 class SpriteSheetInfo
 {
 	public:
-		SpriteSheetInfo(std::vector<SpriteTile>& spriteTiles);
+		SpriteSheetInfo(vector<SpriteTile>& spriteTiles);
 
-		void SetSpriteTiles(std::vector<SpriteTile>& spriteTiles);
+		void SetSpriteTiles(vector<SpriteTile>& spriteTiles);
 
-		std::vector<SpriteTile> GetSpriteTiles();
+		vector<SpriteTile> GetSpriteTiles();
 
 		void AddSpriteTile(SpriteTile& spriteTile);
 
 	private:
-		std::vector<SpriteTile> spriteTiles;
+		vector<SpriteTile> _spriteTiles;
 };

@@ -1,25 +1,24 @@
 #include "SpriteInfo.h"
 
-// ructor
-SpriteInfo::SpriteInfo(std::string& name, std::filesystem::path& path) : name(name),
-	path(path), atlasId(0) {}
+SpriteInfo::SpriteInfo(string& name, filesystem::path& path) : _name(name),
+	_path(path), _atlasId(0) {}
 
-std::string SpriteInfo::GetName()
+string SpriteInfo::GetName()
 {
-	return name;
+	return _name;
 }
 
-std::filesystem::path SpriteInfo::GetPath()
+filesystem::path SpriteInfo::GetPath()
 {
-	return path;
+	return _path;
 }
 
-std::size_t SpriteInfo::GetAtlasId()
+size_t SpriteInfo::GetAtlasId()
 {
-	return atlasId;
+	return _atlasId;
 }
 
-void SpriteInfo::SetAtlasId(std::size_t atlasId)
+void SpriteInfo::SetAtlasId(size_t atlasId)
 {
-	atlasId = atlasId;
+	_atlasId = atlasId;
 }

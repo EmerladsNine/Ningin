@@ -4,16 +4,20 @@
 #include <stdexcept>
 
 FontInfo::FontInfo(FT_Library& ftLibrary, filesystem::path fontPath, string name)
-	: ftLibrary(ftLibrary), fontPath(fontPath), name(name) {}
+	: _ftLibrary(ftLibrary), _fontPath(fontPath), _name(name) {}
 
 vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Library& ftLibrary)
 {
 	vector<FontInfo> fonts_info_vec;
-	try {
-		for (auto& entry : filesystem::directory_iterator(path)) {
-			if (entry.is_regular_file()) {
+	try
+	{
+		for (auto& entry : filesystem::directory_iterator(path))
+		{
+			if (entry.is_regular_file())
+			{
 				string extension = entry.path().extension().string();
-				if (extension == ".ttf" || extension == ".TTF") {
+				if (extension == ".ttf" || extension == ".TTF")
+				{
 					string file_name = entry.path().filename().string();
 					filesystem::path path = entry.path();
 					fonts_info_vec.push_back(FontInfo(ftLibrary, path, file_name));
@@ -22,11 +26,13 @@ vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Lib
 		}
 	}
 
-	catch (filesystem::filesystem_error& e) {
+	catch (filesystem::filesystem_error& e)
+	{
 		cerr << "Filesystem error: " << e.what() << endl;
 		// Handle the error as needed
 	}
-	catch (exception& e) {
+	catch (exception& e)
+	{
 		cerr << "Exception: " << e.what() << endl;
 		// Handle the error as needed
 	}
@@ -36,15 +42,15 @@ vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Lib
 
 FT_Library& FontInfo::GetFtLibrary()
 {
-	return ftLibrary;
+	return _ftLibrary;
 }
 
 filesystem::path& FontInfo::GetFontPath()
 {
-	return fontPath;
+	return _fontPath;
 }
 
 string& FontInfo::GetName()
 {
-	return name;
+	return _name;
 }

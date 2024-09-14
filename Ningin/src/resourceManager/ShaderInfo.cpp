@@ -1,23 +1,23 @@
 #include "ShaderInfo.h"
 
-ShaderInfo::ShaderInfo( std::filesystem::path& vertex_path,  std::filesystem::path& fragment_path,
-	 std::string& name) : name(name)
+ShaderInfo::ShaderInfo(filesystem::path& vertexPath, filesystem::path& fragmentPath,
+	 string& name) : _name(name)
 {
-	AddPaths(vertex_path, fragment_path);
+	AddPaths(vertexPath, fragmentPath);
 }
 
-void ShaderInfo::AddPaths( std::filesystem::path& vertex_path,  std::filesystem::path& fragment_path)
+void ShaderInfo::AddPaths(filesystem::path& vertexPath, filesystem::path& fragmentPath)
 {
-	paths["vertex"] = vertex_path;
-	paths["fragment"] = fragment_path;
+	_paths["vertex"] = vertexPath;
+	_paths["fragment"] = fragmentPath;
 }
 
-std::string ShaderInfo::GetName() 
+string ShaderInfo::GetName() 
 {
-	return name;
+	return _name;
 }
 
-std::filesystem::path ShaderInfo::GetPath(std::string name) 
+filesystem::path ShaderInfo::GetPath(string name) 
 {
-	return paths.at(name);
+	return _paths.at(name);
 }

@@ -6,7 +6,8 @@
 #include "../../math/Dimensions3.h"
 #include "wrapper/DebugWrapper.h"
 
-void AddInternalCalls() {
+void AddInternalCalls()
+{
     #pragma region Vector2
         AddInternalCall(Vector2Abs);
         AddInternalCall(Vector2Clamp);

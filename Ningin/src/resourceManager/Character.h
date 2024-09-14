@@ -15,9 +15,9 @@ class Character
 		Dimensions2& GetSize();
 
 	private:
-		unsigned int advance;
-		int asciiIndex;
+		unsigned int _advance;
+		int _asciiIndex;
 
-		Dimensions2 bearing;
-		Dimensions2 size;
+		Dimensions2 _bearing;
+		Dimensions2 _size;
 };

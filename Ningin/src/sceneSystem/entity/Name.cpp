@@ -1,3 +1,3 @@
 #include "Name.h"
 
-Name::Name(std::string name) : name(name) {}
+Name::Name(string name) : name(name) {}

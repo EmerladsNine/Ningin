@@ -12,6 +12,6 @@ tuple<unsigned int, unsigned int, unsigned int> Dimensions3::Deconstruct()
 
 void Dimensions3ToString(Dimensions3& dimensions, string& out)
 {
-	out = format("Dimensions3 - width: {}, height: {}, depth: {}", dimensions.width,
-		dimensions.height, dimensions.depth);
+	out = format("Dimensions3 - width: {}, height: {}, depth: {}", dimensions.width, dimensions.height,
+		dimensions.depth);
 }

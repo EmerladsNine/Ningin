@@ -29,7 +29,7 @@ void World::InitDefaultComponentSystem()
 
 	EntityManager::DefineComponent<SpriteRenderer>();
 	EntityManager::DefineComponent<Transform>();
-	EntityManager::DefineComponent<Text>();
+	EntityManager::DefineComponent<TextRenderer>();
 }
 
 EntityId World::NewEntity()

@@ -24,9 +24,6 @@ class ArchetypeManager
 		// These are used to remove components data depending on the component type
 		static unordered_map<type_index, function<void(void*)>> deleters;
 
-		unordered_map<ArchetypeType, Archetype, VectorHasher> archetypeIndex;
-		unordered_map<ComponentId, ArchetypeMap> componentIndex;
-
 		template <typename T> static void RegisterComponentTypeDeleter()
 		{
 			ArchetypeManager::deleters[typeid(T)] = [](void* p) { delete static_cast<T*>(p); };
@@ -36,6 +33,9 @@ class ArchetypeManager
 
 		Archetype* GenerateArchetype(ArchetypeType&& type);
 
+		unordered_map<ArchetypeType, Archetype, VectorHasher> archetypeIndex;
+		unordered_map<ComponentId, ArchetypeMap> componentIndex;
+
 	private:
-		ArchetypeId archetypeCount;
+		ArchetypeId _archetypeCount;
 };

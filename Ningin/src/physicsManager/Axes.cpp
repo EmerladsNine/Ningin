@@ -1,7 +1,9 @@
 #include "axes.h"
 
-Vector3 GetDirectionVector(Axes axes) {
-    switch (axes) {
+Vector3 GetDirectionVector(Axes axes)
+{
+    switch (axes)
+    {
         case X: return Vector3::UNIT_X;
         case Y: return Vector3::UNIT_Y;
         case Z: return Vector3::UNIT_Z;

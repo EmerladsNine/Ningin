@@ -2,21 +2,22 @@
 #include "transform.h"
 #include <gtc/matrix_transform.hpp>
 
-Text::Text(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize)
-	: shader(resourceManager.GetShader(shaderName)), font(resourceManager.GetFont(fontName)),
-	textColor(textColor), text(text), fontSize(fontSize), letterDimensions(48.0f), baseModel(glm::mat4(1.0f)),
-	mustCalculate(true), userShader(shaderName != "text"), vao(0), vbo(0)
+TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text,
+	uint8_t fontSize) : _shader(resourceManager.GetShader(shaderName)),
+	_font(resourceManager.GetFont(fontName)), _textColor(textColor), _text(text), _fontSize(fontSize),
+	_letterDimensions(48.0f), _baseModel(glm::mat4(1.0f)), _mustCalculate(true)
+	, _userShader(shaderName != "text"), _vao(0), _vbo(0)
 {
 	SetShaderInitialUniforms();
 	InitializeRenderData();
 }
 
-Text::~Text()
+TextRenderer::~TextRenderer()
 {
-	glDeleteVertexArrays(1, &vao);
+	glDeleteVertexArrays(1, &_vao);
 }
 
-void Text::InitializeRenderData()
+void TextRenderer::InitializeRenderData()
 {
 	CalculateTextDimensions();
 	InitializeShaderInfo();
@@ -26,53 +27,53 @@ void Text::InitializeRenderData()
 	FreeResources(false);
 }
 
-void Text::SetShaderInitialUniforms()
+void TextRenderer::SetShaderInitialUniforms()
 {
 	string projectionMatrixName = string("projection");
 	string TextSamplerName = string("text");
 
-	shader.SetInt(TextSamplerName, 0);
-	shader.SetMatrix4(projectionMatrixName, projectionMatrix);
+	_shader.SetInt(TextSamplerName, 0);
+	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
 
-	if (userUniforms.count("init"))
+	if (_userUniforms.count("init"))
 	{
-		userUniforms["init"]();
+		_userUniforms["init"]();
 	}
 }
 
-void Text::InitializeShaderInfo()
+void TextRenderer::InitializeShaderInfo()
 {
 	for (int i = 0; i < ARRAY_LIMIT; i++)
 	{
-		transforms.push_back(glm::mat4(1.0f));
-		charsMap.push_back(0);
+		_transforms.push_back(glm::mat4(1.0f));
+		_charsMap.push_back(0);
 	}
 }
 
-void Text::InitializeVao()
+void TextRenderer::InitializeVao()
 {
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	glGenVertexArrays(1, &_vao);
+	glBindVertexArray(_vao);
 }
 
-void Text::InitializeVbo()
+void TextRenderer::InitializeVbo()
 {
 	float vertexData[] = {
 		0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
 	};
 
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glGenBuffers(1, &_vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 }
 
-void Text::SetupVertexAttrib()
+void TextRenderer::SetupVertexAttrib()
 {
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), nullptr);
 }
 
-void Text::FreeResources(bool unbindTexture)
+void TextRenderer::FreeResources(bool unbindTexture)
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
@@ -82,45 +83,50 @@ void Text::FreeResources(bool unbindTexture)
 	}
 }
 
-void Text::ConfigureDrawingContext()
+void TextRenderer::ConfigureDrawingContext()
 {
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, font.GetFontTexture().GetTextureArray());
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBindVertexArray(vao);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, _font.GetFontTexture().GetTextureArray());
+	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	glBindVertexArray(_vao);
 }
 
-void Text::Draw(Transform& transform)
+void TextRenderer::Draw(Transform& transform)
 {
 	SetInitDrawingUniforms();
 	ConfigureDrawingContext();
 
-	if (mustCalculate) {
+	if (_mustCalculate)
+	{
 		ComputeTextTransform(transform);
 	}
 
 	Vector3 pos = transform.GetPosition();
-	float scale = static_cast<float>(fontSize) / 256.0f;
-	float hBearing = static_cast<float>(font.GetCharMap().at('H').GetBearing().height);
+	float scale = static_cast<float>(_fontSize) / 256.0f;
+	float hBearing = static_cast<float>(_font.GetCharMap().at('H').GetBearing().height);
 	int32_t workingIndex = 0;
 	float xOffSet = 0.0f;
 
-	for (char c : text) {
-		auto& ch = font.GetCharMap().at(c);
+	for (char c : _text)
+	{
+		auto& ch = _font.GetCharMap().at(c);
 
-		if (c == '\n') {
+		if (c == '\n')
+		{
 			pos.y += ch.GetSize().height * 1.3f * scale;
 			xOffSet = 0.0f;
 		}
-		else if (c == ' ') {
+		else if (c == ' ')
+		{
 			xOffSet += (ch.GetAdvance() >> 6) * scale;
 		}
-		else {
+		else
+		{
 			float xpos = ch.GetBearing().width * scale;
 			float ypos = pos.y + (hBearing - ch.GetBearing().height) * scale;
 
-			transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, letterDimensions);
-			charsMap[workingIndex] = ch.GetAsciiIndex();
+			_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
+			_charsMap[workingIndex] = ch.GetAsciiIndex();
 
 			if (workingIndex == ARRAY_LIMIT - 1)
 			{
@@ -137,32 +143,38 @@ void Text::Draw(Transform& transform)
 	FreeResources(true);
 }
 
-void Text::RenderText(int32_t length)
+void TextRenderer::RenderText(int32_t length)
 {
-	if (length != 0) {
+	if (length != 0)
+	{
 		SetDrawingUniforms(length);
 		glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, length);
 	}
 }
 
-void Text::CalculateTextDimensions()
+void TextRenderer::CalculateTextDimensions()
 {
 	auto [splitedText, longestLine] = GetTextInfo();
-	textDimensions.height = static_cast<int32_t>(
-		splitedText.size() * fontSize + font.GetCharMap().at('\n').GetSize().height * 1.3f * fontSize / 256.0f);
-	textDimensions.width = static_cast<int32_t>(longestLine * fontSize);
+
+	_textDimensions.height = static_cast<int32_t>(splitedText.size() * _fontSize + _font.GetCharMap()
+		.at('\n').GetSize().height * 1.3f * _fontSize / 256.0f);
+
+	_textDimensions.width = static_cast<int32_t>(longestLine * _fontSize);
 }
 
-pair<vector<vector<char>>, size_t> Text::GetTextInfo()
+pair<vector<vector<char>>, size_t> TextRenderer::GetTextInfo()
 {
 	vector<vector<char>> splitedText;
 	splitedText.push_back(vector<char>());
 	size_t currentLine = 0;
 	size_t longestLine = 0;
 
-	for (char c : text) {
-		if (c == '\n') {
-			if (longestLine < splitedText[currentLine].size()) {
+	for (char c : _text)
+	{
+		if (c == '\n')
+		{
+			if (longestLine < splitedText[currentLine].size())
+			{
 				longestLine = splitedText[currentLine].size();
 			}
 			splitedText.push_back(vector<char>());
@@ -175,37 +187,39 @@ pair<vector<vector<char>>, size_t> Text::GetTextInfo()
 	return { splitedText, longestLine };
 }
 
-void Text::SetInitDrawingUniforms()
+void TextRenderer::SetInitDrawingUniforms()
 {
 	string projectionMatrixName = string("projection");
 	string TextColorName = string("TextColor");
 
-	shader.SetMatrix4(projectionMatrixName, projectionMatrix);
+	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
 
-	if (userUniforms.count("init_drawing")) {
-		userUniforms["init_drawing"]();
+	if (_userUniforms.count("init_drawing"))
+	{
+		_userUniforms["init_drawing"]();
 		return;
 	}
 
-	shader.SetFloatVec4(TextColorName, textColor.r / 255.0f, textColor.g / 255.0f, textColor.b / 255.0f,
-		textColor.a / 255.0f);
+	_shader.SetFloatVec4(TextColorName, _textColor.r / 255.0f, _textColor.g / 255.0f, _textColor.b / 255.0f,
+		_textColor.a / 255.0f);
 }
 
-void Text::SetDrawingUniforms(int32_t length)
+void TextRenderer::SetDrawingUniforms(int32_t length)
 {
 	string transformsName = string("Transforms");
 	string charsMapName = string("CharsMap");
-	shader.SetMatrix4WithLength(transformsName, length, transforms);
-	shader.SetIntWithLength(charsMapName, length, charsMap);
+	_shader.SetMatrix4WithLength(transformsName, length, _transforms);
+	_shader.SetIntWithLength(charsMapName, length, _charsMap);
 
-	if (userUniforms.count("drawing")) {
-		userUniforms["drawing"]();
+	if (_userUniforms.count("drawing"))
+	{
+		_userUniforms["drawing"]();
 	}
 }
 
-glm::mat4 Text::ComputeLetterTransform(float xOffSet, float xpos, float ypos, float scale)
+glm::mat4 TextRenderer::ComputeLetterTransform(float xOffSet, float xpos, float ypos, float scale)
 {
-	glm::mat4 letterModel = baseModel;
+	glm::mat4 letterModel = _baseModel;
 
 	letterModel = glm::translate(letterModel, glm::vec3(xOffSet + xpos, ypos, 0.0f));
 	letterModel = glm::scale(letterModel, glm::vec3(scale, scale, 1.0f));
@@ -213,70 +227,75 @@ glm::mat4 Text::ComputeLetterTransform(float xOffSet, float xpos, float ypos, fl
 	return letterModel;
 }
 
-void Text::ComputeTextTransform(Transform& transform)
+void TextRenderer::ComputeTextTransform(Transform& transform)
 {
 	Vector3 pos = transform.GetPosition();
-	float scale = static_cast<float>(fontSize) / 256.0f;
+	float scale = static_cast<float>(_fontSize) / 256.0f;
 
-	Vector2 text_center = { textDimensions.width * scale / 2.0f, textDimensions.height * scale / 2.0f };
+	Vector2 text_center = { _textDimensions.width * scale / 2.0f, _textDimensions.height * scale / 2.0f };
 
-	baseModel = glm::translate(baseModel, glm::vec3(pos.x, pos.y, 0.0f));
-	baseModel = glm::translate(baseModel, glm::vec3(text_center.x, text_center.y, 0.0f));
-	baseModel = glm::rotate(baseModel, transform.GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
-	baseModel = glm::translate(baseModel, glm::vec3(-text_center.x, -text_center.y, 0.0f));
+	_baseModel = glm::translate(_baseModel, glm::vec3(pos.x, pos.y, 0.0f));
+	_baseModel = glm::translate(_baseModel, glm::vec3(text_center.x, text_center.y, 0.0f));
+	_baseModel = glm::rotate(_baseModel, transform.GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
+	_baseModel = glm::translate(_baseModel, glm::vec3(-text_center.x, -text_center.y, 0.0f));
 
-	mustCalculate = false;
+	_mustCalculate = false;
 }
 
-void Text::SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
+void TextRenderer::SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
 	function<void()> drawingFunc)
 {
-	userUniforms["init"] = initFunc;
-	userUniforms["init_drawing"] = initDrawingFunc;
-	userUniforms["drawing"] = drawingFunc;
+	_userUniforms["init"] = initFunc;
+	_userUniforms["init_drawing"] = initDrawingFunc;
+	_userUniforms["drawing"] = drawingFunc;
 }
 
-void Text::SetTextColor(Color& newColor)
+void TextRenderer::SetTextColor(Color& newColor)
 {
-	textColor = newColor;
+	_textColor = newColor;
 }
 
-void Text::SetText(string& text)
+void TextRenderer::SetText(string& text)
 {
-	this->text = text;
-	mustCalculate = true;
+	this->_text = text;
+	_mustCalculate = true;
 }
 
-void Text::SetFontSize(uint8_t fontSize)
+void TextRenderer::SetFontSize(uint8_t fontSize)
 {
-	this->fontSize = fontSize;
-	mustCalculate = true;
+	this->_fontSize = fontSize;
+	_mustCalculate = true;
 }
 
-void Text::System(EntityManager* entityManager) 
+void TextRenderer::System(EntityManager* entityManager) 
 {
 	auto& transformArchetypeMap = entityManager->archetypeManager.componentIndex[typeid(Transform)];
-	for (auto& TextArchetype : entityManager->archetypeManager.componentIndex[typeid(Text)]) {
+	for (auto& TextArchetype : entityManager->archetypeManager.componentIndex[typeid(TextRenderer)])
+	{
 		auto it = transformArchetypeMap.find(TextArchetype.first);
 
-		if (it != transformArchetypeMap.end()) {
+		if (it != transformArchetypeMap.end())
+		{
 			size_t textColumn = TextArchetype.second.column;
 			size_t transformColumn = it->second.column;
 
 			int row = 0;
 
-			for (void* textData : TextArchetype.second.archetype->components[textColumn]) {
-				if (textData == nullptr) {
+			for (void* textData : TextArchetype.second.archetype->components[textColumn])
+			{
+				if (textData == nullptr)
+				{
 					return;
 				}
 
 				void* transformData = TextArchetype.second.archetype->components[transformColumn][row];
 				
-				if (transformData == nullptr) {
+				if (transformData == nullptr)
+				{
 					return;
 				}
 
-				Text* text = static_cast<Text*>(textData);
+				TextRenderer* text = static_cast<TextRenderer*>(textData);
 				Transform* transform = static_cast<Transform*>(transformData);
 
 				text->Draw(*transform);

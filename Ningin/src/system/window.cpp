@@ -6,14 +6,14 @@ static void callback_function(GLFWwindow* window, int width, int height)
 	// TODO
 }
 
-Window::Window(std::string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
+Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
 	: sceneManager(SceneManager(scene)), dimensions(dimensions)
 {
 	InitGlfw();
 	GLFWwindow* window = StartWindow(title, isFullscreen, dimensions);
 	InitOpenGL(window);
 	glfwSetFramebufferSizeCallback(window, callback_function);
-	_win = window;
+	win = window;
 }
 
 void Window::InitGlfw()
@@ -24,7 +24,7 @@ void Window::InitGlfw()
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 }
 
-GLFWwindow* Window::StartWindow(std::string title, bool isFullscreen, Dimensions2* dimensions)
+GLFWwindow* Window::StartWindow(string title, bool isFullscreen, Dimensions2* dimensions)
 {
 	if (isFullscreen)
 	{

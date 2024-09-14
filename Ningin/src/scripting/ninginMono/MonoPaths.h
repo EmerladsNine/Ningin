@@ -1,10 +1,14 @@
 #pragma once
+
 #include "string"
+
+using namespace std;
 
 struct MonoPaths
 {
-public:
-	MonoPaths(std::string monoPath, std::string gameAssemblyFileName);
-	std::string monoPath;
-	std::string gameAssemblyFileName;
+	public:
+		MonoPaths(string monoPath, string gameAssemblyFileName);
+
+		string monoPath;
+		string gameAssemblyFileName;
 };

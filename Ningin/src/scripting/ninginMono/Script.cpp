@@ -5,15 +5,15 @@ Script::Script(ScriptClass* klass, MonoObject* obj) : klass(klass), obj(obj) {}
 
 Script::Script() : klass(nullptr), obj(nullptr) {}
 
-bool Script::IsStarted()
+bool Script::HasStarted()
 {
-    return isStarted;
+    return _hasStarted;
 }
 
 void Script::Start()
 {
     InvokeMethod(obj, klass->startMethod, {});
-    isStarted = true;
+    _hasStarted = true;
 }
 
 void Script::Update(float deltatime)

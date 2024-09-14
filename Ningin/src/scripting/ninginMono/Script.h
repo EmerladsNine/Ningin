@@ -10,15 +10,15 @@ class Script : public Scriptable
 		Script(ScriptClass* klass , MonoObject* obj);
 		Script();
 
-		ScriptClass* klass;
-		MonoObject* obj;
-	
-		bool IsStarted() override;
+		bool HasStarted() override;
 		void Start() override;
 		void Update(float deltatime) override;
 		void LateUpdate(float deltatime) override;
 		void Destroy() override;
 
+		ScriptClass* klass;
+		MonoObject* obj;
+	
 	private:
-		bool isStarted = false;
+		bool _hasStarted = false;
 };

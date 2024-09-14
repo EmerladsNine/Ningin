@@ -1,15 +1,16 @@
 #include "Force.h"
 
-Force2D::Force2D(float force_magnitude, float angle, Axes direction, ForceComputation computation, ForceType force_type)
-	: force_type(force_type), angle(DegreesToRadians(angle)), computation(computation), 
-	direction(GetDirectionVector(direction))
+Force2D::Force2D(float forceMagnitude, float angle, Axes direction, ForceComputation computation,
+	ForceType forceType) : _forceType(forceType), _angle(DegreesToRadians(angle)), _computation(computation), 
+	_direction(GetDirectionVector(direction))
 {
-	Vector2 unnormalized_vector = Vector2(cos(this->angle), sin(this->angle));
-	Vector2 magnitude;
+	Vector2 unnormalizedVector = Vector2(cos(this->_angle), sin(this->_angle));
 
-	Vector2Normalize(unnormalized_vector, magnitude);
+	Vector2Normalize(unnormalizedVector, _normalizedMagnitude);
+	Vector2MultiplyByFloat(_normalizedMagnitude, forceMagnitude, _magnitude);
 }
 
-Force2D::Force2D(Vector2 force_magnitude, ForceType force_type, Axes direction, AppliedForceComputation computation)
-	: magnitude(force_magnitude), force_type(force_type), computation(computation),
-	direction(GetDirectionVector(direction)), angle(-1) {}
+Force2D::Force2D(Vector2 forceMagnitude, ForceType forceType, Axes direction,
+	AppliedForceComputation computation)
+	: _magnitude(forceMagnitude), _forceType(forceType), _computation(computation),
+	_direction(GetDirectionVector(direction)), _angle(-1) {}

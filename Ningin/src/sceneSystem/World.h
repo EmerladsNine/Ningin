@@ -3,18 +3,20 @@
 #include <cstddef>
 #include <vector>
 
+using namespace std;
+
 class World
 {
 	public:
 		World();
 
-		static std::vector<void (*)(float, EntityManager*)> lateSystems;
-		static std::vector<void (*)(float, EntityManager*)> systems;
-
-		EntityManager entityManager;
-		std::size_t entitiesCount;
-
 		static void InitDefaultComponentSystem();
 
 		EntityId NewEntity(); // Return Id of the entity created.
+
+		static vector<void (*)(float, EntityManager*)> lateSystems;
+		static vector<void (*)(float, EntityManager*)> systems;
+
+		EntityManager entityManager;
+		size_t entitiesCount;
 };

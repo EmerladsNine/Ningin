@@ -66,22 +66,52 @@ namespace NinginCore
         }
 
         public float Distance(Vector3 Other) => InternalCalls.Vector3Distance(ref this, ref Other);
-        public float DistanceSquared(Vector3 Other) => InternalCalls.Vector3DistanceSquared(ref this, ref Other);
         public float Dot(Vector3 Other) => InternalCalls.Vector3Dot(ref this, ref Other);
         public float Magnitude() => InternalCalls.Vector3Magnitude(ref this);
         public float MagnitudeSquared() => InternalCalls.Vector3MagnitudeSquared(ref this);
+        public float DistanceSquared(Vector3 Other)
+            => InternalCalls.Vector3DistanceSquared(ref this, ref Other);
 
-        public static float Distance(Vector3 v1, Vector3 v2) => InternalCalls.Vector3Distance(ref v1, ref v2);
-        public static float DistanceSquared(Vector3 v1, Vector3 v2) => InternalCalls.Vector3DistanceSquared(ref v1, ref v2);
         public static float Dot(Vector3 v1, Vector3 v2) => InternalCalls.Vector3Dot(ref v1, ref v2);
         public static float Magnitude(Vector3 vec) => InternalCalls.Vector3Magnitude(ref vec);
         public static float MagnitudeSquared(Vector3 vec) => InternalCalls.Vector3MagnitudeSquared(ref vec);
-        public static Vector3 Max(Vector3 V1, Vector3 V2) { InternalCalls.Vector3Max(ref V1, ref V2, out Vector3 result); return result; }
-        public static Vector3 Min(Vector3 V1, Vector3 V2) { InternalCalls.Vector3Min(ref V1, ref V2, out Vector3 result); return result; }
-        public static Vector3 Clamp(Vector3 to_clamp, Vector3 min, Vector3 max) { InternalCalls.Vector3Clamp(ref to_clamp, ref min, ref max, out Vector3 result); return result; }
-        public static Vector3 Normalize(Vector3 vec) { InternalCalls.Vector3Normalize(ref vec, out Vector3 result); return result; }
-        public static Vector3 Inverse(Vector3 vec) { InternalCalls.Vector3Inverse(ref vec, out Vector3 result); return result; }
-        
+
+        public static float Distance(Vector3 v1, Vector3 v2)
+            => InternalCalls.Vector3Distance(ref v1, ref v2);
+
+        public static float DistanceSquared(Vector3 v1, Vector3 v2)
+            => InternalCalls.Vector3DistanceSquared(ref v1, ref v2);
+
+        public static Vector3 Max(Vector3 V1, Vector3 V2)
+        {
+            InternalCalls.Vector3Max(ref V1, ref V2, out Vector3 result);
+            return result;
+        }
+
+        public static Vector3 Min(Vector3 V1, Vector3 V2)
+        {
+            InternalCalls.Vector3Min(ref V1, ref V2, out Vector3 result);
+            return result;
+        }
+
+        public static Vector3 Clamp(Vector3 to_clamp, Vector3 min, Vector3 max)
+        {
+            InternalCalls.Vector3Clamp(ref to_clamp, ref min, ref max, out Vector3 result);
+            return result;
+        }
+
+        public static Vector3 Normalize(Vector3 vec)
+        {
+            InternalCalls.Vector3Normalize(ref vec, out Vector3 result);
+            return result;
+        }
+
+        public static Vector3 Inverse(Vector3 vec)
+        {
+            InternalCalls.Vector3Inverse(ref vec, out Vector3 result);
+            return result;
+        }
+
         // Operators
         public static Vector3 operator -(Vector3 vec)
         {
@@ -133,17 +163,21 @@ namespace NinginCore
 
         public static Vector3 operator /(float a, Vector3 vec)
         {
-            Vector3 _vec = new Vector3(1 / vec.x, 1 / vec.y);
-            InternalCalls.Vector3Divide(ref vec, 1 / a, out Vector3 result);
+            InternalCalls.Vector3Inverse(ref vec, out Vector3 inversedVec);
+            InternalCalls.Vector3Divide(ref inversedVec, 1 / a, out Vector3 result);
             return result;
         }
 
-        public static bool operator ==(Vector3 v1, Vector3 v2) => InternalCalls.Vector3Equals(ref v1, ref v2);
-        public static bool operator !=(Vector3 v1, Vector3 v2) => InternalCalls.Vector3NotEqual(ref v1, ref v2);
         public static bool operator <(Vector3 v1, Vector3 v2) => InternalCalls.Vector3L(ref v1, ref v2);
         public static bool operator <=(Vector3 v1, Vector3 v2) => InternalCalls.Vector3LE(ref v1, ref v2);
         public static bool operator >(Vector3 v1, Vector3 v2) => InternalCalls.Vector3G(ref v1, ref v2);
         public static bool operator >=(Vector3 v1, Vector3 v2) => InternalCalls.Vector3GE(ref v1, ref v2);
+
+        public static bool operator ==(Vector3 v1, Vector3 v2)
+            => InternalCalls.Vector3Equals(ref v1, ref v2);
+
+        public static bool operator !=(Vector3 v1, Vector3 v2)
+            => InternalCalls.Vector3NotEqual(ref v1, ref v2);
 
         public static Vector3 FromVector3(Vector2 vec)
         {

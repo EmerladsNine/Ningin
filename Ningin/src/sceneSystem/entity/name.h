@@ -2,10 +2,12 @@
 
 #include <string>
 
+using namespace std;
+
 class Name
 {
 	public:
-		Name(std::string name);
+		Name(string name);
 
-		std::string name;
+		string name;
 };

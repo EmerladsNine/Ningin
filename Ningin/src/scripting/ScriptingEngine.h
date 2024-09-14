@@ -6,12 +6,14 @@
 #include <optional>
 #include <string>
 
+using namespace std;
+
 class ScriptingEngine
 {
 	public:
 		static Mono mono;
 
-		static void Init(std::optional<MonoPaths> monoPath);
+		static void Init(optional<MonoPaths> monoPath);
 
-		static Scriptable* GetScript(std::string scriptName , ScriptLanguage language);
+		static Scriptable* GetScript(string scriptName, ScriptLanguage language);
 };

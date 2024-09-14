@@ -3,20 +3,22 @@
 #include <filesystem>
 #include <string>
 
+using namespace std;
+
 class SpriteInfo
 {
 	public:
-		SpriteInfo(std::string& name, std::filesystem::path& path);
+		SpriteInfo(string& name, filesystem::path& path);
 		SpriteInfo() = default;
 
-		void SetAtlasId(std::size_t atlasId);
+		void SetAtlasId(size_t atlasId);
 
-		std::filesystem::path GetPath();
-		std::size_t GetAtlasId();
-		std::string GetName();
+		filesystem::path GetPath();
+		size_t GetAtlasId();
+		string GetName();
 
 	private:
-		std::filesystem::path path;
-		std::size_t atlasId;
-		std::string name;
+		filesystem::path _path;
+		size_t _atlasId;
+		string _name;
 };

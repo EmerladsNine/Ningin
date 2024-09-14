@@ -7,35 +7,37 @@
 #include "ScriptClass.h"
 #include "Script.h"
 
+using namespace std;
+
 class Mono
 {
       public:
         Mono();
         ~Mono();
 
-        void Init(std::string libPath, std::string gameAssemblyFileName);
+        void Init(string libPath, string gameAssemblyFileName);
 
-        MonoAssembly* LoadAssembly(std::string fileName);
+        MonoAssembly* LoadAssembly(string fileName);
 
-        Script* GetScript(std::string scritpName);
+        Script* GetScript(string scritpName);
         Script* BuildScript(ScriptClass* scriptClass);
-        ScriptClass* LoadScript(std::string scriptFullName);
+        ScriptClass* LoadScript(string scriptFullName);
 
-        const std::string NINGIN_ASSEMBLY_NAME = "NinginCore.dll";
-        std::filesystem::path assembliesDirectory;
+        const string NINGIN_ASSEMBLY_NAME = "NinginCore.dll";
+        filesystem::path assembliesDirectory;
 
         MonoAssembly* ninginAssembly;
         MonoAssembly* gameAssembly;
 
-        std::unordered_map<std::string, ScriptClass> loadedClasses;
+        unordered_map<string, ScriptClass> loadedClasses;
 
       private:
-        MonoDomain *rootDomain;
-        MonoDomain *appDomain;
+        MonoDomain *_rootDomain;
+        MonoDomain *_appDomain;
 };
 
 void InitScriptMethods(ScriptClass* scriptClass);
 
-MonoMethod* GetMethod(MonoClass* klass, std::string name, int paramsCount);
+MonoMethod* GetMethod(MonoClass* klass, string name, int paramsCount);
 
-void* InvokeMethod(MonoObject* obj, MonoMethod* method, std::vector<void*> params);
+void* InvokeMethod(MonoObject* obj, MonoMethod* method, vector<void*> params);

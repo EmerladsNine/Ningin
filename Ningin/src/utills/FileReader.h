@@ -3,8 +3,10 @@
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class FileReader
 {
 	public:
-		static std::vector<uint8_t> ReadFileBytes(const std::string& path);
+		static vector<uint8_t> ReadFileBytes(const string& path);
 };

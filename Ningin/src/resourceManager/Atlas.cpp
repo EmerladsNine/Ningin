@@ -6,16 +6,16 @@
 #include <fstream>
 #include <iostream>
 
-Atlas::Atlas(size_t id) : atlasID(0), index(0), id(id)
+Atlas::Atlas(size_t id) : _atlasID(0), _index(0), _id(id)
 {
 	GenerateAtlas();
 }
 
 void Atlas::GenerateAtlas()
 {
-	glGenTextures(1, &atlasID);
+	glGenTextures(1, &_atlasID);
 	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, atlasID);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, _atlasID);
 	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_RGBA, 256, 256, ATLAS_LIMIT, 0,
 		GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 }
@@ -55,8 +55,8 @@ void Atlas::AddSpriteFromData(vector<uint8_t>& data, Dimensions2& dimensions, st
 	CreateSpriteTexture(dimensions, data);
 	SetupSpriteTexture();
 
-	sprites.insert(make_pair(name, Sprite{ index, dimensions }));
-	++index;
+	_sprites.insert(make_pair(name, Sprite{ _index, dimensions }));
+	++_index;
 }
 
 GLuint Atlas::GenerateFrameBuffer(GLuint texture)
@@ -71,8 +71,11 @@ GLuint Atlas::GenerateFrameBuffer(GLuint texture)
 vector<uint8_t> Atlas::GetSpriteTileData(SpriteTile& sprite)
 {
 	vector<uint8_t> pixels(sprite.GetDimensions().width * sprite.GetDimensions().height * 4);
-	glReadPixels(static_cast<GLint>(sprite.GetInSheetPosition().x), static_cast<GLint>(sprite.GetInSheetPosition().y),
-		sprite.GetDimensions().width, sprite.GetDimensions().height, GL_RGBA, GL_UNSIGNED_BYTE, pixels.data());
+
+	glReadPixels(static_cast<GLint>(sprite.GetInSheetPosition().x), static_cast<GLint>(sprite
+		.GetInSheetPosition().y), sprite.GetDimensions().width, sprite.GetDimensions().height, GL_RGBA,
+		GL_UNSIGNED_BYTE, pixels.data());
+
 	return pixels;
 }
 
@@ -110,18 +113,18 @@ void Atlas::SetupSpriteTexture()
 
 void Atlas::CreateSpriteTexture(Dimensions2& dimensions, vector<uint8_t>& data)
 {
-	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, index, dimensions.width, dimensions.height, 1, GL_RGBA,
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, _index, dimensions.width, dimensions.height, 1, GL_RGBA,
 		GL_UNSIGNED_BYTE, data.data());
 }
 
 bool Atlas::CanAddSprite()
 {
-	return index < ATLAS_LIMIT - 1;
+	return _index < ATLAS_LIMIT - 1;
 }
 
 bool Atlas::CanAddSpriteSheet(SpriteSheetInfo& spriteSheet)
 {
-	return (index + spriteSheet.GetSpriteTiles().size()) < ATLAS_LIMIT - 1;
+	return (_index + spriteSheet.GetSpriteTiles().size()) < ATLAS_LIMIT - 1;
 }
 
 void Atlas::Unbind()
@@ -131,7 +134,7 @@ void Atlas::Unbind()
 
 void Atlas::Bind()
 {
-	glBindTexture(GL_TEXTURE_2D_ARRAY, atlasID);
+	glBindTexture(GL_TEXTURE_2D_ARRAY, _atlasID);
 }
 
 SpriteSheetInfo Atlas::ParseJson(filesystem::path& infoPath)

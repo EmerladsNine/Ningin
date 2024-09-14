@@ -14,6 +14,6 @@ class Sprite
 		int GetSpriteIndex();
 
 	private:
-		int spriteIndex;
-		Dimensions2 dimensions;
+		int _spriteIndex;
+		Dimensions2 _dimensions;
 };

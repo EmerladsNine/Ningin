@@ -2,16 +2,17 @@
 
 #include <format>
 
+using namespace std;
+
 class Mask2
 {
 	public:
-		bool x, y;
-
 		Mask2(bool x, bool y);
-
 		Mask2();
 
-		std::pair<bool, bool> Deconstruct();
+		pair<bool, bool> Deconstruct();
+
+		bool x, y;
 };
 
-std::string Mask2ToString(Mask2 mask);
+string Mask2ToString(Mask2 mask);

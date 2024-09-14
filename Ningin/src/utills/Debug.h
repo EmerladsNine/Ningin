@@ -1,8 +1,11 @@
 #pragma once
+
 #include <string>
 
-void LogInfo(const std::string& message);
+using namespace std;
 
-void LogError(const std::string& message);
+void LogInfo(const string& message);
 
-void LogWarning(const std::string& message);
+void LogError(const string& message);
+
+void LogWarning(const string& message);

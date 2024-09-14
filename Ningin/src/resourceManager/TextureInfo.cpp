@@ -1,36 +1,34 @@
 #include "TextureInfo.h"
 
-TextureInfo::TextureInfo(std::filesystem::path& imgPath, bool alpha, std::string& name)
-	: alpha(alpha), imgPath(imgPath), name(name)
-{
-}
+TextureInfo::TextureInfo(filesystem::path& imgPath, bool alpha, string& name)
+	: _alpha(alpha), _imgPath(imgPath), _name(name) {}
 
 bool TextureInfo::HasAlpha()
 {
-	return alpha;
+	return _alpha;
 }
 
-std::filesystem::path& TextureInfo::GetImgPath()
+filesystem::path& TextureInfo::GetImgPath()
 {
-	return imgPath;
+	return _imgPath;
 }
 
-std::string& TextureInfo::GetName()
+string& TextureInfo::GetName()
 {
-	return name;
+	return _name;
 }
 
 void TextureInfo::SetAlpha(bool alpha)
 {
-	this->alpha = alpha;
+	this->_alpha = alpha;
 }
 
-void TextureInfo::SetImgPath(std::filesystem::path& imgPath)
+void TextureInfo::SetImgPath(filesystem::path& imgPath)
 {
-	this->imgPath = imgPath;
+	this->_imgPath = imgPath;
 }
 
-void TextureInfo::SetName(std::string& name)
+void TextureInfo::SetName(string& name)
 {
-	this->name = name;
+	this->_name = name;
 }

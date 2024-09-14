@@ -2,16 +2,18 @@
 
 Mono ScriptingEngine::mono;
 
-void ScriptingEngine::Init(std::optional<MonoPaths> monoPath)
+void ScriptingEngine::Init(optional<MonoPaths> monoPath)
 {
-	if (monoPath.has_value()) {
+	if (monoPath.has_value())
+	{
 		mono.Init(monoPath.value().monoPath, monoPath.value().gameAssemblyFileName);
 	}
 }
 
-Scriptable* ScriptingEngine::GetScript(std::string scriptName, ScriptLanguage language)
+Scriptable* ScriptingEngine::GetScript(string scriptName, ScriptLanguage language)
 {
-	switch (language) {
+	switch (language)
+	{
 		case CSHARP:
 			return mono.GetScript(scriptName);
 			break;

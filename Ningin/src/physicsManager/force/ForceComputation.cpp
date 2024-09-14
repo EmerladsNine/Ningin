@@ -1,25 +1,29 @@
 #include "ForceComputation.h"
 
-// DefaultForceComputation definitions
+// Default Force Computation
 DefaultForceComputation::DefaultForceComputation(DefaultForceDynamics dynamics)
-    : get_magnitude_func(dynamics.get_magnitude_func), arg(dynamics.arg) {}
+    : getMagnitudeFunc(dynamics.getMagnitudeFunc), _arg(dynamics.arg) {}
 
-DefaultForceComputation DefaultForceComputation::create_default_force(DefaultForceDynamics dynamics) {
+DefaultForceComputation DefaultForceComputation::create_default_force(DefaultForceDynamics dynamics)
+{
     return DefaultForceComputation(dynamics);
 }
 
-float DefaultForceComputation::getMagnitude() {
-    return get_magnitude_func(arg);
+float DefaultForceComputation::getMagnitude()
+{
+    return getMagnitudeFunc(_arg);
 }
 
-// AppliedForceComputation definitions
+// Applied Force Computation
 AppliedForceComputation::AppliedForceComputation(AppliedForceDynamics dynamics)
-    : magnitude(dynamics.force_magnitude) {}
+    : _magnitude(dynamics.forceMagnitude) {}
 
-AppliedForceComputation AppliedForceComputation::create_applied_force(AppliedForceDynamics dynamics) {
+AppliedForceComputation AppliedForceComputation::create_applied_force(AppliedForceDynamics dynamics)
+{
     return AppliedForceComputation(dynamics);
 }
 
-float AppliedForceComputation::getMagnitude() {
-    return magnitude;
+float AppliedForceComputation::getMagnitude()
+{
+    return _magnitude;
 }

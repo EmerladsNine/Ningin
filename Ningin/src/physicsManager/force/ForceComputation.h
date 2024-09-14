@@ -13,8 +13,8 @@ struct ForceComputation {
 
 struct DefaultForceComputation : ForceComputation {
     private:
-        float arg;
-        std::function<float(float)> get_magnitude_func;
+        float _arg;
+        std::function<float(float)> getMagnitudeFunc;
 
         DefaultForceComputation(DefaultForceDynamics dynamics);
 
@@ -28,7 +28,7 @@ struct DefaultForceComputation : ForceComputation {
 
 struct AppliedForceComputation : ForceComputation {
     private:
-        float magnitude;
+        float _magnitude;
 
         AppliedForceComputation(AppliedForceDynamics dynamics);
 

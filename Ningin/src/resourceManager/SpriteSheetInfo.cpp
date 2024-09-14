@@ -1,20 +1,18 @@
 #include "SpriteSheetInfo.h"
 
-SpriteSheetInfo::SpriteSheetInfo(std::vector<SpriteTile>& spriteTiles) : spriteTiles(spriteTiles)
+SpriteSheetInfo::SpriteSheetInfo(vector<SpriteTile>& spriteTiles) : _spriteTiles(spriteTiles) {}
+
+vector<SpriteTile> SpriteSheetInfo::GetSpriteTiles()
 {
+	return _spriteTiles;
 }
 
-std::vector<SpriteTile> SpriteSheetInfo::GetSpriteTiles()
+void SpriteSheetInfo::SetSpriteTiles(vector<SpriteTile>& spriteTiles)
 {
-	return spriteTiles;
-}
-
-void SpriteSheetInfo::SetSpriteTiles(std::vector<SpriteTile>& spriteTiles)
-{
-	spriteTiles = spriteTiles;
+	_spriteTiles = spriteTiles;
 }
 
 void SpriteSheetInfo::AddSpriteTile(SpriteTile& spriteTile)
 {
-	spriteTiles.push_back(spriteTile);
+	_spriteTiles.push_back(spriteTile);
 }

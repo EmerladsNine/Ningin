@@ -9,15 +9,19 @@
 
 struct Force2D {
 	private:
-		Vector3 direction;
-		Vector2 magnitude;
+		Vector3 _direction;
+		Vector2 _magnitude;
+		Vector2 _normalizedMagnitude;
 
-		ForceComputation computation;
-		ForceType force_type;
+		ForceComputation _computation;
+		ForceType _forceType;
 
-		float angle;
+		float _angle;
 
 	public:
-		Force2D(float force_magnitude, float angle, Axes direction, ForceComputation computation, ForceType force_type);
-		Force2D(Vector2 force_magnitude, ForceType force_type, Axes direction, AppliedForceComputation computation);
+		Force2D(float forceMagnitude, float angle, Axes direction, ForceComputation computation,
+			ForceType forceType);
+
+		Force2D(Vector2 forceMagnitude, ForceType forceType, Axes direction,
+			AppliedForceComputation computation);
 };

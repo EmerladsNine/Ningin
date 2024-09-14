@@ -7,10 +7,12 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 class Texture2D
 {
 	public:
-		Texture2D(std::filesystem::path& imgPath, bool alpha);
+		Texture2D(filesystem::path& imgPath, bool alpha);
 		~Texture2D();
 
 		void Bind();
@@ -19,12 +21,12 @@ class Texture2D
 		Dimensions2 GetDimensions();
 
 	private:
-		std::vector<unsigned char> data;
-		std::filesystem::path imgPath;
+		vector<unsigned char> _data;
+		filesystem::path _imgPath;
 
-		Dimensions2 dimensions;
-		GLenum imgFormat;
-		GLuint id;
+		Dimensions2 _dimensions;
+		GLenum _imgFormat;
+		GLuint _id;
 
 		void SetupTexture(int width, int height);
 		void CreateTextureMipmap();

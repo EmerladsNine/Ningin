@@ -63,21 +63,63 @@ namespace NinginCore
         }
 
         public float Distance(Vector2 Other) => InternalCalls.Vector2Distance(ref this, ref Other);
-        public float DistanceSquared(Vector2 Other) => InternalCalls.Vector2DistanceSquared(ref this, ref Other);
-        public float Dot(Vector2 Other) => InternalCalls.Vector2Dot(ref this, ref Other);
-        public float Magnitude() => InternalCalls.Vector2Magnitude(ref this);
-        public float MagnitudeSquared() => InternalCalls.Vector2MagnitudeSquared(ref this);
 
-        public static float Distance(Vector2 v1, Vector2 v2) => InternalCalls.Vector2Distance(ref v1, ref v2);
-        public static float DistanceSquared(Vector2 v1, Vector2 v2) => InternalCalls.Vector2DistanceSquared(ref v1, ref v2);
-        public static float Dot(Vector2 v1, Vector2 v2) => InternalCalls.Vector2Dot(ref v1, ref v2);
-        public static float Magnitude(Vector2 vec) => InternalCalls.Vector2Magnitude(ref vec);
-        public static float MagnitudeSquared(Vector2 vec) => InternalCalls.Vector2MagnitudeSquared(ref vec);
-        public static Vector2 Max(Vector2 V1, Vector2 V2) { InternalCalls.Vector2Max(ref V1, ref V2, out Vector2 result); return result; }
-        public static Vector2 Min(Vector2 V1, Vector2 V2) { InternalCalls.Vector2Min(ref V1, ref V2, out Vector2 result); return result; }
-        public static Vector2 Clamp(Vector2 to_clamp, Vector2 min, Vector2 max) { InternalCalls.Vector2Clamp(ref to_clamp, ref min, ref max, out Vector2 result); return result; }
-        public static Vector2 Normalize(Vector2 vec) { InternalCalls.Vector2Normalize(ref vec, out Vector2 result); return result; }
-        public static Vector2 Inverse(Vector2 vec) { InternalCalls.Vector2Inverse(ref vec, out Vector2 result); return result; }
+        public float DistanceSquared(Vector2 Other)
+            => InternalCalls.Vector2DistanceSquared(ref this, ref Other);
+
+        public float Dot(Vector2 Other)
+            => InternalCalls.Vector2Dot(ref this, ref Other);
+
+        public float Magnitude()
+            => InternalCalls.Vector2Magnitude(ref this);
+
+        public float MagnitudeSquared()
+            => InternalCalls.Vector2MagnitudeSquared(ref this);
+
+        public static float Distance(Vector2 v1, Vector2 v2)
+            => InternalCalls.Vector2Distance(ref v1, ref v2);
+
+        public static float DistanceSquared(Vector2 v1, Vector2 v2)
+            => InternalCalls.Vector2DistanceSquared(ref v1, ref v2);
+
+        public static float Dot(Vector2 v1, Vector2 v2) 
+            => InternalCalls.Vector2Dot(ref v1, ref v2);
+
+        public static float Magnitude(Vector2 vec)
+            => InternalCalls.Vector2Magnitude(ref vec);
+
+        public static float MagnitudeSquared(Vector2 vec)
+            => InternalCalls.Vector2MagnitudeSquared(ref vec);
+
+        public static Vector2 Max(Vector2 V1, Vector2 V2)
+        { 
+            InternalCalls.Vector2Max(ref V1, ref V2, out Vector2 result);
+            return result;
+        }
+
+        public static Vector2 Min(Vector2 V1, Vector2 V2)
+        {
+            InternalCalls.Vector2Min(ref V1, ref V2, out Vector2 result);
+            return result;
+        }
+
+        public static Vector2 Clamp(Vector2 to_clamp, Vector2 min, Vector2 max)
+        {
+            InternalCalls.Vector2Clamp(ref to_clamp, ref min, ref max, out Vector2 result);
+            return result;
+        }
+
+        public static Vector2 Normalize(Vector2 vec)
+        {
+            InternalCalls.Vector2Normalize(ref vec, out Vector2 result);
+            return result;
+        }
+
+        public static Vector2 Inverse(Vector2 vec)
+        {
+            InternalCalls.Vector2Inverse(ref vec, out Vector2 result);
+            return result;
+        }
 
         // Operators
         public static Vector2 operator -(Vector2 vec)
@@ -130,13 +172,17 @@ namespace NinginCore
 
         public static Vector2 operator /(float a, Vector2 vec)
         {
-            Vector2 _vec = new Vector2(1 / vec.x, 1 / vec.y);
-            InternalCalls.Vector2Divide(ref vec, 1 / a, out Vector2 result);
+            InternalCalls.Vector2Inverse(ref vec, out Vector2 inversedVec);
+            InternalCalls.Vector2Divide(ref inversedVec, 1 / a, out Vector2 result);
             return result;
         }
 
-        public static bool operator ==(Vector2 v1, Vector2 v2) => InternalCalls.Vector2Equals(ref v1, ref v2);
-        public static bool operator !=(Vector2 v1, Vector2 v2) => InternalCalls.Vector2NotEqual(ref v1, ref v2);
+        public static bool operator ==(Vector2 v1, Vector2 v2)
+            => InternalCalls.Vector2Equals(ref v1, ref v2);
+
+        public static bool operator !=(Vector2 v1, Vector2 v2)
+            => InternalCalls.Vector2NotEqual(ref v1, ref v2);
+
         public static bool operator <(Vector2 v1, Vector2 v2) => InternalCalls.Vector2L(ref v1, ref v2);
         public static bool operator <=(Vector2 v1, Vector2 v2) => InternalCalls.Vector2LE(ref v1, ref v2);
         public static bool operator >(Vector2 v1, Vector2 v2) => InternalCalls.Vector2G(ref v1, ref v2);

@@ -1,27 +1,32 @@
 #pragma once
 
+#include "../resourceManager/Color.h"
 #include "../sceneSystem/Scene.h"
+#include "../math/Vector3.h"
 #include <cstddef>
 #include <string>
 #include <vector>
+
+using namespace std;
 
 class SceneLoader
 {
 	public:
 		SceneLoader();
 
-		Scene* GetSceneFromId(std::size_t sceneId);
-		void LoadSceneFromFile(std::string path);
+		Scene* GetSceneFromId(size_t sceneId);
+		void LoadSceneFromFile(string path);
 
 	private:
-		float ReadFloat(uint8_t** filePointer);
-		uint32_t ReadU32(uint8_t** filePointer);
-		uint16_t ReadU16(uint8_t** filePointer);
-		uint8_t ReadU8(uint8_t** filePointer);
+		template<typename T> T Read(uint8_t** filePointer);
+		template<typename T> T SwapBytes(T value);
+
+		Vector3 ReadVector3(uint8_t** filePointer);
+		Color ReadColor(uint8_t** filePointer);
 
 		void AddComponent(uint8_t id, EntityId entityId, World& world,
-			const std::vector<std::string>& strings, const std::vector<uint32_t>& propertiesPointers,
+			const vector<string>& strings, const vector<uint32_t>& propertiesPointers,
 			uint8_t* filePropertiesPointer);
 
-		std::vector<Scene> scenes;
+		vector<Scene> _scenes;
 };

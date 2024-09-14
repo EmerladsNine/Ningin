@@ -24,8 +24,8 @@ class Transform
 		string ToString();
 
 	private:
-		Vector3 position;
-		Vector3 scale;
-		Vector3 rotation;
-		Dimensions2 dimensions;
+		Vector3 _position;
+		Vector3 _scale;
+		Vector3 _rotation;
+		Dimensions2 _dimensions;
 };

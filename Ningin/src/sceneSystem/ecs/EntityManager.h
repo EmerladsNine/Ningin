@@ -11,9 +11,6 @@ class EntityManager
 	public:
 		EntityManager();
 
-		unordered_map<EntityId, Record> entityIndex;
-		ArchetypeManager archetypeManager;
-
 		EntityId CreateNewEntity();
 
 		template <typename T> static void DefineComponent();
@@ -28,11 +25,14 @@ class EntityManager
 		void SetComponent(EntityId entityId, ComponentId componentId, void* data);
 		void SetComponent(Record* entityRecord, ComponentId componentId, void* data);
 
+		unordered_map<EntityId, Record> entityIndex;
+		ArchetypeManager archetypeManager;
+
 	private:
 		void edgeRemove(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);
 		void edgeAdd(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);
 
-		EntityId entityIdState;
+		EntityId _entityIdState;
 };
 
 template<typename T> inline void EntityManager::DefineComponent()

@@ -5,7 +5,7 @@
 class Scriptable
 {
 	public:
-		virtual bool IsStarted() = 0;
+		virtual bool HasStarted() = 0;
 
 		virtual void Start() = 0;
 
@@ -15,6 +15,10 @@ class Scriptable
 		virtual void Destroy() = 0;
 };
 
-void ScriptSystem(float deltatime, EntityManager* entityManager);
+void ScriptSystem(EntityManager* entityManager, float deltaTime);
 
-void ScriptLateSystem(float deltatime, EntityManager* entityManager);
+void ScriptLateSystem(EntityManager* entityManager, float deltaTime);
+
+void ScriptUpdate(EntityManager* entityManager, bool isLate, float deltaTime);
+
+void HandleScript(Scriptable* script, bool isLate, float deltaTime);

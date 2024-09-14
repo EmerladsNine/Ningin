@@ -4,23 +4,23 @@
 
 void ResourceManager::AddSprite(SpriteInfo& info)
 {
-	if (atlases.empty() || !atlases.back().CanAddSprite())
+	if (_atlases.empty() || !_atlases.back().CanAddSprite())
 	{
-		atlases.emplace_back(atlases.size());
+		_atlases.emplace_back(_atlases.size());
 	}
 
-	Atlas& atlas = atlases.back();
-	std::filesystem::path path = info.GetPath();
-	std::string name = info.GetName();
+	Atlas& atlas = _atlases.back();
+	filesystem::path path = info.GetPath();
+	string name = info.GetName();
 	atlas.AddSprite(path, name);
 
 	SpriteInfo spriteInfo = info;
-	spriteInfo.SetAtlasId(atlases.size() - 1);
+	spriteInfo.SetAtlasId(_atlases.size() - 1);
 
-	sprites[spriteInfo.GetName()] = spriteInfo;
+	_sprites[spriteInfo.GetName()] = spriteInfo;
 }
 
-void ResourceManager::LoadSprites(std::vector<SpriteInfo>& info)
+void ResourceManager::LoadSprites(vector<SpriteInfo>& info)
 {
 	for (auto& spriteInfo : info)
 	{
@@ -36,10 +36,10 @@ void ResourceManager::LoadSpriteSheet()
 void ResourceManager::LoadShader(ShaderInfo& info)
 {
 	Shader shader(info.GetPath("vertex"), info.GetPath("fragment"));
-	shaders.insert(std::make_pair(info.GetName(), shader));
+	_shaders.insert(make_pair(info.GetName(), shader));
 }
 
-void ResourceManager::LoadShaders(std::vector<ShaderInfo>& info)
+void ResourceManager::LoadShaders(vector<ShaderInfo>& info)
 {
 	for (auto& shaderInfo : info)
 	{
@@ -47,23 +47,24 @@ void ResourceManager::LoadShaders(std::vector<ShaderInfo>& info)
 	}
 }
 
-Shader ResourceManager::GetShader(std::string& name)
+Shader ResourceManager::GetShader(string& name)
 {
-	auto it = shaders.find(name);
-	if (it != shaders.end())
+	auto it = _shaders.find(name);
+	if (it != _shaders.end())
 	{
 		return it->second;
 	}
-	throw std::runtime_error("Shader not found");
+
+	throw runtime_error("Shader not found");
 }
 
 void ResourceManager::LoadTexture(TextureInfo& info)
 {
 	Texture2D texture(info.GetImgPath(), info.HasAlpha());
-	textures.insert(std::make_pair(info.GetName(), texture));
+	_textures.insert(make_pair(info.GetName(), texture));
 }
 
-void ResourceManager::LoadTextures(std::vector<TextureInfo>& info)
+void ResourceManager::LoadTextures(vector<TextureInfo>& info)
 {
 	for (auto& textureInfo : info)
 	{
@@ -71,23 +72,24 @@ void ResourceManager::LoadTextures(std::vector<TextureInfo>& info)
 	}
 }
 
-Texture2D ResourceManager::GetTexture(std::string& name)
+Texture2D ResourceManager::GetTexture(string& name)
 {
-	auto it = textures.find(name);
-	if (it != textures.end())
+	auto it = _textures.find(name);
+	if (it != _textures.end())
 	{
 		return it->second;
 	}
-	throw std::runtime_error("Texture not found");
+
+	throw runtime_error("Texture not found");
 }
 
 void ResourceManager::LoadFont(FontInfo& info)
 {
 	Font font(info.GetFontPath(), info.GetFtLibrary());
-	fonts.insert(std::make_pair(info.GetName(), font));
+	_fonts.insert(make_pair(info.GetName(), font));
 }
 
-void ResourceManager::LoadFonts(std::vector<FontInfo>& info)
+void ResourceManager::LoadFonts(vector<FontInfo>& info)
 {
 	for (auto& fontInfo : info)
 	{
@@ -95,21 +97,22 @@ void ResourceManager::LoadFonts(std::vector<FontInfo>& info)
 	}
 }
 
-void ResourceManager::LoadFontsFromFolder(std::filesystem::path& path, FT_Library ftLibrary)
+void ResourceManager::LoadFontsFromFolder(filesystem::path& path, FT_Library ftLibrary)
 {
-	std::vector<FontInfo> fontInfos = FontInfo::GenerateInfoFromFolder(path, ftLibrary);
+	vector<FontInfo> fontInfos = FontInfo::GenerateInfoFromFolder(path, ftLibrary);
 	for (auto& fontInfo : fontInfos)
 	{
 		LoadFont(fontInfo);
 	}
 }
 
-Font ResourceManager::GetFont(std::string& name)
+Font ResourceManager::GetFont(string& name)
 {
-	auto it = fonts.find(name);
-	if (it != fonts.end())
+	auto it = _fonts.find(name);
+	if (it != _fonts.end())
 	{
 		return it->second;
 	}
-	throw std::runtime_error("Font not found");
+
+	throw runtime_error("Font not found");
 }

@@ -1,7 +1,5 @@
 #include "point.h"
 
-using namespace std;
-
 // Define the ZERO constant.
 const Point Point::ZERO = Point(0, 0);
 

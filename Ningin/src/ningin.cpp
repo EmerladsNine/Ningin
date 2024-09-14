@@ -5,14 +5,14 @@
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
 
-std::vector<Window> Game::openedWindows;
+vector<Window> Game::openedWindows;
 SceneLoader Game::sceneLoader;
 
 const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
 
-void Game::Init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
-	std::vector<std::string> scenes, std::optional<MonoPaths> monoPath)
+void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
+	vector<string> scenes, optional<MonoPaths> monoPath)
 {
 	//Create new window with no scene
 	new_window(gameName, windowOptions, -1, dimensions);
@@ -31,7 +31,7 @@ void Game::Init(std::string gameName, WindowOptions windowOptions, Dimensions2* 
 	openedWindows[0].sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
 }
 
-std::size_t Game::new_window(std::string windowName, WindowOptions windowOptions, uint16_t sceneId,
+size_t Game::new_window(string windowName, WindowOptions windowOptions, uint16_t sceneId,
 	Dimensions2* dimensions)
 {
 	switch (windowOptions)
@@ -58,7 +58,7 @@ FT_Library Game::init_freetype()
 {
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft)) // all functions return a value different than 0 whenever an error occurred
-		throw std::runtime_error("ERROR::FREETYPE: Could not init FreeType Library");
+		throw runtime_error("ERROR::FREETYPE: Could not init FreeType Library");
 	return ft;
 }
 
@@ -92,6 +92,8 @@ void Game::main_loop()
 
 int main()
 {
-	Game::Init("ma khasak", WindowOptions::Windowed, new Dimensions2(100, 100), { "Scene" }, MonoPaths("mono/lib","example.dll"));
+	Game::Init("ma khasak", WindowOptions::Windowed, new Dimensions2(100, 100), { "Scene" },
+		MonoPaths("mono/lib","example.dll"));
+
 	return 0;
 }

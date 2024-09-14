@@ -11,6 +11,8 @@
 #include <string>
 #include <vector>
 
+using namespace std;
+
 extern ResourceManager resourceManager;
 extern glm::mat4 projectionMatrix;
 
@@ -20,18 +22,18 @@ extern const int ATLAS_LIMIT;
 class Game
 {
 	public:
-		static std::vector<Window> openedWindows;
+		static vector<Window> openedWindows;
 		static SceneLoader sceneLoader;
 
-		static void Init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
-			std::vector<std::string> scenes, std::optional<MonoPaths> monoPath);
+		static void Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
+			vector<string> scenes, optional<MonoPaths> monoPath);
 
-		static std::size_t new_window(std::string windowName, WindowOptions windowOptions,
-			std::uint16_t sceneId, Dimensions2* dimensions);
+		static size_t new_window(string windowName, WindowOptions windowOptions,
+			uint16_t sceneId, Dimensions2* dimensions);
 
 	private:
-		FT_Library init_freetype();
 		static void init_gl2d(Dimensions2* dimensions);
 		static void init_resource_manager();
+		FT_Library init_freetype();
 		static void main_loop();
 };

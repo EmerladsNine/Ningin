@@ -1,25 +1,24 @@
 #include "Sprite.h"
 
-Sprite::Sprite(int spriteIndex, Dimensions2& dimensions) : spriteIndex(spriteIndex), dimensions(dimensions)
-{
-}
+Sprite::Sprite(int spriteIndex, Dimensions2& dimensions) : _spriteIndex(spriteIndex),
+	_dimensions(dimensions) {}
 
 int Sprite::GetSpriteIndex()
 {
-	return spriteIndex;
+	return _spriteIndex;
 }
 
 Dimensions2& Sprite::GetDimensions()
 {
-	return dimensions;
+	return _dimensions;
 }
 
 void Sprite::SetSpriteIndex(int spriteIndex)
 {
-	this->spriteIndex = spriteIndex;
+	_spriteIndex = spriteIndex;
 }
 
 void Sprite::SetDimensions(Dimensions2& dimensions)
 {
-	this->dimensions = dimensions;
+	_dimensions = dimensions;
 }
