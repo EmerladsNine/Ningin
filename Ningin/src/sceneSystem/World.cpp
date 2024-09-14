@@ -11,8 +11,8 @@
 
 using namespace std;
 
-vector<void (*)(float, EntityManager*)> World::systems;
-vector<void (*)(float, EntityManager*)> World::lateSystems;
+vector<void (*)(EntityManager*, float)> World::systems;
+vector<void (*)(EntityManager*, float)> World::lateSystems;
 
 World::World() : entitiesCount(0) {}
 

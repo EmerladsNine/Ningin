@@ -28,7 +28,7 @@ namespace NinginCore
         }
         public Vector2 Scale(float scaler)
         {
-            InternalCalls.Vector2Multiply(ref this, scaler, out Vector2 result);
+            InternalCalls.Vector2MultiplyByFloat(ref this, scaler, out Vector2 result);
             return result;
         }
 
