@@ -10,14 +10,17 @@
 Mono::Mono() : assembliesDirectory(Enironment::GetGameDirectory()), rootDomain(nullptr), appDomain(nullptr)
 	,gameAssembly(nullptr), ninginAssembly(nullptr) {}
 
-Mono::~Mono()
-{
-	mono_jit_cleanup(appDomain);
-	mono_jit_cleanup(rootDomain);
+Mono::~Mono() {
+	if (appDomain != nullptr) {
+		mono_jit_cleanup(appDomain);
+	}
+
+	if (rootDomain != nullptr) {
+		mono_jit_cleanup(rootDomain);
+	}
 }
 
-void Mono::Init(std::string libPath, std::string gameAssemblyFileName)
-{
+void Mono::Init(std::string libPath, std::string gameAssemblyFileName) {
 	// Set the path for dotnet assemblies
 	mono_set_assemblies_path(libPath.c_str());
 

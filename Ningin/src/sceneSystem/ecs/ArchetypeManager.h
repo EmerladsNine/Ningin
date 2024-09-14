@@ -34,7 +34,7 @@ class ArchetypeManager
 
 		optional<Archetype*> GetArchetypeByType(const ArchetypeType& type);
 
-		Archetype* GenerateArchetype(ArchetypeType type);
+		Archetype* GenerateArchetype(ArchetypeType&& type);
 
 	private:
 		ArchetypeId archetypeCount;

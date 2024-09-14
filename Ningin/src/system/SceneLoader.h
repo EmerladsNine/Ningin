@@ -10,7 +10,7 @@ class SceneLoader
 	public:
 		SceneLoader();
 
-		Scene GetSceneFromId(std::size_t sceneId);
+		Scene* GetSceneFromId(std::size_t sceneId);
 		void LoadSceneFromFile(std::string path);
 
 	private:

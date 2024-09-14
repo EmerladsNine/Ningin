@@ -6,6 +6,7 @@
 #include "system/SceneLoader.h"
 #include "system/window.h"
 #include "system/WindowOptions.h"
+#include "scripting/ninginMono/MonoPaths.h"
 #include <glm.hpp>
 #include <string>
 #include <vector>
@@ -23,7 +24,7 @@ class Game
 		static SceneLoader sceneLoader;
 
 		static void Init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
-			std::vector<std::string> scenes);
+			std::vector<std::string> scenes, std::optional<MonoPaths> monoPath);
 
 		static std::size_t new_window(std::string windowName, WindowOptions windowOptions,
 			std::uint16_t sceneId, Dimensions2* dimensions);

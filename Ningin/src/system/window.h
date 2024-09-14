@@ -13,7 +13,7 @@ class Window
 		SceneManager sceneManager;
 		Dimensions2* dimensions;
 
-		Window(std::string title, bool isFullscreen, Scene scene, Dimensions2* dimensions);
+		Window(std::string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions);
 
 	private:
 		void InitOpenGL(GLFWwindow* window);

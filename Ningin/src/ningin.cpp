@@ -1,5 +1,6 @@
 #include "Ningin.h"
 #include "sceneSystem/World.h"
+#include "scripting/ScriptingEngine.h"
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
@@ -11,16 +12,23 @@ const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
 
 void Game::Init(std::string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
-	std::vector<std::string> scenes)
+	std::vector<std::string> scenes, std::optional<MonoPaths> monoPath)
 {
-	new_window(gameName, windowOptions, 0, dimensions);
+	//Create new window with no scene
+	new_window(gameName, windowOptions, -1, dimensions);
+
 	init_gl2d(dimensions);
 	init_resource_manager();
 	World::InitDefaultComponentSystem();
+	ScriptingEngine::Init(monoPath);
+	
 	for (auto& scene : scenes)
 	{
-		// todo
+		sceneLoader.LoadSceneFromFile(scene);
 	}
+	
+	//Initialise first window scene manager
+	openedWindows[0].sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
 }
 
 std::size_t Game::new_window(std::string windowName, WindowOptions windowOptions, uint16_t sceneId,
@@ -84,5 +92,6 @@ void Game::main_loop()
 
 int main()
 {
+	Game::Init("ma khasak", WindowOptions::Windowed, new Dimensions2(100, 100), { "Scene" }, MonoPaths("mono/lib","example.dll"));
 	return 0;
 }

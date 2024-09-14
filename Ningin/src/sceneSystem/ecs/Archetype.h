@@ -22,7 +22,7 @@ class Archetype
 
 		unordered_map<ComponentId, ArchetypeEdge> edges; // Cache for adding / removing components.
 		vector<Column> components; // The Data of the entities of this archetype.
-		ArchetypeType* type;
+		const ArchetypeType* type;
 		size_t archetypeId;
 
 		size_t CreateEntity(); // Returns row of the entity.
@@ -32,5 +32,4 @@ class Archetype
 
 	private:
 		EntityId GetEntityId(size_t row);
-		size_t current_row;
 };

@@ -17,17 +17,19 @@ optional<Archetype*> ArchetypeManager::GetArchetypeByType(const ArchetypeType& t
 	}
 }
 
-Archetype* ArchetypeManager::GenerateArchetype(ArchetypeType type)
+Archetype* ArchetypeManager::GenerateArchetype(ArchetypeType&& type)
 {
 	ArchetypeId archetypeId = archetypeCount;
 	archetypeCount++;
 
-	auto [it, inserted] = archetypeIndex.try_emplace(type, archetypeId, &type); // Create Archetype instance
+	auto [it, inserted] = archetypeIndex.try_emplace(std::move(type), archetypeId, nullptr); // Create Archetype instance
 	Archetype& archetype = it->second;
+	archetype.type = &it->first;
 
 	uint32_t i = 0; // update component index
 
-	for (auto& componentId : type) {
+	for (auto& componentId : it->first) {
+		archetype.components.push_back(Column());
 		auto iterator = componentIndex.find(componentId);
 		if (iterator != componentIndex.end()) { // Component exists we can update it.
 			ArchetypeMap& archetypeMap = iterator->second;

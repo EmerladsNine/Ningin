@@ -49,13 +49,13 @@ static bool Checksum(uint32_t provided_checksum, const uint8_t* data, std::size_
 
 SceneLoader::SceneLoader() {}
 
-Scene SceneLoader::GetSceneFromId(std::size_t sceneId)
+Scene* SceneLoader::GetSceneFromId(std::size_t sceneId)
 {
 	if (sceneId < scenes.size()) {
-		return scenes[sceneId];
+		return &scenes[sceneId];
 	}
 	else {
-		throw std::out_of_range("Scene ID out of range");
+		return nullptr;
 	}
 }
 
@@ -197,7 +197,6 @@ void SceneLoader::LoadSceneFromFile(std::string path)
 		}
 		scenes.push_back(scene);
 	}
-
 	else {
 		throw std::runtime_error("Invalid version of scene file");
 	}
@@ -326,7 +325,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 float SceneLoader::ReadFloat(uint8_t** filePointer)
 {
 	float f;
-	std::memcpy(&f, filePointer, sizeof(f));
+	std::memcpy(&f, *filePointer, sizeof(f));
 	f = swapFloatBytes(f);
 	*filePointer += 4;
 	return f;

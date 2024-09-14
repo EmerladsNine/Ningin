@@ -150,9 +150,9 @@ namespace NinginCore
 
         public override bool Equals(object obj)
         {
-            if (obj is Vector2)
+            if (obj is Vector2 vector)
             {
-                return this == (Vector2)obj;
+                return this == vector;
             }
 
             return false;

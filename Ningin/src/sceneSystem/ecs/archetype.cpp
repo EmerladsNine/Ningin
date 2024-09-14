@@ -2,32 +2,43 @@
 #include "../entity/Id.h"
 #include "ArchetypeManager.h"
 
-Archetype::Archetype(size_t archetype_id, ArchetypeType* type) : archetypeId(archetype_id), type(type),
-	current_row(0) {}
+Archetype::Archetype(size_t archetype_id, ArchetypeType* type) : archetypeId(archetype_id), type(type) {
+	if (type != nullptr)
+	{
+		for (auto& componentId : *type)
+		{
+			components.push_back(Column());
+		}
+	}
+}
 
 size_t Archetype::CreateEntity()
 {
 	for (auto& column : components) {
-		column[current_row] = nullptr;
+		column.push_back(nullptr);
 	}
-	return current_row++;
+	return components[0].size() - 1;
 }
 
 optional<EntityId> Archetype::SwapRemoveEntity(size_t row)
 {
 	if (components.size() == 0) {
-		current_row--;
 		return nullopt;
 	}
 
 	size_t lastRow = components[0].size() - 1;
-	for (auto& column : components) {
-		// Removes row without shifting other rows index. (replaces last row with this row)
-		swap(column[row], column[lastRow]);
-		column.pop_back();
+	if (row != lastRow)
+	{
+		for (auto& column : components) {
+			// Removes row without shifting other rows index. (replaces last row with this row)
+			swap(column[row], column[lastRow]);
+			column.pop_back();
+		}
+	}
+	else {
+		return nullopt;
 	}
 
-	current_row--;
 	return GetEntityId(row);
 }
 

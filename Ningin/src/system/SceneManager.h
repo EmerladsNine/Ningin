@@ -5,7 +5,7 @@
 class SceneManager
 {
 	public:
-		Scene currentScene;
-		SceneManager(Scene currentScene);
+		Scene* currentScene;
+		SceneManager(Scene* currentScene);
 		void NewFrame(float deltaTime);
 };

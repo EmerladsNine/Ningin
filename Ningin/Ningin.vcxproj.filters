@@ -294,6 +294,9 @@
     <ClCompile Include="src\sceneSystem\components\Transform.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
+    <ClCompile Include="src\scripting\ninginMono\MonoPaths.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector3.h">
@@ -535,5 +538,13 @@
     <None Include="src\shaders\text_vs.vs">
       <Filter>Resource Files\shaders</Filter>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="dependencies\freetype.dll" />
+    <CopyFileToFolders Include="dependencies\glew32.dll" />
+    <CopyFileToFolders Include="dependencies\glfw3.dll" />
+    <CopyFileToFolders Include="dependencies\jsoncpp.dll" />
+    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll" />
+    <CopyFileToFolders Include="Scene" />
   </ItemGroup>
 </Project>

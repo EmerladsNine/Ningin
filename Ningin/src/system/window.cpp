@@ -6,7 +6,7 @@ static void callback_function(GLFWwindow* window, int width, int height)
 	// TODO
 }
 
-Window::Window(std::string title, bool isFullscreen, Scene scene, Dimensions2* dimensions)
+Window::Window(std::string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
 	: sceneManager(SceneManager(scene)), dimensions(dimensions)
 {
 	InitGlfw();

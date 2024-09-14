@@ -24,7 +24,7 @@ EntityId EntityManager::CreateNewEntity()
 	else {
 		// Doesn't exist so we create it.
 		ArchetypeManager::RegisterComponentTypeDeleter<Id>();
-		archetype = archetypeManager.GenerateArchetype(type);
+		archetype = archetypeManager.GenerateArchetype(std::move(type));
 	}
 
 	// Create Entity
@@ -189,7 +189,7 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 			newArchetype = result.value();
 		}
 		else {
-			newArchetype = archetypeManager.GenerateArchetype(newType);
+			newArchetype = archetypeManager.GenerateArchetype(std::move(newType));
 		}
 
 		edgeAdd(oldArchetype, newArchetype, componentId);
@@ -218,7 +218,7 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	}
 
 	// Remove the entity from the current archetype.
-	auto result = newArchetype->SwapRemoveEntity(record->row);
+	auto result = oldArchetype->SwapRemoveEntity(record->row);
 
 	if (result.has_value()) {
 		auto entityIterator = entityIndex.find(result.value());
@@ -276,7 +276,7 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 			newArchetype = result.value();
 		}
 		else {
-			newArchetype = archetypeManager.GenerateArchetype(newType);
+			newArchetype = archetypeManager.GenerateArchetype(std::move(newType));
 		}
 		edgeRemove(oldArchetype, newArchetype, componentId);
 	}
@@ -293,7 +293,7 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	}
 
 	// Remove the entity from the current archetype.
-	auto result = newArchetype->SwapRemoveEntity(record->row);
+	auto result = oldArchetype->SwapRemoveEntity(record->row);
 
 	if (result.has_value()) {
 		auto entityIterator = entityIndex.find(result.value());

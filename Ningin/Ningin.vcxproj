@@ -71,6 +71,7 @@
     <ClCompile Include="src\sceneSystem\World.cpp" />
     <ClCompile Include="src\scripting\ninginMono\InternalCalls.cpp" />
     <ClCompile Include="src\scripting\ninginMono\Mono.cpp" />
+    <ClCompile Include="src\scripting\ninginMono\MonoPaths.cpp" />
     <ClCompile Include="src\scripting\ninginMono\Script.cpp" />
     <ClCompile Include="src\scripting\ninginMono\ScriptClass.cpp" />
     <ClCompile Include="src\scripting\ninginMono\wrapper\DebugWrapper.cpp" />
@@ -161,10 +162,36 @@
     <ClInclude Include="src\utills\FileReader.h" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="dependencies\freetype.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\glew32.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\glfw3.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\jsoncpp.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="Scene">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <None Include="src\shaders\sprite_fs.frag" />
     <None Include="src\shaders\sprite_vs.vs" />
     <None Include="src\shaders\text_fs.frag" />
     <None Include="src\shaders\text_vs.vs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\example\example.csproj">
+      <Project>{8a2decdb-c1f9-4a3d-aca2-241d6fe89083}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\NinginCore\NinginCore.csproj">
+      <Project>{9e1ae3cc-984f-4628-89a6-c1105dbe5495}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -265,6 +292,12 @@
       <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies);jsoncpp.lib;mono-2.0-sgen.lib;libmono-static-sgen.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSCVRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
     </Link>
+    <PostBuildEvent>
+      <Command>robocopy $(ProjectDir)mono\lib\mono\4.5 $(OutDir)mono\lib\mono\4.5 mscorlib.dll
+cd $(ProjectDir)..\Tools\SceneTools\nsr\
+nsr.exe ../../../example/Config.ningin ../../../example/Scene.ningin $(ProjectDir)Scene
+cd ../../..</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
