@@ -8,9 +8,7 @@ namespace NinginCore
         public static Vector3 ZERO = new Vector3(0.0f, 0.0f, 0.0f);
         public static Vector3 ONE = new Vector3(1.0f, 1.0f, 1.0f);
 
-        public float x;
-        public float y;
-        public float z;
+        public float x, y, z;
 
         public Vector3(float x = 0.0f, float y = 0.0f, float z = 0.0f)
         {
@@ -32,7 +30,7 @@ namespace NinginCore
         }
         public Vector3 Scale(float scaler)
         {
-            InternalCalls.Vector3Multiply(ref this, scaler, out Vector3 result);
+            InternalCalls.Vector3MultiplyByFloat(ref this, scaler, out Vector3 result);
             return result;
         }
 
@@ -133,13 +131,13 @@ namespace NinginCore
 
         public static Vector3 operator *(Vector3 v1, float a)
         {
-            InternalCalls.Vector3Multiply(ref v1, a, out Vector3 result);
+            InternalCalls.Vector3MultiplyByFloat(ref v1, a, out Vector3 result);
             return result;
         }
 
         public static Vector3 operator *(float a, Vector3 v1)
         {
-            InternalCalls.Vector3Multiply(ref v1, a, out Vector3 result);
+            InternalCalls.Vector3MultiplyByFloat(ref v1, a, out Vector3 result);
             return result;
         }
 
@@ -157,14 +155,14 @@ namespace NinginCore
 
         public static Vector3 operator /(Vector3 vec, float a)
         {
-            InternalCalls.Vector3Divide(ref vec, a, out Vector3 result);
+            InternalCalls.Vector3DivideByFloat(ref vec, a, out Vector3 result);
             return result;
         }
 
         public static Vector3 operator /(float a, Vector3 vec)
         {
             InternalCalls.Vector3Inverse(ref vec, out Vector3 inversedVec);
-            InternalCalls.Vector3Divide(ref inversedVec, 1 / a, out Vector3 result);
+            InternalCalls.Vector3DivideByFloat(ref inversedVec, 1 / a, out Vector3 result);
             return result;
         }
 

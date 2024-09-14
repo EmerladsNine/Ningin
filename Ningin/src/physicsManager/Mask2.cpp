@@ -9,7 +9,7 @@ pair<bool, bool> Mask2::Deconstruct()
 	return { x, y };
 }
 
-string Mask2ToString(Mask2 mask)
+void Mask2ToString(Mask2 mask, string& out)
 {
-	return format("Mask2 - x: {}, y: {}", mask.x, mask.y);
+	out = format("Mask2 - x: {}, y: {}", mask.x, mask.y);
 }

@@ -3,17 +3,17 @@
 // Define the ZERO constant.
 const Point Point::ZERO = Point(0, 0);
 
-Point PointFromVector2(Vector2& vec)
+void PointFromVector2(Vector2& vec, Point& out)
 {
-	return Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
+	out = Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
 }
 
-Point PointFromVector3(Vector3& vec)
+void PointFromVector3(Vector3& vec, Point& out)
 {
-	return Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
+	out = Point(static_cast<int>(vec.x), static_cast<int>(vec.y));
 }
 
-string PointToString(Point pt)
+void PointToString(Point pt, string& out)
 {
-	return format("Point - x: {}, y: {}", pt.x, pt.y);
+	out = format("Point - x: {}, y: {}", pt.x, pt.y);
 }

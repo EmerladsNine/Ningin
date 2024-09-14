@@ -16,4 +16,4 @@ class Mask3
 		bool x, y, z;
 };
 
-string Mask3ToString(Mask3 mask);
+void Mask3ToString(Mask3 mask, string& out);

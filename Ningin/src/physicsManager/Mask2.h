@@ -15,4 +15,4 @@ class Mask2
 		bool x, y;
 };
 
-string Mask2ToString(Mask2 mask);
+void Mask2ToString(Mask2 mask, string& out);

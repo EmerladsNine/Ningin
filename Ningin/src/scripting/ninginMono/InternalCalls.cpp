@@ -1,6 +1,9 @@
 #include "InternalCalls.h"
 #include "../../math/Vector2.h"
 #include "../../math/Vector3.h"
+#include "../../physicsManager/colliders/Point.h"
+#include "../../physicsManager/Mask2.h"
+#include "../../physicsManager/Mask3.h"
 #include "../../math/Math.h"
 #include "../../math/Dimensions2.h"
 #include "../../math/Dimensions3.h"
@@ -80,6 +83,20 @@ void AddInternalCalls()
 
     #pragma region Dimensions3
         AddInternalCall(Dimensions3ToString);
+    #pragma endregion
+
+    #pragma region Mask2
+        AddInternalCall(Mask2ToString);
+    #pragma endregion
+
+    #pragma region Mask3
+        AddInternalCall(Mask3ToString);
+    #pragma endregion
+
+    #pragma region Point
+        AddInternalCall(PointToString);
+        AddInternalCall(PointFromVector2);
+        AddInternalCall(PointFromVector3);
     #pragma endregion
 
     #pragma region Debug

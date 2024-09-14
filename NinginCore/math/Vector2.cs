@@ -7,8 +7,7 @@ namespace NinginCore
         public static Vector2 ZERO = new Vector2(0.0f, 0.0f);
         public static Vector2 ONE = new Vector2(1.0f, 1.0f);
 
-        public float x;
-        public float y;
+        public float x, y;
 
         public Vector2(float x = 0.0f, float y = 0.0f)
         {
@@ -82,7 +81,7 @@ namespace NinginCore
         public static float DistanceSquared(Vector2 v1, Vector2 v2)
             => InternalCalls.Vector2DistanceSquared(ref v1, ref v2);
 
-        public static float Dot(Vector2 v1, Vector2 v2) 
+        public static float Dot(Vector2 v1, Vector2 v2)
             => InternalCalls.Vector2Dot(ref v1, ref v2);
 
         public static float Magnitude(Vector2 vec)
@@ -92,7 +91,7 @@ namespace NinginCore
             => InternalCalls.Vector2MagnitudeSquared(ref vec);
 
         public static Vector2 Max(Vector2 V1, Vector2 V2)
-        { 
+        {
             InternalCalls.Vector2Max(ref V1, ref V2, out Vector2 result);
             return result;
         }
@@ -142,13 +141,13 @@ namespace NinginCore
 
         public static Vector2 operator *(Vector2 v1, float a)
         {
-            InternalCalls.Vector2Multiply(ref v1, a, out Vector2 result);
+            InternalCalls.Vector2MultiplyByFloat(ref v1, a, out Vector2 result);
             return result;
         }
 
         public static Vector2 operator *(float a, Vector2 v1)
         {
-            InternalCalls.Vector2Multiply(ref v1, a, out Vector2 result);
+            InternalCalls.Vector2MultiplyByFloat(ref v1, a, out Vector2 result);
             return result;
         }
 
@@ -166,14 +165,14 @@ namespace NinginCore
 
         public static Vector2 operator /(Vector2 vec, float a)
         {
-            InternalCalls.Vector2Divide(ref vec, a, out Vector2 result);
+            InternalCalls.Vector2DivideByFloat(ref vec, a, out Vector2 result);
             return result;
         }
 
         public static Vector2 operator /(float a, Vector2 vec)
         {
             InternalCalls.Vector2Inverse(ref vec, out Vector2 inversedVec);
-            InternalCalls.Vector2Divide(ref inversedVec, 1 / a, out Vector2 result);
+            InternalCalls.Vector2DivideByFloat(ref inversedVec, 1 / a, out Vector2 result);
             return result;
         }
 

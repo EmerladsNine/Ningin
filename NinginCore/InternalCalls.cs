@@ -45,13 +45,13 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector2Subtract(ref Vector2 v1, ref Vector2 v2, out Vector2 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Vector2Multiply(ref Vector2 vec, float a, out Vector2 result);
+        internal static extern void Vector2MultiplyByFloat(ref Vector2 vec, float a, out Vector2 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector2Multiply(ref Vector2 v1, ref Vector2 v2, out Vector2 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector2Divide(ref Vector2 v1, ref Vector2 v2, out Vector2 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Vector2Divide(ref Vector2 vec, float a, out Vector2 result);
+        internal static extern void Vector2DivideByFloat(ref Vector2 vec, float a, out Vector2 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern bool Vector2Equals(ref Vector2 v1, ref Vector2 v2);
         [MethodImpl(MethodImplOptions.InternalCall)]
@@ -107,13 +107,13 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector3Subtract(ref Vector3 v1, ref Vector3 v2, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Vector3Multiply(ref Vector3 vec, float a, out Vector3 result);
+        internal static extern void Vector3MultiplyByFloat(ref Vector3 vec, float a, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector3Multiply(ref Vector3 v1, ref Vector3 v2, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector3Divide(ref Vector3 v1, ref Vector3 v2, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Vector3Divide(ref Vector3 vec, float a, out Vector3 result);
+        internal static extern void Vector3DivideByFloat(ref Vector3 vec, float a, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern bool Vector3Equals(ref Vector3 v1, ref Vector3 v2);
         [MethodImpl(MethodImplOptions.InternalCall)]
@@ -156,6 +156,32 @@ namespace NinginCore
         internal static extern void DebugLogWarning(string message);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void DebugLogError(string message);
+        #endregion
+
+        #region Point
+        // Todo To String
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void PointToString();
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void PointFromVector2(ref Vector2 self, out Point result);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void PointFromVector3(ref Vector3 self, out Point result);
+        #endregion
+
+        #region Mask2
+
+        // Todo To String
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void Mask2ToString();
+        #endregion
+
+        #region Mask3
+
+        // Todo To String
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void Mask3ToString();
         #endregion
     }
 }

@@ -9,7 +9,7 @@ tuple<bool, bool, bool> Mask3::Deconstruct()
 	return { x, y, z };
 }
 
-string Mask3ToString(Mask3 mask)
+void Mask3ToString(Mask3 mask, string& out)
 {
-	return format("Mask3 - x: {}, y: {}, z: {}", mask.x, mask.y, mask.z);
+	out = format("Mask3 - x: {}, y: {}, z: {}", mask.x, mask.y, mask.z);
 }

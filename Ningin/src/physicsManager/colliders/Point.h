@@ -4,6 +4,8 @@
 #include "../../math/Vector3.h"
 #include <format>
 
+using namespace std;
+
 class Point
 {
 	public:
@@ -17,6 +19,8 @@ class Point
 		Point() : x(0), y(0) {}
 };
 
-Point PointFromVector2(Vector2& vec);
-Point PointFromVector3(Vector3& vec);
-std::string PointToString(Point pt);
+void PointFromVector2(Vector2& vec, Point& out);
+
+void PointFromVector3(Vector3& vec, Point& out);
+
+void PointToString(Point pt, string& out);
