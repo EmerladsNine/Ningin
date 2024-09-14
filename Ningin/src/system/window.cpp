@@ -1,6 +1,4 @@
 #include "window.h"
-#include <GLFW/glfw3.h>
-#include <GL/glew.h>
 #include <glm.hpp>
 #include "../ningin.h"
 
@@ -23,7 +21,7 @@ Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimen
 
 	InitOpenGL(window);
 	glfwSetFramebufferSizeCallback(window, callback_function);
-	win = window;
+	glfwWin = window;
 }
 
 void Window::InitGlfw()
@@ -58,6 +56,8 @@ void Window::InitOpenGL(GLFWwindow* window)
 {
 	GLenum err = glewInit();
 	if (err != GLEW_OK) {
-		throw runtime_error(format("Failed to initialize GLEW:\n{}\n", glewGetErrorString(err)));
+		ostringstream oss;
+		oss << "Failed to initialize GLEW:\n" << glewGetErrorString(err) << "\n";
+		throw runtime_error(oss.str());
 	}
 }

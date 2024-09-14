@@ -3,6 +3,7 @@
 #include "../math/Dimensions2.h"
 #include "../sceneSystem/Scene.h"
 #include "SceneManager.h"
+#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 #include <string>
 
@@ -11,7 +12,7 @@ using namespace std;
 class Window
 {
 	public:
-		GLFWwindow* win;
+		GLFWwindow* glfwWin;
 		SceneManager sceneManager;
 		Dimensions2* dimensions;
 

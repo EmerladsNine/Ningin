@@ -1,6 +1,10 @@
 #include "Ningin.h"
 #include "sceneSystem/World.h"
 #include "scripting/ScriptingEngine.h"
+#include <chrono>
+
+using Clock = chrono::high_resolution_clock;
+using TimePoint = chrono::time_point<Clock>;
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
@@ -15,10 +19,10 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	vector<string> scenes, optional<MonoPaths> monoPath)
 {
 	//Create new window with no scene
-	new_window(gameName, windowOptions, -1, dimensions);
+	NewWindow(gameName, windowOptions, -1, dimensions);
 
-	init_gl2d(dimensions);
-	init_resource_manager();
+	InitGl2d(dimensions);
+	InitResourceManager();
 	World::InitDefaultComponentSystem();
 	ScriptingEngine::Init(monoPath);
 	
@@ -31,7 +35,7 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	openedWindows[0].sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
 }
 
-size_t Game::new_window(string windowName, WindowOptions windowOptions, uint16_t sceneId,
+size_t Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t sceneId,
 	Dimensions2* dimensions)
 {
 	switch (windowOptions)
@@ -54,7 +58,7 @@ size_t Game::new_window(string windowName, WindowOptions windowOptions, uint16_t
 	return openedWindows.size() - 1;
 }
 
-FT_Library Game::init_freetype()
+FT_Library Game::InitFreetype()
 {
 	FT_Library ft;
 	if (FT_Init_FreeType(&ft)) // all functions return a value different than 0 whenever an error occurred
@@ -62,7 +66,7 @@ FT_Library Game::init_freetype()
 	return ft;
 }
 
-void Game::init_gl2d(Dimensions2* dimensions)
+void Game::InitGl2d(Dimensions2* dimensions)
 {
 	glViewport(0, 0, dimensions->width, dimensions->height);
 	glEnable(GL_BLEND);
@@ -74,19 +78,48 @@ void Game::init_gl2d(Dimensions2* dimensions)
 	glDepthFunc(GL_LEQUAL);
 }
 
-void Game::init_resource_manager()
+void Game::InitResourceManager()
 {
 	// TODO
 }
 
-void Game::main_loop()
+void Game::MainLoop()
 {
+	TimePoint last_frame_time = Clock::now();
+
 	while (true)
 	{
+		glfwPollEvents();
+		glClearColor(0, 100, 0, 256);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		vector<size_t> windowIndicesToDelete;
+
+		size_t index = 0;
+
 		for (auto& win : openedWindows)
 		{
-			win.sceneManager.NewFrame(0);
+			chrono::duration<float> duration = Clock::now() - last_frame_time;
+			
+			if (!glfwWindowShouldClose(win.glfwWin)) win.sceneManager.NewFrame(duration.count());
+			else windowIndicesToDelete.push_back(index);
+			
+			glfwSwapBuffers(win.glfwWin);
+
+			index++;
 		}
+
+		sort(windowIndicesToDelete.rbegin(), windowIndicesToDelete.rend());
+
+		// Remove elements in descending order to avoid invalidating indices
+		for (size_t index : windowIndicesToDelete) {
+			openedWindows.erase(openedWindows.begin() + index);
+		}
+
+		if (openedWindows.size() == 0)
+			break;
+
+		last_frame_time = Clock::now();
 	}
 }
 
