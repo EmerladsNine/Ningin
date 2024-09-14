@@ -1,9 +1,15 @@
 #include "window.h"
 #include <GLFW/glfw3.h>
+#include <GL/glew.h>
+#include <glm.hpp>
+#include "../ningin.h"
 
 static void callback_function(GLFWwindow* window, int width, int height)
 {
-	// TODO
+	glViewport(0, 0, width, height);
+
+	projectionMatrix = glm::ortho(0.0f, static_cast<float>(width),
+		static_cast<float>(height), 0.0f, -1.0f, 1.0f);
 }
 
 Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
@@ -11,6 +17,10 @@ Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimen
 {
 	InitGlfw();
 	GLFWwindow* window = StartWindow(title, isFullscreen, dimensions);
+
+	projectionMatrix = glm::ortho(0.0f, static_cast<float>(dimensions->width), 
+		static_cast<float>(dimensions->height), 0.0f, -1.0f, 1.0f);
+
 	InitOpenGL(window);
 	glfwSetFramebufferSizeCallback(window, callback_function);
 	win = window;
@@ -46,5 +56,8 @@ GLFWwindow* Window::StartWindow(string title, bool isFullscreen, Dimensions2* di
 
 void Window::InitOpenGL(GLFWwindow* window)
 {
-	// TODO INIT OPENGL JAWAD
+	GLenum err = glewInit();
+	if (err != GLEW_OK) {
+		throw runtime_error(format("Failed to initialize GLEW:\n{}\n", glewGetErrorString(err)));
+	}
 }
