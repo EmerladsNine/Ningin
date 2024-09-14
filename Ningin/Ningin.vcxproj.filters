@@ -103,6 +103,12 @@
     <Filter Include="Source Files\sceneSystem\entity">
       <UniqueIdentifier>{1f5729d3-aca2-40f8-858e-ebc402593254}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Dependencies">
+      <UniqueIdentifier>{f975c8a8-6a53-4da8-97cd-27938f338cb9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Dependencies\mono">
+      <UniqueIdentifier>{be1c68bd-b453-47b3-92fa-6d016a44c486}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -295,7 +301,7 @@
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
     <ClCompile Include="src\scripting\ninginMono\MonoPaths.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\scripting\mono</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -540,11 +546,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="dependencies\freetype.dll" />
-    <CopyFileToFolders Include="dependencies\glew32.dll" />
-    <CopyFileToFolders Include="dependencies\glfw3.dll" />
-    <CopyFileToFolders Include="dependencies\jsoncpp.dll" />
-    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll" />
     <CopyFileToFolders Include="Scene" />
+    <CopyFileToFolders Include="dependencies\freetype.dll">
+      <Filter>Dependencies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\glew32.dll">
+      <Filter>Dependencies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\glfw3.dll">
+      <Filter>Dependencies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\jsoncpp.dll">
+      <Filter>Dependencies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll">
+      <Filter>Dependencies\mono</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
 </Project>
