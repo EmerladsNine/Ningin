@@ -24,7 +24,7 @@ size_t Archetype::CreateEntity()
 
 optional<EntityId> Archetype::SwapRemoveEntity(size_t row)
 {
-	if (components.size() == 0)
+	if (components.empty())
 	{
 		return nullopt;
 	}
@@ -41,6 +41,10 @@ optional<EntityId> Archetype::SwapRemoveEntity(size_t row)
 	}
 	else
 	{
+		for (auto& column : components)
+		{
+			column.pop_back();
+		}
 		return nullopt;
 	}
 
