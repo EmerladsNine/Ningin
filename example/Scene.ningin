@@ -3,18 +3,18 @@
 @test{
     <example "Class1">
     Transform{
-        Position(50.0,50.0,0.0)
-        Rotation(0.0,0.0,30.0)
+        Position(0.0,0.0,0.0)
+        Rotation(0.0,0.0,0.0)
         Scale(1.0,1.0,1.0)
     }
 
-   // Text{
-   //     TextColor(255, 255, 255, 255)
-   //     FontName("arial.ttf")
-   //     FontSize(48)
-   //     Text("string")
-   //     Shader("text")
-   // }
+   Text{
+        TextColor(255, 255, 255, 255)
+        FontName("arial.ttf")
+        FontSize(48)
+        Text("string")
+        Shader("text")
+   }
 
     // Sprite{
     //     useAlpha(true)
@@ -23,10 +23,6 @@
     //     TextureName("name")
     //     Shader("sprite")     
     // }
-    
-    @test2{
-
-    }
 }
 
 @potato{

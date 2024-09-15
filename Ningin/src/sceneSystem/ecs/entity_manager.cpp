@@ -192,8 +192,9 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 		ArchetypeType newType(*oldArchetype->type); // Clone The Type.
 
 		// Define the new type after adding component
-		if (find(newType.begin(), newType.end(), componentId) != newType.end()) // Component Already Exist !!
+		if (find(newType.begin(), newType.end(), componentId) != newType.end())
 		{
+			// Component Already Exists !!
 			return;
 		}
 

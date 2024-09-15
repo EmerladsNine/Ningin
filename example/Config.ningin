@@ -1,18 +1,12 @@
 // Types Starts With '!' followed by the name and the id
-// Value Types are Float,Int,String,Bool ... if you want more ask ahmad
-// okay
+// Value Types are Float,Int,String,Bool
+// Types ranges from I64 to I8 , U64 to U8 , F64 and F32
 
-//this really works
 !Transform:0{
     Position(Float,Float,Float)
     Rotation(Float,Float,Float)
     Scale(Float,Float,Float)
 }
-
-//example
-//!Camera:1{
-//    Position(Float,Float,Float)
-//}
 
 !Sprite:1{
     useAlpha(Bool)
@@ -29,5 +23,3 @@
     Text(String)
     Shader(String)
 }
-
-// Types ranges from I64 to I8 , U64 to U8 , F64 and F32
