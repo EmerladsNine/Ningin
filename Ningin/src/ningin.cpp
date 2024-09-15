@@ -91,18 +91,20 @@ void Game::InitResourceManager()
 {
 	filesystem::path gameDirectory = Environment::GetGameDirectory();
 
-	resourceManager.LoadFontsFromFolder(filesystem::path(gameDirectory / "default\\fonts"));
+	resourceManager.LoadFontsFromFolder(gameDirectory / "default\\fonts");
 
-	ShaderInfo spriteShader(filesystem::path(gameDirectory / "shaders\\sprite_vs.vs"),
-		filesystem::path(gameDirectory / "shaders\\sprite_fs.frag"), string("sprite"));
+	ShaderInfo spriteShader(gameDirectory / "shaders\\sprite_vs.vs",
+		gameDirectory / "shaders\\sprite_fs.frag", string("sprite"));
 
-	ShaderInfo textShader(filesystem::path(gameDirectory / "shaders\\text_vs.vs"),
-		filesystem::path(gameDirectory / "shaders\\text_fs.frag"), string("text"));
+	ShaderInfo textShader(gameDirectory / "shaders\\text_vs.vs",
+		gameDirectory / "shaders\\text_fs.frag", string("text"));
 
 	resourceManager.LoadShader(spriteShader);
 	resourceManager.LoadShader(textShader);
 
-	// TODO texture
+	TextureInfo texture(gameDirectory / "img.png", true, string("sprite"));
+
+	resourceManager.LoadTexture(texture);
 }
 
 void Game::MainLoop()
@@ -112,7 +114,7 @@ void Game::MainLoop()
 	while (true)
 	{
 		glfwPollEvents();
-		glClearColor(0, 100/255.0f, 0, 1.0f);
+		glClearColor(0.3, 0.2, 0.5, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		vector<size_t> windowIndicesToDelete;

@@ -9,7 +9,7 @@ void FontTexture::GenerateTexture()
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, _textureArray);
 
-	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_R8, 256, 256, 128, 0, GL_RED, GL_UNSIGNED_BYTE, nullptr);
+	glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_R8, 256, 256, 128, 0, GL_RED, GL_UNSIGNED_BYTE, 0);
 }
 
 void FontTexture::SetupCharTexture()
@@ -22,8 +22,8 @@ void FontTexture::SetupCharTexture()
 
 void FontTexture::CreateCharTexture(FT_GlyphSlot glyph, unsigned char charCode)
 {
-	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, charCode, glyph->bitmap.width, glyph->bitmap.rows, 1,
-		GL_RED, GL_UNSIGNED_BYTE, glyph->bitmap.buffer);
+	glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, int(charCode), glyph->bitmap.width,
+		glyph->bitmap.rows, 1, GL_RED, GL_UNSIGNED_BYTE, glyph->bitmap.buffer);
 }
 
 void FontTexture::Unbind()

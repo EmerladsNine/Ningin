@@ -1,6 +1,6 @@
 #include "TextureInfo.h"
 
-TextureInfo::TextureInfo(const filesystem::path& imgPath, bool alpha, string& name)
+TextureInfo::TextureInfo(const filesystem::path imgPath, bool alpha, string name)
 	: _alpha(alpha), _imgPath(imgPath), _name(name) {}
 
 bool TextureInfo::HasAlpha()

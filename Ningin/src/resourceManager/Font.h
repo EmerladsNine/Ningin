@@ -16,11 +16,11 @@ class Font
 		Font(const filesystem::path& path);
 
 		FontTexture GetFontTexture();
-		unordered_map<unsigned char, Character> GetCharMap();
+		unordered_map<GLchar, Character> GetCharMap();
 
 	private:
 		filesystem::path _fontPath;
-		unordered_map<unsigned char, Character> _charMap;
+		unordered_map<GLchar, Character> _charMap;
 		FontTexture _fontTexture;
 
 		void PrepareFont();
@@ -28,7 +28,7 @@ class Font
 
 		void SetupGlyphLoading(FT_Face face);
 		void LoadGlyphs(FT_Face face);
-		void AddGlyph(FT_GlyphSlot glyph, unsigned char charCode);
+		void AddGlyph(FT_GlyphSlot glyph, GLchar charCode);
 
 		void FreeResources(FT_Face face);
 };

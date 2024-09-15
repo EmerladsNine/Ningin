@@ -13,7 +13,7 @@ FontTexture Font::GetFontTexture()
 	return _fontTexture;
 }
 
-unordered_map<unsigned char, Character> Font::GetCharMap()
+unordered_map<GLchar, Character> Font::GetCharMap()
 {
 	return _charMap;
 }
@@ -72,7 +72,7 @@ void Font::LoadGlyphs(FT_Face face)
 	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 }
 
-void Font::AddGlyph(FT_GlyphSlot glyph, unsigned char charCode)
+void Font::AddGlyph(FT_GlyphSlot glyph, GLchar charCode)
 {
 	Character character {
 		static_cast<int>(charCode),
@@ -83,10 +83,9 @@ void Font::AddGlyph(FT_GlyphSlot glyph, unsigned char charCode)
 		Dimensions2(static_cast<unsigned int>(glyph->bitmap_left),
 			static_cast<unsigned int>(glyph->bitmap_top)),
 
-		static_cast<unsigned int>(glyph->advance.x >> 6)
+		static_cast<unsigned int>(glyph->advance.x)
 	};
-
-	_charMap[charCode] = character;
+	_charMap.insert(make_pair(charCode, character));
 }
 
 void Font::FreeResources(FT_Face face)

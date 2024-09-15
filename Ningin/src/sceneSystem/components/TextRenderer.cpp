@@ -69,7 +69,7 @@ void TextRenderer::InitializeVbo()
 void TextRenderer::SetupVertexAttrib()
 {
 	glEnableVertexAttribArray(0);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(float), nullptr);
+	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 0, 0);
 }
 
 void TextRenderer::FreeResources(bool unbindTexture)
@@ -86,8 +86,8 @@ void TextRenderer::ConfigureDrawingContext()
 {
 	glActiveTexture(GL_TEXTURE0);
 	glBindTexture(GL_TEXTURE_2D_ARRAY, _font.GetFontTexture().GetTextureArray());
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 	glBindVertexArray(_vao);
+	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 }
 
 void TextRenderer::Draw(Transform& transform)
@@ -103,26 +103,27 @@ void TextRenderer::Draw(Transform& transform)
 	Vector3 pos = transform.GetPosition();
 	float scale = static_cast<float>(_fontSize) / 256.0f;
 	float hBearing = static_cast<float>(_font.GetCharMap().at('H').GetBearing().height);
+
 	int32_t workingIndex = 0;
 	float xOffSet = 0.0f;
 
 	for (char c : _text)
 	{
-		auto& ch = _font.GetCharMap().at(c);
+		Character ch = _font.GetCharMap()[static_cast<unsigned char>(c)];
 
 		if (c == '\n')
 		{
-			pos.y += ch.GetSize().height * 1.3f * scale;
+			pos.y += static_cast<float>(ch.GetSize().height) * 1.3f * scale;
 			xOffSet = 0.0f;
 		}
 		else if (c == ' ')
 		{
-			xOffSet += (ch.GetAdvance() >> 6) * scale;
+			xOffSet += (static_cast<float>(ch.GetAdvance() >> 6)) * scale;
 		}
 		else
 		{
-			float xpos = ch.GetBearing().width * scale;
-			float ypos = pos.y + (hBearing - ch.GetBearing().height) * scale;
+			float xpos = static_cast<float>(ch.GetBearing().width) * scale;
+			float ypos = pos.y + (hBearing - static_cast<float>(ch.GetBearing().height)) * scale;
 
 			_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
 			_charsMap[workingIndex] = ch.GetAsciiIndex();
@@ -133,7 +134,7 @@ void TextRenderer::Draw(Transform& transform)
 				workingIndex = 0;
 			}
 
-			xOffSet += (ch.GetAdvance() >> 6) * scale;
+			xOffSet += (static_cast<float>(ch.GetAdvance() >> 6)) * scale;
 			workingIndex++;
 		}
 	}
@@ -155,10 +156,11 @@ void TextRenderer::CalculateTextDimensions()
 {
 	auto [splitedText, longestLine] = GetTextInfo();
 
-	_textDimensions.height = static_cast<int32_t>(splitedText.size() * _fontSize + _font.GetCharMap()
-		.at('\n').GetSize().height * 1.3f * _fontSize / 256.0f);
+	_textDimensions.height = static_cast<unsigned int>(static_cast<float>(splitedText.size())
+		* static_cast<float>(_fontSize) + static_cast<float>(_font.GetCharMap().at('\n').GetSize().height)
+		* 1.3f * static_cast<float>(_fontSize) / 256.0f);
 
-	_textDimensions.width = static_cast<int32_t>(longestLine * _fontSize);
+	_textDimensions.width = static_cast<unsigned int>(static_cast<uint8_t>(longestLine) * _fontSize);
 }
 
 pair<vector<vector<char>>, size_t> TextRenderer::GetTextInfo()
@@ -219,6 +221,7 @@ void TextRenderer::SetDrawingUniforms(int32_t length)
 glm::mat4 TextRenderer::ComputeLetterTransform(float xOffSet, float xpos, float ypos, float scale)
 {
 	glm::mat4 letterModel = _baseModel;
+	//glm::mat4 letterModel = glm::mat4(1.0);
 
 	letterModel = glm::translate(letterModel, glm::vec3(xOffSet + xpos, ypos, 0.0f));
 	letterModel = glm::scale(letterModel, glm::vec3(scale, scale, 1.0f));
@@ -229,14 +232,15 @@ glm::mat4 TextRenderer::ComputeLetterTransform(float xOffSet, float xpos, float 
 void TextRenderer::ComputeTextTransform(Transform& transform)
 {
 	Vector3 pos = transform.GetPosition();
-	float scale = static_cast<float>(_fontSize) / 256.0f;
 
-	Vector2 text_center = { _textDimensions.width * scale / 2.0f, _textDimensions.height * scale / 2.0f };
+	Vector2 textCenter = { _textDimensions.width / 2.0f, _textDimensions.height / 2.0f };
 
 	_baseModel = glm::translate(_baseModel, glm::vec3(pos.x, pos.y, 0.0f));
-	_baseModel = glm::translate(_baseModel, glm::vec3(text_center.x, text_center.y, 0.0f));
-	_baseModel = glm::rotate(_baseModel, transform.GetRotation().z, glm::vec3(0.0f, 0.0f, 1.0f));
-	_baseModel = glm::translate(_baseModel, glm::vec3(-text_center.x, -text_center.y, 0.0f));
+	_baseModel = glm::translate(_baseModel, glm::vec3(textCenter.x, textCenter.y, 0.0f));
+	_baseModel = glm::rotate(_baseModel, DegreesToRadians(transform.GetRotation().z),
+		glm::vec3(0.0f, 0.0f, 1.0f));
+
+	_baseModel = glm::translate(_baseModel, glm::vec3(-textCenter.x, -textCenter.y, 0.0f));
 
 	_mustCalculate = false;
 }
@@ -257,12 +261,15 @@ void TextRenderer::SetTextColor(Color& newColor)
 void TextRenderer::SetText(string& text)
 {
 	this->_text = text;
+	CalculateTextDimensions();
 	_mustCalculate = true;
 }
 
 void TextRenderer::SetFontSize(uint8_t fontSize)
 {
 	this->_fontSize = fontSize;
+	CalculateTextDimensions();
+	_letterDimensions = fontSize;
 	_mustCalculate = true;
 }
 
