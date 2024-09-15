@@ -13,7 +13,6 @@ class Texture2D
 {
 	public:
 		Texture2D(const filesystem::path& imgPath, bool alpha);
-		~Texture2D();
 
 		void Bind();
 

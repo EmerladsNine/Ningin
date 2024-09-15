@@ -1,63 +1,71 @@
 #include "Shader.h"
 #include <format>
 #include <fstream>
-#include <iostream>
 #include <sstream>
 
 Shader::Shader(filesystem::path vertexPath, filesystem::path fragmentPath)
 {
 	_paths["vertex"] = vertexPath;
 	_paths["fragment"] = fragmentPath;
+
 	LoadShaders();
 	CompileShaders();
 	CreateShaderProgram();
 	DeleteShaders();
 }
 
-Shader::~Shader()
-{
-	glDeleteProgram(_shaderProgram);
-}
-
 void Shader::Use()
 {
-	glUseProgram(_shaderProgram);
+	glUseProgram(this->_shaderProgram);
 }
 
 void Shader::SetBool(string& name, bool value)
 {
+	Use();
 	glUniform1i(glGetUniformLocation(_shaderProgram, name.c_str()), static_cast<int>(value));
 }
 
 void Shader::SetInt(string& name, int value)
 {
+	Use();
 	glUniform1i(glGetUniformLocation(_shaderProgram, name.c_str()), value);
 }
 
 void Shader::SetIntWithLength(string& name, int length, vector<int>& values)
 {
-	glUniform1iv(glGetUniformLocation(_shaderProgram, name.c_str()), length, values.data());
+	Use();
+	glUniform1iv(glGetUniformLocation(_shaderProgram, name.c_str()), length, &values[0]);
 }
 
 void Shader::SetFloat(string& name, float value)
 {
+	Use();
 	glUniform1f(glGetUniformLocation(_shaderProgram, name.c_str()), value);
 }
 
 void Shader::SetFloatVec4(string& name, float value1, float value2, float value3, float value4)
 {
+	Use();
 	glUniform4f(glGetUniformLocation(_shaderProgram, name.c_str()), value1, value2, value3, value4);
 }
 
 void Shader::SetMatrix4(string& name, glm::mat4& matrix)
 {
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), 1, GL_FALSE, glm::value_ptr(matrix));
+	Use();
+	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), 1, GL_FALSE,
+		glm::value_ptr(matrix));
 }
 
 void Shader::SetMatrix4WithLength(string& name, int length, vector<glm::mat4>& matrices)
 {
+	Use();
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), length, GL_FALSE,
-		glm::value_ptr(matrices[0]));
+		&matrices[0][0][0]);
+}
+
+GLuint Shader::GetID()
+{
+	return _shaderProgram;
 }
 
 void Shader::LoadShaders()
@@ -74,12 +82,12 @@ void Shader::CompileShaders()
 
 void Shader::CreateShaderProgram()
 {
-	_shaderProgram = glCreateProgram();
+	this->_shaderProgram = glCreateProgram();
 	glAttachShader(_shaderProgram, _vertexShader);
 	glAttachShader(_shaderProgram, _fragmentShader);
 	glLinkProgram(_shaderProgram);
 
-	GLint success;
+	GLint success = 0;
 	glGetProgramiv(_shaderProgram, GL_LINK_STATUS, &success);
 	if (!success)
 	{
@@ -93,10 +101,10 @@ void Shader::CreateShaderProgram()
 
 void Shader::DeleteShaders()
 {
-	glDetachShader(_shaderProgram, _vertexShader);
-	glDeleteShader(_vertexShader);
-	glDetachShader(_shaderProgram, _fragmentShader);
-	glDeleteShader(_fragmentShader);
+	//glDetachShader(_shaderProgram, _vertexShader);
+	//glDeleteShader(_vertexShader);
+	//glDetachShader(_shaderProgram, _fragmentShader);
+	//glDeleteShader(_fragmentShader);
 }
 
 void Shader::CheckExtension(filesystem::path& path, string& expectedExtension)
@@ -114,8 +122,14 @@ string Shader::LoadShader(filesystem::path& path)
 	{
 		throw runtime_error(format("Shader file of path: {} not found", path.string()));
 	}
+
+	file.open(path);
+
 	stringstream buffer;
 	buffer << file.rdbuf();
+
+	file.close();
+
 	return buffer.str();
 }
 
@@ -134,7 +148,7 @@ GLuint Shader::CompileShader(GLenum shaderType, string& source)
 		glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &logLength);
 		vector<char> infoLog(logLength);
 		glGetShaderInfoLog(shader, logLength, nullptr, infoLog.data());
-		throw runtime_error(format("ERROR::SHADER::{}::CompILATION_FAILED\n{}\n",
+		throw runtime_error(format("ERROR::SHADER::{}::COMPILATION_FAILED\n{}\n",
 			(shaderType == GL_VERTEX_SHADER ? "VERTEX" : "FRAGMENT"), infoLog.data()));
 	}
 

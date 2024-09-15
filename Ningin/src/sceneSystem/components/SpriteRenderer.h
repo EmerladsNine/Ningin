@@ -19,7 +19,6 @@ class SpriteRenderer
 {
 	public:
 		SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor, bool usetint, bool alpha);
-		~SpriteRenderer();
 
 		void SetTintingColor(Color& newColor);
 		void SetUseTint(bool uSetint);

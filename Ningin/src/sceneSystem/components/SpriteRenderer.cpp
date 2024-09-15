@@ -9,11 +9,6 @@ SpriteRenderer::SpriteRenderer(string& textureName, string& shaderName, Color& t
 	SetShaderInitialUniforms();
 }
 
-SpriteRenderer::~SpriteRenderer()
-{
-	glDeleteVertexArrays(1, &_quadVAO);
-}
-
 void SpriteRenderer::InitializeRenderData()
 {
 	InitializeVAO();

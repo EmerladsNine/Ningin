@@ -8,7 +8,6 @@ class FontTexture
 {
 	public:
 		FontTexture();
-		~FontTexture();
 
 		void GenerateTexture();
 		void SetupCharTexture();

@@ -21,7 +21,6 @@ class TextRenderer
 {
 	public:
 		TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize);
-		~TextRenderer();
 
 		void SetTextColor(Color& newColor);
 		void SetFontSize(uint8_t fontSize);

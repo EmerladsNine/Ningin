@@ -14,7 +14,6 @@ class Shader
 {
 	public:
 		Shader(filesystem::path vertexPath, filesystem::path fragmentPath);
-		~Shader();
 
 		void Use();
 		void SetBool(string& name, bool value);
@@ -24,6 +23,8 @@ class Shader
 		void SetFloatVec4(string& name, float value1, float value2, float value3, float value4);
 		void SetMatrix4(string& name, glm::mat4& matrix);
 		void SetMatrix4WithLength(string& name, int length, vector<glm::mat4>& matrices);
+
+		GLuint GetID();
 
 	private:
 		GLuint _vertexShader;

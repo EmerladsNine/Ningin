@@ -3,14 +3,6 @@
 
 FontTexture::FontTexture() : _textureArray(0) {}
 
-FontTexture::~FontTexture()
-{
-	if (_textureArray != 0)
-	{
-		glDeleteTextures(1, &_textureArray);
-	}
-}
-
 void FontTexture::GenerateTexture()
 {
 	glGenTextures(1, &_textureArray);

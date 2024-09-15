@@ -10,11 +10,6 @@ Texture2D::Texture2D(const filesystem::path& imgPath, bool alpha) : _id(0), _img
 	CreateTextureMipmap();
 }
 
-Texture2D::~Texture2D()
-{
-	glDeleteTextures(1, &_id);
-}
-
 void Texture2D::Bind() 
 {
 	glBindTexture(GL_TEXTURE_2D, _id);

@@ -1,6 +1,7 @@
 #include "TextRenderer.h"
 #include "transform.h"
 #include <gtc/matrix_transform.hpp>
+#include <iostream>
 
 TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text,
 	uint8_t fontSize) : _shader(resourceManager.GetShader(shaderName)),
@@ -10,11 +11,6 @@ TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColo
 {
 	SetShaderInitialUniforms();
 	InitializeRenderData();
-}
-
-TextRenderer::~TextRenderer()
-{
-	glDeleteVertexArrays(1, &_vao);
 }
 
 void TextRenderer::InitializeRenderData()
@@ -59,7 +55,10 @@ void TextRenderer::InitializeVao()
 void TextRenderer::InitializeVbo()
 {
 	float vertexData[] = {
-		0.0f, 1.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f, 0.0f,
+		0.0f, 1.0f,
+		0.0f, 0.0f,
+		1.0f, 1.0f,
+		1.0f, 0.0f,
 	};
 
 	glGenBuffers(1, &_vbo);
@@ -278,7 +277,6 @@ void TextRenderer::System(EntityManager* entityManager)
 		{
 			size_t textColumn = TextArchetype.second.column;
 			size_t transformColumn = it->second.column;
-
 			int row = 0;
 
 			for (void* textData : TextArchetype.second.archetype->components[textColumn])
