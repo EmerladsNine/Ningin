@@ -23,7 +23,7 @@ class EntityManager
 
 		// Sets a new instance of the component data.
 		void SetComponent(EntityId entityId, ComponentId componentId, void* data);
-		void SetComponent(Record* entityRecord, ComponentId componentId, void* data);
+		void SetComponent(Record& entityRecord, ComponentId componentId, void* data);
 
 		unordered_map<EntityId, Record> entityIndex;
 		ArchetypeManager archetypeManager;

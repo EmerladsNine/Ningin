@@ -1,6 +1,7 @@
 #include "components/SpriteRenderer.h"
 #include "../scripting/Scriptable.h"
 #include "components/TextRenderer.h"
+#include "../system/renderer.h"
 #include "components/Transform.h"
 #include "components/ScriptVec.h"
 #include "entity/Children.h"
@@ -11,13 +12,14 @@
 
 using namespace std;
 
-vector<void (*)(EntityManager*, float)> World::systems;
-vector<void (*)(EntityManager*, float)> World::lateSystems;
+vector<void (*)(EntityManager*, Timer)> World::systems;
+vector<void (*)(EntityManager*, Timer)> World::lateSystems;
 
 World::World() : entitiesCount(0) {}
 
 void World::InitDefaultComponentSystem()
 {
+	systems.push_back(RendererSystem);
 	systems.push_back(ScriptSystem);
 	lateSystems.push_back(ScriptLateSystem);
 

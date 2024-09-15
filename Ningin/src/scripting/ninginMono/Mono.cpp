@@ -6,8 +6,9 @@
 #include "../../environment.h"
 #include "../../math/vector2.h"
 #include "../../utills/FileReader.h"
+#include "../../utills/Debug.h"
 
-Mono::Mono() : assembliesDirectory(Enironment::GetGameDirectory()), _rootDomain(nullptr), _appDomain(nullptr)
+Mono::Mono() : assembliesDirectory(Environment::GetGameDirectory()), _rootDomain(nullptr), _appDomain(nullptr)
 	,gameAssembly(nullptr), ninginAssembly(nullptr) {}
 
 Mono::~Mono()
@@ -170,7 +171,7 @@ void* InvokeMethod(MonoObject* obj, MonoMethod* method,vector<void*> params)
 		error_message += excep_cstr;
 
 		mono_free(excep_cstr);
-		throw out_of_range(error_message);
+		LogError(error_message);
 	}
 
 	//Unbox result to void*.

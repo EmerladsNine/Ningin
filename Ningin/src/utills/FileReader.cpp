@@ -32,3 +32,8 @@ vector<uint8_t> FileReader::ReadFileBytes(const string& path)
 
 	return buffer;
 }
+
+vector<uint8_t> FileReader::ReadFileBytes(const filesystem::path& path)
+{
+	return ReadFileBytes(path.string());
+}

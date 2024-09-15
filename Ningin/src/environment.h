@@ -1,12 +1,8 @@
 #pragma once
-
-#include <string>
 #include <filesystem>
 
-using namespace std;
-
-class Enironment
+class Environment
 {
 	public:
-		static filesystem::path GetGameDirectory();
+		static std::filesystem::path GetGameDirectory();
 };

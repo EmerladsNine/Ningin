@@ -1,7 +1,10 @@
 #include "Ningin.h"
 #include "sceneSystem/World.h"
 #include "scripting/ScriptingEngine.h"
+#include "utills/Timer.h"
+#include <thread>
 #include <chrono>
+
 
 using Clock = chrono::high_resolution_clock;
 using TimePoint = chrono::time_point<Clock>;
@@ -33,6 +36,11 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	
 	//Initialise first window scene manager
 	openedWindows[0].sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
+}
+
+void Game::Start()
+{
+	Game::MainLoop();
 }
 
 size_t Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t sceneId,
@@ -85,12 +93,15 @@ void Game::InitResourceManager()
 
 void Game::MainLoop()
 {
-	TimePoint last_frame_time = Clock::now();
-
+	Timer timer;
 	while (true)
 	{
+		//This Should Be Removed Later ... Makes Frames Slower
+		std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+
 		glfwPollEvents();
-		glClearColor(0, 100, 0, 256);
+		glClearColor(0, 100/255.0f, 0, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		vector<size_t> windowIndicesToDelete;
@@ -99,9 +110,8 @@ void Game::MainLoop()
 
 		for (auto& win : openedWindows)
 		{
-			chrono::duration<float> duration = Clock::now() - last_frame_time;
 			
-			if (!glfwWindowShouldClose(win.glfwWin)) win.sceneManager.NewFrame(duration.count());
+			if (!glfwWindowShouldClose(win.glfwWin)) win.sceneManager.NewFrame(timer);
 			else windowIndicesToDelete.push_back(index);
 			
 			glfwSwapBuffers(win.glfwWin);
@@ -119,14 +129,14 @@ void Game::MainLoop()
 		if (openedWindows.size() == 0)
 			break;
 
-		last_frame_time = Clock::now();
+		timer.ResetDeltaTime();
 	}
 }
 
 int main()
 {
-	Game::Init("ma khasak", WindowOptions::Windowed, new Dimensions2(100, 100), { "Scene" },
+	Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
 		MonoPaths("mono/lib","example.dll"));
-
+	Game::Start();
 	return 0;
 }

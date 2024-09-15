@@ -114,7 +114,7 @@ void EntityManager::SetComponent(EntityId entityId, ComponentId componentId, voi
 	// Read entity record.
 	if (entityIterator != entityIndex.end())
 	{
-		Record* entityRecord = &entityIterator->second;
+		Record& entityRecord = entityIterator->second;
 		SetComponent(entityRecord, componentId, data);
 	}
 	else
@@ -123,9 +123,9 @@ void EntityManager::SetComponent(EntityId entityId, ComponentId componentId, voi
 	}
 }
 
-void EntityManager::SetComponent(Record* entityRecord, ComponentId componentId, void* data)
+void EntityManager::SetComponent(Record& entityRecord, ComponentId componentId, void* data)
 {
-	Archetype* archetype = entityRecord->archetypePtr;
+	Archetype* archetype = entityRecord.archetypePtr;
 
 	// Find the archetypeMap of the component
 	auto componentIterator = archetypeManager.componentIndex.find(componentId);
@@ -152,9 +152,9 @@ void EntityManager::SetComponent(Record* entityRecord, ComponentId componentId, 
 
 	if (it != ArchetypeManager::deleters.end())
 	{
-		it->second(archetype->components[archetypeRecord->column][entityRecord->row]);
+		it->second(archetype->components[archetypeRecord->column][entityRecord.row]);
 		// Assign new data.
-		archetype->components[archetypeRecord->column][entityRecord->row] = data;
+		archetype->components[archetypeRecord->column][entityRecord.row] = data;
 	}
 	else
 	{
@@ -221,12 +221,8 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	// New Record
 	Record newRecord(newArchetype, row);
 
-	// Insert data into the created component
-	auto componentIterator = lower_bound(newArchetype->type->begin(), newArchetype->type->end(),
-		componentId);
-
-	size_t column = distance(newArchetype->type->begin(), componentIterator);
-	newArchetype->components[column][row] = data;
+	// Insert data into the created component.
+	SetComponent(newRecord, componentId, data);
 
 	// Move overlapping components over to the destination archetype.
 	size_t oldColumnIndex = 0;
@@ -234,7 +230,7 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	for (auto& component : *oldArchetype->type)
 	{
 		void* compData = oldArchetype->components[oldColumnIndex][record->row];
-		SetComponent(&newRecord, component, compData);
+		SetComponent(newRecord, component, compData);
 		oldColumnIndex++;
 	}
 
@@ -250,7 +246,7 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	}
 
 	// Update entity record.
-	entityIndex.emplace(entityId, newRecord);
+	entityIndex.insert_or_assign(entityId, newRecord);
 }
 
 void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, void* data)
@@ -332,5 +328,5 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	}
 
 	// Update entity record.
-	entityIndex.emplace(entityId, Record(newArchetype, row));
+	entityIndex.insert_or_assign(entityId, Record(newArchetype, row));
 }

@@ -9,6 +9,8 @@
 #include "../sceneSystem/components/ScriptVec.h"
 #include "../scripting/ScriptingEngine.h"
 #include "../scripting/ScriptLanguage.h"
+#include "../environment.h"
+#include <filesystem>
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
@@ -25,7 +27,7 @@ SceneLoader::SceneLoader() {}
 
 static float swapFloatBytes(float value)
 {
-	FloatBytes fb;
+	FloatBytes fb{};
 	fb.f = value;
 	fb.i = _byteswap_ulong(fb.i);
 
@@ -60,10 +62,12 @@ Scene* SceneLoader::GetSceneFromId(size_t sceneId)
 	}
 }
 
-void SceneLoader::LoadSceneFromFile(string path)
+
+void SceneLoader::LoadSceneFromFile(string sceneName)
 {
 	string name;
 	Scene scene = Scene(name);
+	std::filesystem::path path = Environment::GetGameDirectory() / sceneName;
 	vector<uint8_t> file = FileReader::ReadFileBytes(path);
 
 	if (file.size() < 32)
@@ -84,134 +88,130 @@ void SceneLoader::LoadSceneFromFile(string path)
 
 	// Check Version.
 	float version = Read<float>(&filePointer);
+	if (version != 1.0f) {
+		throw std::runtime_error("Invalid version of scene file");
+	}
 
-	if (version == 1.0f)
+	// Read Checksum.
+	uint32_t checksum;
+	memcpy(&checksum, filePointer, sizeof(checksum));
+	checksum = _byteswap_ulong(checksum);
+	filePointer += 4;
+
+	if (!Checksum(checksum, filePointer, file.size() - 12))
 	{
-		// Read Checksum.
-		uint32_t checksum;
-		memcpy(&checksum, filePointer, sizeof(checksum));
-		checksum = _byteswap_ulong(checksum);
+		throw runtime_error("File is corrupted");
+	}
+
+	// Reading Header Section.
+	uint32_t headSize = Read<uint32_t>(&filePointer);
+	uint32_t objectsSize = Read<uint32_t>(&filePointer);
+	uint32_t componentsSize = Read<uint32_t>(&filePointer);
+	uint32_t propertiesSize = Read<uint32_t>(&filePointer);
+	uint32_t stringsSize = Read<uint32_t>(&filePointer);
+
+	uint32_t componentsPointer = headSize + objectsSize;
+	uint32_t propertiesPointer = componentsPointer + componentsSize;
+	uint32_t stringsPointer = propertiesPointer + propertiesSize;
+
+	// Read String Section
+	filePointer = file.data() + stringsPointer;
+	uint8_t* stopPoint = filePointer + stringsSize;
+	vector<string> strings;
+	string currentString;
+	auto fileComponentPointer = file.data() + componentsPointer;
+	auto filePropertiesPointer = file.data() + propertiesPointer;
+
+	for (; filePointer < stopPoint; filePointer++)
+	{
+		if (*filePointer == 0)
+		{
+			strings.push_back(currentString);
+			currentString.clear();
+		}
+		else
+		{
+			currentString.push_back(static_cast<char>(*filePointer));
+		}
+	}
+
+	// Set Scene name
+	scene.name = strings[0];
+
+	// Read Entities
+	filePointer = file.data() + headSize;
+	stopPoint = filePointer + objectsSize;
+
+	// create a scene entity so ids will start from 1 not 0
+	scene.world.NewEntity();
+
+	while (filePointer < stopPoint)
+	{
+		EntityId entityId = scene.world.NewEntity();
+		// This Contains the entity id .. which is the same given from the function new_entity().
 		filePointer += 4;
 
-		if (!Checksum(checksum, filePointer, file.size() - 12))
-		{
-			throw runtime_error("File is corrupted");
+		// The name of the entity
+		uint32_t nameIndex = Read<uint32_t>(&filePointer);
+		Name* name = new Name(strings[nameIndex]);
+		scene.world.entityManager.AddComponent(entityId, typeid(Name), name);
+
+		// parent id
+		uint32_t parentIndex = Read<uint32_t>(&filePointer);
+		Parent* parent = new Parent(parentIndex);
+		scene.world.entityManager.AddComponent(entityId, typeid(Parent), parent);
+
+		// Children
+		Children* children = new Children(vector<EntityId>{});
+		scene.world.entityManager.AddComponent(entityId, typeid(Children), children);
+
+		uint16_t componentsCount = Read<uint16_t>(&filePointer);
+		uint16_t componentPosition = 0;
+
+		while (componentPosition < componentsCount) {
+			uint32_t pointer = Read<uint32_t>(&filePointer);
+			auto currentPointer = fileComponentPointer + pointer;
+
+			uint8_t componentId = Read<uint8_t>(&currentPointer);
+			uint16_t propertiesCount = Read<uint16_t>(&currentPointer);
+			uint16_t propertyPosition = 0;
+
+			vector<uint32_t> properties;
+
+			while (propertyPosition < propertiesCount) {
+				properties.push_back(Read<uint32_t>(&currentPointer));
+				propertyPosition++;
+			}
+
+			AddComponent(componentId, entityId, scene.world, strings, properties,
+				filePropertiesPointer);
+
+			componentPosition++;
 		}
 
-		// Reading Header Section.
-		uint32_t headSize = Read<uint32_t>(&filePointer);
-		uint32_t objectsSize = Read<uint32_t>(&filePointer);
-		uint32_t componentsSize = Read<uint32_t>(&filePointer);
-		uint32_t propertiesSize = Read<uint32_t>(&filePointer);
-		uint32_t stringsSize = Read<uint32_t>(&filePointer);
+		uint16_t scriptsCount = Read<uint16_t>(&filePointer);
+		uint16_t scriptPositon = 0;
+		ScriptVec* scriptVec = new ScriptVec();
 
-		uint32_t componentsPointer = headSize + objectsSize;
-		uint32_t propertiesPointer = componentsPointer + componentsSize;
-		uint32_t stringsPointer = propertiesPointer + propertiesSize;
-
-		// Read String Section
-		filePointer = file.data() + stringsPointer;
-		uint8_t* stopPoint = filePointer + stringsSize;
-		vector<string> strings;
-		string currentString;
-		auto fileComponentPointer = file.data() + componentsPointer;
-		auto filePropertiesPointer = file.data() + propertiesPointer;
-
-		for (; filePointer < stopPoint; filePointer++)
+		while (scriptPositon < scriptsCount)
 		{
-			if (*filePointer == 0)
-			{
-				strings.push_back(currentString);
-				currentString.clear();
-			}
-			else
-			{
-				currentString.push_back(static_cast<char>(*filePointer));
-			}
+			string scriptName = strings[Read<uint32_t>(&filePointer)];
+			//Implement multiple language script in Scene Loader !
+			Scriptable* script = ScriptingEngine::GetScript(scriptName, ScriptLanguage::CSHARP);
+			scriptVec->scripts.push_back(script);
+			scriptPositon++;
 		}
 
-		// Set Scene name
-		scene.name = strings[0];
+		scene.world.entityManager.AddComponent(entityId, typeid(ScriptVec), scriptVec);
 
-		// Read Entities
-		filePointer = file.data() + headSize;
-		stopPoint = filePointer + objectsSize;
-
-		// create a scene entity so ids will start from 1 not 0
-		scene.world.NewEntity();
-
-		while (filePointer < stopPoint)
+		if (parentIndex != 0)
 		{
-			EntityId entityId = scene.world.NewEntity();
-			// This Contains the entity id .. which is the same given from the function new_entity().
-			filePointer += 4;
-
-			// The name of the entity
-			uint32_t nameIndex = Read<uint32_t>(&filePointer);
-			Name* name = new Name(strings[nameIndex]);
-			scene.world.entityManager.AddComponent(entityId, typeid(Name), name);
-
-			// parent id
-			uint32_t parentIndex = Read<uint32_t>(&filePointer);
-			Parent* parent = new Parent(parentIndex);
-			scene.world.entityManager.AddComponent(entityId, typeid(Parent), parent);
-
-			// Children
-			Children* children = new Children(vector<EntityId>{});
-			scene.world.entityManager.AddComponent(entityId, typeid(Children), children);
-
-			uint16_t componentsCount = Read<uint16_t>(&filePointer);
-			uint16_t componentPosition = 0;
-
-			while (componentPosition < componentsCount) {
-				uint32_t pointer = Read<uint32_t>(&filePointer);
-				auto currentPointer = fileComponentPointer + pointer;
-
-				uint8_t componentId = Read<uint8_t>(&currentPointer);
-				uint16_t propertiesCount = Read<uint16_t>(&currentPointer);
-				uint16_t propertyPosition = 0;
-
-				vector<uint32_t> properties;
-
-				while (propertyPosition < propertiesCount) {
-					properties.push_back(Read<uint32_t>(&currentPointer));
-					propertyPosition++;
-				}
-
-				AddComponent(componentId, entityId, scene.world, strings, properties,
-					filePropertiesPointer);
-
-				componentPosition++;
-			}
-
-			uint16_t scriptsCount = Read<uint16_t>(&filePointer);
-			uint16_t scriptPositon = 0;
-			ScriptVec* scriptVec = new ScriptVec();
-
-			while (scriptPositon < scriptsCount)
-			{
-				string scriptName = strings[Read<uint32_t>(&filePointer)];
-				//Implement multiple language script in Scene Loader !
-				Scriptable* script = ScriptingEngine::GetScript(scriptName, ScriptLanguage::CSHARP);
-				scriptVec->scripts.push_back(script);
-				scriptPositon++;
-			}
-
-			scene.world.entityManager.AddComponent(entityId, typeid(ScriptVec), scriptVec);
-
-			if (parentIndex != 0)
-			{
-				Children* parentChildren = static_cast<Children*>(scene.world.entityManager
-					.GetComponent(parentIndex, typeid(Children)));
-				parentChildren->children.push_back(entityId);
-			}
+			Children* parentChildren = static_cast<Children*>(scene.world.entityManager
+				.GetComponent(parentIndex, typeid(Children)));
+			parentChildren->children.push_back(entityId);
 		}
-		_scenes.push_back(scene);
 	}
-	else
-	{
-		throw runtime_error("Invalid version of scene file");
-	}
+	_scenes.push_back(std::move(scene));
 }
 
 void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, const vector<string>& strings,
@@ -356,7 +356,7 @@ template<typename T>
 T SceneLoader::SwapBytes(T value) {
 	if (is_same<T, float>::value) value = swapFloatBytes(value);
 	else if (is_same<T, uint32_t>::value) value = static_cast<T>(_byteswap_ulong(value));
-	else if (is_same<T, uint16_t>::value) value = static_cast<T>(_byteswap_ulong(value));
-	else if (is_same<T, uint8_t>::value) value = static_cast<T>(_byteswap_ulong(value));
+	else if (is_same<T, uint16_t>::value) value = static_cast<T>(_byteswap_ushort(value));
+	else if (is_same<T, uint8_t>::value) value = value;
 	return value;
 }

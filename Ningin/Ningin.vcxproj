@@ -83,6 +83,7 @@
     <ClCompile Include="src\system\SceneManager.cpp" />
     <ClCompile Include="src\system\Window.cpp" />
     <ClCompile Include="src\utills\FileReader.cpp" />
+    <ClCompile Include="src\utills\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\physicsManager\Axes.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="src\system\WindowOptions.h" />
     <ClInclude Include="src\utills\Debug.h" />
     <ClInclude Include="src\utills\FileReader.h" />
+    <ClInclude Include="src\utills\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="dependencies\freetype.dll">
@@ -177,13 +179,6 @@
     <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll">
       <FileType>Document</FileType>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="Scene">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
-    <None Include="src\shaders\sprite_fs.frag" />
-    <None Include="src\shaders\sprite_vs.vs" />
-    <None Include="src\shaders\text_fs.frag" />
-    <None Include="src\shaders\text_vs.vs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\example\example.csproj">
@@ -192,6 +187,35 @@
     <ProjectReference Include="..\NinginCore\NinginCore.csproj">
       <Project>{9e1ae3cc-984f-4628-89a6-c1105dbe5495}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resourceFiles\default\fonts\arial.ttf" />
+    <Font Include="resourceFiles\default\fonts\arialbd.ttf" />
+    <Font Include="resourceFiles\default\fonts\arialbi.ttf" />
+    <Font Include="resourceFiles\default\fonts\ariali.ttf" />
+    <Font Include="resourceFiles\default\fonts\ARIALN.TTF" />
+    <Font Include="resourceFiles\default\fonts\ARIALNB.TTF" />
+    <Font Include="resourceFiles\default\fonts\ARIALNBI.TTF" />
+    <Font Include="resourceFiles\default\fonts\ARIALNI.TTF" />
+    <Font Include="resourceFiles\default\fonts\ariblk.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-Black.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-BlackItalic.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-Bold.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-BoldItalic.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-Italic.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-Light.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-LightItalic.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-Medium.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-MediumItalic.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-Regular.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-Thin.ttf" />
+    <Font Include="resourceFiles\default\fonts\Roboto-ThinItalic.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resourceFiles\shaders\sprite_fs.frag" />
+    <None Include="resourceFiles\shaders\sprite_vs.vs" />
+    <None Include="resourceFiles\shaders\text_fs.frag" />
+    <None Include="resourceFiles\shaders\text_vs.vs" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
@@ -294,8 +318,10 @@
     </Link>
     <PostBuildEvent>
       <Command>robocopy $(ProjectDir)mono\lib\mono\4.5 $(OutDir)mono\lib\mono\4.5 mscorlib.dll
+robocopy $(ProjectDir)resourceFiles\Default\Fonts $(OutDir)default\fonts
+robocopy $(ProjectDir)resourceFiles\shaders $(OutDir)shaders
 cd $(ProjectDir)..\Tools\SceneTools\nsr\
-nsr.exe ../../../example/Config.ningin ../../../example/Scene.ningin $(ProjectDir)Scene
+nsr.exe ../../../example/Config.ningin ../../../example/Scene.ningin $(OutDir)Scene
 cd ../../..</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>

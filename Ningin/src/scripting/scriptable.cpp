@@ -1,37 +1,40 @@
 #include "scriptable.h"
 #include "../sceneSystem/components/ScriptVec.h"
 
-void ScriptSystem(EntityManager* entityManager, float deltaTime)
+void ScriptSystem(EntityManager* entityManager, Timer timer)
 {
-	ScriptUpdate(entityManager, false, deltaTime);
+	ScriptUpdate(entityManager, false, timer);
 }
 
-void ScriptLateSystem(EntityManager* entityManager, float deltaTime)
+void ScriptLateSystem(EntityManager* entityManager, Timer timer)
 {
-	ScriptUpdate(entityManager, true, deltaTime);
+	ScriptUpdate(entityManager, true, timer);
 }
 
-void ScriptUpdate(EntityManager* entityManager, bool isLate, float deltaTime)
+void ScriptUpdate(EntityManager* entityManager, bool isLate, Timer timer)
 {
 	for (auto& scriptVecArchetype : entityManager->archetypeManager.componentIndex[typeid(ScriptVec)])
 	{
-		for (void* scriptData : scriptVecArchetype.second.archetype
+		for (void* scriptsData : scriptVecArchetype.second.archetype
 			->components[scriptVecArchetype.second.column])
 		{
-			Scriptable* script = static_cast<Scriptable*>(scriptData);
-			HandleScript(script, isLate, deltaTime);
+			ScriptVec* scripts = static_cast<ScriptVec*>(scriptsData);
+			for (Scriptable* script : scripts->scripts)
+			{
+				HandleScript(script, isLate, timer);
+			}
 		}
 	}
 }
 
-void HandleScript(Scriptable* script, bool isLate, float deltaTime)
+void HandleScript(Scriptable* script, bool isLate, Timer timer)
 {
 	if (script == nullptr) return;
 
 	if (!script->HasStarted())
 		script->Start();
 
-	if (!isLate) script->Update(deltaTime);
-	else script->LateUpdate(deltaTime);
+	if (!isLate) script->Update(timer.GetDeltaTime());
+	else script->LateUpdate(timer.GetDeltaTime());
 
 }

@@ -2,7 +2,7 @@
 
 SceneManager::SceneManager(Scene* currentScene) : currentScene(currentScene) {}
 
-void SceneManager::NewFrame(float deltaTime)
+void SceneManager::NewFrame(Timer timer)
 {
-	currentScene->NewFrame(deltaTime);
+	currentScene->NewFrame(timer);
 }

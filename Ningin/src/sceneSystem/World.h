@@ -1,5 +1,6 @@
 #pragma once
 #include "ecs/EntityManager.h"
+#include "../utills/Timer.h"
 #include <cstddef>
 #include <vector>
 
@@ -14,8 +15,8 @@ class World
 
 		EntityId NewEntity(); // Return Id of the entity created.
 
-		static vector<void (*)(EntityManager*, float)> lateSystems;
-		static vector<void (*)(EntityManager*, float)> systems;
+		static vector<void (*)(EntityManager*, Timer)> lateSystems;
+		static vector<void (*)(EntityManager*, Timer)> systems;
 
 		EntityManager entityManager;
 		size_t entitiesCount;

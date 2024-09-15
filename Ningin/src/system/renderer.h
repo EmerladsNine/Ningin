@@ -1,5 +1,6 @@
 #pragma once
 
 #include "../sceneSystem/ecs/EntityManager.h"
+#include "../utills/Timer.h"
 
-void RendererSystem(float deltaTime, EntityManager* entityManager);
+void RendererSystem(EntityManager* entityManager,Timer timer);

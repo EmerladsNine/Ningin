@@ -109,6 +109,12 @@
     <Filter Include="Dependencies\mono">
       <UniqueIdentifier>{be1c68bd-b453-47b3-92fa-6d016a44c486}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resource Files\Default">
+      <UniqueIdentifier>{c0584d04-66d5-4da3-a8e9-a4db434f6027}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Resource Files\Default\Fonts">
+      <UniqueIdentifier>{1c70a884-cce4-4f0d-b34a-19391e8c2966}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -302,6 +308,9 @@
     </ClCompile>
     <ClCompile Include="src\scripting\ninginMono\MonoPaths.cpp">
       <Filter>Source Files\scripting\mono</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utills\Timer.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -530,23 +539,11 @@
     <ClInclude Include="src\scripting\ninginMono\wrapper\DebugWrapper.h">
       <Filter>Header Files\scripting\mono\wrapper</Filter>
     </ClInclude>
+    <ClInclude Include="src\utills\Timer.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\shaders\sprite_fs.frag">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="src\shaders\sprite_vs.vs">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="src\shaders\text_fs.frag">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-    <None Include="src\shaders\text_vs.vs">
-      <Filter>Resource Files\shaders</Filter>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <CopyFileToFolders Include="Scene" />
     <CopyFileToFolders Include="dependencies\freetype.dll">
       <Filter>Dependencies</Filter>
     </CopyFileToFolders>
@@ -562,5 +559,84 @@
     <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll">
       <Filter>Dependencies\mono</Filter>
     </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="resourceFiles\default\fonts\arial.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\arialbd.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\arialbi.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\ariali.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\ARIALN.TTF">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\ARIALNB.TTF">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\ARIALNBI.TTF">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\ARIALNI.TTF">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\ariblk.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-Black.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-BlackItalic.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-Bold.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-BoldItalic.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-Italic.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-Light.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-LightItalic.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-Medium.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-MediumItalic.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-Regular.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-Thin.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+    <Font Include="resourceFiles\default\fonts\Roboto-ThinItalic.ttf">
+      <Filter>Resource Files\Default\Fonts</Filter>
+    </Font>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="resourceFiles\shaders\sprite_fs.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="resourceFiles\shaders\sprite_vs.vs">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="resourceFiles\shaders\text_fs.frag">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
+    <None Include="resourceFiles\shaders\text_vs.vs">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

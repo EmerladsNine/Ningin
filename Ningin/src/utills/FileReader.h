@@ -1,5 +1,5 @@
 #pragma once
-
+#include <filesystem>
 #include <vector>
 #include <string>
 
@@ -9,4 +9,5 @@ class FileReader
 {
 	public:
 		static vector<uint8_t> ReadFileBytes(const string& path);
+		static vector<uint8_t> ReadFileBytes(const filesystem::path& path);
 };

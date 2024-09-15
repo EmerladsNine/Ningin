@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../sceneSystem/ecs/EntityManager.h"
+#include "../utills/Timer.h"
 
 class Scriptable
 {
@@ -15,10 +16,10 @@ class Scriptable
 		virtual void Destroy() = 0;
 };
 
-void ScriptSystem(EntityManager* entityManager, float deltaTime);
+void ScriptSystem(EntityManager* entityManager, Timer timer);
 
-void ScriptLateSystem(EntityManager* entityManager, float deltaTime);
+void ScriptLateSystem(EntityManager* entityManager, Timer timer);
 
-void ScriptUpdate(EntityManager* entityManager, bool isLate, float deltaTime);
+void ScriptUpdate(EntityManager* entityManager, bool isLate, Timer timer);
 
-void HandleScript(Scriptable* script, bool isLate, float deltaTime);
+void HandleScript(Scriptable* script, bool isLate, Timer timer);

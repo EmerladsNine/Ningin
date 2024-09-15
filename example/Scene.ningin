@@ -8,13 +8,13 @@
         Scale(1.0,1.0,1.0)
     }
 
-    Text{
-        TextColor(255, 255, 255, 255)
-        FontName("arial.ttf")
-        FontSize(48)
-        Text("string")
-        Shader("text")
-    }
+   // Text{
+   //     TextColor(255, 255, 255, 255)
+   //     FontName("arial.ttf")
+   //     FontSize(48)
+   //     Text("string")
+   //     Shader("text")
+   // }
 
     // Sprite{
     //     useAlpha(true)

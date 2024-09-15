@@ -27,7 +27,7 @@ class Game
 
 		static void Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
 			vector<string> scenes, optional<MonoPaths> monoPath);
-
+		static void Start();
 		static size_t NewWindow(string windowName, WindowOptions windowOptions,
 			uint16_t sceneId, Dimensions2* dimensions);
 

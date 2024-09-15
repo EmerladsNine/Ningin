@@ -2,7 +2,7 @@
 #include "../sceneSystem/components/TextRenderer.h"
 #include "../sceneSystem/components/SpriteRenderer.h"
 
-void RendererSystem(float deltaTime, EntityManager* entityManager)
+void RendererSystem(EntityManager* entityManager,Timer timer)
 {
 	TextRenderer::System(entityManager);
 	SpriteRenderer::System(entityManager);
