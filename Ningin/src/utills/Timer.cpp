@@ -1,9 +1,6 @@
 #include "Timer.h"
 
-Timer::Timer() : lastTime(std::chrono::high_resolution_clock::now()) 
-{
-
-}
+Timer::Timer() : lastTime(std::chrono::high_resolution_clock::now()) {}
 
 float Timer::GetDeltaTime() 
 {

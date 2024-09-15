@@ -1,14 +1,15 @@
 #pragma once
+
 #include <chrono>
 
 class Timer
 {
-public:
-	Timer();
-    // Returns the delta time in seconds
-    float GetDeltaTime();
-    void ResetDeltaTime();
+    public:
+	    Timer();
 
-private:
-    std::chrono::high_resolution_clock::time_point lastTime;
+        float GetDeltaTime(); // Returns the delta time in seconds
+        void ResetDeltaTime();
+
+    private:
+        std::chrono::high_resolution_clock::time_point lastTime;
 };

@@ -94,11 +94,11 @@ void Game::InitResourceManager()
 void Game::MainLoop()
 {
 	Timer timer;
+
 	while (true)
 	{
 		//This Should Be Removed Later ... Makes Frames Slower
 		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
 
 		glfwPollEvents();
 		glClearColor(0, 100/255.0f, 0, 1.0f);
