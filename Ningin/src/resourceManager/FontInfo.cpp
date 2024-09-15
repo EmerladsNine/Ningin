@@ -3,10 +3,9 @@
 #include <iostream>
 #include <stdexcept>
 
-FontInfo::FontInfo(FT_Library& ftLibrary, filesystem::path fontPath, string name)
-	: _ftLibrary(ftLibrary), _fontPath(fontPath), _name(name) {}
+FontInfo::FontInfo(const filesystem::path fontPath, string name) : _fontPath(fontPath), _name(name) {}
 
-vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Library& ftLibrary)
+vector<FontInfo> FontInfo::GenerateInfoFromFolder(const filesystem::path& path)
 {
 	vector<FontInfo> fonts_info_vec;
 	try
@@ -20,7 +19,7 @@ vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Lib
 				{
 					string file_name = entry.path().filename().string();
 					filesystem::path path = entry.path();
-					fonts_info_vec.push_back(FontInfo(ftLibrary, path, file_name));
+					fonts_info_vec.push_back(FontInfo(path, file_name));
 				}
 			}
 		}
@@ -40,12 +39,7 @@ vector<FontInfo> FontInfo::GenerateInfoFromFolder(filesystem::path& path, FT_Lib
 	return fonts_info_vec;
 }
 
-FT_Library& FontInfo::GetFtLibrary()
-{
-	return _ftLibrary;
-}
-
-filesystem::path& FontInfo::GetFontPath()
+const filesystem::path& FontInfo::GetFontPath()
 {
 	return _fontPath;
 }

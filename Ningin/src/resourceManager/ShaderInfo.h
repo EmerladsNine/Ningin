@@ -9,13 +9,13 @@ using namespace std;
 class ShaderInfo
 {
 	public:
-		ShaderInfo(filesystem::path& vertexPath, filesystem::path& fragmentPath,
-			string& name);
+		ShaderInfo(const filesystem::path vertexPath, const filesystem::path fragmentPath,
+			string name);
 
-		void AddPaths(filesystem::path& vertexPath, filesystem::path& fragmentPath);
+		void AddPaths(const filesystem::path& vertexPath, const filesystem::path& fragmentPath);
 		string GetName();
 
-		filesystem::path GetPath(string name);
+		const filesystem::path GetPath(string name);
 
 	private:
 		unordered_map<string, filesystem::path> _paths;

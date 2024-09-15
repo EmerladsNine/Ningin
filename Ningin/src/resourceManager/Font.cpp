@@ -1,10 +1,11 @@
 #include "font.h"
 #include <iostream>
 #include <stdexcept>
+#include "../ningin.h"
 
-Font::Font(filesystem::path& path, FT_Library ftLibrary) : _fontPath(path), _fontTexture()
+Font::Font(const filesystem::path& path) : _fontPath(path), _fontTexture()
 {
-	PrepareFont(ftLibrary);
+	PrepareFont();
 }
 
 FontTexture Font::GetFontTexture()
@@ -17,9 +18,9 @@ unordered_map<unsigned char, Character> Font::GetCharMap()
 	return _charMap;
 }
 
-void Font::PrepareFont(FT_Library ftLibrary)
+void Font::PrepareFont()
 {
-	FT_Face face = LoadFont(ftLibrary);
+	FT_Face face = LoadFont();
 
 	if (face != nullptr)
 	{
@@ -30,7 +31,7 @@ void Font::PrepareFont(FT_Library ftLibrary)
 	}
 }
 
-FT_Face Font::LoadFont(FT_Library ftLibrary)
+FT_Face Font::LoadFont()
 {
 	FT_Face face = nullptr;
 	if (FT_New_Face(ftLibrary, _fontPath.string().c_str(), 0, &face))

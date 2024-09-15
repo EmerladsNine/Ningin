@@ -8,14 +8,14 @@ using namespace std;
 class TextureInfo
 {
 	public:
-		TextureInfo(filesystem::path& imgPath, bool alpha, string& name);
+		TextureInfo(const filesystem::path& imgPath, bool alpha, string& name);
 
 		bool HasAlpha();
-		filesystem::path& GetImgPath();
+		const filesystem::path& GetImgPath();
 		string& GetName();
 
 		void SetAlpha(bool alpha);
-		void SetImgPath(filesystem::path& imgPath);
+		void SetImgPath(const filesystem::path& imgPath);
 		void SetName(string& name);
 
 	private:

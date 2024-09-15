@@ -2,6 +2,7 @@
 #include "sceneSystem/World.h"
 #include "scripting/ScriptingEngine.h"
 #include "utills/Timer.h"
+#include <filesystem>
 #include <thread>
 #include <chrono>
 
@@ -11,6 +12,7 @@ using TimePoint = chrono::time_point<Clock>;
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
+FT_Library ftLibrary;
 
 vector<Window> Game::openedWindows;
 SceneLoader Game::sceneLoader;
@@ -24,6 +26,7 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	//Create new window with no scene
 	NewWindow(gameName, windowOptions, -1, dimensions);
 
+	InitFreetype();
 	InitGl2d(dimensions);
 	InitResourceManager();
 	World::InitDefaultComponentSystem();
@@ -68,10 +71,8 @@ size_t Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t 
 
 FT_Library Game::InitFreetype()
 {
-	FT_Library ft;
-	if (FT_Init_FreeType(&ft)) // all functions return a value different than 0 whenever an error occurred
+	if (FT_Init_FreeType(&ftLibrary)) // all functions return a value != 0 whenever an error occurred
 		throw runtime_error("ERROR::FREETYPE: Could not init FreeType Library");
-	return ft;
 }
 
 void Game::InitGl2d(Dimensions2* dimensions)
@@ -88,7 +89,20 @@ void Game::InitGl2d(Dimensions2* dimensions)
 
 void Game::InitResourceManager()
 {
-	// TODO
+	filesystem::path gameDirectory = Environment::GetGameDirectory();
+
+	resourceManager.LoadFontsFromFolder(filesystem::path(gameDirectory / "default\\fonts"));
+
+	ShaderInfo spriteShader(filesystem::path(gameDirectory / "shaders\\sprite_vs.vs"),
+		filesystem::path(gameDirectory / "shaders\\sprite_fs.frag"), string("sprite"));
+
+	ShaderInfo textShader(filesystem::path(gameDirectory / "shaders\\text_vs.vs"),
+		filesystem::path(gameDirectory / "shaders\\text_fs.frag"), string("text"));
+
+	resourceManager.LoadShader(spriteShader);
+	resourceManager.LoadShader(textShader);
+
+	// TODO texture
 }
 
 void Game::MainLoop()
@@ -97,9 +111,6 @@ void Game::MainLoop()
 
 	while (true)
 	{
-		//This Should Be Removed Later ... Makes Frames Slower
-		std::this_thread::sleep_for(std::chrono::milliseconds(10));
-
 		glfwPollEvents();
 		glClearColor(0, 100/255.0f, 0, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

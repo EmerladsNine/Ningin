@@ -20,7 +20,7 @@ void Atlas::GenerateAtlas()
 		GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
 }
 
-void Atlas::AddSprite(filesystem::path& path, string& name)
+void Atlas::AddSprite(const filesystem::path& path, string& name)
 {
 	auto img = LoadTexture(path);
 	Dimensions2 dimensions(static_cast<int>(img.size()), static_cast<int>(img.size()));
@@ -85,7 +85,7 @@ void Atlas::DeleteFrameBuffer(GLuint fbo)
 	glDeleteFramebuffers(1, &fbo);
 }
 
-vector<unsigned char> Atlas::LoadTexture(filesystem::path& path)
+vector<unsigned char> Atlas::LoadTexture(const filesystem::path& path)
 {
 	int width, height, channels;
 	vector<unsigned char> data;

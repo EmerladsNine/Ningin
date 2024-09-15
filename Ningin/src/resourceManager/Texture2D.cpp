@@ -2,7 +2,7 @@
 #include <iostream>
 #include <stdexcept>
 
-Texture2D::Texture2D(filesystem::path& imgPath, bool alpha) : _id(0), _imgPath(imgPath),
+Texture2D::Texture2D(const filesystem::path& imgPath, bool alpha) : _id(0), _imgPath(imgPath),
 	_imgFormat(alpha ? GL_RGBA : GL_RGB)
 {
 	LoadTexture();

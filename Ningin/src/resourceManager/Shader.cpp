@@ -110,7 +110,7 @@ void Shader::CheckExtension(filesystem::path& path, string& expectedExtension)
 string Shader::LoadShader(filesystem::path& path)
 {
 	ifstream file(path);
-	if (!file.is_open())
+	if (!file)
 	{
 		throw runtime_error(format("Shader file of path: {} not found", path.string()));
 	}

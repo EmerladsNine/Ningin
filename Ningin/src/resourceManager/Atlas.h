@@ -22,7 +22,7 @@ class Atlas
 
 		void GenerateAtlas();
 
-		void AddSprite(filesystem::path& path, string& name);
+		void AddSprite(const filesystem::path& path, string& name);
 		void AddSpritesWithJson(filesystem::path& spriteSheetPath, filesystem::path& infoPath);
 		void AddSprites(filesystem::path& spriteSheetPath, SpriteSheetInfo& info);
 		
@@ -43,7 +43,7 @@ class Atlas
 		GLuint GenerateFrameBuffer(GLuint texture);
 		vector<uint8_t> GetSpriteTileData(SpriteTile& sprite);
 		void DeleteFrameBuffer(GLuint fbo);
-		vector<unsigned char> LoadTexture(filesystem::path& path);
+		vector<unsigned char> LoadTexture(const filesystem::path& path);
 		void SetupSpriteTexture();
 		void CreateSpriteTexture(Dimensions2& dimensions, vector<uint8_t>& data);
 		SpriteSheetInfo ParseJson(filesystem::path& infoPath);

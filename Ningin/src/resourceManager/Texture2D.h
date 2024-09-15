@@ -12,7 +12,7 @@ using namespace std;
 class Texture2D
 {
 	public:
-		Texture2D(filesystem::path& imgPath, bool alpha);
+		Texture2D(const filesystem::path& imgPath, bool alpha);
 		~Texture2D();
 
 		void Bind();

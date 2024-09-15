@@ -8,21 +8,23 @@
 #include <ft2build.h>
 #include <GL/glew.h>
 
+using namespace std;
+
 class Font
 {
 	public:
-		Font(std::filesystem::path& path, FT_Library ftLibrary);
+		Font(const filesystem::path& path);
 
 		FontTexture GetFontTexture();
-		std::unordered_map<unsigned char, Character> GetCharMap();
+		unordered_map<unsigned char, Character> GetCharMap();
 
 	private:
-		std::filesystem::path _fontPath;
-		std::unordered_map<unsigned char, Character> _charMap;
+		filesystem::path _fontPath;
+		unordered_map<unsigned char, Character> _charMap;
 		FontTexture _fontTexture;
 
-		void PrepareFont(FT_Library ftLibrary);
-		FT_Face LoadFont(FT_Library ftLibrary);
+		void PrepareFont();
+		FT_Face LoadFont();
 
 		void SetupGlyphLoading(FT_Face face);
 		void LoadGlyphs(FT_Face face);

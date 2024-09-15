@@ -7,6 +7,7 @@
 #include "system/window.h"
 #include "system/WindowOptions.h"
 #include "scripting/ninginMono/MonoPaths.h"
+#include "Environment.h"
 #include <glm.hpp>
 #include <string>
 #include <vector>
@@ -15,6 +16,7 @@ using namespace std;
 
 extern ResourceManager resourceManager;
 extern glm::mat4 projectionMatrix;
+extern FT_Library ftLibrary;
 
 extern const int ARRAY_LIMIT;
 extern const int ATLAS_LIMIT;
@@ -34,6 +36,6 @@ class Game
 	private:
 		static void InitGl2d(Dimensions2* dimensions);
 		static void InitResourceManager();
-		FT_Library InitFreetype();
+		static FT_Library InitFreetype();
 		static void MainLoop();
 };

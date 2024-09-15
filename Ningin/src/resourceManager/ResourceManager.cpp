@@ -10,9 +10,9 @@ void ResourceManager::AddSprite(SpriteInfo& info)
 	}
 
 	Atlas& atlas = _atlases.back();
-	filesystem::path path = info.GetPath();
+	//auto path = info.GetPath();
 	string name = info.GetName();
-	atlas.AddSprite(path, name);
+	atlas.AddSprite(info.GetPath(), name);
 
 	SpriteInfo spriteInfo = info;
 	spriteInfo.SetAtlasId(_atlases.size() - 1);
@@ -85,7 +85,7 @@ Texture2D ResourceManager::GetTexture(string& name)
 
 void ResourceManager::LoadFont(FontInfo& info)
 {
-	Font font(info.GetFontPath(), info.GetFtLibrary());
+	Font font(info.GetFontPath());
 	_fonts.insert(make_pair(info.GetName(), font));
 }
 
@@ -97,9 +97,9 @@ void ResourceManager::LoadFonts(vector<FontInfo>& info)
 	}
 }
 
-void ResourceManager::LoadFontsFromFolder(filesystem::path& path, FT_Library ftLibrary)
+void ResourceManager::LoadFontsFromFolder(const filesystem::path& path)
 {
-	vector<FontInfo> fontInfos = FontInfo::GenerateInfoFromFolder(path, ftLibrary);
+	vector<FontInfo> fontInfos = FontInfo::GenerateInfoFromFolder(path);
 	for (auto& fontInfo : fontInfos)
 	{
 		LoadFont(fontInfo);

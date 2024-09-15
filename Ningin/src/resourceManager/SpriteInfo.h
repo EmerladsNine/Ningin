@@ -8,12 +8,12 @@ using namespace std;
 class SpriteInfo
 {
 	public:
-		SpriteInfo(string& name, filesystem::path& path);
+		SpriteInfo(string& name, const filesystem::path& path);
 		SpriteInfo() = default;
 
 		void SetAtlasId(size_t atlasId);
 
-		filesystem::path GetPath();
+		const filesystem::path GetPath();
 		size_t GetAtlasId();
 		string GetName();
 

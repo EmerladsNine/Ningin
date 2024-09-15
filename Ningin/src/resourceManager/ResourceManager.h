@@ -15,37 +15,39 @@
 #include <vector>
 //#include "../physics_manager/physics_material2d.h"
 
+using namespace std;
+
 class ResourceManager
 {
 	public:
 		ResourceManager() = default;
 
 		void AddSprite(SpriteInfo& info);
-		void LoadSprites(std::vector<SpriteInfo>& info);
+		void LoadSprites(vector<SpriteInfo>& info);
 		void LoadSpriteSheet();
 
 		void LoadShader(ShaderInfo& info);
-		void LoadShaders(std::vector<ShaderInfo>& info);
+		void LoadShaders(vector<ShaderInfo>& info);
 
-		Shader GetShader(std::string& name);
+		Shader GetShader(string& name);
 
 		void LoadTexture(TextureInfo& info);
-		void LoadTextures(std::vector<TextureInfo>& info);
+		void LoadTextures(vector<TextureInfo>& info);
 
-		Texture2D GetTexture(std::string& name);
+		Texture2D GetTexture(string& name);
 
 		void LoadFont(FontInfo& info);
-		void LoadFonts(std::vector<FontInfo>& info);
-		void LoadFontsFromFolder(std::filesystem::path& path, FT_Library ftLibrary);
+		void LoadFonts(vector<FontInfo>& info);
+		void LoadFontsFromFolder(const filesystem::path& path);
 
-		Font GetFont(std::string& name);
+		Font GetFont(string& name);
 
 	private:
-		std::unordered_map<std::string, Texture2D> _textures;
-		std::unordered_map<std::string, SpriteInfo> _sprites;
-		std::unordered_map<std::string, Shader> _shaders;
-		std::unordered_map<std::string, Font> _fonts;
-		std::vector<Atlas> _atlases;
+		unordered_map<string, Texture2D> _textures;
+		unordered_map<string, SpriteInfo> _sprites;
+		unordered_map<string, Shader> _shaders;
+		unordered_map<string, Font> _fonts;
+		vector<Atlas> _atlases;
 
-		//std::unordered_map<std::string, PhyscicsMaterial2D> physicsMaterials2D;
+		//unordered_map<string, PhyscicsMaterial2D> physicsMaterials2D;
 };

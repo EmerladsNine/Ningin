@@ -1,6 +1,6 @@
 #include "SpriteInfo.h"
 
-SpriteInfo::SpriteInfo(string& name, filesystem::path& path) : _name(name),
+SpriteInfo::SpriteInfo(string& name, const filesystem::path& path) : _name(name),
 	_path(path), _atlasId(0) {}
 
 string SpriteInfo::GetName()
@@ -8,7 +8,7 @@ string SpriteInfo::GetName()
 	return _name;
 }
 
-filesystem::path SpriteInfo::GetPath()
+const filesystem::path SpriteInfo::GetPath()
 {
 	return _path;
 }
