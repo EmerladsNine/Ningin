@@ -123,6 +123,7 @@ void Game::MainLoop()
 
 		// Remove elements in descending order to avoid invalidating indices
 		for (size_t index : windowIndicesToDelete) {
+			glfwDestroyWindow(openedWindows[index].glfwWin);
 			openedWindows.erase(openedWindows.begin() + index);
 		}
 
