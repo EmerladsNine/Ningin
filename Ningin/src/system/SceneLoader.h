@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../resourceManager/Color.h"
+#include "../resourceManager/color/Color.h"
 #include "../sceneSystem/Scene.h"
 #include "../math/Vector3.h"
 #include <cstddef>

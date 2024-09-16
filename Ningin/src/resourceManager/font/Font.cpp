@@ -1,7 +1,7 @@
 #include "font.h"
 #include <iostream>
 #include <stdexcept>
-#include "../ningin.h"
+#include "../../Ningin.h"
 
 Font::Font(const filesystem::path& path) : _fontPath(path), _fontTexture()
 {

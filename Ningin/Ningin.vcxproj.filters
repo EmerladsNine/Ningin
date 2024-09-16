@@ -115,6 +115,42 @@
     <Filter Include="Resource Files\Default\Fonts">
       <UniqueIdentifier>{1c70a884-cce4-4f0d-b34a-19391e8c2966}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\resourceManager\animation">
+      <UniqueIdentifier>{82865970-d7ab-4535-93ef-51812f116c11}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resourceManager\atlas">
+      <UniqueIdentifier>{19280f35-1ad3-48fe-87e0-fb877effc56b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resourceManager\shader">
+      <UniqueIdentifier>{a1d1f016-da28-4f6a-a4eb-99c2dedd1f88}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resourceManager\font">
+      <UniqueIdentifier>{090c89d8-86d2-45a2-9aef-21cc2d00b139}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resourceManager\color">
+      <UniqueIdentifier>{5d149d3f-6af0-47a1-bb77-778b4b1b83b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resourceManager\texture">
+      <UniqueIdentifier>{c5d06fcb-e193-4a3f-81cf-2e8d340828ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resourceManager\animation">
+      <UniqueIdentifier>{1cb99ae3-a152-4e89-b710-4df33d72ea7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resourceManager\atlas">
+      <UniqueIdentifier>{b6021e73-d363-441a-87ec-86a225db32cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resourceManager\color">
+      <UniqueIdentifier>{970c5cb9-a2d6-4c41-98a8-090aab5df741}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resourceManager\font">
+      <UniqueIdentifier>{c99851ac-a75b-4d04-9e6e-b00c312ccf66}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resourceManager\shader">
+      <UniqueIdentifier>{52fe825a-a0a6-42b3-beae-63f6213cd433}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\resourceManager\texture">
+      <UniqueIdentifier>{730401df-9c0f-429a-b19d-512e6c4cefbe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -216,52 +252,7 @@
     <ClCompile Include="src\sceneSystem\Scene.cpp">
       <Filter>Source Files\sceneSystem</Filter>
     </ClCompile>
-    <ClCompile Include="src\resourceManager\Atlas.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\Character.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\Color.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\Colors.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\Font.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\FontInfo.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\FontTexture.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
     <ClCompile Include="src\resourceManager\ResourceManager.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\Shader.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\ShaderInfo.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\sprite.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\SpriteInfo.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\SpriteSheetInfo.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\SpriteTile.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\Texture2D.cpp">
-      <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\resourceManager\TextureInfo.cpp">
       <Filter>Source Files\resourceManager</Filter>
     </ClCompile>
     <ClCompile Include="src\sceneSystem\ecs\record.cpp">
@@ -311,6 +302,57 @@
     </ClCompile>
     <ClCompile Include="src\utills\Timer.cpp">
       <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\sceneSystem\components\Animator.cpp">
+      <Filter>Source Files\sceneSystem\components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\animation\AnimationFrame.cpp">
+      <Filter>Source Files\resourceManager\animation</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\atlas\Atlas.cpp">
+      <Filter>Source Files\resourceManager\atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\color\Color.cpp">
+      <Filter>Source Files\resourceManager\color</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\font\Character.cpp">
+      <Filter>Source Files\resourceManager\font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\color\Colors.cpp">
+      <Filter>Source Files\resourceManager\color</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\font\Font.cpp">
+      <Filter>Source Files\resourceManager\font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\font\FontInfo.cpp">
+      <Filter>Source Files\resourceManager\font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\font\FontTexture.cpp">
+      <Filter>Source Files\resourceManager\font</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\shader\Shader.cpp">
+      <Filter>Source Files\resourceManager\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\shader\ShaderInfo.cpp">
+      <Filter>Source Files\resourceManager\shader</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\atlas\sprite.cpp">
+      <Filter>Source Files\resourceManager\atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\texture\TextureInfo.cpp">
+      <Filter>Source Files\resourceManager\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\texture\Texture2D.cpp">
+      <Filter>Source Files\resourceManager\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\atlas\SpriteTile.cpp">
+      <Filter>Source Files\resourceManager\atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\atlas\SpriteInfo.cpp">
+      <Filter>Source Files\resourceManager\atlas</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\atlas\SpriteSheetInfo.cpp">
+      <Filter>Source Files\resourceManager\atlas</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -446,52 +488,7 @@
     <ClInclude Include="src\sceneSystem\entity\children.h">
       <Filter>Header Files\sceneSystem\entity</Filter>
     </ClInclude>
-    <ClInclude Include="src\resourceManager\TextureInfo.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Texture2D.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\SpriteTile.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\SpriteSheetinfo.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\SpriteInfo.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Sprite.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\ShaderInfo.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Shader.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
     <ClInclude Include="src\resourceManager\ResourceManager.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\FontTexture.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\FontInfo.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Font.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Colors.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Color.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Character.h">
-      <Filter>Header Files\resourceManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\resourceManager\Atlas.h">
       <Filter>Header Files\resourceManager</Filter>
     </ClInclude>
     <ClInclude Include="src\sceneSystem\ecs\Record.h">
@@ -541,6 +538,57 @@
     </ClInclude>
     <ClInclude Include="src\utills\Timer.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\sceneSystem\components\Animator.h">
+      <Filter>Header Files\sceneSystem\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\texture\TextureInfo.h">
+      <Filter>Header Files\resourceManager\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\texture\Texture2D.h">
+      <Filter>Header Files\resourceManager\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\animation\AnimationFrame.h">
+      <Filter>Header Files\resourceManager\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\color\Color.h">
+      <Filter>Header Files\resourceManager\color</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\color\Colors.h">
+      <Filter>Header Files\resourceManager\color</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\font\Font.h">
+      <Filter>Header Files\resourceManager\font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\font\FontInfo.h">
+      <Filter>Header Files\resourceManager\font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\font\FontTexture.h">
+      <Filter>Header Files\resourceManager\font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\font\Character.h">
+      <Filter>Header Files\resourceManager\font</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\shader\ShaderInfo.h">
+      <Filter>Header Files\resourceManager\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\shader\Shader.h">
+      <Filter>Header Files\resourceManager\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\atlas\Sprite.h">
+      <Filter>Header Files\resourceManager\atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\atlas\Atlas.h">
+      <Filter>Header Files\resourceManager\atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\atlas\SpriteTile.h">
+      <Filter>Header Files\resourceManager\atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\atlas\SpriteSheetinfo.h">
+      <Filter>Header Files\resourceManager\atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\atlas\SpriteInfo.h">
+      <Filter>Header Files\resourceManager\atlas</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

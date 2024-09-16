@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../math/Dimensions2.h"
+#include "../../math/Dimensions2.h"
 
 class Character
 {

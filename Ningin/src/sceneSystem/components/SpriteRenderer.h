@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../../resourceManager/Texture2D.h"
-#include "../../resourceManager/Shader.h"
-#include "../../resourceManager/Color.h"
+#include "../../resourceManager/texture/Texture2D.h"
+#include "../../resourceManager/shader/Shader.h"
+#include "../../resourceManager/color/Color.h"
 #include "../../math/Math.h"
 #include "../../Ningin.h"
 #include <unordered_map>

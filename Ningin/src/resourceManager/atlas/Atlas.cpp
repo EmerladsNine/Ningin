@@ -1,6 +1,5 @@
 #include "Atlas.h"
-#include "../Ningin.h"
-#include "Texture2D.h"
+#include "../../Ningin.h"
 #include <GL/glew.h>
 #include <stdexcept>
 #include <fstream>

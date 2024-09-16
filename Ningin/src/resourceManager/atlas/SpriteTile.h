@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../math/Dimensions2.h"
-#include "../math/Vector2.h"
+#include "../../math/Dimensions2.h"
+#include "../../math/Vector2.h"
 #include <string>
 
 using namespace std;

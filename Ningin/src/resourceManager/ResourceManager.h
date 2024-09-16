@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Atlas.h"
-#include "Font.h"
-#include "FontInfo.h"
-#include "Shader.h"
-#include "ShaderInfo.h"
-#include "spriteInfo.h"
-#include "Texture2D.h"
-#include "TextureInfo.h"
+#include "atlas/Atlas.h"
+#include "font/Font.h"
+#include "font/FontInfo.h"
+#include "shader/Shader.h"
+#include "shader/ShaderInfo.h"
+#include "atlas/spriteInfo.h"
+#include "texture/Texture2D.h"
+#include "texture/TextureInfo.h"
 #include <filesystem>
 #include <stdexcept>
 #include <string>

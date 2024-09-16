@@ -3,7 +3,7 @@
 #include "SpriteSheetInfo.h"
 #include <unordered_map>
 #include "SpriteTile.h"
-#include "Texture2D.h"
+#include "../texture/Texture2D.h"
 #include <json/json.h>
 #include <filesystem>
 #include <stdexcept>

@@ -1,9 +1,9 @@
 #pragma once
 
 #include "../../resourceManager/ResourceManager.h"
-#include "../../resourceManager/Shader.h"
-#include "../../resourceManager/Color.h"
-#include "../../resourceManager/Font.h"
+#include "../../resourceManager/shader/Shader.h"
+#include "../../resourceManager/color/Color.h"
+#include "../../resourceManager/font/Font.h"
 #include "../../math/dimensions2.h"
 #include "../../math/math.h"
 #include "../../ningin.h"
