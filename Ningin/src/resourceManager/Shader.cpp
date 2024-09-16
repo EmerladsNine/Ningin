@@ -34,7 +34,7 @@ void Shader::SetInt(string& name, int value)
 void Shader::SetIntWithLength(string& name, int length, vector<int>& values)
 {
 	Use();
-	glUniform1iv(glGetUniformLocation(_shaderProgram, name.c_str()), length, &values[0]);
+	glUniform1iv(glGetUniformLocation(_shaderProgram, name.c_str()), length, values.data());
 }
 
 void Shader::SetFloat(string& name, float value)
@@ -60,7 +60,7 @@ void Shader::SetMatrix4WithLength(string& name, int length, vector<glm::mat4>& m
 {
 	Use();
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), length, GL_FALSE,
-		&matrices[0][0][0]);
+		glm::value_ptr(matrices[0]));
 }
 
 GLuint Shader::GetID()

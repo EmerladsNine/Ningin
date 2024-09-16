@@ -13,6 +13,7 @@ TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColo
 	InitializeRenderData();
 }
 
+
 void TextRenderer::InitializeRenderData()
 {
 	CalculateTextDimensions();
@@ -39,11 +40,8 @@ void TextRenderer::SetShaderInitialUniforms()
 
 void TextRenderer::InitializeShaderInfo()
 {
-	for (int i = 0; i < ARRAY_LIMIT; i++)
-	{
-		_transforms.push_back(glm::mat4(1.0f));
-		_charsMap.push_back(0);
-	}
+	_transforms.resize(ARRAY_LIMIT, glm::mat4(1.0f));
+	_charsMap.resize(ARRAY_LIMIT, 0);
 }
 
 void TextRenderer::InitializeVao()
@@ -56,8 +54,8 @@ void TextRenderer::InitializeVbo()
 {
 	float vertexData[] = {
 		0.0f, 1.0f,
-		0.0f, 0.0f,
 		1.0f, 1.0f,
+		0.0f, 0.0f,
 		1.0f, 0.0f,
 	};
 
@@ -101,8 +99,8 @@ void TextRenderer::Draw(Transform& transform)
 	}
 
 	Vector3 pos = transform.GetPosition();
-	float scale = static_cast<float>(_fontSize) / 256.0f;
-	float hBearing = static_cast<float>(_font.GetCharMap().at('H').GetBearing().height);
+	float scale = float(_fontSize) / 256.0f;
+	float hBearing = float(_font.GetCharMap().at('H').GetBearing().height);
 
 	int32_t workingIndex = 0;
 	float xOffSet = 0.0f;
@@ -113,17 +111,17 @@ void TextRenderer::Draw(Transform& transform)
 
 		if (c == '\n')
 		{
-			pos.y += static_cast<float>(ch.GetSize().height) * 1.3f * scale;
+			pos.y += float(ch.GetSize().height) * 1.3f * scale;
 			xOffSet = 0.0f;
 		}
 		else if (c == ' ')
 		{
-			xOffSet += (static_cast<float>(ch.GetAdvance() >> 6)) * scale;
+			xOffSet += (float(ch.GetAdvance() >> 6)) * scale;
 		}
 		else
 		{
-			float xpos = static_cast<float>(ch.GetBearing().width) * scale;
-			float ypos = pos.y + (hBearing - static_cast<float>(ch.GetBearing().height)) * scale;
+			float xpos = float(ch.GetBearing().width) * scale;
+			float ypos = pos.y + (hBearing - float(ch.GetBearing().height)) * scale;
 
 			_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
 			_charsMap[workingIndex] = ch.GetAsciiIndex();
@@ -134,7 +132,7 @@ void TextRenderer::Draw(Transform& transform)
 				workingIndex = 0;
 			}
 
-			xOffSet += (static_cast<float>(ch.GetAdvance() >> 6)) * scale;
+			xOffSet += (float(ch.GetAdvance() >> 6)) * scale;
 			workingIndex++;
 		}
 	}
@@ -154,19 +152,19 @@ void TextRenderer::RenderText(int32_t length)
 
 void TextRenderer::CalculateTextDimensions()
 {
+
 	auto [splitedText, longestLine] = GetTextInfo();
 
-	_textDimensions.height = static_cast<unsigned int>(static_cast<float>(splitedText.size())
-		* static_cast<float>(_fontSize) + static_cast<float>(_font.GetCharMap().at('\n').GetSize().height)
-		* 1.3f * static_cast<float>(_fontSize) / 256.0f);
+	_textDimensions.height = static_cast<unsigned int>(float(splitedText.size())
+		* float(_fontSize) + float(_font.GetCharMap().at('\n').GetSize().height)
+		* 1.3f * (float(_fontSize) / 256.0f));
 
 	_textDimensions.width = static_cast<unsigned int>(static_cast<uint8_t>(longestLine) * _fontSize);
 }
 
 pair<vector<vector<char>>, size_t> TextRenderer::GetTextInfo()
 {
-	vector<vector<char>> splitedText;
-	splitedText.push_back(vector<char>());
+	vector<vector<char>> splitedText(1);
 	size_t currentLine = 0;
 	size_t longestLine = 0;
 
@@ -174,15 +172,16 @@ pair<vector<vector<char>>, size_t> TextRenderer::GetTextInfo()
 	{
 		if (c == '\n')
 		{
-			if (longestLine < splitedText[currentLine].size())
+			if (splitedText.back().size() > longestLine)
 			{
-				longestLine = splitedText[currentLine].size();
+				longestLine = splitedText.back().size();
 			}
-			splitedText.push_back(vector<char>());
-			currentLine++;
+
+			splitedText.emplace_back();
 			continue;
 		}
-		splitedText[currentLine].push_back(c);
+
+		splitedText.back().push_back(c);
 	}
 
 	return { splitedText, longestLine };
@@ -201,8 +200,8 @@ void TextRenderer::SetInitDrawingUniforms()
 		return;
 	}
 
-	_shader.SetFloatVec4(TextColorName, _textColor.r / 255.0f, _textColor.g / 255.0f, _textColor.b / 255.0f,
-		_textColor.a / 255.0f);
+	_shader.SetFloatVec4(TextColorName, float(_textColor.r) / 255.0f, float(_textColor.g) / 255.0f,
+		float(_textColor.b / 255.0f), float(_textColor.a / 255.0f));
 }
 
 void TextRenderer::SetDrawingUniforms(int32_t length)
