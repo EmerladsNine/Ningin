@@ -21,44 +21,37 @@ void Shader::Use()
 
 void Shader::SetBool(string& name, bool value)
 {
-	Use();
 	glUniform1i(glGetUniformLocation(_shaderProgram, name.c_str()), static_cast<int>(value));
 }
 
 void Shader::SetInt(string& name, int value)
 {
-	Use();
 	glUniform1i(glGetUniformLocation(_shaderProgram, name.c_str()), value);
 }
 
 void Shader::SetIntWithLength(string& name, int length, vector<int>& values)
 {
-	Use();
 	glUniform1iv(glGetUniformLocation(_shaderProgram, name.c_str()), length, values.data());
 }
 
 void Shader::SetFloat(string& name, float value)
 {
-	Use();
 	glUniform1f(glGetUniformLocation(_shaderProgram, name.c_str()), value);
 }
 
 void Shader::SetFloatVec4(string& name, float value1, float value2, float value3, float value4)
 {
-	Use();
 	glUniform4f(glGetUniformLocation(_shaderProgram, name.c_str()), value1, value2, value3, value4);
 }
 
 void Shader::SetMatrix4(string& name, glm::mat4& matrix)
 {
-	Use();
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), 1, GL_FALSE,
 		glm::value_ptr(matrix));
 }
 
 void Shader::SetMatrix4WithLength(string& name, int length, vector<glm::mat4>& matrices)
 {
-	Use();
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), length, GL_FALSE,
 		glm::value_ptr(matrices[0]));
 }

@@ -16,12 +16,12 @@ TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColo
 
 void TextRenderer::InitializeRenderData()
 {
+	_fontCharsMap = _font.GetCharMap();
 	CalculateTextDimensions();
 	InitializeShaderInfo();
 	InitializeVao();
 	InitializeVbo();
 	SetupVertexAttrib();
-	FreeResources(false);
 }
 
 void TextRenderer::SetShaderInitialUniforms()
@@ -29,6 +29,7 @@ void TextRenderer::SetShaderInitialUniforms()
 	string projectionMatrixName = string("projection");
 	string TextSamplerName = string("text");
 
+	_shader.Use();
 	_shader.SetInt(TextSamplerName, 0);
 	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
 
@@ -41,7 +42,7 @@ void TextRenderer::SetShaderInitialUniforms()
 void TextRenderer::InitializeShaderInfo()
 {
 	_transforms.resize(ARRAY_LIMIT, glm::mat4(1.0f));
-	_charsMap.resize(ARRAY_LIMIT, 0);
+	_textAsciiIndices.resize(ARRAY_LIMIT, 0);
 }
 
 void TextRenderer::InitializeVao()
@@ -90,6 +91,8 @@ void TextRenderer::ConfigureDrawingContext()
 
 void TextRenderer::Draw(Transform& transform)
 {
+	_shader.Use();
+
 	SetInitDrawingUniforms();
 	ConfigureDrawingContext();
 
@@ -100,31 +103,31 @@ void TextRenderer::Draw(Transform& transform)
 
 	Vector3 pos = transform.GetPosition();
 	float scale = float(_fontSize) / 256.0f;
-	float hBearing = float(_font.GetCharMap().at('H').GetBearing().height);
+	float hBearing = float(_fontCharsMap.at('H').bearing.height);
 
 	int32_t workingIndex = 0;
 	float xOffSet = 0.0f;
 
 	for (char c : _text)
 	{
-		Character ch = _font.GetCharMap()[static_cast<unsigned char>(c)];
+		Character ch = _fontCharsMap[static_cast<unsigned char>(c)];
 
 		if (c == '\n')
 		{
-			pos.y += float(ch.GetSize().height) * 1.3f * scale;
+			pos.y += float(ch.size.height) * 1.3f * scale;
 			xOffSet = 0.0f;
 		}
 		else if (c == ' ')
 		{
-			xOffSet += (float(ch.GetAdvance() >> 6)) * scale;
+			xOffSet += (float(ch.advance >> 6)) * scale;
 		}
 		else
 		{
-			float xpos = float(ch.GetBearing().width) * scale;
-			float ypos = pos.y + (hBearing - float(ch.GetBearing().height)) * scale;
+			float xpos = float(ch.bearing.width) * scale;
+			float ypos = pos.y + (hBearing - float(ch.bearing.height)) * scale;
 
 			_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
-			_charsMap[workingIndex] = ch.GetAsciiIndex();
+			_textAsciiIndices[workingIndex] = ch.asciiIndex;
 
 			if (workingIndex == ARRAY_LIMIT - 1)
 			{
@@ -132,7 +135,7 @@ void TextRenderer::Draw(Transform& transform)
 				workingIndex = 0;
 			}
 
-			xOffSet += (float(ch.GetAdvance() >> 6)) * scale;
+			xOffSet += (float(ch.advance >> 6)) * scale;
 			workingIndex++;
 		}
 	}
@@ -156,7 +159,7 @@ void TextRenderer::CalculateTextDimensions()
 	auto [splitedText, longestLine] = GetTextInfo();
 
 	_textDimensions.height = static_cast<unsigned int>(float(splitedText.size())
-		* float(_fontSize) + float(_font.GetCharMap().at('\n').GetSize().height)
+		* float(_fontSize) + float(_fontCharsMap.at('\n').size.height)
 		* 1.3f * (float(_fontSize) / 256.0f));
 
 	_textDimensions.width = static_cast<unsigned int>(static_cast<uint8_t>(longestLine) * _fontSize);
@@ -208,8 +211,9 @@ void TextRenderer::SetDrawingUniforms(int32_t length)
 {
 	string transformsName = string("Transforms");
 	string charsMapName = string("CharsMap");
+
 	_shader.SetMatrix4WithLength(transformsName, length, _transforms);
-	_shader.SetIntWithLength(charsMapName, length, _charsMap);
+	_shader.SetIntWithLength(charsMapName, length, _textAsciiIndices);
 
 	if (_userUniforms.count("drawing"))
 	{

@@ -56,7 +56,8 @@ class TextRenderer
 
 		unordered_map<string, function<void()>> _userUniforms;
 		vector<glm::mat4> _transforms;
-		vector<int32_t> _charsMap;
+		vector<int32_t> _textAsciiIndices;
+		unordered_map<GLchar, Character> _fontCharsMap;
 		Dimensions2 _textDimensions;
 		float _letterDimensions;
 		glm::mat4 _baseModel;

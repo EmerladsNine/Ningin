@@ -8,16 +8,9 @@ class Character
 		Character(int asciiIndex, Dimensions2 size, Dimensions2 bearing, unsigned int advance);
 		Character() = default;
 
-		unsigned int GetAdvance();
-		int GetAsciiIndex();
+		unsigned int advance;
+		int asciiIndex;
 
-		Dimensions2& GetBearing();
-		Dimensions2& GetSize();
-
-	private:
-		unsigned int _advance;
-		int _asciiIndex;
-
-		Dimensions2 _bearing;
-		Dimensions2 _size;
+		Dimensions2 bearing;
+		Dimensions2 size;
 };
