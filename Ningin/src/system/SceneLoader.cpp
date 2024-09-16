@@ -333,12 +333,20 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 }
 
 Vector3 SceneLoader::ReadVector3(uint8_t** filePointer) {
-	return Vector3(Read<float>(filePointer), Read<float>(filePointer), Read<float>(filePointer));
+	float x = Read<float>(filePointer);
+	float y = Read<float>(filePointer);
+	float z = Read<float>(filePointer);
+	return Vector3(x, y, z);
 }
 
 Color SceneLoader::ReadColor(uint8_t** filePointer) {
-	return Color(Read<uint8_t>(filePointer), Read<uint8_t>(filePointer), Read<uint8_t>(filePointer),
-		Read<uint8_t>(filePointer));
+
+	uint8_t r = Read<uint8_t>(filePointer);
+	uint8_t g = Read<uint8_t>(filePointer);
+	uint8_t b = Read<uint8_t>(filePointer);
+	uint8_t a = Read<uint8_t>(filePointer);
+
+	return Color(r, g, b, a);
 }
 
 template<typename T>
