@@ -6,7 +6,6 @@
 #include <thread>
 #include <chrono>
 
-
 using Clock = chrono::high_resolution_clock;
 using TimePoint = chrono::time_point<Clock>;
 
@@ -19,6 +18,8 @@ SceneLoader Game::sceneLoader;
 
 const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
+
+const Range AnimationTimeRange(0.05, 20);
 
 void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
 	vector<string> scenes, optional<MonoPaths> monoPath)

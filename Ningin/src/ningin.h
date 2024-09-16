@@ -7,6 +7,7 @@
 #include "system/window.h"
 #include "system/WindowOptions.h"
 #include "scripting/ninginMono/MonoPaths.h"
+#include "math//Range.h"
 #include "Environment.h"
 #include <glm.hpp>
 #include <string>
@@ -20,6 +21,8 @@ extern FT_Library ftLibrary;
 
 extern const int ARRAY_LIMIT;
 extern const int ATLAS_LIMIT;
+
+extern const Range AnimationTimeRange;
 
 class Game
 {
