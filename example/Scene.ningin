@@ -3,26 +3,26 @@
 @test{
     <example "Class1">
     Transform{
-        Position(200.0,100.0,10.0)
-        Rotation(0.0,0.0,0.0)
+        Position(0.0,0.0,10.0)
+        Rotation(0.0,0.0,30.0)
         Scale(1.0,1.0,1.0)
     }
 
-   //Text{
-   //    TextColor(255, 255, 255, 255)
-   //    FontName("arial.ttf")
-   //    FontSize(48)
-   //    Text("string")
-   //    Shader("text")
-   //}
+   Text{
+       TextColor(255, 255, 100, 255)
+       FontName("arial.ttf")
+       FontSize(48)
+       Text("string")
+       Shader("text")
+   }
 
-    Sprite{
-        useAlpha(true)
-        UseTint(true)
-        TintingColor(205, 155, 0, 255)
-        TextureName("sprite")
-         Shader("sprite")     
-    }
+   // Sprite{
+   //     useAlpha(true)
+  //     UseTint(true)
+  //      TintingColor(205, 155, 0, 255)
+  //      TextureName("sprite")
+  //       Shader("sprite")     
+  //  }
 }
 
 @potato{
