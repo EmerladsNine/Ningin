@@ -14,6 +14,6 @@ class Range
 		Range();
 };
 
-float RangeBoundValue(float val);
+float RangeBoundValue(Range& range, float val);
 
 void RangeToString(Range& range, string& out);

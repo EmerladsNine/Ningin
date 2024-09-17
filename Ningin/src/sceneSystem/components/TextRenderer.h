@@ -22,10 +22,11 @@ class TextRenderer
 	public:
 		TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize);
 
-		void SetTextColor(Color& newColor);
+		void SetTextColor(Color& color);
 		void SetFontSize(uint8_t fontSize);
 		void SetText(string& text);
 
+		// ToDo further testing and enchancing then linking it to c#
 		void SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
 			function<void()> drawingFunc);
 
@@ -71,3 +72,7 @@ class TextRenderer
 		GLuint _vbo;
 		Font _font;
 };
+
+void TextSetTextColor(TextRenderer& textRenderer, Color& color);
+void TextSetText(TextRenderer& textRenderer, string& text);
+void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize);

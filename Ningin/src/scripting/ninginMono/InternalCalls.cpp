@@ -1,13 +1,18 @@
 #include "InternalCalls.h"
+#include "../../math/Dimensions3.h"
+#include "../../math/Dimensions2.h"
 #include "../../math/Vector2.h"
 #include "../../math/Vector3.h"
+#include "../../math/Range.h"
+#include "../../math/Math.h"
 #include "../../physicsManager/colliders/Point.h"
 #include "../../physicsManager/Mask2.h"
 #include "../../physicsManager/Mask3.h"
-#include "../../math/Math.h"
-#include "../../math/Dimensions2.h"
-#include "../../math/Dimensions3.h"
 #include "wrapper/DebugWrapper.h"
+#include "../../sceneSystem/components/Transform.h"
+#include "../../sceneSystem/components/SpriteRenderer.h"
+#include "../../sceneSystem/components/TextRenderer.h"
+#include "../../resourceManager/color/Color.h"
 
 void AddInternalCalls()
 {
@@ -85,6 +90,11 @@ void AddInternalCalls()
         AddInternalCall(Dimensions3ToString);
     #pragma endregion
 
+    #pragma region Range
+        AddInternalCall(RangeToString);
+        AddInternalCall(RangeBoundValue);
+    #pragma endregion
+
     #pragma region Mask2
         AddInternalCall(Mask2ToString);
     #pragma endregion
@@ -94,9 +104,38 @@ void AddInternalCalls()
     #pragma endregion
 
     #pragma region Point
-        AddInternalCall(PointToString);
         AddInternalCall(PointFromVector2);
         AddInternalCall(PointFromVector3);
+        AddInternalCall(PointToString);
+    #pragma endregion
+
+    #pragma region Transform
+        AddInternalCall(TransformGetPosition);
+        AddInternalCall(TransformSetPosition);
+        AddInternalCall(TransformGetRotation);
+        AddInternalCall(TransformSetRotation);
+        AddInternalCall(TransformGetScale);
+        AddInternalCall(TransformSetScale);
+        AddInternalCall(TransformToString);
+    #pragma endregion
+
+    #pragma region SpriteRenderer
+        AddInternalCall(SpriteSetTintingColor);
+        AddInternalCall(SpriteSetUseTint);
+    #pragma endregion
+
+    #pragma region TextRenderer
+        AddInternalCall(TextSetFontSize);
+        AddInternalCall(TextSetText);
+        AddInternalCall(TextSetTextColor);
+    #pragma endregion
+
+    #pragma region Color
+        AddInternalCall(ColorFromRGB);
+        AddInternalCall(ColorFromRGBA);
+        AddInternalCall(ColorFromColor);
+        AddInternalCall(ColorSetAlpha);
+        AddInternalCall(ColorToString);
     #pragma endregion
 
     #pragma region Debug

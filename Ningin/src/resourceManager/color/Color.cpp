@@ -1,29 +1,30 @@
-#include "color.h"
+#include "Color.h"
 
 Color::Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a) : r(r), g(g), b(b), a(a) {}
 
-Color Color::FromRGB(uint8_t rgb)
+Color::Color() : r(255), g(255), b(255), a(255) {}
+
+void ColorFromRGB(uint8_t rgb, Color& out)
 {
-	return Color(rgb, rgb, rgb, 255);
+	out = Color(rgb, rgb, rgb, 255);
 }
 
-Color Color::FromColor(Color& color, uint8_t a)
+void ColorFromRGBA(uint8_t r, uint8_t g, uint8_t b, uint8_t a, Color& out)
 {
-	return Color(color.r, color.g, color.b, a);
+	out = Color(r, g, b, a);
 }
 
-void Color::SetAlpha(uint8_t a)
+void ColorFromColor(Color& color, uint8_t a, Color& out)
 {
-	this->a = a;
+	out = Color(color.r, color.g, color.b, a);
 }
 
-string Color::ToString()
+void ColorSetAlpha(Color& color, uint8_t a)
 {
-	return format("Color - r: {}, g: {}, b: {}, a: {}", static_cast<int>(r), static_cast<int>(g),
-		static_cast<int>(b), static_cast<int>(a));
+	color.a = a;
 }
 
-Color Color::DefaultColor()
+void ColorToString(Color& color, string& out)
 {
-	return Color(255, 255, 255, 255);
+	out = format("Color - r: {}, g: {}, b: {}, a: {}", color.r, color.g, color.b, color.a);
 }

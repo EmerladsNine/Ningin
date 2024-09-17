@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\stb_image.cpp" />
+    <ClCompile Include="src\math\Range.cpp" />
     <ClCompile Include="src\physicsManager\Axes.cpp" />
     <ClCompile Include="src\physicsManager\colliders\Point.cpp" />
     <ClCompile Include="src\physicsManager\colliders\Polygon.cpp" />
@@ -88,6 +89,7 @@
     <ClCompile Include="src\utills\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\math\Range.h" />
     <ClInclude Include="src\physicsManager\Axes.h" />
     <ClInclude Include="src\physicsManager\BodyTypes.h" />
     <ClInclude Include="src\physicsManager\colliders\Circle.h" />

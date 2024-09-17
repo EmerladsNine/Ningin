@@ -4,7 +4,7 @@ Range::Range(float min, float max) : min(min), max(max) {}
 
 Range::Range() : min(0), max(10) {}
 
-float RangeBoundValue(Range range, float val)
+float RangeBoundValue(Range& range, float val)
 {
 	return Clamp(val, range.min, range.max);
 }

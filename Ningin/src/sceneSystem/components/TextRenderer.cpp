@@ -101,7 +101,7 @@ void TextRenderer::Draw(Transform& transform)
 		ComputeTextTransform(transform);
 	}
 
-	Vector3 pos = transform.GetPosition();
+	Vector3 pos = transform.position;
 	float scale = float(_fontSize) / 256.0f;
 	float hBearing = float(_fontCharsMap.at('H').bearing.height);
 
@@ -190,6 +190,26 @@ pair<vector<vector<char>>, size_t> TextRenderer::GetTextInfo()
 	return { splitedText, longestLine };
 }
 
+void TextRenderer::SetTextColor(Color& color)
+{
+	_textColor = color;
+}
+
+void TextRenderer::SetText(string& text)
+{
+	this->_text = text;
+	CalculateTextDimensions();
+	_mustCalculate = true;
+}
+
+void TextRenderer::SetFontSize(uint8_t fontSize)
+{
+	this->_fontSize = fontSize;
+	CalculateTextDimensions();
+	_letterDimensions = fontSize;
+	_mustCalculate = true;
+}
+
 void TextRenderer::SetInitDrawingUniforms()
 {
 	string projectionMatrixName = string("projection");
@@ -234,13 +254,13 @@ glm::mat4 TextRenderer::ComputeLetterTransform(float xOffSet, float xpos, float 
 
 void TextRenderer::ComputeTextTransform(Transform& transform)
 {
-	Vector3 pos = transform.GetPosition();
+	Vector3 pos = transform.position;
 
 	Vector2 textCenter = { _textDimensions.width / 2.0f, _textDimensions.height / 2.0f };
 
 	_baseModel = glm::translate(_baseModel, glm::vec3(pos.x, pos.y, 0.0f));
 	_baseModel = glm::translate(_baseModel, glm::vec3(textCenter.x, textCenter.y, 0.0f));
-	_baseModel = glm::rotate(_baseModel, DegreesToRadians(transform.GetRotation().z),
+	_baseModel = glm::rotate(_baseModel, DegreesToRadians(transform.rotation.z),
 		glm::vec3(0.0f, 0.0f, 1.0f));
 
 	_baseModel = glm::translate(_baseModel, glm::vec3(-textCenter.x, -textCenter.y, 0.0f));
@@ -254,26 +274,6 @@ void TextRenderer::SetUserUniforms(function<void()> initFunc, function<void()> i
 	_userUniforms["init"] = initFunc;
 	_userUniforms["init_drawing"] = initDrawingFunc;
 	_userUniforms["drawing"] = drawingFunc;
-}
-
-void TextRenderer::SetTextColor(Color& newColor)
-{
-	_textColor = newColor;
-}
-
-void TextRenderer::SetText(string& text)
-{
-	this->_text = text;
-	CalculateTextDimensions();
-	_mustCalculate = true;
-}
-
-void TextRenderer::SetFontSize(uint8_t fontSize)
-{
-	this->_fontSize = fontSize;
-	CalculateTextDimensions();
-	_letterDimensions = fontSize;
-	_mustCalculate = true;
 }
 
 void TextRenderer::System(EntityManager* entityManager) 
@@ -312,4 +312,19 @@ void TextRenderer::System(EntityManager* entityManager)
 			}
 		}
 	}
+}
+
+void TextSetTextColor(TextRenderer& textRenderer, Color& color)
+{
+	textRenderer.SetTextColor(color);
+}
+
+void TextSetText(TextRenderer& textRenderer, string& text)
+{
+	textRenderer.SetText(text);
+}
+
+void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize)
+{
+	textRenderer.SetFontSize(fontSize);
 }

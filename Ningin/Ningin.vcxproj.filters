@@ -354,6 +354,9 @@
     <ClCompile Include="src\resourceManager\atlas\SpriteSheetInfo.cpp">
       <Filter>Source Files\resourceManager\atlas</Filter>
     </ClCompile>
+    <ClCompile Include="src\math\Range.cpp">
+      <Filter>Source Files\math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector3.h">
@@ -589,6 +592,9 @@
     </ClInclude>
     <ClInclude Include="src\resourceManager\atlas\SpriteInfo.h">
       <Filter>Header Files\resourceManager\atlas</Filter>
+    </ClInclude>
+    <ClInclude Include="src\math\Range.h">
+      <Filter>Header Files\math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

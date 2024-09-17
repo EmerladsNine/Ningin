@@ -1,4 +1,6 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System.Drawing;
+using System.Runtime.CompilerServices;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace NinginCore
 {
@@ -182,6 +184,63 @@ namespace NinginCore
         // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Mask3ToString();
+        #endregion
+
+        #region Range
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern float RangeBoundValue(ref Range range, float val);
+
+        // Todo To String
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void RangeToString();
+        #endregion
+
+        #region Transform
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TransformSetPosition(ref Transform transform, ref Vector3 position);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TransformSetRotation(ref Transform transform, ref Vector3 rotation);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TransformSetScale(ref Transform transform, ref Vector3 scale);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TransformGetPosition(ref Transform transform, out Vector3 result);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TransformGetRotation(ref Transform transform, out Vector3 result);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TransformGetScale(ref Transform transform, out Vector3 result);
+
+        // Todo To String
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TransformToString();
+        #endregion
+
+        #region TextRenderer
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TextSetTextColor(ref TextRenderer textRenderer, ref Color color);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TextSetText(ref TextRenderer textRenderer, ref string text);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TextSetFontSize(ref TextRenderer textRenderer, uint fontSize);
+        #endregion
+
+        #region SpriteRenderer
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void SpriteSetTintingColor(ref SpriteRenderer spriteRenderer, ref Color color);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void SpriteSetUseTint(ref SpriteRenderer spriteRenderer, bool useTint);
+        #endregion
+
+        #region Color
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void ColorFromRGB(uint rgb, out Color result);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void ColorFromRGBA(uint r, uint g, uint b, uint a, out Color result);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void ColorFromColor(ref Color color, uint a, out Color result);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void ColorSetAlpha(ref Color color, uint a);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void ColorToString(ref Color color, out string result);
         #endregion
     }
 }

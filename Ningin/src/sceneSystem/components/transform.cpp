@@ -1,50 +1,42 @@
 #include "Transform.h"
 
-Transform::Transform() : _position(0.0f, 0.0f, 0.0f), _scale(1.0f, 1.0f, 1.0f), _rotation(0.0f, 0.0f, 0.0f),
-	_dimensions(200, 100) {}
+Transform::Transform(Vector3& position, Vector3& scale, Vector3& rotation) : position(position),
+	scale(scale), rotation(rotation) {}
 
-Transform::Transform(Vector3& position, Vector3& scale, Vector3& rotation, Dimensions2& dimensions)
-	: _position(position), _scale(scale), _rotation(rotation), _dimensions(dimensions) {}
+Transform::Transform() : position(0.0f, 0.0f, 0.0f), scale(1.0f, 1.0f, 1.0f), rotation(0.0f, 0.0f, 0.0f) {}
 
-void Transform::SetPosition(Vector3& position)
+void TransformSetPosition(Transform& transform, Vector3& position)
 {
-	this->_position = position;
+	transform.position = position;
 }
 
-void Transform::SetRotation(Vector3& rotation)
+void TransformSetRotation(Transform& transform, Vector3& rotation)
 {
-	this->_rotation = rotation;
+	transform.rotation = rotation;
 }
 
-void Transform::SetScale(Vector3& scale)
+void TransformSetScale(Transform& transform, Vector3& scale)
 {
-	this->_scale = scale;
+	transform.scale = scale;
 }
 
-Vector3& Transform::GetPosition()
+void TransformGetPosition(Transform& transform, Vector3& out)
 {
-	return _position;
+	out = transform.position;
 }
 
-Vector3& Transform::GetRotation()
+void TransformGetRotation(Transform& transform, Vector3& out)
 {
-	return _rotation;
+	out = transform.rotation;
 }
 
-Vector3& Transform::GetScale()
-{
-	return _scale;
+void TransformGetScale(Transform& transform, Vector3& out) {
+	out = transform.scale;
 }
 
-Dimensions2& Transform::GetDimensions()
+void TransformToString(Transform& transform, string& out)
 {
-	return _dimensions;
-}
-
-// Debugging
-string Transform::ToString()
-{
-	return format("Transform - Position: x: {}, y: {}, z: {}\nRotation: x: {}, y: {}, z: {}\nScale: x: {}, y: {}, z: {}\nDimensions: width: {}, height {}",
-		_position.x, _position.y, _position.z, _rotation.x, _rotation.y, _rotation.z, _scale.x, _scale.y,
-		_scale.z,_dimensions.width, _dimensions.height);
+	out = format("Transform - Position: x: {}, y: {}, z: {}\nRotation: x: {}, y: {}, z: {}\nScale: x: {}, y: {}, z: {}",
+		transform.position.x, transform.position.y, transform.position.z, transform.rotation.x,
+		transform.rotation.y, transform.rotation.z, transform.scale.x, transform.scale.y, transform.scale.z);
 }

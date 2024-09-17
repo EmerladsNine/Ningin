@@ -103,14 +103,14 @@ void SpriteRenderer::SetUserUniforms(function<void()> initFunc, function<void()>
 
 glm::mat4 SpriteRenderer::ComputeModelMatrix(Transform& transform)
 {
-	Vector3 pos = transform.GetPosition();
-	Vector3 scale = transform.GetScale();
+	Vector3 pos = transform.position;
+	Vector3 scale = transform.scale;
 	Dimensions2 dimensions = _texture.GetDimensions();
 
 	glm::mat4 model(1.0f);
 	model = glm::translate(model, glm::vec3(pos.x, pos.y, 0.0f));
 	model = glm::translate(model, glm::vec3(0.5f * dimensions.width, 0.5f * dimensions.height, 0.0f));
-	model = glm::rotate(model, DegreesToRadians(transform.GetRotation().z), glm::vec3(0.0f, 0.0f, 1.0f));
+	model = glm::rotate(model, DegreesToRadians(transform.rotation.z), glm::vec3(0.0f, 0.0f, 1.0f));
 	model = glm::translate(model, glm::vec3(-0.5f * dimensions.width, -0.5f * dimensions.height, 0.0f));
 	model = glm::scale(model, glm::vec3(dimensions.width * scale.x, dimensions.height * scale.y, 1.0f));
 
@@ -183,4 +183,14 @@ void SpriteRenderer::System(EntityManager* entityManager)
 			}
 		}
 	}
+}
+
+void SpriteSetTintingColor(SpriteRenderer& spriteRenderer, Color& color)
+{
+	spriteRenderer.SetTintingColor(color);
+}
+
+void SpriteSetUseTint(SpriteRenderer& spriteRenderer, bool useTint)
+{
+	spriteRenderer.SetUseTint(useTint);
 }

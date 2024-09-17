@@ -20,9 +20,10 @@ class SpriteRenderer
 	public:
 		SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor, bool usetint, bool alpha);
 
-		void SetTintingColor(Color& newColor);
-		void SetUseTint(bool uSetint);
+		void SetTintingColor(Color& color);
+		void SetUseTint(bool useTint);
 
+		// ToDo further testing and enchancing then linking it to c#
 		void SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
 			function<void()> drawingFunc);
 
@@ -53,3 +54,6 @@ class SpriteRenderer
 		bool _useTint;
 		bool _alpha;
 };
+
+void SpriteSetTintingColor(SpriteRenderer& spriteRenderer, Color& color);
+void SpriteSetUseTint(SpriteRenderer& spriteRenderer, bool useTint);
