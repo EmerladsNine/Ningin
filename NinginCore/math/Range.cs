@@ -28,14 +28,14 @@ namespace NinginCore
 
         private int BoundValue(int value)
         {
-            Range<int> range = new Range<int>((int)(object)min, (int)(object)max);
-            return InternalCalls.RangeBoundValue(ref range, value);
+            Range<float> range = new Range<float>((float)(object)min, (float)(object)max);
+            return (int)InternalCalls.RangeBoundValue(ref range, (float)value);
         }
 
         private uint BoundValue(uint value)
         {
-            Range<uint> range = new Range<uint>((uint)(object)min, (uint)(object)max);
-            return InternalCalls.RangeBoundValue(ref range, value);
+            Range<float> range = new Range<float>((float)(object)min, (float)(object)max);
+            return (uint)InternalCalls.RangeBoundValue(ref range, (float)value);
         }
 
         private float BoundValue(float value)
@@ -46,8 +46,8 @@ namespace NinginCore
 
         private double BoundValue(double value)
         {
-            Range<double> range = new Range<double>((double)(object)min, (double)(object)max);
-            return InternalCalls.RangeBoundValue(ref range, value);
+            Range<float> range = new Range<float>((float)(object)min, (float)(object)max);
+            return (double)InternalCalls.RangeBoundValue(ref range, (float)value);
         }
     }
 }

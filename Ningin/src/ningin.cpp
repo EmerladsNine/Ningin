@@ -11,8 +11,8 @@ FT_Library ftLibrary;
 const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
 
-const Range<float> AnimationTimeRange(0.05, 20);
-const Range<unsigned int> colorRange(0, 255);
+const Range AnimationTimeRange(0.05, 20);
+const Range colorRange(0, 255);
 
 vector<Window> Game::openedWindows;
 SceneLoader Game::sceneLoader;

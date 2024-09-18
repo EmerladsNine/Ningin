@@ -132,13 +132,7 @@ namespace NinginCore
 
         #region Math
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern double Clamp(double val_to_clamp, double min, double max);
-        [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern float Clamp(float val_to_clamp, float min, float max);
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern int Clamp(int val_to_clamp, int min, int max);
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern uint Clamp(uint val_to_clamp, uint min, uint max);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern float DegreesToRadians(float deg);
         [MethodImpl(MethodImplOptions.InternalCall)]
@@ -195,12 +189,6 @@ namespace NinginCore
         #region Range
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern float RangeBoundValue(ref Range<float> range, float val);
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern int RangeBoundValue(ref Range<int> range, int val);
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern uint RangeBoundValue(ref Range<uint> range, uint val);
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern double RangeBoundValue(ref Range<double> range, double val);
 
         // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]

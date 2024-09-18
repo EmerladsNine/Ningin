@@ -1,19 +1,15 @@
 #include "Range.h"
 
-template <typename T>
-Range<T>::Range(T min, T max) : min(min), max(max) {}
+Range::Range(float min, float max) : min(min), max(max) {}
 
-template <typename T>
-Range<T>::Range() : min(T(0)), max(T(10)) {}
+Range::Range() : min(0), max(10) {}
 
-template <typename T>
-T RangeBoundValue(const Range<T>& range, T val)
+float RangeBoundValue(const Range& range, float val)
 {
-	return Clamp<T>(val, range.min, range.max);
+	return Clamp(val, range.min, range.max);
 }
 
-template <typename T>
-void RangeToString(Range<T>& range, string& out)
+void RangeToString(Range& range, string& out)
 {
 	out = format("Range - x: {}, y: {}", range.min, range.max);
 }

@@ -2,24 +2,18 @@
 
 #include "Math.h"
 #include <format>
-#include <type_traits>
 
 using namespace std;
 
-template <typename T>
 class Range
 {
-	static_assert(std::is_arithmetic<T>::value, "T must be a numeric type");
+public:
+	float min, max;
 
-	public:
-		T min, max;
-
-		Range(T min, T max);
-		Range();
+	Range(float min, float max);
+	Range();
 };
 
-template <typename T>
-T RangeBoundValue(const Range<T>& range, T val);
+float RangeBoundValue(const Range& range, float val);
 
-template <typename T>
-void RangeToString(Range<T>& range, string& out);
+void RangeToString(Range& range, string& out);

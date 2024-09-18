@@ -22,8 +22,8 @@ extern FT_Library ftLibrary;
 extern const int ARRAY_LIMIT;
 extern const int ATLAS_LIMIT;
 
-extern const Range<float> AnimationTimeRange;
-extern const Range<unsigned int> colorRange;
+extern const Range AnimationTimeRange;
+extern const Range colorRange;
 
 class Game
 {
