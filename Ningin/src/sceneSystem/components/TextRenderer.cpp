@@ -6,7 +6,7 @@
 TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text,
 	uint8_t fontSize) : _shader(resourceManager.GetShader(shaderName)),
 	_font(resourceManager.GetFont(fontName)), _textColor(textColor), _text(text), _fontSize(fontSize),
-	_letterDimensions(48.0f), _baseModel(glm::mat4(1.0f)), _mustCalculate(true)
+	_letterDimensions(fontSize), _baseModel(glm::mat4(1.0f)), _mustCalculate(true)
 	, _userShader(shaderName != "text"), _vao(0), _vbo(0)
 {
 	SetShaderInitialUniforms();
