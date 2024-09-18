@@ -2,11 +2,11 @@
 
 Mono ScriptingEngine::mono;
 
-void ScriptingEngine::Init(optional<MonoPaths> monoPath)
+void ScriptingEngine::Init(optional<MonoPaths> monoPath, bool debugMode)
 {
 	if (monoPath.has_value())
 	{
-		mono.Init(monoPath.value().monoPath, monoPath.value().gameAssemblyFileName);
+		mono.Init(monoPath.value().monoPath, monoPath.value().gameAssemblyFileName,debugMode);
 	}
 }
 

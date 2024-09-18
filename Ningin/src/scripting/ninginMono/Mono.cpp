@@ -1,5 +1,6 @@
 #include "mono.h"
 #include <mono/metadata/assembly.h>
+#include <mono/metadata/mono-debug.h>
 #include <stdexcept>
 #include <iostream>
 #include "InternalCalls.h"
@@ -24,18 +25,34 @@ Mono::~Mono()
 	}
 }
 
-void Mono::Init(string libPath, string gameAssemblyFileName)
+void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 {
+	
 	// Set the path for dotnet assemblies
 	mono_set_assemblies_path(libPath.c_str());
 
 	// Initialize Mono JIT Runtime.
+	if (loadPDB)
+	{
+		std::vector<const char*> arguments;
+		arguments.push_back("--debugger-agent=transport=dt_socket,address=127.0.0.1:2550,server=y,suspend=n,loglevel=3,logfile=MonoDebugger.log");
+		arguments.push_back("--soft-breakpoints");
+		mono_jit_parse_options(static_cast<int>(arguments.size()), const_cast<char**>(arguments.data()));
+		mono_debug_init(MONO_DEBUG_FORMAT_MONO);
+	}
+
 	_rootDomain = mono_jit_init("NinginJITRuntime");
 	if (_rootDomain == nullptr)
 	{
 		throw runtime_error("failed to init mono, couldn't get root domain");
 	}
 
+	//Initialise for debugging.
+	if (loadPDB)
+	{
+		mono_debug_domain_create(_rootDomain);
+	}
+	
 	// Create Mono App Domain.
 	_appDomain = mono_domain_create_appdomain((char*)"NinginScriptRuntime", nullptr);
 	if (_appDomain == nullptr)
@@ -53,11 +70,11 @@ void Mono::Init(string libPath, string gameAssemblyFileName)
 	AddInternalCalls();
 
     //Load Needed Assemblies.
-	ninginAssembly = LoadAssembly(NINGIN_ASSEMBLY_NAME);
-	gameAssembly = LoadAssembly(gameAssemblyFileName);
+	ninginAssembly = LoadAssembly(NINGIN_ASSEMBLY_NAME, loadPDB);
+	gameAssembly = LoadAssembly(gameAssemblyFileName, loadPDB);
 }
 
-MonoAssembly* Mono::LoadAssembly(string fileName)
+MonoAssembly* Mono::LoadAssembly(string fileName, bool loadPDB)
 {
     //Check If Mono is initialized properly.
     if (_rootDomain == nullptr || _appDomain == nullptr)
@@ -67,17 +84,23 @@ MonoAssembly* Mono::LoadAssembly(string fileName)
 
     //Read Assembly File.
 	filesystem::path assemblyPath = assembliesDirectory / fileName;
-	vector<uint8_t> data_vec = FileReader::ReadFileBytes(assemblyPath.string());
-	char* data = reinterpret_cast<char*>(data_vec.data());
+	if (!std::filesystem::exists(assemblyPath))
+	{
+		LogError("File Path Doesn't Exist :" + assemblyPath.string());
+		return nullptr;
+	}
+
+	vector<uint8_t> dataVec = FileReader::ReadFileBytes(assemblyPath.string());
+	char* data = reinterpret_cast<char*>(dataVec.data());
 
 	MonoImageOpenStatus status;
-	MonoImage* image = mono_image_open_from_data_full(data, static_cast<uint32_t>(data_vec.size()),
+	MonoImage* image = mono_image_open_from_data_full(data, static_cast<uint32_t>(dataVec.size()),
 		1, &status, 0);
 
 	if (status != MONO_IMAGE_OK)
 	{
 		const char* error = mono_image_strerror(status);
-		cerr << "Error: " << error << endl;
+		LogError(std::string("Failed to load dll file image : " + assemblyPath.string() + ", error :") + error);
 		return nullptr;
 	}
 
@@ -87,8 +110,25 @@ MonoAssembly* Mono::LoadAssembly(string fileName)
 	if (status != MONO_IMAGE_OK)
 	{
 		const char* error = mono_image_strerror(status);
-		cerr << "Error: " << error << endl;
+		LogError(std::string("Failed to load dll file : "+assemblyPath.string()+", error :") + error);
 		return nullptr;
+	}
+	LogInfo("Loaded dll file :" + assemblyPath.string());
+
+	//Load Debuggig File
+	if (loadPDB)
+	{
+		std::filesystem::path pdbPath = assemblyPath;
+		pdbPath.replace_extension(".pdb");
+		if (!std::filesystem::exists(pdbPath))
+		{
+			LogWarning("PDB file doesn't exist :" + pdbPath.string());
+			return assembly;
+		}
+
+		vector<uint8_t> pdbFileDataVec = FileReader::ReadFileBytes(pdbPath.string());
+		mono_debug_open_image_from_memory(image, (const mono_byte*)pdbFileDataVec.data(), static_cast<int>(pdbFileDataVec.size()));
+		LogInfo("Loaded pdb file :"+pdbPath.string());
 	}
 
 	return assembly;

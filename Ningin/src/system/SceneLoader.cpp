@@ -230,17 +230,17 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 				if (name == "Position")
 				{
 					Vector3 position = ReadVector3(&currentPointer);
-					transform->SetPosition(position);
+					transform->position = position;
 				}
 				else if (name == "Rotation")
 				{
 					Vector3 rotation = ReadVector3(&currentPointer);
-					transform->SetRotation(rotation);
+					transform->rotation = rotation;
 				}
 				else if (name == "Scale")
 				{
 					Vector3 scale = ReadVector3(&currentPointer);
-					transform->SetScale(scale);
+					transform->scale = scale;
 				}
 			}
 
@@ -252,7 +252,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 		{
 			bool alpha = false;
 			bool useTint = true;
-			Color tintingColor = Color::DefaultColor();
+			Color tintingColor;
 			string shader = "";
 			string textureName = "";
 
@@ -290,7 +290,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 
 		case 2:
 		{
-			Color textColor = Color::DefaultColor();
+			Color textColor;
 			string shader = "";
 			string fontName = "";
 			uint8_t fontSize = 0;

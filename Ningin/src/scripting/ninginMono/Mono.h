@@ -15,9 +15,9 @@ class Mono
         Mono();
         ~Mono();
 
-        void Init(string libPath, string gameAssemblyFileName);
+        void Init(string libPath, string gameAssemblyFileName,bool loadPDB);
 
-        MonoAssembly* LoadAssembly(string fileName);
+        MonoAssembly* LoadAssembly(string fileName, bool loadPDB);
 
         Script* GetScript(string scritpName);
         Script* BuildScript(ScriptClass* scriptClass);

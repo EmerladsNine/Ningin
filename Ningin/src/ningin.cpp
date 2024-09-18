@@ -22,7 +22,7 @@ const int ATLAS_LIMIT = 256;
 const Range AnimationTimeRange(0.05, 20);
 
 void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
-	vector<string> scenes, optional<MonoPaths> monoPath)
+	vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode)
 {
 	//Create new window with no scene
 	NewWindow(gameName, windowOptions, -1, dimensions);
@@ -31,7 +31,7 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	InitGl2d(dimensions);
 	InitResourceManager();
 	World::InitDefaultComponentSystem();
-	ScriptingEngine::Init(monoPath);
+	ScriptingEngine::Init(monoPath,debugMode);
 	
 	for (auto& scene : scenes)
 	{
@@ -151,7 +151,7 @@ void Game::MainLoop()
 int main()
 {
 	Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
-		MonoPaths("mono/lib","example.dll"));
+		MonoPaths("mono/lib","example.dll"),true);
 	Game::Start();
 	return 0;
 }
