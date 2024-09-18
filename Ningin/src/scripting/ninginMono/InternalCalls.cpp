@@ -77,7 +77,10 @@ void AddInternalCalls()
     #pragma endregion
 
     #pragma region Math
-        AddInternalCall(Clamp);
+        AddInternalCall(Clamp<float>);
+        AddInternalCall(Clamp<int>);
+        AddInternalCall(Clamp<unsigned int>);
+        AddInternalCall(Clamp<double>);
         AddInternalCall(DegreesToRadians);
         AddInternalCall(Radical);
     #pragma endregion
@@ -91,8 +94,14 @@ void AddInternalCalls()
     #pragma endregion
 
     #pragma region Range
-        AddInternalCall(RangeToString);
-        AddInternalCall(RangeBoundValue);
+        AddInternalCall(RangeToString<float>);
+        AddInternalCall(RangeBoundValue<float>);
+        AddInternalCall(RangeToString<int>);
+        AddInternalCall(RangeBoundValue<int>);
+        AddInternalCall(RangeToString<double>);
+        AddInternalCall(RangeBoundValue<double>);
+        AddInternalCall(RangeToString<unsigned int>);
+        AddInternalCall(RangeBoundValue<unsigned int>);
     #pragma endregion
 
     #pragma region Mask2

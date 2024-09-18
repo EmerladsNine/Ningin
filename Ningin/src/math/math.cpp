@@ -1,7 +1,10 @@
 #include "math.h"
 
-float Clamp(float valToClamp, float min, float max)
+template <typename T>
+T Clamp(T valToClamp, T min, T max)
 {
+	static_assert(std::is_arithmetic<T>::value, "T must be a numeric type");
+
 	if (valToClamp < min)
 	{
 		return min;

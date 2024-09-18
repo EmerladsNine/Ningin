@@ -3,23 +3,19 @@
 #include "scripting/ScriptingEngine.h"
 #include "utills/Timer.h"
 #include <filesystem>
-#include <thread>
-#include <chrono>
-
-using Clock = chrono::high_resolution_clock;
-using TimePoint = chrono::time_point<Clock>;
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
 FT_Library ftLibrary;
 
-vector<Window> Game::openedWindows;
-SceneLoader Game::sceneLoader;
-
 const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
 
-const Range AnimationTimeRange(0.05, 20);
+const Range<float> AnimationTimeRange(0.05, 20);
+const Range<unsigned int> colorRange(0, 255);
+
+vector<Window> Game::openedWindows;
+SceneLoader Game::sceneLoader;
 
 void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
 	vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode)

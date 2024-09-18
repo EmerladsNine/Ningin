@@ -9,16 +9,16 @@ using namespace std;
 class Color
 {
 	public:
-		uint8_t r, g, b, a;
+		unsigned int r, g, b, a;
 
-		Color(uint8_t r, uint8_t g, uint8_t b, uint8_t a);
+		Color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 		Color();
 };
 
-void ColorFromRGB(uint8_t rgb, Color& out);
-void ColorFromRGBA(uint8_t r, uint8_t g, uint8_t b, uint8_t a, Color& out);
-void ColorFromColor(Color& color, uint8_t a, Color& out);
+void ColorFromRGB(unsigned int rgb, Color& out);
+void ColorFromRGBA(unsigned int r, unsigned int g, unsigned int b, unsigned int a, Color& out);
+void ColorFromColor(Color& color, unsigned int a, Color& out);
 
-void ColorSetAlpha(Color& color, uint8_t a);
+void ColorSetAlpha(Color& color, unsigned int a);
 
 void ColorToString(Color& color, string& out);
