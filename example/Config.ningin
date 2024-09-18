@@ -1,6 +1,9 @@
 // Types Starts With '!' followed by the name and the id
 // Value Types are Float,Int,String,Bool
 // Types ranges from I64 to I8 , U64 to U8 , F64 and F32
+// TODO for futute uses rangedTypes(between 2 values)
+// components, materials(physics for now)
+// enums (ningin enums and user defined enums)
 
 !Transform:0{
     Position(Float,Float,Float)
