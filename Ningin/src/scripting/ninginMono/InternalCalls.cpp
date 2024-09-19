@@ -8,7 +8,7 @@
 #include "../../physicsManager/colliders/Point.h"
 #include "../../physicsManager/Mask2.h"
 #include "../../physicsManager/Mask3.h"
-#include "wrapper/DebugWrapper.h"
+#include "wrapper/Wrapper.h"
 #include "../../sceneSystem/components/Transform.h"
 #include "../../sceneSystem/components/SpriteRenderer.h"
 #include "../../sceneSystem/components/TextRenderer.h"
@@ -29,7 +29,7 @@ void AddInternalCalls()
         AddInternalCall(Vector2Min);
         AddInternalCall(Vector2SquareRoot);
         AddInternalCall(Vector2Inverse);
-        AddInternalCall(Vector2ToString);
+        AddInternalCall(MonoVector2ToString);
         AddInternalCall(Vector2FromVector3);
         AddInternalCall(Vector2Add);
         AddInternalCall(Vector2Negate);
@@ -59,7 +59,7 @@ void AddInternalCalls()
         AddInternalCall(Vector3Max);
         AddInternalCall(Vector3Min);
         AddInternalCall(Vector3SquareRoot);
-        AddInternalCall(Vector3ToString);
+        AddInternalCall(MonoVector3ToString);
         AddInternalCall(Vector3FromVector2);
         AddInternalCall(Vector3Add);
         AddInternalCall(Vector3Negate);
@@ -83,11 +83,11 @@ void AddInternalCalls()
     #pragma endregion
 
     #pragma region Dimensions2
-        AddInternalCall(Dimensions2ToString);
+        //AddInternalCall(Dimensions2ToString);
     #pragma endregion
 
     #pragma region Dimensions3
-        AddInternalCall(Dimensions3ToString);
+        //AddInternalCall(Dimensions3ToString);
     #pragma endregion
 
     #pragma region Range
@@ -96,17 +96,17 @@ void AddInternalCalls()
     #pragma endregion
 
     #pragma region Mask2
-        AddInternalCall(Mask2ToString);
+        //AddInternalCall(Mask2ToString);
     #pragma endregion
 
     #pragma region Mask3
-        AddInternalCall(Mask3ToString);
+        //AddInternalCall(Mask3ToString);
     #pragma endregion
 
     #pragma region Point
         AddInternalCall(PointFromVector2);
         AddInternalCall(PointFromVector3);
-        AddInternalCall(PointToString);
+        //AddInternalCall(PointToString);
     #pragma endregion
 
     #pragma region Transform
@@ -116,7 +116,7 @@ void AddInternalCalls()
         AddInternalCall(TransformSetRotation);
         AddInternalCall(TransformGetScale);
         AddInternalCall(TransformSetScale);
-        AddInternalCall(TransformToString);
+        //AddInternalCall(TransformToString);
     #pragma endregion
 
     #pragma region SpriteRenderer
@@ -135,7 +135,7 @@ void AddInternalCalls()
         AddInternalCall(ColorFromRGBA);
         AddInternalCall(ColorFromColor);
         AddInternalCall(ColorSetAlpha);
-        AddInternalCall(ColorToString);
+        //AddInternalCall(ColorToString);
     #pragma endregion
 
     #pragma region Debug

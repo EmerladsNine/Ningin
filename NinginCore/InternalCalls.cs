@@ -34,10 +34,9 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector2Clamp(ref Vector2 to_clamp, ref Vector2 min, ref Vector2 max,
             out Vector2 result);
-
-        // Todo To String
+        
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Vector2ToString();
+        internal static extern void MonoVector2ToString(ref Vector2 vec, out string str);
 
         // Operators
         [MethodImpl(MethodImplOptions.InternalCall)]
@@ -97,9 +96,8 @@ namespace NinginCore
         internal static extern void Vector3Clamp(ref Vector3 to_clamp, ref Vector3 min, ref Vector3 max,
             out Vector3 result);
 
-        // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Vector3ToString();
+        internal static extern void MonoVector3ToString(ref Vector3 vec, out string str);
 
         // Operators
         [MethodImpl(MethodImplOptions.InternalCall)]

@@ -1,6 +1,6 @@
 #pragma once
 #include "ecs/EntityManager.h"
-#include "../utills/Timer.h"
+#include "../utils/Timer.h"
 #include <cstddef>
 #include <vector>
 

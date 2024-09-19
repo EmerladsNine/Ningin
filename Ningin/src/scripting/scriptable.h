@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../sceneSystem/ecs/EntityManager.h"
-#include "../utills/Timer.h"
+#include "../utils/Timer.h"
 
 class Scriptable
 {

@@ -49,12 +49,6 @@
     <Filter Include="lib">
       <UniqueIdentifier>{8d80d73f-744e-4d80-b36e-07c7cd02e753}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\utils">
-      <UniqueIdentifier>{4ddd0e95-30ee-49d1-9968-96f7f87ce5f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\utils">
-      <UniqueIdentifier>{f56c0019-381b-42d0-8f4d-1395cedbc39f}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\physicsManager">
       <UniqueIdentifier>{9ffc58cd-bf14-4b8a-9c8f-d1f51cfb91c5}</UniqueIdentifier>
     </Filter>
@@ -151,6 +145,12 @@
     <Filter Include="Source Files\resourceManager\texture">
       <UniqueIdentifier>{730401df-9c0f-429a-b19d-512e6c4cefbe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\utils">
+      <UniqueIdentifier>{5b35b8b8-7a73-41ba-956a-b160a6d072ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\utils">
+      <UniqueIdentifier>{453c6953-8e03-4c3e-a7d9-78993098e966}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -206,9 +206,6 @@
     </ClCompile>
     <ClCompile Include="src\scripting\ninginMono\InternalCalls.cpp">
       <Filter>Source Files\scripting\mono</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utills\FileReader.cpp">
-      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="src\physicsManager\force\Force.cpp">
       <Filter>Source Files\physicsManager\force</Filter>
@@ -288,20 +285,14 @@
     <ClCompile Include="src\sceneSystem\components\Button.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
-    <ClCompile Include="src\scripting\ninginMono\wrapper\DebugWrapper.cpp">
+    <ClCompile Include="src\scripting\ninginMono\wrapper\Wrapper.cpp">
       <Filter>Source Files\scripting\mono\wrapper</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utills\Debug.cpp">
-      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="src\sceneSystem\components\Transform.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
     </ClCompile>
     <ClCompile Include="src\scripting\ninginMono\MonoPaths.cpp">
       <Filter>Source Files\scripting\mono</Filter>
-    </ClCompile>
-    <ClCompile Include="src\utills\Timer.cpp">
-      <Filter>Source Files\utils</Filter>
     </ClCompile>
     <ClCompile Include="src\sceneSystem\components\Animator.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
@@ -356,6 +347,15 @@
     </ClCompile>
     <ClCompile Include="src\math\Range.cpp">
       <Filter>Source Files\math</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Debug.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\FileReader.cpp">
+      <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\Timer.cpp">
+      <Filter>Source Files\utils</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -418,9 +418,6 @@
     </ClInclude>
     <ClInclude Include="src\scripting\ninginMono\MonoPaths.h">
       <Filter>Header Files\scripting\mono</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utills\FileReader.h">
-      <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="src\physicsManager\colliders\Circle.h">
       <Filter>Header Files\physicsManager\colliders</Filter>
@@ -533,14 +530,8 @@
     <ClInclude Include="src\sceneSystem\components\Button.h">
       <Filter>Header Files\sceneSystem\components</Filter>
     </ClInclude>
-    <ClInclude Include="src\utills\Debug.h">
-      <Filter>Header Files\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="src\scripting\ninginMono\wrapper\DebugWrapper.h">
+    <ClInclude Include="src\scripting\ninginMono\wrapper\Wrapper.h">
       <Filter>Header Files\scripting\mono\wrapper</Filter>
-    </ClInclude>
-    <ClInclude Include="src\utills\Timer.h">
-      <Filter>Header Files\utils</Filter>
     </ClInclude>
     <ClInclude Include="src\sceneSystem\components\Animator.h">
       <Filter>Header Files\sceneSystem\components</Filter>
@@ -595,6 +586,15 @@
     </ClInclude>
     <ClInclude Include="src\math\Range.h">
       <Filter>Header Files\math</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Debug.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\FileReader.h">
+      <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\Timer.h">
+      <Filter>Header Files\utils</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

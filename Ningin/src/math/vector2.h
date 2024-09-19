@@ -24,11 +24,11 @@ class Vector2
 		}
 };
 
-void Vector2Abs(Vector2 vec, Vector2& out);
+void Vector2Abs(Vector2& vec, Vector2& out);
 
-void Vector2Inverse(Vector2 vec, Vector2& out);
+void Vector2Inverse(Vector2& vec, Vector2& out);
 
-void Vector2SquareRoot(Vector2 vec, Vector2& out);
+void Vector2SquareRoot(Vector2& vec, Vector2& out);
 
 float Vector2Dot(Vector2& v1, Vector2& v2);
 

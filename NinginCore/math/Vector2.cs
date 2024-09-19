@@ -17,7 +17,8 @@ namespace NinginCore
 
         public Vector2 Abs()
         {
-            InternalCalls.Vector2Abs(ref this, out Vector2 result);
+            Vector2 result = Vector2.ZERO;
+            InternalCalls.Vector2Abs(ref this, out result);
             return result;
         }
 
@@ -74,6 +75,12 @@ namespace NinginCore
 
         public float MagnitudeSquared()
             => InternalCalls.Vector2MagnitudeSquared(ref this);
+
+        public override string ToString()
+        {
+            InternalCalls.MonoVector2ToString(ref this,out string result);
+            return result;
+        }
 
         public static float Distance(Vector2 v1, Vector2 v2)
             => InternalCalls.Vector2Distance(ref v1, ref v2);

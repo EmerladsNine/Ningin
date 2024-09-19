@@ -77,16 +77,16 @@
     <ClCompile Include="src\scripting\ninginMono\MonoPaths.cpp" />
     <ClCompile Include="src\scripting\ninginMono\Script.cpp" />
     <ClCompile Include="src\scripting\ninginMono\ScriptClass.cpp" />
-    <ClCompile Include="src\scripting\ninginMono\wrapper\DebugWrapper.cpp" />
-    <ClCompile Include="src\utills\Debug.cpp" />
+    <ClCompile Include="src\scripting\ninginMono\wrapper\Wrapper.cpp" />
     <ClCompile Include="src\scripting\Scriptable.cpp" />
     <ClCompile Include="src\scripting\ScriptingEngine.cpp" />
     <ClCompile Include="src\system\Renderer.cpp" />
     <ClCompile Include="src\system\SceneLoader.cpp" />
     <ClCompile Include="src\system\SceneManager.cpp" />
     <ClCompile Include="src\system\Window.cpp" />
-    <ClCompile Include="src\utills\FileReader.cpp" />
-    <ClCompile Include="src\utills\Timer.cpp" />
+    <ClCompile Include="src\utils\Debug.cpp" />
+    <ClCompile Include="src\utils\FileReader.cpp" />
+    <ClCompile Include="src\utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Range.h" />
@@ -156,7 +156,7 @@
     <ClInclude Include="src\scripting\ninginMono\MonoPaths.h" />
     <ClInclude Include="src\scripting\ninginMono\Script.h" />
     <ClInclude Include="src\scripting\ninginMono\ScriptClass.h" />
-    <ClInclude Include="src\scripting\ninginMono\wrapper\DebugWrapper.h" />
+    <ClInclude Include="src\scripting\ninginMono\wrapper\Wrapper.h" />
     <ClInclude Include="src\scripting\Scriptable.h" />
     <ClInclude Include="src\scripting\ScriptingEngine.h" />
     <ClInclude Include="src\scripting\ScriptLanguage.h" />
@@ -165,9 +165,9 @@
     <ClInclude Include="src\system\SceneManager.h" />
     <ClInclude Include="src\system\Window.h" />
     <ClInclude Include="src\system\WindowOptions.h" />
-    <ClInclude Include="src\utills\Debug.h" />
-    <ClInclude Include="src\utills\FileReader.h" />
-    <ClInclude Include="src\utills\Timer.h" />
+    <ClInclude Include="src\utils\Debug.h" />
+    <ClInclude Include="src\utils\FileReader.h" />
+    <ClInclude Include="src\utils\Timer.h" />
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="dependencies\freetype.dll">

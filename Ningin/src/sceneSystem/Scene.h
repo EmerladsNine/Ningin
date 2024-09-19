@@ -1,7 +1,7 @@
 #pragma once
 
 #include "World.h"
-#include "../utills/Timer.h"
+#include "../utils/Timer.h"
 #include <string>
 
 using namespace std;

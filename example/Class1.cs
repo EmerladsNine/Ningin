@@ -8,7 +8,9 @@ namespace example
         void Start()
         {
             var vec = new Vector2(-10, -60);
-            Console.WriteLine("Hello");
+            var v2 = vec.Abs();
+            Debug.LogInfo("Hi C#");
+            Debug.LogInfo(v2.ToString());
             throw new Exception("Testing EXCEPTIONS !!");
         }
         bool is_updated = false;

@@ -6,8 +6,8 @@
 #include "InternalCalls.h"
 #include "../../environment.h"
 #include "../../math/vector2.h"
-#include "../../utills/FileReader.h"
-#include "../../utills/Debug.h"
+#include "../../utils/FileReader.h"
+#include "../../utils/Debug.h"
 
 Mono::Mono() : assembliesDirectory(Environment::GetGameDirectory()), _rootDomain(nullptr), _appDomain(nullptr)
 	,gameAssembly(nullptr), ninginAssembly(nullptr) {}
@@ -184,6 +184,11 @@ ScriptClass* Mono::LoadScript(string scriptFullName)
 
 	InitScriptMethods(&iter->second);
 	return &iter->second;
+}
+
+MonoString* Mono::GetMonoString(const char* text)
+{
+	return mono_string_new(_appDomain,text);
 }
 
 void InitScriptMethods(ScriptClass* scriptClass)

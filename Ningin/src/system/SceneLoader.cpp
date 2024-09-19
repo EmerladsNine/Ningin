@@ -5,7 +5,7 @@
 #include "../sceneSystem/components/SpriteRenderer.h"
 #include "../sceneSystem/components/TextRenderer.h"
 #include "../sceneSystem/components/transform.h"
-#include "../utills/FileReader.h"
+#include "../utils/FileReader.h"
 #include "../sceneSystem/components/ScriptVec.h"
 #include "../scripting/ScriptingEngine.h"
 #include "../scripting/ScriptLanguage.h"

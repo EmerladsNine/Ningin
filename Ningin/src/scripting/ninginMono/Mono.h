@@ -22,6 +22,7 @@ class Mono
         Script* GetScript(string scritpName);
         Script* BuildScript(ScriptClass* scriptClass);
         ScriptClass* LoadScript(string scriptFullName);
+        MonoString* GetMonoString(const char* text);
 
         const string NINGIN_ASSEMBLY_NAME = "NinginCore.dll";
         filesystem::path assembliesDirectory;

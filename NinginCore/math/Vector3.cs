@@ -69,6 +69,11 @@ namespace NinginCore
         public float MagnitudeSquared() => InternalCalls.Vector3MagnitudeSquared(ref this);
         public float DistanceSquared(Vector3 Other)
             => InternalCalls.Vector3DistanceSquared(ref this, ref Other);
+        public override string ToString()
+        {
+            InternalCalls.MonoVector3ToString(ref this, out string result);
+            return result;
+        }
 
         public static float Dot(Vector3 v1, Vector3 v2) => InternalCalls.Vector3Dot(ref v1, ref v2);
         public static float Magnitude(Vector3 vec) => InternalCalls.Vector3Magnitude(ref vec);

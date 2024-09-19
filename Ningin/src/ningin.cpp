@@ -1,7 +1,7 @@
 #include "Ningin.h"
 #include "sceneSystem/World.h"
 #include "scripting/ScriptingEngine.h"
-#include "utills/Timer.h"
+#include "utils/Timer.h"
 #include <filesystem>
 
 ResourceManager resourceManager = ResourceManager();
@@ -147,7 +147,7 @@ void Game::MainLoop()
 int main()
 {
 	Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
-		MonoPaths("mono/lib","example.dll"),true);
+		MonoPaths("mono/lib","example.dll"),false);
 	Game::Start();
 	return 0;
 }
