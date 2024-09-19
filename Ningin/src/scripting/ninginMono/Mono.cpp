@@ -35,7 +35,7 @@ void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 	if (loadPDB)
 	{
 		std::vector<const char*> arguments;
-		arguments.push_back("--debugger-agent=transport=dt_socket,address=127.0.0.1:2550,server=y,suspend=n,loglevel=3,logfile=MonoDebugger.log");
+		arguments.push_back("--debugger-agent=transport=dt_socket,address=127.0.0.1:2650,server=y,suspend=n,loglevel=3,logfile=MonoDebugger.log");
 		arguments.push_back("--soft-breakpoints");
 		mono_jit_parse_options(static_cast<int>(arguments.size()), const_cast<char**>(arguments.data()));
 		mono_debug_init(MONO_DEBUG_FORMAT_MONO);
@@ -104,7 +104,26 @@ MonoAssembly* Mono::LoadAssembly(string fileName, bool loadPDB)
 		return nullptr;
 	}
 
+	//Load Debuggig File
+	if (loadPDB)
+	{
+		std::filesystem::path pdbPath = assemblyPath;
+		pdbPath.replace_extension(".pdb");
+		if (std::filesystem::exists(pdbPath))
+		{
+			vector<uint8_t> pdbFileDataVec = FileReader::ReadFileBytes(pdbPath.string());
+			mono_debug_open_image_from_memory(image, (const mono_byte*)pdbFileDataVec.data(), static_cast<int>(pdbFileDataVec.size()));
+			LogInfo("Loaded pdb file :"+pdbPath.string());
+		}
+		else
+		{
+			LogWarning("PDB file doesn't exist :" + pdbPath.string());
+		}
+	}
+
 	MonoAssembly* assembly = mono_assembly_load_from_full(image, assemblyPath.string().c_str(), &status, 0);
+	
+
 	mono_image_close(image);
 
 	if (status != MONO_IMAGE_OK)
@@ -115,21 +134,6 @@ MonoAssembly* Mono::LoadAssembly(string fileName, bool loadPDB)
 	}
 	LogInfo("Loaded dll file :" + assemblyPath.string());
 
-	//Load Debuggig File
-	if (loadPDB)
-	{
-		std::filesystem::path pdbPath = assemblyPath;
-		pdbPath.replace_extension(".pdb");
-		if (!std::filesystem::exists(pdbPath))
-		{
-			LogWarning("PDB file doesn't exist :" + pdbPath.string());
-			return assembly;
-		}
-
-		vector<uint8_t> pdbFileDataVec = FileReader::ReadFileBytes(pdbPath.string());
-		mono_debug_open_image_from_memory(image, (const mono_byte*)pdbFileDataVec.data(), static_cast<int>(pdbFileDataVec.size()));
-		LogInfo("Loaded pdb file :"+pdbPath.string());
-	}
 
 	return assembly;
 }
