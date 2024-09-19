@@ -21,7 +21,7 @@ void Vector3Abs(Vector3& vec, Vector3& out)
 	out = Vector3(abs(vec.x), abs(vec.y), abs(vec.z));
 }
 
-void Vector3Inverse(Vector3 vec, Vector3& out)
+void Vector3Inverse(Vector3& vec, Vector3& out)
 {
 	out = Vector3(1 / vec.x, 1 / vec.y, 1 / vec.z);
 }

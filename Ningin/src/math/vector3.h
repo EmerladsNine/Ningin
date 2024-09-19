@@ -27,7 +27,7 @@ class Vector3
 
 void Vector3Abs(Vector3& vec, Vector3& out);
 
-void Vector3Inverse(Vector3 vec, Vector3& out);
+void Vector3Inverse(Vector3& vec, Vector3& out);
 
 void Vector3SquareRoot(Vector3& vec, Vector3& out);
 
