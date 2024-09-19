@@ -44,6 +44,11 @@ void Shader::SetFloatVec4(string& name, float value1, float value2, float value3
 	glUniform4f(glGetUniformLocation(_shaderProgram, name.c_str()), value1, value2, value3, value4);
 }
 
+void Shader::SetFloatVec2WithLength(string& name, int length, vector<glm::vec2> values)
+{
+	glUniform2fv(glGetUniformLocation(_shaderProgram, name.c_str()), length, glm::value_ptr(values[0]));
+}
+
 void Shader::SetMatrix4(string& name, glm::mat4& matrix)
 {
 	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), 1, GL_FALSE,

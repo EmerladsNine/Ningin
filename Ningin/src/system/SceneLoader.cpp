@@ -295,6 +295,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 			string fontName = "";
 			uint8_t fontSize = 0;
 			string text = "";
+			bool useMultiLine = false;
 
 			for (uint32_t propertyPointer : propertiesPointers)
 			{
@@ -321,9 +322,15 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 				{
 					shader = strings[Read<uint32_t>(&currentPointer)];
 				}
+				else if (name == "UseMultiLine")
+				{
+					useMultiLine = Read<bool>(&currentPointer);
+				}
 			}
 
-			TextRenderer* textRenderer = new TextRenderer(fontName, shader, textColor, text, fontSize);
+			TextRenderer* textRenderer = new TextRenderer(fontName, shader, textColor, text, fontSize,
+				useMultiLine);
+
 			world.entityManager.AddComponent(entityId, typeid(TextRenderer), textRenderer);
 			break;
 		}

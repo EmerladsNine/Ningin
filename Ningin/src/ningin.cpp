@@ -6,6 +6,7 @@
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
+Dimensions2 windowDimensions(100, 100);
 FT_Library ftLibrary;
 
 const int ARRAY_LIMIT = 100;

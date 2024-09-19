@@ -4,20 +4,22 @@
 #include <iostream>
 
 TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text,
-	uint8_t fontSize) : _shader(resourceManager.GetShader(shaderName)),
+	uint8_t fontSize, bool useMultiLine) : _shader(resourceManager.GetShader(shaderName)),
 	_font(resourceManager.GetFont(fontName)), _textColor(textColor), _text(text), _fontSize(fontSize),
-	_letterDimensions(fontSize), _baseModel(glm::mat4(1.0f)), _mustCalculate(true)
-	, _userShader(shaderName != "text"), _vao(0), _vbo(0)
+	_letterDimensions(fontSize), _baseModel(glm::mat4(1.0f)), _mustCalculate(true),
+	_useMultiLine(useMultiLine), _userShader(shaderName != "text"), _vao(0), _vbo(0)
 {
 	SetShaderInitialUniforms();
 	InitializeRenderData();
 }
 
-
 void TextRenderer::InitializeRenderData()
 {
 	_fontCharsMap = _font.GetCharMap();
+	_scale = float(_fontSize) / 256.0f;
+	_shouldCheckWord = true;
 	CalculateTextDimensions();
+	SplitText();
 	InitializeShaderInfo();
 	InitializeVao();
 	InitializeVbo();
@@ -27,10 +29,10 @@ void TextRenderer::InitializeRenderData()
 void TextRenderer::SetShaderInitialUniforms()
 {
 	string projectionMatrixName = string("projection");
-	string TextSamplerName = string("text");
+	string textSamplerName = string("text");
 
 	_shader.Use();
-	_shader.SetInt(TextSamplerName, 0);
+	_shader.SetInt(textSamplerName, 0);
 	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
 
 	if (_userUniforms.count("init"))
@@ -42,6 +44,7 @@ void TextRenderer::SetShaderInitialUniforms()
 void TextRenderer::InitializeShaderInfo()
 {
 	_transforms.resize(ARRAY_LIMIT, glm::mat4(1.0f));
+	//_lettersPositions.resize(ARRAY_LIMIT, glm::vec2(0, 0));
 	_textAsciiIndices.resize(ARRAY_LIMIT, 0);
 }
 
@@ -89,11 +92,40 @@ void TextRenderer::ConfigureDrawingContext()
 	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
 }
 
+void TextRenderer::SplitText() {
+	istringstream stream(_text);
+	string word;
+
+	// Use stringstream to split the input text by spaces
+	while (stream >> word) {
+		_words.push_back(word);
+	}
+}
+void TextRenderer::IndentNewLine(Vector3* position, float* xOffSet, bool checkWord)
+{
+	position->y += float(_fontCharsMap.at('\n').size.height) * 1.3f * _scale;
+	*xOffSet = 0.0f;
+	_shouldCheckWord = checkWord;
+}
+
+float TextRenderer::CalculateWordWidth(string& word)
+{
+	float width = 0;
+
+	for (char c : word)
+	{
+		width += (float(_fontCharsMap.at(c).size.width +
+			static_cast<unsigned int>(_fontCharsMap.at(c).advance) >> 6)) * _scale;
+	}
+
+	return width;
+}
+
 void TextRenderer::Draw(Transform& transform)
 {
 	_shader.Use();
 
-	SetInitDrawingUniforms();
+	SetInitDrawingUniforms(transform);
 	ConfigureDrawingContext();
 
 	if (_mustCalculate)
@@ -102,11 +134,15 @@ void TextRenderer::Draw(Transform& transform)
 	}
 
 	Vector3 pos = transform.position;
-	float scale = float(_fontSize) / 256.0f;
 	float hBearing = float(_fontCharsMap.at('H').bearing.height);
 
-	int32_t workingIndex = 0;
+	int workingIndex = 0;
+	int wordIndex = 0;
+	int letterIndex = 0;
+
 	float xOffSet = 0.0f;
+	float xpos = 0;
+	float ypos = 0;
 
 	for (char c : _text)
 	{
@@ -114,19 +150,31 @@ void TextRenderer::Draw(Transform& transform)
 
 		if (c == '\n')
 		{
-			pos.y += float(ch.size.height) * 1.3f * scale;
-			xOffSet = 0.0f;
+			IndentNewLine(&pos, &xOffSet, true);
+			wordIndex++;
 		}
 		else if (c == ' ')
 		{
-			xOffSet += (float(ch.advance >> 6)) * scale;
+			if (_text[letterIndex + 1] != ' ')
+				wordIndex++;
+
+			_shouldCheckWord = true;
+			xOffSet += float(static_cast<unsigned int>(ch.advance) >> 6) * _scale;
 		}
 		else
 		{
-			float xpos = float(ch.bearing.width) * scale;
-			float ypos = pos.y + (hBearing - float(ch.bearing.height)) * scale;
+			float xpos = float(ch.bearing.width) * _scale;
+
+			if (_shouldCheckWord &&_useMultiLine && xOffSet + CalculateWordWidth(_words[wordIndex])
+				>= float(windowDimensions.width))
+			{
+				IndentNewLine(&pos, &xOffSet, false);
+			}
+
+			float ypos = pos.y + (hBearing - float(ch.bearing.height)) * _scale;
 
 			_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
+			//_lettersPositions[workingIndex] = glm::vec2(xOffSet + xpos, ypos);
 			_textAsciiIndices[workingIndex] = ch.asciiIndex;
 
 			if (workingIndex == ARRAY_LIMIT - 1)
@@ -135,9 +183,12 @@ void TextRenderer::Draw(Transform& transform)
 				workingIndex = 0;
 			}
 
-			xOffSet += (float(ch.advance >> 6)) * scale;
+			xOffSet += float(static_cast<unsigned int>(ch.advance) >> 6) * _scale;
+			_shouldCheckWord = false;
 			workingIndex++;
 		}
+
+		letterIndex++;
 	}
 
 	RenderText(workingIndex);
@@ -199,6 +250,7 @@ void TextRenderer::SetText(string& text)
 {
 	this->_text = text;
 	CalculateTextDimensions();
+	SplitText();
 	_mustCalculate = true;
 }
 
@@ -207,15 +259,20 @@ void TextRenderer::SetFontSize(uint8_t fontSize)
 	this->_fontSize = fontSize;
 	CalculateTextDimensions();
 	_letterDimensions = fontSize;
+	_scale = float(_fontSize) / 256.0f;
 	_mustCalculate = true;
 }
 
-void TextRenderer::SetInitDrawingUniforms()
+void TextRenderer::SetInitDrawingUniforms(Transform& transform)
 {
 	string projectionMatrixName = string("projection");
 	string TextColorName = string("TextColor");
+	string scaleName = string("scale");
+	//string angleName = string("angle");
 
 	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
+	_shader.SetFloat(scaleName, _scale);
+	//_shader.SetFloat(angleName, DegreesToRadians(transform.rotation.z));
 
 	if (_userUniforms.count("init_drawing"))
 	{
@@ -230,9 +287,11 @@ void TextRenderer::SetInitDrawingUniforms()
 void TextRenderer::SetDrawingUniforms(int32_t length)
 {
 	string transformsName = string("Transforms");
+	//string lettersPositionsName = string("lettersPositions");
 	string charsMapName = string("CharsMap");
 
 	_shader.SetMatrix4WithLength(transformsName, length, _transforms);
+	//_shader.SetFloatVec2WithLength(lettersPositionsName, length, _lettersPositions);
 	_shader.SetIntWithLength(charsMapName, length, _textAsciiIndices);
 
 	if (_userUniforms.count("drawing"))
@@ -265,6 +324,9 @@ void TextRenderer::ComputeTextTransform(Transform& transform)
 
 	_baseModel = glm::translate(_baseModel, glm::vec3(-textCenter.x, -textCenter.y, 0.0f));
 
+	string baseModelName = string("baseModel");
+
+	_shader.SetMatrix4(baseModelName, _baseModel);
 	_mustCalculate = false;
 }
 

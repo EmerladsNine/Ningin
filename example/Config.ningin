@@ -25,4 +25,5 @@
     FontSize(U8)
     Text(String)
     Shader(String)
+    UseMultiLine(Bool)
 }

@@ -8,6 +8,7 @@ static void callback_function(GLFWwindow* window, int width, int height)
 
 	projectionMatrix = glm::ortho(0.0f, static_cast<float>(width),
 		static_cast<float>(height), 0.0f, -1.0f, 1.0f);
+	windowDimensions = Dimensions2(width, height);
 }
 
 Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
@@ -16,6 +17,7 @@ Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimen
 	InitGlfw();
 	GLFWwindow* window = StartWindow(title, isFullscreen, dimensions);
 
+	windowDimensions = *dimensions;
 	projectionMatrix = glm::ortho(0.0f, static_cast<float>(dimensions->width), 
 		static_cast<float>(dimensions->height), 0.0f, -1.0f, 1.0f);
 

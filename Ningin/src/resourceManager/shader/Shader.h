@@ -21,6 +21,7 @@ class Shader
 		void SetIntWithLength(string& name, int length, vector<int>& values);
 		void SetFloat(string& name, float value);
 		void SetFloatVec4(string& name, float value1, float value2, float value3, float value4);
+		void SetFloatVec2WithLength(string& name, int length, vector<glm::vec2> values);
 		void SetMatrix4(string& name, glm::mat4& matrix);
 		void SetMatrix4WithLength(string& name, int length, vector<glm::mat4>& matrices);
 

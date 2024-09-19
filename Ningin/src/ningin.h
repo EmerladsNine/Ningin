@@ -17,6 +17,7 @@ using namespace std;
 
 extern ResourceManager resourceManager;
 extern glm::mat4 projectionMatrix;
+extern Dimensions2 windowDimensions;
 extern FT_Library ftLibrary;
 
 extern const int ARRAY_LIMIT;

@@ -5,6 +5,7 @@
 #include "../../resourceManager/color/Color.h"
 #include "../../resourceManager/font/Font.h"
 #include "../../math/dimensions2.h"
+#include "../../math/vector2.h"
 #include "../../math/math.h"
 #include "../../ningin.h"
 #include <unordered_map>
@@ -20,7 +21,8 @@ using namespace std;
 class TextRenderer
 {
 	public:
-		TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize);
+		TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize,
+			bool useMultiLine);
 
 		void SetTextColor(Color& color);
 		void SetFontSize(uint8_t fontSize);
@@ -41,7 +43,7 @@ class TextRenderer
 
 		void SetDrawingUniforms(int32_t length);
 		void SetShaderInitialUniforms();
-		void SetInitDrawingUniforms();
+		void SetInitDrawingUniforms(Transform& transform);
 
 		void SetupVertexAttrib();
 
@@ -50,23 +52,31 @@ class TextRenderer
 		glm::mat4 ComputeLetterTransform(float xOffSet, float xpos, float ypos, float scale);
 		pair<vector<vector<char>>, size_t> GetTextInfo();
 		void ComputeTextTransform(Transform& transform);
+		float CalculateWordWidth(string& word);
 		void CalculateTextDimensions();
+		void SplitText();
 
 		void ConfigureDrawingContext();
+		void IndentNewLine(Vector3* position, float* xOffSet, bool CheckWord);
 		void RenderText(int32_t length);
 
 		unordered_map<string, function<void()>> _userUniforms;
 		vector<glm::mat4> _transforms;
+		//vector<glm::vec2> _lettersPositions;
 		vector<int32_t> _textAsciiIndices;
 		unordered_map<GLchar, Character> _fontCharsMap;
 		Dimensions2 _textDimensions;
 		float _letterDimensions;
 		glm::mat4 _baseModel;
 		bool _mustCalculate;
+		bool _useMultiLine;
+		vector<string> _words;
+		float _scale;
 		string _text;
 		uint8_t _fontSize;
 		Color _textColor;
 		bool _userShader;
+		bool _shouldCheckWord;
 		Shader _shader;
 		GLuint _vao;
 		GLuint _vbo;
