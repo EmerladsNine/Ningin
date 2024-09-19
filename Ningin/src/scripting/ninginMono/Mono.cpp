@@ -35,7 +35,7 @@ void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 	if (loadPDB)
 	{
 		std::vector<const char*> arguments;
-		arguments.push_back("--debugger-agent=transport=dt_socket,address=127.0.0.1:2650,server=y,suspend=n,loglevel=3,logfile=MonoDebugger.log");
+		arguments.push_back("--debugger-agent=transport=dt_socket,address=127.0.0.1:2650,server=y,loglevel=3,logfile=MonoDebugger.log");
 		arguments.push_back("--soft-breakpoints");
 		mono_jit_parse_options(static_cast<int>(arguments.size()), const_cast<char**>(arguments.data()));
 		mono_debug_init(MONO_DEBUG_FORMAT_MONO);
