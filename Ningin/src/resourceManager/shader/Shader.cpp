@@ -2,12 +2,21 @@
 #include <format>
 #include <fstream>
 #include <sstream>
+#include <iostream>
 
-Shader::Shader(filesystem::path vertexPath, filesystem::path fragmentPath)
+Shader::Shader(const filesystem::path vertexPath, const filesystem::path fragmentPath,
+	const filesystem::path* geometryPath)
 {
+	if (geometryPath != nullptr)
+	{
+		_hasGeometry = true;
+		_paths["geometry"] = *geometryPath;
+	}
+
 	_paths["vertex"] = vertexPath;
 	_paths["fragment"] = fragmentPath;
 
+	CheckExtensions();
 	LoadShaders();
 	CompileShaders();
 	CreateShaderProgram();
@@ -88,16 +97,30 @@ GLuint Shader::GetID()
 	return _shaderProgram;
 }
 
+void Shader::CheckExtensions()
+{
+	CheckExtension(_paths["vertex"], ".vs");
+	CheckExtension(_paths["fragment"], ".frag");
+
+	if (_hasGeometry)
+		CheckExtension(_paths["geometry"], ".gs");
+}
+
 void Shader::LoadShaders()
 {
 	_code["vertex"] = LoadShader(_paths["vertex"]);
 	_code["fragment"] = LoadShader(_paths["fragment"]);
+
+	if (_hasGeometry)
+		_code["geometry"] = LoadShader(_paths["geometry"]);
 }
 
 void Shader::CompileShaders()
 {
 	_vertexShader = CompileShader(GL_VERTEX_SHADER, _code["vertex"]);
 	_fragmentShader = CompileShader(GL_FRAGMENT_SHADER, _code["fragment"]);
+	if (_hasGeometry)
+		_fragmentShader = CompileShader(GL_GEOMETRY_SHADER, _code["geometry"]);
 }
 
 void Shader::CreateShaderProgram()
@@ -105,6 +128,9 @@ void Shader::CreateShaderProgram()
 	this->_shaderProgram = glCreateProgram();
 	glAttachShader(_shaderProgram, _vertexShader);
 	glAttachShader(_shaderProgram, _fragmentShader);
+
+	if (_hasGeometry) glAttachShader(_shaderProgram, _geometryShader);
+
 	glLinkProgram(_shaderProgram);
 
 	GLint success = 0;
@@ -121,13 +147,19 @@ void Shader::CreateShaderProgram()
 
 void Shader::DeleteShaders()
 {
-	//glDetachShader(_shaderProgram, _vertexShader);
-	//glDeleteShader(_vertexShader);
-	//glDetachShader(_shaderProgram, _fragmentShader);
-	//glDeleteShader(_fragmentShader);
+	glDetachShader(_shaderProgram, _vertexShader);
+	glDeleteShader(_vertexShader);
+
+	glDetachShader(_shaderProgram, _fragmentShader);
+	glDeleteShader(_fragmentShader);
+
+	if (!_hasGeometry) return;
+
+	glDetachShader(_shaderProgram, _geometryShader);
+	glDeleteShader(_geometryShader);
 }
 
-void Shader::CheckExtension(filesystem::path& path, string& expectedExtension)
+void Shader::CheckExtension(filesystem::path& path, const string& expectedExtension)
 {
 	if (path.extension() != expectedExtension)
 	{

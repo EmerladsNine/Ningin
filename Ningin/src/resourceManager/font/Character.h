@@ -6,7 +6,7 @@ class Character
 {
 	public:
 		Character(int asciiIndex, Dimensions2 size, Dimensions2 bearing, unsigned int advance);
-		Character() = default;
+		Character();
 
 		unsigned int advance;
 		int asciiIndex;

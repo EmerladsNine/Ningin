@@ -13,7 +13,8 @@ using namespace std;
 class Shader
 {
 	public:
-		Shader(filesystem::path vertexPath, filesystem::path fragmentPath);
+		Shader(const filesystem::path vertexPath, const filesystem::path fragmentPath,
+			const filesystem::path* geometryPath = nullptr);
 
 		void Use();
 		void SetBool(const string& name, bool value);
@@ -30,17 +31,21 @@ class Shader
 	private:
 		GLuint _vertexShader;
 		GLuint _fragmentShader;
+		GLuint _geometryShader;
 		GLuint _shaderProgram;
 
 		unordered_map<string, filesystem::path> _paths;
 		unordered_map<string, GLint> _uniformLocationCache;
 		unordered_map<string, string> _code;
 
+		bool _hasGeometry;
+
 		void LoadShaders();
 		void DeleteShaders();
 		void CompileShaders();
 		void CreateShaderProgram();
-		void CheckExtension(filesystem::path& path, string& expectedExtension);
+		void CheckExtension(filesystem::path& path, const string& expectedExtension);
+		void CheckExtensions();
 
 		GLint GetUniformLocation(const string& name);
 

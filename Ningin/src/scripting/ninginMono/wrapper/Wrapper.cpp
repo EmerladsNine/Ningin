@@ -23,7 +23,7 @@
 #pragma region Vector2
 	void MonoVector2ToString(Vector2& vec, MonoString** out)
 	{
-		std:string text;
+		string text;
 		Vector2ToString(vec, text);
 		*out = ScriptingEngine::mono.GetMonoString(text.c_str());
 	}
@@ -32,7 +32,7 @@
 #pragma region Vector3
 	void MonoVector3ToString(Vector3& vec, MonoString** out)
 	{
-		std:string text;
+		string text;
 		Vector3ToString(vec, text);
 		*out = ScriptingEngine::mono.GetMonoString(text.c_str());
 	}

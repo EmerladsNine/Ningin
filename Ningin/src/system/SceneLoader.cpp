@@ -369,9 +369,16 @@ T SceneLoader::Read(uint8_t** filePointer) {
 
 template<typename T>
 T SceneLoader::SwapBytes(T value) {
-	if (is_same<T, float>::value) value = swapFloatBytes(value);
-	else if (is_same<T, uint32_t>::value) value = static_cast<T>(_byteswap_ulong(value));
-	else if (is_same<T, uint16_t>::value) value = static_cast<T>(_byteswap_ushort(value));
+	if (is_same<T, float>::value)
+		value = static_cast<T>(swapFloatBytes(static_cast<float>(value)));
+
+	else if (is_same<T, uint32_t>::value)
+		value = static_cast<T>(_byteswap_ulong(static_cast<unsigned long>(value)));
+
+	else if (is_same<T, uint16_t>::value)
+		value = static_cast<T>(_byteswap_ushort(static_cast<unsigned short>(value)));
+
 	else if (is_same<T, uint8_t>::value) value = value;
+
 	return value;
 }

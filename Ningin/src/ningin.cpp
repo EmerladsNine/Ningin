@@ -14,7 +14,7 @@ UBO projectionUBO = UBO();
 const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
 
-const Range AnimationTimeRange(0.05, 20);
+const Range AnimationTimeRange(0.05f, 20.0f);
 const Range colorRange(0, 255);
 
 vector<Window> Game::openedWindows;
@@ -70,7 +70,7 @@ size_t Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t 
 	return openedWindows.size() - 1;
 }
 
-FT_Library Game::InitFreetype()
+void Game::InitFreetype()
 {
 	if (FT_Init_FreeType(&ftLibrary)) // all functions return a value != 0 whenever an error occurred
 		throw runtime_error("ERROR::FREETYPE: Could not init FreeType Library");
@@ -94,11 +94,11 @@ void Game::InitResourceManager()
 
 	resourceManager.LoadFontsFromFolder(gameDirectory / "default\\fonts");
 
-	ShaderInfo spriteShader(gameDirectory / "shaders\\sprite_vs.vs",
-		gameDirectory / "shaders\\sprite_fs.frag", string("sprite"));
+	ShaderInfo spriteShader("sprite", gameDirectory / "shaders\\sprite_vs.vs",
+		gameDirectory / "shaders\\sprite_fs.frag", nullptr);
 
-	ShaderInfo textShader(gameDirectory / "shaders\\text_vs.vs",
-		gameDirectory / "shaders\\text_fs.frag", string("text"));
+	ShaderInfo textShader("text", gameDirectory / "shaders\\text_vs.vs",
+		gameDirectory / "shaders\\text_fs.frag", nullptr);
 
 	resourceManager.LoadShader(spriteShader);
 	resourceManager.LoadShader(textShader);
@@ -125,7 +125,7 @@ void Game::MainLoop()
 	while (true)
 	{
 		glfwPollEvents();
-		glClearColor(0.3, 0.2, 0.5, 1.0f);
+		glClearColor(0.3f, 0.2f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		vector<size_t> windowIndicesToDelete;

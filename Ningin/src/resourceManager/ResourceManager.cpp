@@ -35,7 +35,7 @@ void ResourceManager::LoadSpriteSheet()
 
 void ResourceManager::LoadShader(ShaderInfo& info)
 {
-	Shader shader(info.GetPath("vertex"), info.GetPath("fragment"));
+	Shader shader(info.GetPath("vertex"), info.GetPath("fragment"), info.GetOptionalShaderPath("geometry"));
 	_shaders.insert(make_pair(info.GetName(), shader));
 }
 

@@ -102,8 +102,8 @@ float TextRenderer::CalculateWordWidth(string& word)
 
 	for (char c : word)
 	{
-		width += (float(_fontCharsMap.at(c).size.width +
-			static_cast<unsigned int>(_fontCharsMap.at(c).advance) >> 6)) * _scale;
+		width += float(((_fontCharsMap.at(c).size.width +
+			static_cast<unsigned int>(_fontCharsMap.at(c).advance)) >> 6)) * _scale;
 	}
 
 	return width;
@@ -208,12 +208,12 @@ void TextRenderer::CalculateWordsWidth()
 {
 	for (string word : _words)
 	{
-		int width = 0;
+		float width = 0;
 
 		for (char c : word)
 		{
-			width += (float(_fontCharsMap.at(c).size.width +
-				static_cast<unsigned int>(_fontCharsMap.at(c).advance) >> 6)) * _scale;
+			width += float(((_fontCharsMap.at(c).size.width +
+				static_cast<unsigned int>(_fontCharsMap.at(c).advance)) >> 6)) * _scale;
 		}
 
 		_wordsWidth.push_back(width);

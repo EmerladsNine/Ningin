@@ -2,8 +2,10 @@
 #include "../../ningin.h"
 
 Color::Color(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
-	: r(RangeBoundValue(colorRange, r)), g(RangeBoundValue(colorRange, g)), b(RangeBoundValue(colorRange, b)),
-	a(RangeBoundValue(colorRange, a)) {}
+	: r(static_cast<unsigned int>(RangeBoundValue(colorRange, static_cast<float>(r)))),
+	g(static_cast<unsigned int>(RangeBoundValue(colorRange, static_cast<float>(g)))),
+	b(static_cast<unsigned int>(RangeBoundValue(colorRange, static_cast<float>(b)))),
+	a(static_cast<unsigned int>(RangeBoundValue(colorRange, static_cast<float>(a)))) {}
 
 Color::Color() : r(255), g(255), b(255), a(255) {}
 
@@ -29,7 +31,7 @@ void ColorFromColor(Color& color, unsigned int a, Color& out)
 
 void ColorSetAlpha(Color& color, unsigned int a)
 {
-	color.a = RangeBoundValue(colorRange, a);
+	color.a = static_cast<unsigned int>(RangeBoundValue(colorRange, static_cast<float>(a)));
 }
 
 void ColorToString(Color& color, string& out)

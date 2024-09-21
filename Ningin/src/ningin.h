@@ -44,7 +44,7 @@ class Game
 	private:
 		static void InitGl2d(Dimensions2* dimensions);
 		static void InitResourceManager();
-		static FT_Library InitFreetype();
+		static void InitFreetype();
 		static void SetUBO(Dimensions2* dimensions);
 		static void MainLoop();
 };

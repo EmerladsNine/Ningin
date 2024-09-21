@@ -4,7 +4,7 @@ namespace NinginCore
 {
     public class Behavior
     {
-        internal IntPtr Obj;
-        internal IntPtr BObj;
+        internal IntPtr Obj = new IntPtr();
+        internal IntPtr BObj = new IntPtr();
     }
 }

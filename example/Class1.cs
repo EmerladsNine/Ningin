@@ -13,7 +13,7 @@ namespace example
             Debug.LogInfo(v2.ToString());
             throw new Exception("Testing EXCEPTIONS !!");
         }
-        bool is_updated = false;
+        // bool is_updated = false;
         float time = 0f;
         int nextsecond = 1;
         void Update(float deltatime)
