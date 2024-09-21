@@ -19,46 +19,68 @@ void Shader::Use()
 	glUseProgram(this->_shaderProgram);
 }
 
-void Shader::SetBool(string& name, bool value)
+void Shader::SetBool(const string& name, bool value)
 {
-	glUniform1i(glGetUniformLocation(_shaderProgram, name.c_str()), static_cast<int>(value));
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniform1i(location, static_cast<int>(value));
 }
 
-void Shader::SetInt(string& name, int value)
+void Shader::SetInt(const string& name, int value)
 {
-	glUniform1i(glGetUniformLocation(_shaderProgram, name.c_str()), value);
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniform1i(location, value);
 }
 
-void Shader::SetIntWithLength(string& name, int length, vector<int>& values)
+void Shader::SetIntWithLength(const string& name, int length, vector<int>& values)
 {
-	glUniform1iv(glGetUniformLocation(_shaderProgram, name.c_str()), length, values.data());
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniform1iv(location, length, values.data());
 }
 
-void Shader::SetFloat(string& name, float value)
+void Shader::SetFloat(const string& name, float value)
 {
-	glUniform1f(glGetUniformLocation(_shaderProgram, name.c_str()), value);
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniform1f(location, value);
 }
 
-void Shader::SetFloatVec4(string& name, float value1, float value2, float value3, float value4)
+void Shader::SetFloatVec4(const string& name, float value1, float value2, float value3, float value4)
 {
-	glUniform4f(glGetUniformLocation(_shaderProgram, name.c_str()), value1, value2, value3, value4);
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniform4f(location, value1, value2, value3, value4);
 }
 
-void Shader::SetFloatVec2WithLength(string& name, int length, vector<glm::vec2> values)
+void Shader::SetFloatVec2WithLength(const string& name, int length, vector<glm::vec2> values)
 {
-	glUniform2fv(glGetUniformLocation(_shaderProgram, name.c_str()), length, glm::value_ptr(values[0]));
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniform2fv(location, length, glm::value_ptr(values[0]));
 }
 
-void Shader::SetMatrix4(string& name, glm::mat4& matrix)
+void Shader::SetMatrix4(const string& name, glm::mat4& matrix)
 {
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), 1, GL_FALSE,
-		glm::value_ptr(matrix));
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix));
 }
 
-void Shader::SetMatrix4WithLength(string& name, int length, vector<glm::mat4>& matrices)
+void Shader::SetMatrix4WithLength(const string& name, int length, vector<glm::mat4>& matrices)
 {
-	glUniformMatrix4fv(glGetUniformLocation(_shaderProgram, name.c_str()), length, GL_FALSE,
-		glm::value_ptr(matrices[0]));
+	GLint location = GetUniformLocation(name);
+
+	if (location != -1)
+		glUniformMatrix4fv(location, length, GL_FALSE, glm::value_ptr(matrices[0]));
 }
 
 GLuint Shader::GetID()
@@ -111,6 +133,17 @@ void Shader::CheckExtension(filesystem::path& path, string& expectedExtension)
 	{
 		throw runtime_error(format("Invalid shader(path: {}) file extension.]\nExpected a file extension of: {}\n", path.string(), expectedExtension));
 	}
+}
+
+GLint Shader::GetUniformLocation(const string& name)
+{
+	if (_uniformLocationCache.find(name) != _uniformLocationCache.end())
+		return _uniformLocationCache[name];
+
+	GLint location = glGetUniformLocation(_shaderProgram, name.c_str());
+	_uniformLocationCache[name] = location;
+
+	return location;
 }
 
 string Shader::LoadShader(filesystem::path& path)

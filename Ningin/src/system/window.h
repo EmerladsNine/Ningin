@@ -23,4 +23,7 @@ class Window
 		void InitGlfw();
 
 		GLFWwindow* StartWindow(string title, bool isFullscreen, Dimensions2* dimensions);
+
 };
+
+void setProjection(Dimensions2* dimensions);

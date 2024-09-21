@@ -2,7 +2,9 @@
 
 #include "../../resourceManager/ResourceManager.h"
 #include "../../resourceManager/shader/Shader.h"
+#include "../../resourceManager/opengl/buffer.h"
 #include "../../resourceManager/color/Color.h"
+#include "../../resourceManager/opengl/vao.h"
 #include "../../resourceManager/font/Font.h"
 #include "../../math/dimensions2.h"
 #include "../../math/vector2.h"
@@ -24,8 +26,9 @@ class TextRenderer
 		TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize,
 			bool useMultiLine);
 
-		void SetTextColor(Color& color);
+		void SetTextColor(Color& color, bool use);
 		void SetFontSize(uint8_t fontSize);
+		void SetFont(const string& fontName);
 		void SetText(string& text);
 
 		// ToDo further testing and enchancing then linking it to c#
@@ -38,7 +41,6 @@ class TextRenderer
 	private:
 		void InitializeRenderData();
 		void InitializeShaderInfo();
-		void InitializeVao();
 		void InitializeVbo();
 
 		void SetDrawingUniforms(int32_t length);
@@ -54,6 +56,7 @@ class TextRenderer
 		void ComputeTextTransform(Transform& transform);
 		float CalculateWordWidth(string& word);
 		void CalculateTextDimensions();
+		void CalculateWordsWidth();
 		void SplitText();
 
 		void ConfigureDrawingContext();
@@ -70,6 +73,7 @@ class TextRenderer
 		glm::mat4 _baseModel;
 		bool _mustCalculate;
 		bool _useMultiLine;
+		vector<float> _wordsWidth;
 		vector<string> _words;
 		float _scale;
 		string _text;
@@ -78,11 +82,12 @@ class TextRenderer
 		bool _userShader;
 		bool _shouldCheckWord;
 		Shader _shader;
-		GLuint _vao;
-		GLuint _vbo;
+		VAO _vao;
+		Buffer _vbo;
 		Font _font;
 };
 
 void TextSetTextColor(TextRenderer& textRenderer, Color& color);
 void TextSetText(TextRenderer& textRenderer, string& text);
 void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize);
+void SetFont(TextRenderer& textRenderer, const string& fontName);

@@ -26,6 +26,11 @@ void FontTexture::CreateCharTexture(FT_GlyphSlot glyph, unsigned char charCode)
 		glyph->bitmap.rows, 1, GL_RED, GL_UNSIGNED_BYTE, glyph->bitmap.buffer);
 }
 
+void FontTexture::Bind()
+{
+	glBindTexture(GL_TEXTURE_2D_ARRAY, _textureArray);
+}
+
 void FontTexture::Unbind()
 {
 	glBindTexture(GL_TEXTURE_2D_ARRAY, 0);

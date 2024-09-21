@@ -151,6 +151,12 @@
     <Filter Include="Source Files\utils">
       <UniqueIdentifier>{453c6953-8e03-4c3e-a7d9-78993098e966}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\resourceManager\opengl">
+      <UniqueIdentifier>{0bcd5cdc-e356-433c-8b1b-7ff4282297c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\resourceManager\opengl">
+      <UniqueIdentifier>{66a74642-8f03-40be-9aa5-45b6def17188}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -356,6 +362,15 @@
     </ClCompile>
     <ClCompile Include="src\utils\Timer.cpp">
       <Filter>Source Files\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\opengl\ubo.cpp">
+      <Filter>Source Files\resourceManager\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\opengl\vao.cpp">
+      <Filter>Source Files\resourceManager\opengl</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resourceManager\opengl\buffer.cpp">
+      <Filter>Source Files\resourceManager\opengl</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -595,6 +610,15 @@
     </ClInclude>
     <ClInclude Include="src\utils\Timer.h">
       <Filter>Header Files\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\opengl\ubo.h">
+      <Filter>Header Files\resourceManager\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\opengl\vao.h">
+      <Filter>Header Files\resourceManager\opengl</Filter>
+    </ClInclude>
+    <ClInclude Include="src\resourceManager\opengl\buffer.h">
+      <Filter>Header Files\resourceManager\opengl</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

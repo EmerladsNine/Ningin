@@ -7,6 +7,11 @@ Color::Color(unsigned int r, unsigned int g, unsigned int b, unsigned int a)
 
 Color::Color() : r(255), g(255), b(255), a(255) {}
 
+bool Color::operator==(Color& other)
+{
+	return r == other.r && b == other.b && g == other.g && a == other.a;
+}
+
 void ColorFromRGB(unsigned int rgb, Color& out)
 {
 	out = Color(rgb, rgb, rgb, 255);

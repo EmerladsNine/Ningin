@@ -9,6 +9,8 @@ glm::mat4 projectionMatrix = glm::mat4(1.0f);
 Dimensions2 windowDimensions(100, 100);
 FT_Library ftLibrary;
 
+UBO projectionUBO = UBO();
+
 const int ARRAY_LIMIT = 100;
 const int ATLAS_LIMIT = 256;
 
@@ -21,12 +23,13 @@ SceneLoader Game::sceneLoader;
 void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
 	vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode)
 {
-	//Create new window with no scene
-	NewWindow(gameName, windowOptions, -1, dimensions);
+	NewWindow(gameName, windowOptions, -1, dimensions); // Create new window with no scene
 
 	InitFreetype();
 	InitGl2d(dimensions);
 	InitResourceManager();
+	SetUBO(dimensions);
+
 	World::InitDefaultComponentSystem();
 	ScriptingEngine::Init(monoPath,debugMode);
 	
@@ -103,6 +106,16 @@ void Game::InitResourceManager()
 	TextureInfo texture(gameDirectory / "img.png", true, string("sprite"));
 
 	resourceManager.LoadTexture(texture);
+}
+
+void Game::SetUBO(Dimensions2* dimensions)
+{
+	vector<Shader> shadersUniforms = { resourceManager.GetShader(string("sprite")),
+		resourceManager.GetShader(string("text")) };
+
+	projectionUBO = UBO(shadersUniforms, "Matrix", sizeof(glm::mat4));
+
+	setProjection(dimensions);
 }
 
 void Game::MainLoop()

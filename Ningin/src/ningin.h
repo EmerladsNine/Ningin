@@ -7,6 +7,7 @@
 #include "system/window.h"
 #include "system/WindowOptions.h"
 #include "scripting/ninginMono/MonoPaths.h"
+#include "resourceManager/opengl/ubo.h"
 #include "math/Range.h"
 #include "Environment.h"
 #include <glm.hpp>
@@ -19,6 +20,8 @@ extern ResourceManager resourceManager;
 extern glm::mat4 projectionMatrix;
 extern Dimensions2 windowDimensions;
 extern FT_Library ftLibrary;
+
+extern UBO projectionUBO;
 
 extern const int ARRAY_LIMIT;
 extern const int ATLAS_LIMIT;
@@ -42,5 +45,6 @@ class Game
 		static void InitGl2d(Dimensions2* dimensions);
 		static void InitResourceManager();
 		static FT_Library InitFreetype();
+		static void SetUBO(Dimensions2* dimensions);
 		static void MainLoop();
 };

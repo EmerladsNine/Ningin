@@ -6,7 +6,11 @@ out VS_OUT {
     flat int index;
 }data;
 
-uniform mat4 projection;
+layout (std140) uniform Matrix
+{
+    mat4 projection;
+};
+
 uniform mat4 Transforms[100];
 
 void main()

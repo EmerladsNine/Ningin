@@ -29,18 +29,18 @@ class ResourceManager
 		void LoadShader(ShaderInfo& info);
 		void LoadShaders(vector<ShaderInfo>& info);
 
-		Shader GetShader(string& name);
+		Shader GetShader(const string& name);
 
 		void LoadTexture(TextureInfo& info);
 		void LoadTextures(vector<TextureInfo>& info);
 
-		Texture2D GetTexture(string& name);
+		Texture2D GetTexture(const string& name);
 
 		void LoadFont(FontInfo& info);
 		void LoadFonts(vector<FontInfo>& info);
 		void LoadFontsFromFolder(const filesystem::path& path);
 
-		Font GetFont(string& name);
+		Font GetFont(const string& name);
 
 	private:
 		unordered_map<string, Texture2D> _textures;

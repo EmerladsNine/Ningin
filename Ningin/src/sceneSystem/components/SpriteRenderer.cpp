@@ -1,37 +1,28 @@
 #include "SpriteRenderer.h"
 
 SpriteRenderer::SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor,
-	bool useTint, bool alpha) : _alpha(alpha), _shader(resourceManager.GetShader(shaderName)), _quadVAO(0),
-	_texture(resourceManager.GetTexture(textureName)), _tintingColor(tintingColor), _useTint(useTint),
-	_userShader(shaderName != "sprite")
+	bool useTint, bool alpha) : _alpha(alpha), _shader(resourceManager.GetShader(shaderName)),
+	_quadVAO(VAO()), _texture(resourceManager.GetTexture(textureName)), _userShader(shaderName != "sprite")
 {
 	InitializeRenderData();
 	SetShaderInitialUniforms();
+	SetTintingColor(tintingColor, false);
+	SetUseTint(useTint, false);
 }
 
 void SpriteRenderer::InitializeRenderData()
 {
-	InitializeVAO();
 	InitializeVBO();
 	SetupVertexAttrib();
 	FreeInitializationResources();
 }
 
-void SpriteRenderer::InitializeVAO()
-{
-	glGenVertexArrays(1, &_quadVAO);
-	glBindVertexArray(_quadVAO);
-}
-
 void SpriteRenderer::InitializeVBO()
 {
-	GLuint vbo;
 	GLfloat vertices[] = { 0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0.0f,
 						  0.0f, 1.0f, 0.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 0.0f, 1.0f, 0.0f };
 
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	Buffer vbo(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 }
 
 void SpriteRenderer::SetupVertexAttrib()
@@ -48,11 +39,8 @@ void SpriteRenderer::FreeInitializationResources()
 
 void SpriteRenderer::SetShaderInitialUniforms()
 {
-	string projectionMatrixName = string("projection");
-	string SpriteSamplerName = string("sprite");
-
-	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
-	_shader.SetInt(SpriteSamplerName, 0);
+	_shader.Use();
+	_shader.SetInt("sprite", 0);
 
 	if (_userUniforms.find("init") != _userUniforms.end())
 	{
@@ -73,20 +61,31 @@ void SpriteRenderer::Draw(Transform& transform)
 		return;
 	}
 
-	glBindVertexArray(_quadVAO);
+	_quadVAO.BindVAO();
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
 	FreeDrawingResources();
 }
 
-void SpriteRenderer::SetTintingColor(Color& newColor)
+void SpriteRenderer::SetTintingColor(Color& color, bool use)
 {
-	_tintingColor = newColor;
+	if (_tintingColor == color) return;
+
+	_tintingColor = color;
+
+	if (use) _shader.Use();
+	_shader.SetFloatVec4("TintingColor", _tintingColor.r / 255.0f, _tintingColor.g / 255.0f,
+		_tintingColor.b / 255.0f, _alpha ? _tintingColor.a / 255.0f : 1.0f);
 }
 
-void SpriteRenderer::SetUseTint(bool useTint)
+void SpriteRenderer::SetUseTint(bool useTint, bool use)
 {
-	this->_useTint = useTint;
+	if (_useTint == useTint) return;
+
+	_useTint = useTint;
+
+	if (use) _shader.Use();
+	_shader.SetBool("useTint", _useTint);
 }
 
 void SpriteRenderer::SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
@@ -119,24 +118,15 @@ glm::mat4 SpriteRenderer::ComputeModelMatrix(Transform& transform)
 
 void SpriteRenderer::SetDrawingUniforms(Transform& transform)
 {
-	string projectionMatrixName = string("projection");
-	string TintingColorName = string("TintingColor");
-	string usetintName = string("useTint");
-	string modelName = string("model");
-
 	glm::mat4 model = ComputeModelMatrix(transform);
 
-	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
-	_shader.SetMatrix4(modelName, model);
-	_shader.SetBool(usetintName, _useTint);
+	_shader.Use();
+	_shader.SetMatrix4("model", model);
 
 	if (_userUniforms.find("init_drawing") != _userUniforms.end())
 	{
 		_userUniforms["init_drawing"]();
 	}
-
-	_shader.SetFloatVec4(TintingColorName, _tintingColor.r / 255.0f, _tintingColor.g / 255.0f,
-		_tintingColor.b / 255.0f, _alpha ? _tintingColor.a / 255.0f : 1.0f);
 }
 
 void SpriteRenderer::FreeDrawingResources()
@@ -187,10 +177,10 @@ void SpriteRenderer::System(EntityManager* entityManager)
 
 void SpriteSetTintingColor(SpriteRenderer& spriteRenderer, Color& color)
 {
-	spriteRenderer.SetTintingColor(color);
+	spriteRenderer.SetTintingColor(color, true);
 }
 
 void SpriteSetUseTint(SpriteRenderer& spriteRenderer, bool useTint)
 {
-	spriteRenderer.SetUseTint(useTint);
+	spriteRenderer.SetUseTint(useTint, true);
 }

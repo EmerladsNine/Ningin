@@ -1,14 +1,22 @@
 #include "window.h"
 #include <glm.hpp>
 #include "../ningin.h"
+#include <iostream>
+
+void setProjection(Dimensions2* dimensions)
+{
+	projectionMatrix = glm::ortho(0.0f, static_cast<float>(dimensions->width),
+		static_cast<float>(dimensions->height), 0.0f, -1.0f, 1.0f);
+	projectionUBO.SetUBOFloatPtr(sizeof(glm::mat4), 0, glm::value_ptr(projectionMatrix));
+}
 
 static void callback_function(GLFWwindow* window, int width, int height)
 {
 	glViewport(0, 0, width, height);
 
-	projectionMatrix = glm::ortho(0.0f, static_cast<float>(width),
-		static_cast<float>(height), 0.0f, -1.0f, 1.0f);
 	windowDimensions = Dimensions2(width, height);
+
+	setProjection(&windowDimensions);
 }
 
 Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
@@ -18,8 +26,6 @@ Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimen
 	GLFWwindow* window = StartWindow(title, isFullscreen, dimensions);
 
 	windowDimensions = *dimensions;
-	projectionMatrix = glm::ortho(0.0f, static_cast<float>(dimensions->width), 
-		static_cast<float>(dimensions->height), 0.0f, -1.0f, 1.0f);
 
 	InitOpenGL(window);
 	glfwSetFramebufferSizeCallback(window, callback_function);

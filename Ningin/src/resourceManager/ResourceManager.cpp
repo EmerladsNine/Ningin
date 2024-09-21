@@ -47,7 +47,7 @@ void ResourceManager::LoadShaders(vector<ShaderInfo>& info)
 	}
 }
 
-Shader ResourceManager::GetShader(string& name)
+Shader ResourceManager::GetShader(const string& name)
 {
 	auto it = _shaders.find(name);
 	if (it != _shaders.end())
@@ -72,7 +72,7 @@ void ResourceManager::LoadTextures(vector<TextureInfo>& info)
 	}
 }
 
-Texture2D ResourceManager::GetTexture(string& name)
+Texture2D ResourceManager::GetTexture(const string& name)
 {
 	auto it = _textures.find(name);
 	if (it != _textures.end())
@@ -106,7 +106,7 @@ void ResourceManager::LoadFontsFromFolder(const filesystem::path& path)
 	}
 }
 
-Font ResourceManager::GetFont(string& name)
+Font ResourceManager::GetFont(const string& name)
 {
 	auto it = _fonts.find(name);
 	if (it != _fonts.end())

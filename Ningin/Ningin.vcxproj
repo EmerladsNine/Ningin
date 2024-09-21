@@ -41,6 +41,9 @@
     <ClCompile Include="src\resourceManager\font\Font.cpp" />
     <ClCompile Include="src\resourceManager\font\FontInfo.cpp" />
     <ClCompile Include="src\resourceManager\font\FontTexture.cpp" />
+    <ClCompile Include="src\resourceManager\opengl\ubo.cpp" />
+    <ClCompile Include="src\resourceManager\opengl\vao.cpp" />
+    <ClCompile Include="src\resourceManager\opengl\buffer.cpp" />
     <ClCompile Include="src\resourceManager\ResourceManager.cpp" />
     <ClCompile Include="src\Environment.cpp" />
     <ClCompile Include="src\math\Dimensions2.cpp" />
@@ -119,6 +122,9 @@
     <ClInclude Include="src\resourceManager\font\Font.h" />
     <ClInclude Include="src\resourceManager\font\FontInfo.h" />
     <ClInclude Include="src\resourceManager\font\FontTexture.h" />
+    <ClInclude Include="src\resourceManager\opengl\ubo.h" />
+    <ClInclude Include="src\resourceManager\opengl\vao.h" />
+    <ClInclude Include="src\resourceManager\opengl\buffer.h" />
     <ClInclude Include="src\resourceManager\ResourceManager.h" />
     <ClInclude Include="src\Environment.h" />
     <ClInclude Include="src\math\Dimensions2.h" />

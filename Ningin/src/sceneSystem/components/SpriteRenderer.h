@@ -1,8 +1,10 @@
 #pragma once
 
 #include "../../resourceManager/texture/Texture2D.h"
+#include "../../resourceManager/opengl/buffer.h"
 #include "../../resourceManager/shader/Shader.h"
 #include "../../resourceManager/color/Color.h"
+#include "../../resourceManager/opengl/vao.h"
 #include "../../math/Math.h"
 #include "../../Ningin.h"
 #include <unordered_map>
@@ -20,8 +22,8 @@ class SpriteRenderer
 	public:
 		SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor, bool usetint, bool alpha);
 
-		void SetTintingColor(Color& color);
-		void SetUseTint(bool useTint);
+		void SetTintingColor(Color& color, bool use);
+		void SetUseTint(bool useTint, bool use);
 
 		// ToDo further testing and enchancing then linking it to c#
 		void SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
@@ -32,7 +34,6 @@ class SpriteRenderer
 
 	private:
 		void InitializeRenderData();
-		void InitializeVAO();
 		void InitializeVBO();
 
 		void SetDrawingUniforms(Transform& transform);
@@ -49,7 +50,7 @@ class SpriteRenderer
 		Color _tintingColor;
 		Texture2D _texture;
 		bool _userShader;
-		GLuint _quadVAO;
+		VAO _quadVAO;
 		Shader _shader;
 		bool _useTint;
 		bool _alpha;

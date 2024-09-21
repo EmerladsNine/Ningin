@@ -16,6 +16,7 @@ class FontTexture
 
 		GLuint GetTextureArray();
 
+		void Bind();
 		void Unbind();
 
 	private:

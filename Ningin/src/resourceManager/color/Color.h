@@ -13,6 +13,8 @@ class Color
 
 		Color(unsigned int r, unsigned int g, unsigned int b, unsigned int a);
 		Color();
+
+		bool operator==(Color& other);
 };
 
 void ColorFromRGB(unsigned int rgb, Color& out);

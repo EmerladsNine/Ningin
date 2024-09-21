@@ -5,11 +5,12 @@
 
 TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text,
 	uint8_t fontSize, bool useMultiLine) : _shader(resourceManager.GetShader(shaderName)),
-	_font(resourceManager.GetFont(fontName)), _textColor(textColor), _text(text), _fontSize(fontSize),
-	_letterDimensions(fontSize), _baseModel(glm::mat4(1.0f)), _mustCalculate(true),
-	_useMultiLine(useMultiLine), _userShader(shaderName != "text"), _vao(0), _vbo(0)
+	_font(resourceManager.GetFont(fontName)), _text(text), _fontSize(fontSize), _letterDimensions(fontSize),
+	_baseModel(glm::mat4(1.0f)), _mustCalculate(true), _useMultiLine(useMultiLine), _vao(VAO()),
+	_vbo(Buffer()), _userShader(shaderName != "text")
 {
 	SetShaderInitialUniforms();
+	SetTextColor(textColor, false);
 	InitializeRenderData();
 }
 
@@ -20,20 +21,16 @@ void TextRenderer::InitializeRenderData()
 	_shouldCheckWord = true;
 	CalculateTextDimensions();
 	SplitText();
+	CalculateWordsWidth();
 	InitializeShaderInfo();
-	InitializeVao();
 	InitializeVbo();
 	SetupVertexAttrib();
 }
 
 void TextRenderer::SetShaderInitialUniforms()
 {
-	string projectionMatrixName = string("projection");
-	string textSamplerName = string("text");
-
 	_shader.Use();
-	_shader.SetInt(textSamplerName, 0);
-	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
+	_shader.SetInt("text", 0);
 
 	if (_userUniforms.count("init"))
 	{
@@ -48,12 +45,6 @@ void TextRenderer::InitializeShaderInfo()
 	_textAsciiIndices.resize(ARRAY_LIMIT, 0);
 }
 
-void TextRenderer::InitializeVao()
-{
-	glGenVertexArrays(1, &_vao);
-	glBindVertexArray(_vao);
-}
-
 void TextRenderer::InitializeVbo()
 {
 	float vertexData[] = {
@@ -63,9 +54,7 @@ void TextRenderer::InitializeVbo()
 		1.0f, 0.0f,
 	};
 
-	glGenBuffers(1, &_vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
+	_vbo = Buffer(GL_ARRAY_BUFFER, sizeof(vertexData), vertexData, GL_STATIC_DRAW);
 }
 
 void TextRenderer::SetupVertexAttrib()
@@ -86,10 +75,8 @@ void TextRenderer::FreeResources(bool unbindTexture)
 
 void TextRenderer::ConfigureDrawingContext()
 {
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D_ARRAY, _font.GetFontTexture().GetTextureArray());
-	glBindVertexArray(_vao);
-	glBindBuffer(GL_ARRAY_BUFFER, _vbo);
+	_font.GetFontTexture().Bind();
+	_vao.BindVAO();
 }
 
 void TextRenderer::SplitText() {
@@ -101,6 +88,7 @@ void TextRenderer::SplitText() {
 		_words.push_back(word);
 	}
 }
+
 void TextRenderer::IndentNewLine(Vector3* position, float* xOffSet, bool checkWord)
 {
 	position->y += float(_fontCharsMap.at('\n').size.height) * 1.3f * _scale;
@@ -165,7 +153,7 @@ void TextRenderer::Draw(Transform& transform)
 		{
 			float xpos = float(ch.bearing.width) * _scale;
 
-			if (_shouldCheckWord &&_useMultiLine && xOffSet + CalculateWordWidth(_words[wordIndex])
+			if (_shouldCheckWord &&_useMultiLine && xOffSet + _wordsWidth[wordIndex]
 				>= float(windowDimensions.width))
 			{
 				IndentNewLine(&pos, &xOffSet, false);
@@ -192,7 +180,7 @@ void TextRenderer::Draw(Transform& transform)
 	}
 
 	RenderText(workingIndex);
-	FreeResources(true);
+	glBindVertexArray(0);
 }
 
 void TextRenderer::RenderText(int32_t length)
@@ -214,6 +202,22 @@ void TextRenderer::CalculateTextDimensions()
 		* 1.3f * (float(_fontSize) / 256.0f));
 
 	_textDimensions.width = static_cast<unsigned int>(static_cast<uint8_t>(longestLine) * _fontSize);
+}
+
+void TextRenderer::CalculateWordsWidth()
+{
+	for (string word : _words)
+	{
+		int width = 0;
+
+		for (char c : word)
+		{
+			width += (float(_fontCharsMap.at(c).size.width +
+				static_cast<unsigned int>(_fontCharsMap.at(c).advance) >> 6)) * _scale;
+		}
+
+		_wordsWidth.push_back(width);
+	}
 }
 
 pair<vector<vector<char>>, size_t> TextRenderer::GetTextInfo()
@@ -241,9 +245,15 @@ pair<vector<vector<char>>, size_t> TextRenderer::GetTextInfo()
 	return { splitedText, longestLine };
 }
 
-void TextRenderer::SetTextColor(Color& color)
+void TextRenderer::SetTextColor(Color& color, bool use)
 {
+	if (_textColor == color) return;
+
 	_textColor = color;
+
+	if (use) _shader.Use();
+	_shader.SetFloatVec4("TextColor", float(_textColor.r) / 255.0f, float(_textColor.g) / 255.0f,
+		float(_textColor.b / 255.0f), float(_textColor.a / 255.0f));
 }
 
 void TextRenderer::SetText(string& text)
@@ -251,6 +261,7 @@ void TextRenderer::SetText(string& text)
 	this->_text = text;
 	CalculateTextDimensions();
 	SplitText();
+	CalculateWordsWidth();
 	_mustCalculate = true;
 }
 
@@ -258,41 +269,42 @@ void TextRenderer::SetFontSize(uint8_t fontSize)
 {
 	this->_fontSize = fontSize;
 	CalculateTextDimensions();
+	CalculateWordsWidth();
 	_letterDimensions = fontSize;
 	_scale = float(_fontSize) / 256.0f;
 	_mustCalculate = true;
 }
 
+void TextRenderer::SetFont(const string& fontName)
+{
+	try
+	{
+		_font = resourceManager.GetFont(fontName);
+		_fontCharsMap = _font.GetCharMap();
+		SetFontSize(_fontSize);
+	}
+	catch (exception e)
+	{
+		// Todo send warning
+		return;
+	}
+}
+
 void TextRenderer::SetInitDrawingUniforms(Transform& transform)
 {
-	string projectionMatrixName = string("projection");
-	string TextColorName = string("TextColor");
-	string scaleName = string("scale");
-	//string angleName = string("angle");
-
-	_shader.SetMatrix4(projectionMatrixName, projectionMatrix);
-	_shader.SetFloat(scaleName, _scale);
-	//_shader.SetFloat(angleName, DegreesToRadians(transform.rotation.z));
-
 	if (_userUniforms.count("init_drawing"))
 	{
 		_userUniforms["init_drawing"]();
 		return;
 	}
-
-	_shader.SetFloatVec4(TextColorName, float(_textColor.r) / 255.0f, float(_textColor.g) / 255.0f,
-		float(_textColor.b / 255.0f), float(_textColor.a / 255.0f));
 }
 
 void TextRenderer::SetDrawingUniforms(int32_t length)
-{
-	string transformsName = string("Transforms");
-	//string lettersPositionsName = string("lettersPositions");
-	string charsMapName = string("CharsMap");
+{	//string lettersPositionsName = string("lettersPositions");
 
-	_shader.SetMatrix4WithLength(transformsName, length, _transforms);
+	_shader.SetMatrix4WithLength("Transforms", length, _transforms);
 	//_shader.SetFloatVec2WithLength(lettersPositionsName, length, _lettersPositions);
-	_shader.SetIntWithLength(charsMapName, length, _textAsciiIndices);
+	_shader.SetIntWithLength("CharsMap", length, _textAsciiIndices);
 
 	if (_userUniforms.count("drawing"))
 	{
@@ -303,7 +315,6 @@ void TextRenderer::SetDrawingUniforms(int32_t length)
 glm::mat4 TextRenderer::ComputeLetterTransform(float xOffSet, float xpos, float ypos, float scale)
 {
 	glm::mat4 letterModel = _baseModel;
-	//glm::mat4 letterModel = glm::mat4(1.0);
 
 	letterModel = glm::translate(letterModel, glm::vec3(xOffSet + xpos, ypos, 0.0f));
 	letterModel = glm::scale(letterModel, glm::vec3(scale, scale, 1.0f));
@@ -324,9 +335,7 @@ void TextRenderer::ComputeTextTransform(Transform& transform)
 
 	_baseModel = glm::translate(_baseModel, glm::vec3(-textCenter.x, -textCenter.y, 0.0f));
 
-	string baseModelName = string("baseModel");
-
-	_shader.SetMatrix4(baseModelName, _baseModel);
+	_shader.SetMatrix4("baseModel", _baseModel);
 	_mustCalculate = false;
 }
 
@@ -378,7 +387,7 @@ void TextRenderer::System(EntityManager* entityManager)
 
 void TextSetTextColor(TextRenderer& textRenderer, Color& color)
 {
-	textRenderer.SetTextColor(color);
+	textRenderer.SetTextColor(color, true);
 }
 
 void TextSetText(TextRenderer& textRenderer, string& text)
@@ -389,4 +398,9 @@ void TextSetText(TextRenderer& textRenderer, string& text)
 void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize)
 {
 	textRenderer.SetFontSize(fontSize);
+}
+
+void SetFont(TextRenderer& textRenderer, const string& fontName)
+{
+	textRenderer.SetFont(fontName);
 }
