@@ -11,7 +11,7 @@ FT_Library ftLibrary;
 
 UBO projectionUBO = UBO();
 
-const int ARRAY_LIMIT = 100;
+int ARRAY_LIMIT;
 const int ATLAS_LIMIT = 256;
 
 const Range AnimationTimeRange(0.05f, 20.0f);
@@ -24,6 +24,8 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode)
 {
 	NewWindow(gameName, windowOptions, -1, dimensions); // Create new window with no scene
+
+	glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &ARRAY_LIMIT);
 
 	InitFreetype();
 	InitGl2d(dimensions);

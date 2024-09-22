@@ -44,8 +44,8 @@ void TextRenderer::SetShaderInitialUniforms()
 
 void TextRenderer::InitializeShaderInfo()
 {
-	_lettersPositions.resize(ARRAY_LIMIT, glm::vec2(0, 0));
-	_textAsciiIndices.resize(ARRAY_LIMIT, 0);
+	_lettersPositions.resize(ARRAY_LIMIT / sizeof(glm::mat4), glm::vec2(0, 0));
+	_textAsciiIndices.resize(ARRAY_LIMIT / sizeof(glm::mat4), 0);
 }
 
 void TextRenderer::InitializeVbo()

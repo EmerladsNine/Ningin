@@ -1,5 +1,3 @@
-#version 330 core
-
 in vec2 TexCoords; // Texture coordinates passed from the vertex shader
 out vec4 FragColor; // Final color output of the fragment shader.
 

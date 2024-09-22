@@ -1,4 +1,3 @@
-#version 330 core
 layout (location = 0) in vec2 vertex; // <vec2 pos>
 
 out VS_OUT {
@@ -11,9 +10,9 @@ layout (std140) uniform Matrix
     mat4 projection;
 };
 
-// uniform mat4 Transforms[100];
+// uniform mat4 Transforms[MAX_MATRICES];
 
-uniform vec2 lettersPositions[100];
+uniform vec2 lettersPositions[MAX_MATRICES];
 uniform mat4 baseModel;
 uniform float scale;
 

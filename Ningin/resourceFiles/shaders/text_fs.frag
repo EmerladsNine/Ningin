@@ -1,5 +1,3 @@
-#version 330 core
-
 out vec4 color;
 
 in VS_OUT {
@@ -8,7 +6,7 @@ in VS_OUT {
 }data_in;
 
 uniform sampler2DArray text;
-uniform int charsMap[100];
+uniform int charsMap[MAX_MATRICES];
 uniform vec4 TextColor;
 
 void main()

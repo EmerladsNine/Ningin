@@ -23,7 +23,7 @@ extern FT_Library ftLibrary;
 
 extern UBO projectionUBO;
 
-extern const int ARRAY_LIMIT;
+extern int ARRAY_LIMIT;
 extern const int ATLAS_LIMIT;
 
 extern const Range AnimationTimeRange;

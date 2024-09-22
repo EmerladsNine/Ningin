@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include <iostream>
+#include "../../ningin.h"
 
 Shader::Shader(const filesystem::path vertexPath, const filesystem::path fragmentPath,
 	const filesystem::path* geometryPath)
@@ -108,8 +109,10 @@ void Shader::CheckExtensions()
 
 void Shader::LoadShaders()
 {
-	_code["vertex"] = LoadShader(_paths["vertex"]);
-	_code["fragment"] = LoadShader(_paths["fragment"]);
+	_code["vertex"] = format("#version 330 core\n\n#define MAX_MATRICES {}\n\n{}",
+		ARRAY_LIMIT/64, LoadShader(_paths["vertex"]));
+	_code["fragment"] = format("#version 330 core\n\n#define MAX_MATRICES {}\n\n{}",
+		ARRAY_LIMIT/64, LoadShader(_paths["fragment"]));
 
 	if (_hasGeometry)
 		_code["geometry"] = LoadShader(_paths["geometry"]);
