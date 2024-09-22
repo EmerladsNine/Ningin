@@ -15,7 +15,7 @@ layout (std140) uniform Matrix
 
 uniform vec2 LetterPositions[100];
 uniform mat4 baseModel;
-uniform floar scale;
+uniform float scale;
 
 void main()
 {
