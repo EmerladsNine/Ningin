@@ -12,7 +12,8 @@ layout (std140) uniform Matrix
 };
 
 // uniform mat4 Transforms[100];
-uniform mat4 LetterPositions[100];
+
+uniform vec2 LetterPositions[100];
 uniform mat4 baseModel;
 uniform floar scale;
 
