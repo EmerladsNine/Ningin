@@ -10,5 +10,11 @@
             this.y = y;
             this.z = z;
         }
+
+        public override string ToString()
+        {
+            InternalCalls.MonoMask3ToString(ref this, out string result);
+            return result;
+        }
     }
 }

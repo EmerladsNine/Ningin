@@ -1,8 +1,17 @@
 #pragma once
 
-#include "../../../utils/Debug.h"
+#include "../../../math/Dimensions3.h"
+#include "../../../math/Dimensions2.h"
 #include "../../../math/vector2.h"
-#include "../../../math/vector3.h"
+#include "../../../math/Vector3.h"
+#include "../../../math/Range.h"
+#include "../../../math/Math.h"
+#include "../../../physicsManager/colliders/Point.h"
+#include "../../../physicsManager/Mask2.h"
+#include "../../../physicsManager/Mask3.h"
+#include "../../../sceneSystem/components/Transform.h"
+#include "../../../resourceManager/color/Color.h"
+#include "../../../utils/Debug.h"
 #include "../../ScriptingEngine.h"
 #include <mono/jit/jit.h>
 
@@ -20,4 +29,36 @@
 
 #pragma region Vector3
 	void MonoVector3ToString(Vector3& vec, MonoString** out);
+#pragma endregion
+
+#pragma region Dimensions2
+    void MonoDimensions2ToString(Dimensions2& dimensions, MonoString** out);
+#pragma endregion
+
+#pragma region Dimensions3
+    void MonoDimensions3ToString(Dimensions3& dimensions, MonoString** out);
+#pragma endregion
+
+#pragma region Range
+    void MonoRangeToString(Range& range, MonoString** out);
+#pragma endregion
+
+#pragma region Mask2
+    void MonoMask2ToString(Mask2& mask, MonoString** out);
+#pragma endregion
+
+#pragma region Mask3
+    void MonoMask3ToString(Mask3& mask, MonoString** out);
+#pragma endregion
+
+#pragma region Point
+	void MonoPointToString(Point& point, MonoString** out);
+#pragma endregion
+
+#pragma region Transform
+	void MonoTransformToString(Transform& transform, MonoString** out);
+#pragma endregion
+
+#pragma region Color
+	void MonoColorToString(Color& color, MonoString** out);
 #pragma endregion

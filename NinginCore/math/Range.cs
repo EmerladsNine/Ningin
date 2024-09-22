@@ -49,5 +49,12 @@ namespace NinginCore
             Range<float> range = new Range<float>((float)(object)min, (float)(object)max);
             return (double)InternalCalls.RangeBoundValue(ref range, (float)value);
         }
+
+        public override string ToString()
+        {
+            Range<float> range = new Range<float>((float)(object)min, (float)(object)max);
+            InternalCalls.MonoRangeToString(ref range, out string result);
+            return result;
+        }
     }
 }

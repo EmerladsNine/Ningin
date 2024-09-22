@@ -47,5 +47,11 @@
             InternalCalls.ColorFromColor(ref color, a, out Color result);
             return result;
         }
+
+        public override string ToString()
+        {
+            InternalCalls.MonoColorToString(ref this, out string result);
+            return result;
+        }
     }
 }

@@ -393,7 +393,7 @@ void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize)
 	textRenderer.SetFontSize(fontSize, true);
 }
 
-void SetFont(TextRenderer& textRenderer, const string& fontName)
+void TextSetFont(TextRenderer& textRenderer, const string& fontName)
 {
 	textRenderer.SetFont(fontName);
 }

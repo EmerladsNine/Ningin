@@ -43,5 +43,11 @@
                 InternalCalls.TransformSetPosition(ref this, ref value);
             }
         }
+
+        public override string ToString()
+        {
+            InternalCalls.MonoTransformToString(ref this, out string result);
+            return result;
+        }
     }
 }

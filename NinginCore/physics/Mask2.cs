@@ -9,5 +9,11 @@
             this.x = x;
             this.y = y;
         }
+
+        public override string ToString()
+        {
+            InternalCalls.MonoMask2ToString(ref this, out string result);
+            return result;
+        }
     }
 }

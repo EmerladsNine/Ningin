@@ -87,4 +87,4 @@ class TextRenderer
 void TextSetTextColor(TextRenderer& textRenderer, Color& color);
 void TextSetText(TextRenderer& textRenderer, string& text);
 void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize);
-void SetFont(TextRenderer& textRenderer, const string& fontName);
+void TextSetFont(TextRenderer& textRenderer, const string& fontName);

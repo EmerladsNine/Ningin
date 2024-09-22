@@ -83,30 +83,30 @@ void AddInternalCalls()
     #pragma endregion
 
     #pragma region Dimensions2
-        //AddInternalCall(Dimensions2ToString);
+        AddInternalCall(MonoDimensions2ToString);
     #pragma endregion
 
     #pragma region Dimensions3
-        //AddInternalCall(Dimensions3ToString);
+        AddInternalCall(MonoDimensions3ToString);
     #pragma endregion
 
     #pragma region Range
-        AddInternalCall(RangeToString);
+        AddInternalCall(MonoRangeToString);
         AddInternalCall(RangeBoundValue);
     #pragma endregion
 
     #pragma region Mask2
-        //AddInternalCall(Mask2ToString);
+        AddInternalCall(MonoMask2ToString);
     #pragma endregion
 
     #pragma region Mask3
-        //AddInternalCall(Mask3ToString);
+        AddInternalCall(MonoMask3ToString);
     #pragma endregion
 
     #pragma region Point
         AddInternalCall(PointFromVector2);
         AddInternalCall(PointFromVector3);
-        //AddInternalCall(PointToString);
+        AddInternalCall(MonoPointToString);
     #pragma endregion
 
     #pragma region Transform
@@ -116,7 +116,7 @@ void AddInternalCalls()
         AddInternalCall(TransformSetRotation);
         AddInternalCall(TransformGetScale);
         AddInternalCall(TransformSetScale);
-        //AddInternalCall(TransformToString);
+        AddInternalCall(MonoTransformToString);
     #pragma endregion
 
     #pragma region SpriteRenderer
@@ -126,6 +126,7 @@ void AddInternalCalls()
 
     #pragma region TextRenderer
         AddInternalCall(TextSetFontSize);
+        AddInternalCall(TextSetFont);
         AddInternalCall(TextSetText);
         AddInternalCall(TextSetTextColor);
     #pragma endregion
@@ -135,7 +136,7 @@ void AddInternalCalls()
         AddInternalCall(ColorFromRGBA);
         AddInternalCall(ColorFromColor);
         AddInternalCall(ColorSetAlpha);
-        //AddInternalCall(ColorToString);
+        AddInternalCall(MonoColorToString);
     #pragma endregion
 
     #pragma region Debug

@@ -21,5 +21,11 @@
             InternalCalls.PointFromVector3(ref vec, out Point result);
             return result;
         }
+
+        public override string ToString()
+        {
+            InternalCalls.MonoPointToString(ref this, out string result);
+            return result;
+        }
     }
 }

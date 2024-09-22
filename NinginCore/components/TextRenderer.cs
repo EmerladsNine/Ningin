@@ -16,5 +16,10 @@
         {
             InternalCalls.TextSetFontSize(ref this, fontSize);
         }
+
+        void SetFont(string fontName)
+        {
+            InternalCalls.TextSetFont(ref this, ref fontName);
+        }
     }
 }

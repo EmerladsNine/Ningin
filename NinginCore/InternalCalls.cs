@@ -1,6 +1,4 @@
-﻿using System.Drawing;
-using System.Runtime.CompilerServices;
-using static System.Net.Mime.MediaTypeNames;
+﻿using System.Runtime.CompilerServices;
 
 namespace NinginCore
 {
@@ -138,15 +136,13 @@ namespace NinginCore
         #endregion
 
         #region Dimensions2
-        // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Dimensions2ToString();
+        internal static extern void MonoDimensions2ToString(ref Dimensions2 dimensions, out string str);
         #endregion
 
         #region Dimensions3
-        // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Dimensions3ToString();
+        internal static extern void MonoDimensions3ToString(ref Dimensions3 dimensions, out string str);
         #endregion
 
         #region Debug
@@ -159,29 +155,23 @@ namespace NinginCore
         #endregion
 
         #region Point
-        // Todo To String
-        [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void PointToString();
-
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void PointFromVector2(ref Vector2 self, out Point result);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void PointFromVector3(ref Vector3 self, out Point result);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void MonoPointToString(ref Point point, out string str);
         #endregion
 
         #region Mask2
-
-        // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Mask2ToString();
+        internal static extern void MonoMask2ToString(ref Mask2 mask, out string str);
         #endregion
 
         #region Mask3
-
-        // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void Mask3ToString();
+        internal static extern void MonoMask3ToString(ref Mask3 mask, out string str);
         #endregion
 
         #region Range
@@ -190,7 +180,7 @@ namespace NinginCore
 
         // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void RangeToString();
+        internal static extern void MonoRangeToString(ref Range<float> range, out string str);
         #endregion
 
         #region Transform
@@ -207,9 +197,8 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void TransformGetScale(ref Transform transform, out Vector3 result);
 
-        // Todo To String
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TransformToString();
+        internal static extern void MonoTransformToString(ref Transform transform, out string str);
         #endregion
 
         #region TextRenderer
@@ -219,6 +208,8 @@ namespace NinginCore
         internal static extern void TextSetText(ref TextRenderer textRenderer, ref string text);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void TextSetFontSize(ref TextRenderer textRenderer, uint fontSize);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void TextSetFont(ref TextRenderer textRenderer, ref string fontName);
         #endregion
 
         #region SpriteRenderer
@@ -238,7 +229,7 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void ColorSetAlpha(ref Color color, uint a);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void ColorToString(ref Color color, out string result);
+        internal static extern void MonoColorToString(ref Color color, out string str);
         #endregion
     }
 }
