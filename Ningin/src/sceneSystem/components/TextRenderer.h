@@ -39,7 +39,7 @@ class TextRenderer
 		void Draw(Transform& transform);
 
 	private:
-		void InitializeRenderData();
+		void InitializeRenderData(Color& color, uint8_t fontSize);
 		void InitializeShaderInfo();
 		void InitializeVbo();
 
@@ -50,8 +50,7 @@ class TextRenderer
 		void SetupVertexAttrib();
 
 		void FreeResources(bool unbindTexture);
-
-		glm::mat4 ComputeLetterTransform(float xOffSet, float xpos, float ypos, float scale);
+		
 		pair<vector<vector<char>>, size_t> GetTextInfo();
 		void ComputeTextTransform(Transform& transform);
 		float CalculateWordWidth(string& word);
@@ -64,12 +63,10 @@ class TextRenderer
 		void RenderText(int32_t length);
 
 		unordered_map<string, function<void()>> _userUniforms;
-		//vector<glm::mat4> _transforms;
 		vector<glm::vec2> _lettersPositions;
 		vector<int32_t> _textAsciiIndices;
 		unordered_map<GLchar, Character> _fontCharsMap;
 		Dimensions2 _textDimensions;
-		float _letterDimensions;
 		glm::mat4 _baseModel;
 		bool _mustCalculate;
 		bool _useMultiLine;

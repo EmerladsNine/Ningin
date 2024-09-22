@@ -5,26 +5,30 @@
 
 TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text,
 	uint8_t fontSize, bool useMultiLine) : _shader(resourceManager.GetShader(shaderName)),
-	_font(resourceManager.GetFont(fontName)), _text(text), _fontSize(fontSize), _letterDimensions(fontSize),
-	_baseModel(glm::mat4(1.0f)), _mustCalculate(true), _useMultiLine(useMultiLine), _vao(VAO()),
-	_vbo(Buffer()), _userShader(shaderName != "text")
+	_font(resourceManager.GetFont(fontName)), _text(text), _baseModel(glm::mat4(1.0f)), _vbo(Buffer()),
+	_vao(VAO()), _mustCalculate(true), _useMultiLine(useMultiLine), _userShader(shaderName != "text")
 {
 	SetShaderInitialUniforms();
-	SetTextColor(textColor, false);
-	InitializeRenderData();
+	InitializeRenderData(textColor, fontSize);
 }
 
-void TextRenderer::InitializeRenderData()
+void TextRenderer::InitializeRenderData(Color& color, uint8_t fontSize)
 {
+	SetTextColor(color, false);
+
 	_fontCharsMap = _font.GetCharMap();
-	_shouldCheckWord = true;
-	SetFontSize(_fontSize, false);
+	SetFontSize(fontSize, false);
+
 	CalculateTextDimensions();
 	SplitText();
 	CalculateWordsWidth();
+
 	InitializeShaderInfo();
+
 	InitializeVbo();
 	SetupVertexAttrib();
+
+	_shouldCheckWord = true;
 }
 
 void TextRenderer::SetShaderInitialUniforms()
@@ -40,7 +44,6 @@ void TextRenderer::SetShaderInitialUniforms()
 
 void TextRenderer::InitializeShaderInfo()
 {
-	//_transforms.resize(ARRAY_LIMIT, glm::mat4(1.0f));
 	_lettersPositions.resize(ARRAY_LIMIT, glm::vec2(0, 0));
 	_textAsciiIndices.resize(ARRAY_LIMIT, 0);
 }
@@ -161,7 +164,6 @@ void TextRenderer::Draw(Transform& transform)
 
 			float ypos = pos.y + (hBearing - float(ch.bearing.height)) * _scale;
 
-			//_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
 			_lettersPositions[workingIndex] = glm::vec2(xOffSet + xpos, ypos);
 			_textAsciiIndices[workingIndex] = ch.asciiIndex;
 
@@ -194,7 +196,6 @@ void TextRenderer::RenderText(int32_t length)
 
 void TextRenderer::CalculateTextDimensions()
 {
-
 	auto [splitedText, longestLine] = GetTextInfo();
 
 	_textDimensions.height = static_cast<unsigned int>(float(splitedText.size())
@@ -267,12 +268,15 @@ void TextRenderer::SetText(string& text)
 
 void TextRenderer::SetFontSize(uint8_t fontSize, bool use)
 {
-	this->_fontSize = fontSize;
+	if (_fontSize == fontSize) return;
+
+	_fontSize = fontSize;
+	_scale = float(_fontSize) / 256.0f;
+
 	CalculateTextDimensions();
 	CalculateWordsWidth();
-	_letterDimensions = fontSize;
-	_scale = float(_fontSize) / 256.0f;
-	_shader.SetFloat("scale", _scale);
+
+	_shader.SetFloat("scale", fontSize);
 	_mustCalculate = true;
 }
 
@@ -302,25 +306,13 @@ void TextRenderer::SetInitDrawingUniforms(Transform& transform)
 
 void TextRenderer::SetDrawingUniforms(int32_t length)
 {
-
-	//_shader.SetMatrix4WithLength("Transforms", length, _transforms);
 	_shader.SetFloatVec2WithLength("lettersPositions", length, _lettersPositions);
-	_shader.SetIntWithLength("CharsMap", length, _textAsciiIndices);
+	_shader.SetIntWithLength("charsMap", length, _textAsciiIndices);
 
 	if (_userUniforms.count("drawing"))
 	{
 		_userUniforms["drawing"]();
 	}
-}
-
-glm::mat4 TextRenderer::ComputeLetterTransform(float xOffSet, float xpos, float ypos, float scale)
-{
-	glm::mat4 letterModel = _baseModel;
-
-	letterModel = glm::translate(letterModel, glm::vec3(xOffSet + xpos, ypos, 0.0f));
-	letterModel = glm::scale(letterModel, glm::vec3(scale, scale, 1.0f));
-
-	return letterModel;
 }
 
 void TextRenderer::ComputeTextTransform(Transform& transform)
