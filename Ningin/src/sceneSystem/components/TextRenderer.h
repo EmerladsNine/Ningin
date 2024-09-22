@@ -27,7 +27,7 @@ class TextRenderer
 			bool useMultiLine);
 
 		void SetTextColor(Color& color, bool use);
-		void SetFontSize(uint8_t fontSize);
+		void SetFontSize(uint8_t fontSize, bool use);
 		void SetFont(const string& fontName);
 		void SetText(string& text);
 
@@ -64,8 +64,8 @@ class TextRenderer
 		void RenderText(int32_t length);
 
 		unordered_map<string, function<void()>> _userUniforms;
-		vector<glm::mat4> _transforms;
-		//vector<glm::vec2> _lettersPositions;
+		//vector<glm::mat4> _transforms;
+		vector<glm::vec2> _lettersPositions;
 		vector<int32_t> _textAsciiIndices;
 		unordered_map<GLchar, Character> _fontCharsMap;
 		Dimensions2 _textDimensions;

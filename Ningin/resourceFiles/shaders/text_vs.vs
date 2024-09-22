@@ -11,11 +11,18 @@ layout (std140) uniform Matrix
     mat4 projection;
 };
 
-uniform mat4 Transforms[100];
+// uniform mat4 Transforms[100];
+uniform mat4 LetterPositions[100];
+uniform mat4 baseModel;
+uniform floar scale;
 
 void main()
 {
-    gl_Position = projection  * Transforms[gl_InstanceID] * vec4(vertex.xy, 0.0, 1.0);
+    mat4 letterModel = baseModel;
+
+    // do operations 
+
+    gl_Position = projection  * letterModel * vec4(vertex.xy, 0.0, 1.0);
     data.index = gl_InstanceID;
     data.TexCoords = vertex.xy;
 }

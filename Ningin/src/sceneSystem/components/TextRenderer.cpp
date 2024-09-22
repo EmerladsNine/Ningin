@@ -17,8 +17,8 @@ TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColo
 void TextRenderer::InitializeRenderData()
 {
 	_fontCharsMap = _font.GetCharMap();
-	_scale = float(_fontSize) / 256.0f;
 	_shouldCheckWord = true;
+	SetFontSize(_fontSize, false);
 	CalculateTextDimensions();
 	SplitText();
 	CalculateWordsWidth();
@@ -40,8 +40,8 @@ void TextRenderer::SetShaderInitialUniforms()
 
 void TextRenderer::InitializeShaderInfo()
 {
-	_transforms.resize(ARRAY_LIMIT, glm::mat4(1.0f));
-	//_lettersPositions.resize(ARRAY_LIMIT, glm::vec2(0, 0));
+	//_transforms.resize(ARRAY_LIMIT, glm::mat4(1.0f));
+	_lettersPositions.resize(ARRAY_LIMIT, glm::vec2(0, 0));
 	_textAsciiIndices.resize(ARRAY_LIMIT, 0);
 }
 
@@ -161,8 +161,8 @@ void TextRenderer::Draw(Transform& transform)
 
 			float ypos = pos.y + (hBearing - float(ch.bearing.height)) * _scale;
 
-			_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
-			//_lettersPositions[workingIndex] = glm::vec2(xOffSet + xpos, ypos);
+			//_transforms[workingIndex] = ComputeLetterTransform(xOffSet, xpos, ypos, _letterDimensions);
+			_lettersPositions[workingIndex] = glm::vec2(xOffSet + xpos, ypos);
 			_textAsciiIndices[workingIndex] = ch.asciiIndex;
 
 			if (workingIndex == ARRAY_LIMIT - 1)
@@ -265,13 +265,14 @@ void TextRenderer::SetText(string& text)
 	_mustCalculate = true;
 }
 
-void TextRenderer::SetFontSize(uint8_t fontSize)
+void TextRenderer::SetFontSize(uint8_t fontSize, bool use)
 {
 	this->_fontSize = fontSize;
 	CalculateTextDimensions();
 	CalculateWordsWidth();
 	_letterDimensions = fontSize;
 	_scale = float(_fontSize) / 256.0f;
+	_shader.SetFloat("scale", _scale);
 	_mustCalculate = true;
 }
 
@@ -281,7 +282,7 @@ void TextRenderer::SetFont(const string& fontName)
 	{
 		_font = resourceManager.GetFont(fontName);
 		_fontCharsMap = _font.GetCharMap();
-		SetFontSize(_fontSize);
+		SetFontSize(_fontSize, true);
 	}
 	catch (exception e)
 	{
@@ -300,10 +301,10 @@ void TextRenderer::SetInitDrawingUniforms(Transform& transform)
 }
 
 void TextRenderer::SetDrawingUniforms(int32_t length)
-{	//string lettersPositionsName = string("lettersPositions");
+{
 
-	_shader.SetMatrix4WithLength("Transforms", length, _transforms);
-	//_shader.SetFloatVec2WithLength(lettersPositionsName, length, _lettersPositions);
+	//_shader.SetMatrix4WithLength("Transforms", length, _transforms);
+	_shader.SetFloatVec2WithLength("lettersPositions", length, _lettersPositions);
 	_shader.SetIntWithLength("CharsMap", length, _textAsciiIndices);
 
 	if (_userUniforms.count("drawing"))
@@ -397,7 +398,7 @@ void TextSetText(TextRenderer& textRenderer, string& text)
 
 void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize)
 {
-	textRenderer.SetFontSize(fontSize);
+	textRenderer.SetFontSize(fontSize, true);
 }
 
 void SetFont(TextRenderer& textRenderer, const string& fontName)
