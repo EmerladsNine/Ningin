@@ -37,7 +37,7 @@ class SpriteRenderer
 		void InitializeVBO();
 
 		void SetDrawingUniforms(Transform& transform);
-		void SetShaderInitialUniforms();
+		void SetShaderInitialUniforms(Color& color, bool useTint);
 
 		void SetupVertexAttrib();
 

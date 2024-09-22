@@ -5,9 +5,7 @@ SpriteRenderer::SpriteRenderer(string& textureName, string& shaderName, Color& t
 	_quadVAO(VAO()), _texture(resourceManager.GetTexture(textureName)), _userShader(shaderName != "sprite")
 {
 	InitializeRenderData();
-	SetShaderInitialUniforms();
-	SetTintingColor(tintingColor, false);
-	SetUseTint(useTint, false);
+	SetShaderInitialUniforms(tintingColor, useTint);
 }
 
 void SpriteRenderer::InitializeRenderData()
@@ -37,10 +35,12 @@ void SpriteRenderer::FreeInitializationResources()
 	glBindVertexArray(0);
 }
 
-void SpriteRenderer::SetShaderInitialUniforms()
+void SpriteRenderer::SetShaderInitialUniforms(Color& color, bool useTint)
 {
 	_shader.Use();
-	_shader.SetInt("sprite", 0);
+
+	SetTintingColor(color, false);
+	SetUseTint(useTint, false);
 
 	if (_userUniforms.find("init") != _userUniforms.end())
 	{

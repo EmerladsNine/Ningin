@@ -8,16 +8,14 @@ TextRenderer::TextRenderer(string& fontName, string& shaderName, Color& textColo
 	_font(resourceManager.GetFont(fontName)), _text(text), _baseModel(glm::mat4(1.0f)), _vbo(Buffer()),
 	_vao(VAO()), _mustCalculate(true), _useMultiLine(useMultiLine), _userShader(shaderName != "text")
 {
-	SetShaderInitialUniforms();
 	InitializeRenderData(textColor, fontSize);
 }
 
 void TextRenderer::InitializeRenderData(Color& color, uint8_t fontSize)
 {
-	SetTextColor(color, false);
-
 	_fontCharsMap = _font.GetCharMap();
-	SetFontSize(fontSize, false);
+
+	SetShaderInitialUniforms(color, fontSize);
 
 	CalculateTextDimensions();
 	SplitText();
@@ -31,10 +29,12 @@ void TextRenderer::InitializeRenderData(Color& color, uint8_t fontSize)
 	_shouldCheckWord = true;
 }
 
-void TextRenderer::SetShaderInitialUniforms()
+void TextRenderer::SetShaderInitialUniforms(Color& color, uint8_t fontSize)
 {
 	_shader.Use();
-	_shader.SetInt("text", 0);
+
+	SetTextColor(color, false);
+	SetFontSize(fontSize, false);
 
 	if (_userUniforms.count("init"))
 	{

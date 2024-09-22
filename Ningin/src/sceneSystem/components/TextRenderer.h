@@ -44,7 +44,7 @@ class TextRenderer
 		void InitializeVbo();
 
 		void SetDrawingUniforms(int32_t length);
-		void SetShaderInitialUniforms();
+		void SetShaderInitialUniforms(Color& color, uint8_t fontSize);
 		void SetInitDrawingUniforms(Transform& transform);
 
 		void SetupVertexAttrib();
