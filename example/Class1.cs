@@ -3,7 +3,7 @@ using NinginCore;
 
 namespace example
 {
-    public class Class1
+    public class Class1 : Entity
     {
         void Start()
         {
@@ -11,6 +11,7 @@ namespace example
             var v2 = vec.Abs();
             Debug.LogInfo("Hi C#");
             Debug.LogInfo(v2.ToString());
+            Debug.LogInfo(entityId.ToString());
             throw new Exception("Testing EXCEPTIONS !!");
         }
         // bool is_updated = false;
@@ -21,6 +22,7 @@ namespace example
             time += deltatime;
             if (time >= nextsecond)
             {
+                transform.Position += new Vector3(40, 50, 0);
                 Console.WriteLine(nextsecond);
                 nextsecond++;
             }

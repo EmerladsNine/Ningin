@@ -17,7 +17,7 @@ const int ATLAS_LIMIT = 256;
 const Range AnimationTimeRange(0.05f, 20.0f);
 const Range colorRange(0, 255);
 
-vector<Window> Game::openedWindows;
+std::optional<Window> Game::openedWindow;
 SceneLoader Game::sceneLoader;
 
 void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
@@ -41,7 +41,10 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	}
 	
 	//Initialise first window scene manager
-	openedWindows[0].sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
+	if(openedWindow.has_value())
+	{
+		openedWindow.value().sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
+	}
 }
 
 void Game::Start()
@@ -49,7 +52,7 @@ void Game::Start()
 	Game::MainLoop();
 }
 
-size_t Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t sceneId,
+void Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t sceneId,
 	Dimensions2* dimensions)
 {
 	switch (windowOptions)
@@ -57,19 +60,17 @@ size_t Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t 
 		case NoWindow: break;
 
 		case FullScreen:
-			openedWindows.push_back(Window(windowName, true, sceneLoader.GetSceneFromId(sceneId),
-				dimensions));
+			openedWindow = Window(windowName, true, sceneLoader.GetSceneFromId(sceneId),
+				dimensions);
 			break;
 
 		case Windowed:
-			openedWindows.push_back(Window(windowName, false, sceneLoader.GetSceneFromId(sceneId),
-				dimensions));
+			openedWindow = Window(windowName, false, sceneLoader.GetSceneFromId(sceneId),
+				dimensions);
 			break;
 
 		default: break;
 	}
-
-	return openedWindows.size() - 1;
 }
 
 void Game::InitFreetype()
@@ -130,31 +131,19 @@ void Game::MainLoop()
 		glClearColor(0.3f, 0.2f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		vector<size_t> windowIndicesToDelete;
-
-		size_t index = 0;
-
-		for (auto& win : openedWindows)
+		if(openedWindow.has_value())
 		{
 			
-			if (!glfwWindowShouldClose(win.glfwWin)) win.sceneManager.NewFrame(timer);
-			else windowIndicesToDelete.push_back(index);
-			
-			glfwSwapBuffers(win.glfwWin);
+			if (!glfwWindowShouldClose(openedWindow.value().glfwWin)) openedWindow.value().sceneManager.NewFrame(timer);
+			else 
+			{
+				glfwDestroyWindow(openedWindow.value().glfwWin);
+				break;
+			}
 
-			index++;
+			glfwSwapBuffers(openedWindow.value().glfwWin);
+
 		}
-
-		sort(windowIndicesToDelete.rbegin(), windowIndicesToDelete.rend());
-
-		// Remove elements in descending order to avoid invalidating indices
-		for (size_t index : windowIndicesToDelete) {
-			glfwDestroyWindow(openedWindows[index].glfwWin);
-			openedWindows.erase(openedWindows.begin() + index);
-		}
-
-		if (openedWindows.size() == 0)
-			break;
 
 		timer.ResetDeltaTime();
 	}

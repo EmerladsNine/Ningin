@@ -13,6 +13,7 @@
 #include <glm.hpp>
 #include <string>
 #include <vector>
+#include <optional>
 
 using namespace std;
 
@@ -32,13 +33,13 @@ extern const Range colorRange;
 class Game
 {
 	public:
-		static vector<Window> openedWindows;
+		static std::optional<Window> openedWindow;
 		static SceneLoader sceneLoader;
 
 		static void Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
 			vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode);
 		static void Start();
-		static size_t NewWindow(string windowName, WindowOptions windowOptions,
+		static void NewWindow(string windowName, WindowOptions windowOptions,
 			uint16_t sceneId, Dimensions2* dimensions);
 
 	private:

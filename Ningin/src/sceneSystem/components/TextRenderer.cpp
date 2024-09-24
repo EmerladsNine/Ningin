@@ -340,10 +340,10 @@ void TextRenderer::SetUserUniforms(function<void()> initFunc, function<void()> i
 	_userUniforms["drawing"] = drawingFunc;
 }
 
-void TextRenderer::System(EntityManager* entityManager) 
+void TextRenderer::System() 
 {
-	auto& transformArchetypeMap = entityManager->archetypeManager.componentIndex[typeid(Transform)];
-	for (auto& TextArchetype : entityManager->archetypeManager.componentIndex[typeid(TextRenderer)])
+	auto& transformArchetypeMap = EntityManager::archetypeManager.componentIndex[typeid(Transform)];
+	for (auto& TextArchetype : EntityManager::archetypeManager.componentIndex[typeid(TextRenderer)])
 	{
 		auto it = transformArchetypeMap.find(TextArchetype.first);
 

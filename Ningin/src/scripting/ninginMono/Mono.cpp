@@ -47,6 +47,7 @@ void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 		throw runtime_error("failed to init mono, couldn't get root domain");
 	}
 
+
 	//Initialise for debugging.
 	if (loadPDB)
 	{
@@ -71,6 +72,8 @@ void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 
     //Load Needed Assemblies.
 	ninginAssembly = LoadAssembly(NINGIN_ASSEMBLY_NAME, loadPDB);
+	entityClass = LoadClass("NinginCore.Entity", ninginAssembly);
+	entityConstructor = GetMethod(entityClass, ".ctor", 1);
 	gameAssembly = LoadAssembly(gameAssemblyFileName, loadPDB);
 }
 
@@ -138,28 +141,45 @@ MonoAssembly* Mono::LoadAssembly(string fileName, bool loadPDB)
 	return assembly;
 }
 
-Script* Mono::GetScript(string scritpName)
+Script* Mono::GetScript(EntityId entityId, string scritpName)
 {
 	auto it = loadedClasses.find(scritpName);
 	if (it != loadedClasses.end())
 	{
-		return BuildScript(&it->second);
+		return BuildScript(entityId,&it->second);
 	}
 	else
 	{
 		//Script is not loaded.
-		ScriptClass* scriptClass = LoadScript(scritpName);
-		return BuildScript(scriptClass);
+		ScriptClass* scriptClass = LoadScript(scritpName, gameAssembly);
+		return BuildScript(entityId,scriptClass);
 	}
 }
 
-Script* Mono::BuildScript(ScriptClass* scriptClass)
+Script* Mono::BuildScript(EntityId entityId, ScriptClass* scriptClass)
 {
 	MonoObject* obj = mono_object_new(_appDomain, scriptClass->klass);
+	InvokeMethod(obj, entityConstructor, { (void*)&entityId });
 	return new Script(scriptClass, obj);
 }
 
-ScriptClass* Mono::LoadScript(string scriptFullName)
+ScriptClass* Mono::LoadScript(string scriptFullName,MonoAssembly* assembly)
+{
+	
+	MonoClass* klass = LoadClass(scriptFullName, assembly);
+
+	auto [iter, inserted] = loadedClasses.emplace(scriptFullName, ScriptClass(klass));
+	if (!inserted)
+	{
+		// Handle case where the script class already exists in the map
+		return &iter->second;
+	}
+
+	InitScriptMethods(&iter->second);
+	return &iter->second;
+}
+
+MonoClass* Mono::LoadClass(string scriptFullName, MonoAssembly* assembly)
 {
 	auto dotPos = scriptFullName.find('.');
 	if (dotPos == string::npos)
@@ -172,19 +192,10 @@ ScriptClass* Mono::LoadScript(string scriptFullName)
 	string className = scriptFullName.substr(dotPos + 1);
 
 	//Load the class.
-	MonoImage* image = mono_assembly_get_image(gameAssembly);
-	MonoClass* klass = mono_class_from_name(image, nameSpace.c_str(), className.c_str());
-
-	auto [iter, inserted] = loadedClasses.emplace(scriptFullName, ScriptClass(klass));
-	if (!inserted)
-	{
-		// Handle case where the script class already exists in the map
-		return &iter->second;
-	}
-
-	InitScriptMethods(&iter->second);
-	return &iter->second;
+	MonoImage* image = mono_assembly_get_image(assembly);
+	return mono_class_from_name(image, nameSpace.c_str(), className.c_str());
 }
+
 
 MonoString* Mono::GetMonoString(const char* text)
 {

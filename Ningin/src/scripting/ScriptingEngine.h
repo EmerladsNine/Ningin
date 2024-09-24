@@ -15,5 +15,5 @@ class ScriptingEngine
 
 		static void Init(optional<MonoPaths> monoPath,bool debugMode);
 
-		static Scriptable* GetScript(string scriptName, ScriptLanguage language);
+		static Scriptable* GetScript(EntityId entityId, string scriptName, ScriptLanguage language);
 };

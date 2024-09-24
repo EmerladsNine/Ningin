@@ -9,30 +9,28 @@ using namespace std;
 class EntityManager
 {
 	public:
-		EntityManager();
-
-		EntityId CreateNewEntity();
+		static EntityId CreateNewEntity();
 
 		template <typename T> static void DefineComponent();
 
-		void AddComponent(EntityId entityId, ComponentId componentId, void* data);
-		void RemoveComponent(EntityId entityId, ComponentId componentId, void* data);
+		static void AddComponent(EntityId entityId, ComponentId componentId, void* data);
+		static void RemoveComponent(EntityId entityId, ComponentId componentId, void* data);
 
-		void* GetComponent(EntityId entityId, ComponentId componentId);
-		void* GetComponent(Record* entityRecord, ComponentId componentId);
+		static void* GetComponent(EntityId entityId, ComponentId componentId);
+		static void* GetComponent(Record* entityRecord, ComponentId componentId);
 
 		// Sets a new instance of the component data.
-		void SetComponent(EntityId entityId, ComponentId componentId, void* data);
-		void SetComponent(Record& entityRecord, ComponentId componentId, void* data);
+		static void SetComponent(EntityId entityId, ComponentId componentId, void* data);
+		static void SetComponent(Record& entityRecord, ComponentId componentId, void* data);
 
-		unordered_map<EntityId, Record> entityIndex;
-		ArchetypeManager archetypeManager;
+		static unordered_map<EntityId, Record> entityIndex;
+		static ArchetypeManager archetypeManager;
 
 	private:
-		void edgeRemove(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);
-		void edgeAdd(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);
+		static void edgeRemove(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);
+		static void edgeAdd(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);
 
-		EntityId _entityIdState;
+		static EntityId _entityIdState;
 };
 
 template<typename T> inline void EntityManager::DefineComponent()

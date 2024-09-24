@@ -2,8 +2,8 @@
 #include "../sceneSystem/components/TextRenderer.h"
 #include "../sceneSystem/components/SpriteRenderer.h"
 
-void RendererSystem(EntityManager* entityManager,Timer timer)
+void RendererSystem(Timer timer)
 {
-	TextRenderer::System(entityManager);
-	SpriteRenderer::System(entityManager);
+	TextRenderer::System();
+	SpriteRenderer::System();
 }

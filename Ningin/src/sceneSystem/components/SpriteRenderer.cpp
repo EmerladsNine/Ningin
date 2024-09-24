@@ -135,11 +135,11 @@ void SpriteRenderer::FreeDrawingResources()
 	glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void SpriteRenderer::System(EntityManager* entityManager) 
+void SpriteRenderer::System() 
 {
-	auto& transformArchetypeMap = entityManager->archetypeManager.componentIndex[typeid(Transform)];
+	auto& transformArchetypeMap = EntityManager::archetypeManager.componentIndex[typeid(Transform)];
 
-	for (auto& SpriteArchetype : entityManager->archetypeManager.componentIndex[typeid(SpriteRenderer)])
+	for (auto& SpriteArchetype : EntityManager::archetypeManager.componentIndex[typeid(SpriteRenderer)])
 	{
 		auto it = transformArchetypeMap.find(SpriteArchetype.first);
 

@@ -10,12 +10,12 @@ void ScriptingEngine::Init(optional<MonoPaths> monoPath, bool debugMode)
 	}
 }
 
-Scriptable* ScriptingEngine::GetScript(string scriptName, ScriptLanguage language)
+Scriptable* ScriptingEngine::GetScript(EntityId entityId, string scriptName, ScriptLanguage language)
 {
 	switch (language)
 	{
 		case CSHARP:
-			return mono.GetScript(scriptName);
+			return mono.GetScript(entityId, scriptName);
 			break;
 
 		case PYTHON:

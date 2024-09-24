@@ -138,7 +138,7 @@ bool Vector3GE(Vector3& v1, Vector3& v2){
 
 void Vector3ToString(Vector3& vec, string& out)
 {
-	out = format("Vector2 - x: {}, y: {}, z: {}", vec.x, vec.y, vec.z);
+	out = format("Vector3 - x: {}, y: {}, z: {}", vec.x, vec.y, vec.z);
 }
 
 void Vector3FromVector2(Vector2& vec, Vector3& out)

@@ -4,7 +4,9 @@
 #include <stdexcept>
 #include <string>
 
-EntityManager::EntityManager() : _entityIdState(0) {}
+unordered_map<EntityId, Record> EntityManager::entityIndex;
+ArchetypeManager EntityManager::archetypeManager;
+EntityId EntityManager::_entityIdState;
 
 EntityId EntityManager::CreateNewEntity()
 {

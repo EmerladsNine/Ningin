@@ -1,9 +1,17 @@
-﻿using System.Runtime.CompilerServices;
+﻿using System;
+using System.Runtime.CompilerServices;
 
 namespace NinginCore
 {
-    internal class InternalCalls
+    internal static class InternalCalls
     {
+        #region Entity
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void EntityGetTransform(ulong entityId, out IntPtr transform);
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void EntitySetTransform(ulong entityId, IntPtr transform);
+        #endregion
+
         #region Vector2
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector2Abs(ref Vector2 self, out Vector2 result);
@@ -185,20 +193,20 @@ namespace NinginCore
 
         #region Transform
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TransformSetPosition(ref Transform transform, ref Vector3 position);
+        internal static extern void TransformSetPosition(IntPtr transform, ref Vector3 position);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TransformSetRotation(ref Transform transform, ref Vector3 rotation);
+        internal static extern void TransformSetRotation(IntPtr transform, ref Vector3 rotation);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TransformSetScale(ref Transform transform, ref Vector3 scale);
+        internal static extern void TransformSetScale(IntPtr transform, ref Vector3 scale);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TransformGetPosition(ref Transform transform, out Vector3 result);
+        internal static extern void TransformGetPosition(IntPtr transform, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TransformGetRotation(ref Transform transform, out Vector3 result);
+        internal static extern void TransformGetRotation(IntPtr transform, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TransformGetScale(ref Transform transform, out Vector3 result);
+        internal static extern void TransformGetScale(IntPtr transform, out Vector3 result);
 
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void MonoTransformToString(ref Transform transform, out string str);
+        internal static extern void MonoTransformToString(IntPtr transform, out string str);
         #endregion
 
         #region TextRenderer
@@ -231,5 +239,6 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void MonoColorToString(ref Color color, out string str);
         #endregion
+
     }
 }

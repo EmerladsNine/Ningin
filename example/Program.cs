@@ -1,6 +1,8 @@
+using NinginCore;
+
 namespace NoExample
 {
-    public class Classic
+    public class Classic : Entity
     {
         void Start()
         {

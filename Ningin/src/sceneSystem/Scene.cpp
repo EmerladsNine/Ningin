@@ -7,12 +7,12 @@ void Scene::NewFrame(Timer timer)
 	// Systems
 	for (auto& system : World::systems)
 	{
-		system(&world.entityManager, timer);
+		system(timer);
 	}
 
 	// Late systems.
 	for (auto& system : World::lateSystems)
 	{
-		system(&world.entityManager, timer);
+		system(timer);
 	}
 }

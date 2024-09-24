@@ -19,9 +19,10 @@ class Mono
 
         MonoAssembly* LoadAssembly(string fileName, bool loadPDB);
 
-        Script* GetScript(string scritpName);
-        Script* BuildScript(ScriptClass* scriptClass);
-        ScriptClass* LoadScript(string scriptFullName);
+        Script* GetScript(EntityId entityId, string scritpName);
+        Script* BuildScript(EntityId entityId, ScriptClass* scriptClass);
+        ScriptClass* LoadScript(string scriptFullName, MonoAssembly* assembly);
+        MonoClass* LoadClass(string scriptFullName, MonoAssembly* assembly);
         MonoString* GetMonoString(const char* text);
 
         const string NINGIN_ASSEMBLY_NAME = "NinginCore.dll";
@@ -31,6 +32,8 @@ class Mono
         MonoAssembly* gameAssembly;
 
         unordered_map<string, ScriptClass> loadedClasses;
+        MonoClass* entityClass;
+        MonoMethod* entityConstructor;
 
       private:
         MonoDomain *_rootDomain;

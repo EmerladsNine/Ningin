@@ -12,7 +12,7 @@ using namespace std;
 using ComponentId = type_index;
 using Column = vector<void*>;
 using ArchetypeType = vector<ComponentId>;
-using EntityId = size_t;
+using EntityId = uint64_t;
 
 class Archetype
 {

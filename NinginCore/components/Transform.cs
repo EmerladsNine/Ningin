@@ -1,52 +1,58 @@
-﻿namespace NinginCore
+﻿using System;
+
+namespace NinginCore
 {
-    public struct Transform
+    public class Transform
     {
-        public Vector3 position
+        internal IntPtr transform;
+
+        internal Transform() {} //Internal so Transform can only be created by engine functions
+
+        public Vector3 Position
         {
             get
             {
-                InternalCalls.TransformGetPosition(ref this, out Vector3 result);
+                InternalCalls.TransformGetPosition(this.transform, out Vector3 result);
                 return result;
             }
 
             set
             {
-                InternalCalls.TransformSetPosition(ref this, ref value);
+                InternalCalls.TransformSetPosition(this.transform, ref value);
             }
         }
 
-        public Vector3 rotation
+        public Vector3 Rotation
         {
             get
             {
-                InternalCalls.TransformGetRotation(ref this, out Vector3 result);
+                InternalCalls.TransformGetRotation(this.transform, out Vector3 result);
                 return result;
             }
 
             set
             {
-                InternalCalls.TransformSetPosition(ref this, ref value);
+                InternalCalls.TransformSetPosition(this.transform, ref value);
             }
         }
 
-        public Vector3 scale
+        public Vector3 Scale
         {
             get
             {
-                InternalCalls.TransformGetScale(ref this, out Vector3 result);
+                InternalCalls.TransformGetScale(this.transform, out Vector3 result);
                 return result;
             }
 
             set
             {
-                InternalCalls.TransformSetPosition(ref this, ref value);
+                InternalCalls.TransformSetPosition(this.transform, ref value);
             }
         }
 
         public override string ToString()
         {
-            InternalCalls.MonoTransformToString(ref this, out string result);
+            InternalCalls.MonoTransformToString(this.transform, out string result);
             return result;
         }
     }

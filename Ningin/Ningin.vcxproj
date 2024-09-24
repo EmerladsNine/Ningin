@@ -70,6 +70,7 @@
     <ClCompile Include="src\sceneSystem\ecs\entity_manager.cpp" />
     <ClCompile Include="src\sceneSystem\ecs\record.cpp" />
     <ClCompile Include="src\sceneSystem\entity\Children.cpp" />
+    <ClCompile Include="src\sceneSystem\entity\Entity.cpp" />
     <ClCompile Include="src\sceneSystem\entity\Id.cpp" />
     <ClCompile Include="src\sceneSystem\entity\Name.cpp" />
     <ClCompile Include="src\sceneSystem\entity\Parent.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="src\sceneSystem\ecs\EntityManager.h" />
     <ClInclude Include="src\sceneSystem\ecs\Record.h" />
     <ClInclude Include="src\sceneSystem\entity\children.h" />
+    <ClInclude Include="src\sceneSystem\entity\Entity.h" />
     <ClInclude Include="src\sceneSystem\entity\id.h" />
     <ClInclude Include="src\sceneSystem\entity\name.h" />
     <ClInclude Include="src\sceneSystem\entity\parent.h" />
@@ -224,6 +226,9 @@
     <Font Include="resourceFiles\default\fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.pdb">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <None Include="resourceFiles\shaders\sprite_fs.frag" />
     <None Include="resourceFiles\shaders\sprite_vs.vs" />
     <None Include="resourceFiles\shaders\text_fs.frag" />

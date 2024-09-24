@@ -154,16 +154,16 @@ void SceneLoader::LoadSceneFromFile(string sceneName)
 		// The name of the entity
 		uint32_t nameIndex = Read<uint32_t>(&filePointer);
 		Name* name = new Name(strings[nameIndex]);
-		scene.world.entityManager.AddComponent(entityId, typeid(Name), name);
+		EntityManager::AddComponent(entityId, typeid(Name), name);
 
 		// parent id
 		uint32_t parentIndex = Read<uint32_t>(&filePointer);
 		Parent* parent = new Parent(parentIndex);
-		scene.world.entityManager.AddComponent(entityId, typeid(Parent), parent);
+		EntityManager::AddComponent(entityId, typeid(Parent), parent);
 
 		// Children
 		Children* children = new Children(vector<EntityId>{});
-		scene.world.entityManager.AddComponent(entityId, typeid(Children), children);
+		EntityManager::AddComponent(entityId, typeid(Children), children);
 
 		uint16_t componentsCount = Read<uint16_t>(&filePointer);
 		uint16_t componentPosition = 0;
@@ -197,17 +197,16 @@ void SceneLoader::LoadSceneFromFile(string sceneName)
 		{
 			string scriptName = strings[Read<uint32_t>(&filePointer)];
 			//Implement multiple language script in Scene Loader !
-			Scriptable* script = ScriptingEngine::GetScript(scriptName, ScriptLanguage::CSHARP);
+			Scriptable* script = ScriptingEngine::GetScript(entityId, scriptName, ScriptLanguage::CSHARP);
 			scriptVec->scripts.push_back(script);
 			scriptPositon++;
 		}
 
-		scene.world.entityManager.AddComponent(entityId, typeid(ScriptVec), scriptVec);
+		EntityManager::AddComponent(entityId, typeid(ScriptVec), scriptVec);
 
 		if (parentIndex != 0)
 		{
-			Children* parentChildren = static_cast<Children*>(scene.world.entityManager
-				.GetComponent(parentIndex, typeid(Children)));
+			Children* parentChildren = static_cast<Children*>(EntityManager::GetComponent(parentIndex, typeid(Children)));
 			parentChildren->children.push_back(entityId);
 		}
 	}
@@ -244,7 +243,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 				}
 			}
 
-			world.entityManager.AddComponent(entityId, typeid(Transform), transform);
+			EntityManager::AddComponent(entityId, typeid(Transform), transform);
 			break;
 		}
 
@@ -284,7 +283,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 			}
 
 			SpriteRenderer* sprite = new SpriteRenderer(textureName, shader, tintingColor, useTint, alpha);
-			world.entityManager.AddComponent(entityId, typeid(SpriteRenderer), sprite);
+			EntityManager::AddComponent(entityId, typeid(SpriteRenderer), sprite);
 			break;
 		}
 
@@ -331,7 +330,7 @@ void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, cons
 			TextRenderer* textRenderer = new TextRenderer(fontName, shader, textColor, text, fontSize,
 				useMultiLine);
 
-			world.entityManager.AddComponent(entityId, typeid(TextRenderer), textRenderer);
+			EntityManager::AddComponent(entityId, typeid(TextRenderer), textRenderer);
 			break;
 		}
 

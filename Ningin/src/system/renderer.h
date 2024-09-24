@@ -5,4 +5,4 @@
 
 #pragma once
 
-void RendererSystem(EntityManager* entityManager,Timer timer);
+void RendererSystem(Timer timer);

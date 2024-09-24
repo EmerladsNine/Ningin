@@ -16,10 +16,10 @@ class Scriptable
 		virtual void Destroy() = 0;
 };
 
-void ScriptSystem(EntityManager* entityManager, Timer timer);
+void ScriptSystem(Timer timer);
 
-void ScriptLateSystem(EntityManager* entityManager, Timer timer);
+void ScriptLateSystem(Timer timer);
 
-void ScriptUpdate(EntityManager* entityManager, bool isLate, Timer timer);
+void ScriptUpdate(bool isLate, Timer timer);
 
 void HandleScript(Scriptable* script, bool isLate, Timer timer);

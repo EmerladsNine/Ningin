@@ -13,9 +13,15 @@
 #include "../../sceneSystem/components/SpriteRenderer.h"
 #include "../../sceneSystem/components/TextRenderer.h"
 #include "../../resourceManager/color/Color.h"
+#include "../../sceneSystem/entity/Entity.h"
 
 void AddInternalCalls()
 {
+    #pragma region Entity
+        AddInternalCall(EntityGetTransform)
+        AddInternalCall(EntitySetTransform)
+    #pragma endregion
+
     #pragma region Vector2
         AddInternalCall(Vector2Abs);
         AddInternalCall(Vector2Clamp);

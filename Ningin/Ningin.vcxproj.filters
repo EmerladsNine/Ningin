@@ -372,6 +372,9 @@
     <ClCompile Include="src\resourceManager\opengl\buffer.cpp">
       <Filter>Source Files\resourceManager\opengl</Filter>
     </ClCompile>
+    <ClCompile Include="src\sceneSystem\entity\Entity.cpp">
+      <Filter>Source Files\sceneSystem\entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector3.h">
@@ -620,6 +623,9 @@
     <ClInclude Include="src\resourceManager\opengl\buffer.h">
       <Filter>Header Files\resourceManager\opengl</Filter>
     </ClInclude>
+    <ClInclude Include="src\sceneSystem\entity\Entity.h">
+      <Filter>Header Files\sceneSystem\entity</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="dependencies\freetype.dll">
@@ -633,6 +639,9 @@
     </CopyFileToFolders>
     <CopyFileToFolders Include="dependencies\jsoncpp.dll">
       <Filter>Dependencies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.pdb">
+      <Filter>Dependencies\mono</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll">
       <Filter>Dependencies\mono</Filter>

@@ -35,7 +35,7 @@ class TextRenderer
 		void SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
 			function<void()> drawingFunc);
 
-		static void System(EntityManager* entityManager);
+		static void System();
 		void Draw(Transform& transform);
 
 	private:

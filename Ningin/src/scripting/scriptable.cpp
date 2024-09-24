@@ -1,19 +1,19 @@
 #include "scriptable.h"
 #include "../sceneSystem/components/ScriptVec.h"
 
-void ScriptSystem(EntityManager* entityManager, Timer timer)
+void ScriptSystem(Timer timer)
 {
-	ScriptUpdate(entityManager, false, timer);
+	ScriptUpdate(false, timer);
 }
 
-void ScriptLateSystem(EntityManager* entityManager, Timer timer)
+void ScriptLateSystem(Timer timer)
 {
-	ScriptUpdate(entityManager, true, timer);
+	ScriptUpdate(true, timer);
 }
 
-void ScriptUpdate(EntityManager* entityManager, bool isLate, Timer timer)
+void ScriptUpdate(bool isLate, Timer timer)
 {
-	for (auto& scriptVecArchetype : entityManager->archetypeManager.componentIndex[typeid(ScriptVec)])
+	for (auto& scriptVecArchetype : EntityManager::archetypeManager.componentIndex[typeid(ScriptVec)])
 	{
 		for (void* scriptsData : scriptVecArchetype.second.archetype
 			->components[scriptVecArchetype.second.column])

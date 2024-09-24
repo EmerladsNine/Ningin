@@ -12,8 +12,8 @@
 
 using namespace std;
 
-vector<void (*)(EntityManager*, Timer)> World::systems;
-vector<void (*)(EntityManager*, Timer)> World::lateSystems;
+vector<void (*)(Timer)> World::systems;
+vector<void (*)(Timer)> World::lateSystems;
 
 World::World() : entitiesCount(0) {}
 
@@ -37,5 +37,5 @@ void World::InitDefaultComponentSystem()
 EntityId World::NewEntity()
 {
 	entitiesCount++;
-	return entityManager.CreateNewEntity();
+	return EntityManager::CreateNewEntity();
 }
