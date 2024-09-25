@@ -1,25 +1,31 @@
-﻿namespace NinginCore
+﻿using System;
+
+namespace NinginCore
 {
-    public struct TextRenderer
+    public class TextRenderer
     {
+        internal IntPtr textRenderer;
+
+        internal TextRenderer() { }
+
         void SetTextColor(Color color)
         {
-            InternalCalls.TextSetTextColor(ref this, ref color);
+            InternalCalls.TextSetTextColor(this.textRenderer, ref color);
         }
 
         void SetText(string text)
         {
-            InternalCalls.TextSetText(ref this, ref text);
+            InternalCalls.TextSetText(this.textRenderer, ref text);
         }
 
         void SetFontSize(uint fontSize)
         {
-            InternalCalls.TextSetFontSize(ref this, fontSize);
+            InternalCalls.TextSetFontSize(this.textRenderer, fontSize);
         }
 
         void SetFont(string fontName)
         {
-            InternalCalls.TextSetFont(ref this, ref fontName);
+            InternalCalls.TextSetFont(this.textRenderer, ref fontName);
         }
     }
 }

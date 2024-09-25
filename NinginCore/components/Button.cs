@@ -1,6 +1,11 @@
-﻿namespace NinginCore
+﻿using System;
+
+namespace NinginCore
 {
-    public struct Button
+    public class Button
     {
+        internal IntPtr button;
+
+        internal Button() { }
     }
 }

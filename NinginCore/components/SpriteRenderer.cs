@@ -1,15 +1,21 @@
-﻿namespace NinginCore
+﻿using System;
+
+namespace NinginCore
 {
-    public struct SpriteRenderer
+    public class SpriteRenderer
     {
+        internal IntPtr spriteRenderer;
+
+        internal SpriteRenderer() {}
+
         void SetTintingColor(ref Color color)
         {
-            InternalCalls.SpriteSetTintingColor(ref this, ref color);
+            InternalCalls.SpriteSetTintingColor(this.spriteRenderer, ref color);
         }
 
         void SetUseTint(bool useTint)
         {
-            InternalCalls.SpriteSetUseTint(ref this, useTint);
+            InternalCalls.SpriteSetUseTint(this.spriteRenderer, useTint);
         }
     }
 }

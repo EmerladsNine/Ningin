@@ -211,20 +211,20 @@ namespace NinginCore
 
         #region TextRenderer
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TextSetTextColor(ref TextRenderer textRenderer, ref Color color);
+        internal static extern void TextSetTextColor(IntPtr textRenderer, ref Color color);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TextSetText(ref TextRenderer textRenderer, ref string text);
+        internal static extern void TextSetText(IntPtr textRenderer, ref string text);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TextSetFontSize(ref TextRenderer textRenderer, uint fontSize);
+        internal static extern void TextSetFontSize(IntPtr textRenderer, uint fontSize);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TextSetFont(ref TextRenderer textRenderer, ref string fontName);
+        internal static extern void TextSetFont(IntPtr textRenderer, ref string fontName);
         #endregion
 
         #region SpriteRenderer
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void SpriteSetTintingColor(ref SpriteRenderer spriteRenderer, ref Color color);
+        internal static extern void SpriteSetTintingColor(IntPtr spriteRenderer, ref Color color);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void SpriteSetUseTint(ref SpriteRenderer spriteRenderer, bool useTint);
+        internal static extern void SpriteSetUseTint(IntPtr spriteRenderer, bool useTint);
         #endregion
 
         #region Color

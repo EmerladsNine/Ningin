@@ -1,6 +1,11 @@
-﻿namespace NinginCore
+﻿using System;
+
+namespace NinginCore
 {
-    public struct RigidBody2d
+    public class RigidBody2d
     {
+        internal IntPtr rigidBody2d;
+
+        internal RigidBody2d() { }
     }
 }

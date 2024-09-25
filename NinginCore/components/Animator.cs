@@ -1,6 +1,11 @@
-﻿namespace NinginCore.components
+﻿using System;
+
+namespace NinginCore
 {
-    public struct Animator
+    public class Animator
     {
+        internal IntPtr animator;
+
+        internal Animator() { }
     }
 }
