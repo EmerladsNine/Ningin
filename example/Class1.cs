@@ -21,6 +21,7 @@ namespace example
         {
             time += deltatime;
             transform.Position += new Vector3(40, 50, 0) * deltatime;
+            transform.Rotation += new Vector3(10, 10, 10) * deltatime;
             if (time >= nextsecond)
             {
                 Console.WriteLine(nextsecond);
