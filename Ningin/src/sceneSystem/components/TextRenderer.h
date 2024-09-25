@@ -67,6 +67,7 @@ class TextRenderer
 		vector<int32_t> _textAsciiIndices;
 		unordered_map<GLchar, Character> _fontCharsMap;
 		Dimensions2 _textDimensions;
+		float _angle;
 		glm::mat4 _baseModel;
 		bool _mustCalculate;
 		bool _useMultiLine;

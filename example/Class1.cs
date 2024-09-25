@@ -20,7 +20,8 @@ namespace example
         void Update(float deltatime)
         {
             time += deltatime;
-            transform.Position += new Vector3(40, 50, 0) * deltatime;
+            transform.Position = new Vector3(10, 50, 0) * deltatime;
+            transform.Rotation = new Vector3(0, 0, 30) * deltatime;
             if (time >= nextsecond)
             {
                 Console.WriteLine(nextsecond);

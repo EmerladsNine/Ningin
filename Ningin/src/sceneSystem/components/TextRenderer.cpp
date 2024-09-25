@@ -119,9 +119,10 @@ void TextRenderer::Draw(Transform& transform)
 	SetInitDrawingUniforms(transform);
 	ConfigureDrawingContext();
 
-	if (_mustCalculate)
+	if (_mustCalculate || _angle != transform.rotation.z)
 	{
 		ComputeTextTransform(transform);
+		_angle = transform.rotation.z;
 	}
 
 	Vector3 pos = transform.position;
@@ -154,7 +155,7 @@ void TextRenderer::Draw(Transform& transform)
 		}
 		else
 		{
-			float xpos = float(ch.bearing.width) * _scale;
+			float xpos = pos.x + float(ch.bearing.width) * _scale;
 
 			if (_shouldCheckWord &&_useMultiLine && xOffSet + _wordsWidth[wordIndex]
 				>= float(windowDimensions.width))
