@@ -640,9 +640,6 @@
     <CopyFileToFolders Include="dependencies\jsoncpp.dll">
       <Filter>Dependencies</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.pdb">
-      <Filter>Dependencies\mono</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.dll">
       <Filter>Dependencies\mono</Filter>
     </CopyFileToFolders>

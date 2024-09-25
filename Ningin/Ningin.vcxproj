@@ -226,9 +226,6 @@
     <Font Include="resourceFiles\default\fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="dependencies\mono\mono-2.0-sgen.pdb">
-      <FileType>Document</FileType>
-    </CopyFileToFolders>
     <None Include="resourceFiles\shaders\sprite_fs.frag" />
     <None Include="resourceFiles\shaders\sprite_vs.vs" />
     <None Include="resourceFiles\shaders\text_fs.frag" />
