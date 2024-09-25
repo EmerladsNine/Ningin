@@ -12,7 +12,7 @@
        TextColor(255, 255, 100, 255)
        FontName("arial.ttf")
        FontSize(36)
-       Text("Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut laboreet dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquipex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eufugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deseruntmollit anim id est laborum.")
+       Text("Hello")
        Shader("text")
        UseMultiLine(true)
    }
