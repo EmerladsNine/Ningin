@@ -32,7 +32,7 @@ namespace NinginCore
 
             set
             {
-                InternalCalls.TransformSetPosition(this.transform, ref value);
+                InternalCalls.TransformSetRotation(this.transform, ref value);
             }
         }
 
@@ -46,7 +46,7 @@ namespace NinginCore
 
             set
             {
-                InternalCalls.TransformSetPosition(this.transform, ref value);
+                InternalCalls.TransformSetScale(this.transform, ref value);
             }
         }
 
