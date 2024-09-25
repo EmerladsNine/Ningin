@@ -1,5 +1,4 @@
 #include "TextRenderer.h"
-#include "transform.h"
 #include <gtc/matrix_transform.hpp>
 #include <iostream>
 
@@ -119,10 +118,11 @@ void TextRenderer::Draw(Transform& transform)
 	SetInitDrawingUniforms(transform);
 	ConfigureDrawingContext();
 
-	if (_mustCalculate || _angle != transform.rotation.z)
+	if (_mustCalculate || (Vector3NotEqual(_transform.position, transform.position)
+		&& _transform.rotation.z != transform.rotation.z))
 	{
 		ComputeTextTransform(transform);
-		_angle = transform.rotation.z;
+		_transform = transform;
 	}
 
 	Vector3 pos = transform.position;
@@ -328,6 +328,7 @@ void TextRenderer::ComputeTextTransform(Transform& transform)
 		glm::vec3(0.0f, 0.0f, 1.0f));
 
 	_baseModel = glm::translate(_baseModel, glm::vec3(-textCenter.x, -textCenter.y, 0.0f));
+	_baseModel = glm::translate(_baseModel, glm::vec3(-pos.x, -pos.y, 0.0f));
 
 	_shader.SetMatrix4("baseModel", _baseModel);
 	_mustCalculate = false;

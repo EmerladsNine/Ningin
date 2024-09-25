@@ -11,7 +11,7 @@
 #include "../../math/math.h"
 #include "../../ningin.h"
 #include <unordered_map>
-#include "transform.h"
+#include "Transform.h"
 #include <functional>
 #include <GL/glew.h>
 #include <glm.hpp>
@@ -67,7 +67,7 @@ class TextRenderer
 		vector<int32_t> _textAsciiIndices;
 		unordered_map<GLchar, Character> _fontCharsMap;
 		Dimensions2 _textDimensions;
-		float _angle;
+		Transform _transform;
 		glm::mat4 _baseModel;
 		bool _mustCalculate;
 		bool _useMultiLine;
