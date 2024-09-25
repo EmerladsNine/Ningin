@@ -20,9 +20,9 @@ namespace example
         void Update(float deltatime)
         {
             time += deltatime;
+            transform.Position += new Vector3(40, 50, 0) * deltatime;
             if (time >= nextsecond)
             {
-                transform.Position += new Vector3(40, 50, 0);
                 Console.WriteLine(nextsecond);
                 nextsecond++;
             }
