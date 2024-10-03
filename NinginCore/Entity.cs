@@ -16,19 +16,34 @@ namespace NinginCore
             this.entityId = entityId;
         }
 
+        public bool HasComponent<T>() where T : Component
+        {
+            return InternalCalls.EntityHasComponent(this.entityId,typeof(T));
+        }
+
+        public T GetComponent<T>() where T : Component , new()
+        {
+            T component = new T();
+            InternalCalls.EntityGetComponent(this.entityId,typeof (T),out IntPtr data);
+            component.data = data;
+            return component;
+        }
+
         public Transform transform
         {
             get
             {
-                Transform transform = new Transform();
                 InternalCalls.EntityGetTransform(entityId, out IntPtr transformResult);
-                transform.transform = transformResult;
+                Transform transform = new Transform
+                {
+                    data = transformResult
+                };
                 return transform;
             }
 
             set
             {
-                InternalCalls.EntitySetTransform(entityId, value.transform);
+                InternalCalls.EntitySetTransform(entityId, value.data);
             }
         }
     }

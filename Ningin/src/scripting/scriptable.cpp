@@ -1,4 +1,5 @@
 #include "scriptable.h"
+#include "../sceneSystem/ecs/EntityManager.h"
 #include "../sceneSystem/components/ScriptVec.h"
 
 void ScriptSystem(Timer timer)

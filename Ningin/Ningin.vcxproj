@@ -154,6 +154,7 @@
     <ClInclude Include="src\sceneSystem\ecs\Record.h" />
     <ClInclude Include="src\sceneSystem\entity\children.h" />
     <ClInclude Include="src\sceneSystem\entity\Entity.h" />
+    <ClInclude Include="src\sceneSystem\entity\EntityId.h" />
     <ClInclude Include="src\sceneSystem\entity\id.h" />
     <ClInclude Include="src\sceneSystem\entity\name.h" />
     <ClInclude Include="src\sceneSystem\entity\parent.h" />

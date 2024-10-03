@@ -2,23 +2,20 @@
 
 namespace NinginCore
 {
-    public class Transform
+    public class Transform : Component
     {
-        internal IntPtr transform;
-
-        internal Transform() {} //Internal so Transform can only be created by engine functions
 
         public Vector3 Position
         {
             get
             {
-                InternalCalls.TransformGetPosition(this.transform, out Vector3 result);
+                InternalCalls.TransformGetPosition(this.data, out Vector3 result);
                 return result;
             }
 
             set
             {
-                InternalCalls.TransformSetPosition(this.transform, ref value);
+                InternalCalls.TransformSetPosition(this.data, ref value);
             }
         }
 
@@ -26,13 +23,13 @@ namespace NinginCore
         {
             get
             {
-                InternalCalls.TransformGetRotation(this.transform, out Vector3 result);
+                InternalCalls.TransformGetRotation(this.data, out Vector3 result);
                 return result;
             }
 
             set
             {
-                InternalCalls.TransformSetRotation(this.transform, ref value);
+                InternalCalls.TransformSetRotation(this.data, ref value);
             }
         }
 
@@ -40,19 +37,19 @@ namespace NinginCore
         {
             get
             {
-                InternalCalls.TransformGetScale(this.transform, out Vector3 result);
+                InternalCalls.TransformGetScale(this.data, out Vector3 result);
                 return result;
             }
 
             set
             {
-                InternalCalls.TransformSetScale(this.transform, ref value);
+                InternalCalls.TransformSetScale(this.data, ref value);
             }
         }
 
         public override string ToString()
         {
-            InternalCalls.MonoTransformToString(this.transform, out string result);
+            InternalCalls.MonoTransformToString(this.data, out string result);
             return result;
         }
     }

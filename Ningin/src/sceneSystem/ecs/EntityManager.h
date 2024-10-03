@@ -3,18 +3,28 @@
 #include "ArchetypeManager.h"
 #include <unordered_map>
 #include "Record.h"
-
-using namespace std;
+#include "../../scripting/ScriptingEngine.h"
 
 class EntityManager
 {
 	public:
 		static EntityId CreateNewEntity();
 
-		template <typename T> static void DefineComponent();
+		template <typename T> static void RegisterComponent()
+		{
+			//Init Destructor
+			ArchetypeManager::RegisterComponentTypeDeleter<T>();
+			//Link To C#
+			MonoType* managedType = ScriptingEngine::mono.GetComponentManagedType<T>();
+			Mono::HasComponent[managedType] = [](EntityId entityId) -> bool { return EntityManager::HasComponent(entityId, typeid(T)); };
+			Mono::GetComponent[managedType] = [](EntityId entityId) -> void* { return EntityManager::GetComponent(entityId, typeid(T)); };
+		}
 
 		static void AddComponent(EntityId entityId, ComponentId componentId, void* data);
 		static void RemoveComponent(EntityId entityId, ComponentId componentId, void* data);
+
+		static bool HasComponent(EntityId entityId, ComponentId componentId);
+		static bool HasComponent(Record* entityRecord, ComponentId componentId);
 
 		static void* GetComponent(EntityId entityId, ComponentId componentId);
 		static void* GetComponent(Record* entityRecord, ComponentId componentId);
@@ -32,8 +42,3 @@ class EntityManager
 
 		static EntityId _entityIdState;
 };
-
-template<typename T> inline void EntityManager::DefineComponent()
-{
-	ArchetypeManager::RegisterComponentTypeDeleter<T>();
-}

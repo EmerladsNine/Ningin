@@ -32,9 +32,10 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	InitResourceManager();
 	SetUBO(dimensions);
 
-	World::InitDefaultComponentSystem();
 	ScriptingEngine::Init(monoPath,debugMode);
 	
+	World::InitDefaultComponentSystem();
+
 	for (auto& scene : scenes)
 	{
 		sceneLoader.LoadSceneFromFile(scene);
@@ -152,7 +153,7 @@ void Game::MainLoop()
 int main()
 {
 	Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
-		MonoPaths("mono/lib","example.dll"),false);
+		MonoPaths("mono/lib","example.dll"),true);
 	Game::Start();
 	return 0;
 }

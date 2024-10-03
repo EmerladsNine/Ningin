@@ -6,13 +6,13 @@
 #include <optional>
 #include <cstddef>
 #include <vector>
+#include "../entity/EntityId.h"
 
 using namespace std;
 
 using ComponentId = type_index;
 using Column = vector<void*>;
 using ArchetypeType = vector<ComponentId>;
-using EntityId = uint64_t;
 
 class Archetype
 {

@@ -18,8 +18,10 @@
 void AddInternalCalls()
 {
     #pragma region Entity
-        AddInternalCall(EntityGetTransform)
-        AddInternalCall(EntitySetTransform)
+        AddInternalCall(EntityGetTransform);
+        AddInternalCall(EntitySetTransform);
+        AddInternalCall(EntityHasComponent);
+        AddInternalCall(EntityGetComponent);
     #pragma endregion
 
     #pragma region Vector2

@@ -10,7 +10,7 @@
 #include "../../utils/Debug.h"
 
 Mono::Mono() : assembliesDirectory(Environment::GetGameDirectory()), _rootDomain(nullptr), _appDomain(nullptr)
-	,gameAssembly(nullptr), ninginAssembly(nullptr) {}
+, gameAssembly(nullptr), ninginAssembly(nullptr), ninginAssemblyImage(nullptr) {}
 
 Mono::~Mono()
 {
@@ -24,6 +24,9 @@ Mono::~Mono()
 		mono_jit_cleanup(_rootDomain);
 	}
 }
+
+unordered_map<MonoType*, std::function<bool(EntityId)>> Mono::HasComponent;
+unordered_map<MonoType*, std::function<void* (EntityId)>> Mono::GetComponent;
 
 void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 {
@@ -72,7 +75,9 @@ void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 
     //Load Needed Assemblies.
 	ninginAssembly = LoadAssembly(NINGIN_ASSEMBLY_NAME, loadPDB);
+	ninginAssemblyImage = mono_assembly_get_image(ninginAssembly);
 	entityClass = LoadClass("NinginCore.Entity", ninginAssembly);
+
 	entityConstructor = GetMethod(entityClass, ".ctor", 1);
 	gameAssembly = LoadAssembly(gameAssemblyFileName, loadPDB);
 }

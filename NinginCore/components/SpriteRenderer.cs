@@ -2,20 +2,17 @@
 
 namespace NinginCore
 {
-    public class SpriteRenderer
+    public class SpriteRenderer : Component
     {
-        internal IntPtr spriteRenderer;
-
-        internal SpriteRenderer() {}
 
         void SetTintingColor(ref Color color)
         {
-            InternalCalls.SpriteSetTintingColor(this.spriteRenderer, ref color);
+            InternalCalls.SpriteSetTintingColor(this.data, ref color);
         }
 
         void SetUseTint(bool useTint)
         {
-            InternalCalls.SpriteSetUseTint(this.spriteRenderer, useTint);
+            InternalCalls.SpriteSetUseTint(this.data, useTint);
         }
     }
 }

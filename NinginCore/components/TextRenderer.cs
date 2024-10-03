@@ -2,30 +2,27 @@
 
 namespace NinginCore
 {
-    public class TextRenderer
+    public class TextRenderer : Component
     {
-        internal IntPtr textRenderer;
 
-        internal TextRenderer() { }
-
-        void SetTextColor(Color color)
+        public void SetTextColor(Color color)
         {
-            InternalCalls.TextSetTextColor(this.textRenderer, ref color);
+            InternalCalls.TextSetTextColor(this.data, ref color);
         }
 
-        void SetText(string text)
+        public void SetText(string text)
         {
-            InternalCalls.TextSetText(this.textRenderer, ref text);
+            InternalCalls.TextSetText(this.data, ref text);
         }
 
-        void SetFontSize(uint fontSize)
+        public void SetFontSize(uint fontSize)
         {
-            InternalCalls.TextSetFontSize(this.textRenderer, fontSize);
+            InternalCalls.TextSetFontSize(this.data, fontSize);
         }
 
-        void SetFont(string fontName)
+        public void SetFont(string fontName)
         {
-            InternalCalls.TextSetFont(this.textRenderer, ref fontName);
+            InternalCalls.TextSetFont(this.data, ref fontName);
         }
     }
 }

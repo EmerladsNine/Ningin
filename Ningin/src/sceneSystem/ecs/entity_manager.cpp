@@ -333,3 +333,42 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	// Update entity record.
 	entityIndex.insert_or_assign(entityId, Record(newArchetype, row));
 }
+
+bool EntityManager::HasComponent(EntityId entityId, ComponentId componentId)
+{
+	auto entityIterator = entityIndex.find(entityId);
+
+	// Read entity record.
+	if (entityIterator != entityIndex.end())
+	{
+		return HasComponent(&entityIterator->second, componentId);
+	}
+	else
+	{
+		throw runtime_error("Entity Not Found, Id :" + to_string(entityId));
+	}
+}
+
+bool EntityManager::HasComponent(Record* entityRecord, ComponentId componentId)
+{
+	Archetype* archetype = entityRecord->archetypePtr;
+
+	// Find the archetypeMap of the component
+	auto componentIterator = archetypeManager.componentIndex.find(componentId);
+
+	if (componentIterator == archetypeManager.componentIndex.end())
+	{
+		return false;
+	}
+	ArchetypeMap* archetypes = &componentIterator->second;
+
+	// Get the archetypeRecord of the component.
+	auto archetypeIterator = archetypes->find(archetype->archetypeId);
+
+	if (archetypeIterator == archetypes->end())
+	{
+		return false;
+	}
+
+	return true;
+}

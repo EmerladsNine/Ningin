@@ -23,15 +23,15 @@ void World::InitDefaultComponentSystem()
 	systems.push_back(ScriptSystem);
 	lateSystems.push_back(ScriptLateSystem);
 
-	EntityManager::DefineComponent<Id>();
-	EntityManager::DefineComponent<Name>();
-	EntityManager::DefineComponent<Parent>();
-	EntityManager::DefineComponent<Children>();
-	EntityManager::DefineComponent<ScriptVec>();
+	ArchetypeManager::RegisterComponentTypeDeleter<Id>();
+	ArchetypeManager::RegisterComponentTypeDeleter<Name>();
+	ArchetypeManager::RegisterComponentTypeDeleter<Parent>();
+	ArchetypeManager::RegisterComponentTypeDeleter<Children>();
+	ArchetypeManager::RegisterComponentTypeDeleter<ScriptVec>();
 
-	EntityManager::DefineComponent<SpriteRenderer>();
-	EntityManager::DefineComponent<Transform>();
-	EntityManager::DefineComponent<TextRenderer>();
+	EntityManager::RegisterComponent<SpriteRenderer>();
+	EntityManager::RegisterComponent<Transform>();
+	EntityManager::RegisterComponent<TextRenderer>();
 }
 
 EntityId World::NewEntity()

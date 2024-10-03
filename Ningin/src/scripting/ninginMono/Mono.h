@@ -4,6 +4,8 @@
 #include <filesystem>
 #include <string>
 #include <unordered_map>
+#include <functional>
+#include "../../sceneSystem/entity/EntityId.h"
 #include "ScriptClass.h"
 #include "Script.h"
 
@@ -17,6 +19,22 @@ class Mono
 
         void Init(string libPath, string gameAssemblyFileName,bool loadPDB);
 
+        static unordered_map<MonoType*, std::function<bool(EntityId)>> HasComponent;
+        static unordered_map<MonoType*, std::function<void*(EntityId)>> GetComponent;
+        template <typename T> MonoType* GetComponentManagedType()
+        {
+            const string_view mangledName = typeid(T).name();
+            size_t pos = mangledName.find_last_of(":");
+            if (pos == std::string::npos)
+            {
+                pos = mangledName.find_last_of(" ");
+            }
+            std::string_view className = mangledName.substr(pos + 1);
+            std::string managedTypeName = format("NinginCore.{}", className);
+
+            return mono_reflection_type_from_name(managedTypeName.data(), ninginAssemblyImage);
+        }
+
         MonoAssembly* LoadAssembly(string fileName, bool loadPDB);
 
         Script* GetScript(EntityId entityId, string scritpName);
@@ -29,6 +47,7 @@ class Mono
         filesystem::path assembliesDirectory;
 
         MonoAssembly* ninginAssembly;
+        MonoImage* ninginAssemblyImage;
         MonoAssembly* gameAssembly;
 
         unordered_map<string, ScriptClass> loadedClasses;
