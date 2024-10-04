@@ -22,7 +22,19 @@ static void callback_function(GLFWwindow* window, int width, int height)
 Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
 	: sceneManager(SceneManager(scene)), dimensions(dimensions)
 {
-	InitGlfw();
+	InitGlfw(); 
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
+	if (isFullscreen)
+	{
+		*dimensions = Dimensions2(mode->width, mode->height);
+	}
+
 	GLFWwindow* window = StartWindow(title, isFullscreen, dimensions);
 
 	windowDimensions = *dimensions;
@@ -42,10 +54,11 @@ void Window::InitGlfw()
 
 GLFWwindow* Window::StartWindow(string title, bool isFullscreen, Dimensions2* dimensions)
 {
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
 	if (isFullscreen)
 	{
 		GLFWwindow* window = glfwCreateWindow(static_cast<int>(dimensions->width)
-			, static_cast<int>(dimensions->height), title.c_str(), glfwGetPrimaryMonitor(), NULL);
+			, static_cast<int>(dimensions->height), title.c_str(), monitor, NULL);
 
 		glfwMakeContextCurrent(window);
 		return window;
