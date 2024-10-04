@@ -5,7 +5,7 @@ namespace example
 {
     public class Class1 : Entity
     {
-        TextRenderer text;
+        SpriteRenderer spr;
         void Start()
         {
             var vec = new Vector2(-10, -60);
@@ -13,7 +13,7 @@ namespace example
             Debug.LogInfo("Hi C#");
             Debug.LogInfo(v2.ToString());
             Debug.LogInfo(entityId.ToString());
-            text = GetComponent<TextRenderer>();
+            spr = GetComponent<SpriteRenderer>();
             throw new Exception("Testing EXCEPTIONS !!");
         }
         // bool is_updated = false;
@@ -22,8 +22,12 @@ namespace example
         void Update(float deltatime)
         {
             time += deltatime;
-            transform.Position = new Vector3(10, 50, 0) * deltatime;
-            transform.Rotation = new Vector3(0, 0, 30) * deltatime;
+            if(deltatime == 0)
+            {
+                Debug.LogInfo("HHUUHHH");
+            }
+            transform.Position += new Vector3(10, 50, 0) * deltatime;
+            transform.Rotation += new Vector3(0, 0, 30) * deltatime;
 
             // Cycle through colors by modifying RGB values based on time
             uint red = (uint)(System.Math.Sin(time * 2) * 127 + 128);  // Oscillates between 0 and 255
@@ -31,7 +35,7 @@ namespace example
             uint blue = (uint)(System.Math.Sin(time * 4) * 127 + 128);  // Different frequency for blue
             uint alpha = 255;  // Full opacity
 
-            text.SetTextColor(Color.FromRGBA(red, green, blue, alpha));
+            spr.SetTintingColor(Color.FromRGBA(red, green, blue, alpha));
             if (time >= nextsecond)
             {
                 Console.WriteLine(nextsecond);

@@ -33,7 +33,7 @@ namespace NinginCore
         {
             get
             {
-                InternalCalls.EntityGetTransform(entityId, out IntPtr transformResult);
+                InternalCalls.EntityGetComponent(entityId, typeof(Transform), out IntPtr transformResult);
                 Transform transform = new Transform
                 {
                     data = transformResult

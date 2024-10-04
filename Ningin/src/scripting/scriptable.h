@@ -14,10 +14,10 @@ class Scriptable
 		virtual void Destroy() = 0;
 };
 
-void ScriptSystem(Timer timer);
+void ScriptSystem(float deltatime);
 
-void ScriptLateSystem(Timer timer);
+void ScriptLateSystem(float deltatime);
 
-void ScriptUpdate(bool isLate, Timer timer);
+void ScriptUpdate(bool isLate, float deltatime);
 
-void HandleScript(Scriptable* script, bool isLate, Timer timer);
+void HandleScript(Scriptable* script, bool isLate, float deltatime);

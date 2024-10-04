@@ -2,7 +2,7 @@
 #include "../sceneSystem/components/TextRenderer.h"
 #include "../sceneSystem/components/SpriteRenderer.h"
 
-void RendererSystem(Timer timer)
+void RendererSystem(float deltatime)
 {
 	TextRenderer::System();
 	SpriteRenderer::System();

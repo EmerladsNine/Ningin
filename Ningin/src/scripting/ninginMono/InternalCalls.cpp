@@ -18,7 +18,6 @@
 void AddInternalCalls()
 {
     #pragma region Entity
-        AddInternalCall(EntityGetTransform);
         AddInternalCall(EntitySetTransform);
         AddInternalCall(EntityHasComponent);
         AddInternalCall(EntityGetComponent);

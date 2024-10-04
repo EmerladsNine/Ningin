@@ -132,10 +132,12 @@ void Game::MainLoop()
 		glClearColor(0.3f, 0.2f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+		float deltatime = timer.GetDeltaTime();
+		timer.ResetDeltaTime();
 		if(openedWindow.has_value())
 		{
 			
-			if (!glfwWindowShouldClose(openedWindow.value().glfwWin)) openedWindow.value().sceneManager.NewFrame(timer);
+			if (!glfwWindowShouldClose(openedWindow.value().glfwWin)) openedWindow.value().sceneManager.NewFrame(deltatime);
 			else 
 			{
 				glfwDestroyWindow(openedWindow.value().glfwWin);
@@ -146,14 +148,13 @@ void Game::MainLoop()
 
 		}
 
-		timer.ResetDeltaTime();
 	}
 }
 
 int main()
 {
 	Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
-		MonoPaths("mono/lib","example.dll"),true);
+		MonoPaths("mono/lib","example.dll"), false);
 	Game::Start();
 	return 0;
 }

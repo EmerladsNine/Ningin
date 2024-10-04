@@ -12,8 +12,8 @@
 
 using namespace std;
 
-vector<void (*)(Timer)> World::systems;
-vector<void (*)(Timer)> World::lateSystems;
+vector<void (*)(float)> World::systems;
+vector<void (*)(float)> World::lateSystems;
 
 World::World() : entitiesCount(0) {}
 

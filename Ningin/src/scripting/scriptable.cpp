@@ -2,17 +2,17 @@
 #include "../sceneSystem/ecs/EntityManager.h"
 #include "../sceneSystem/components/ScriptVec.h"
 
-void ScriptSystem(Timer timer)
+void ScriptSystem(float deltatime)
 {
-	ScriptUpdate(false, timer);
+	ScriptUpdate(false, deltatime);
 }
 
-void ScriptLateSystem(Timer timer)
+void ScriptLateSystem(float deltatime)
 {
-	ScriptUpdate(true, timer);
+	ScriptUpdate(true, deltatime);
 }
 
-void ScriptUpdate(bool isLate, Timer timer)
+void ScriptUpdate(bool isLate, float deltatime)
 {
 	for (auto& scriptVecArchetype : EntityManager::archetypeManager.componentIndex[typeid(ScriptVec)])
 	{
@@ -22,20 +22,20 @@ void ScriptUpdate(bool isLate, Timer timer)
 			ScriptVec* scripts = static_cast<ScriptVec*>(scriptsData);
 			for (Scriptable* script : scripts->scripts)
 			{
-				HandleScript(script, isLate, timer);
+				HandleScript(script, isLate, deltatime);
 			}
 		}
 	}
 }
 
-void HandleScript(Scriptable* script, bool isLate, Timer timer)
+void HandleScript(Scriptable* script, bool isLate, float deltatime)
 {
 	if (script == nullptr) return;
 
 	if (!script->HasStarted())
 		script->Start();
 
-	if (!isLate) script->Update(timer.GetDeltaTime());
-	else script->LateUpdate(timer.GetDeltaTime());
+	if (!isLate) script->Update(deltatime);
+	else script->LateUpdate(deltatime);
 
 }

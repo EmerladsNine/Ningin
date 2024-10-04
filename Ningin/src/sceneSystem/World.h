@@ -15,7 +15,7 @@ class World
 
 		EntityId NewEntity(); // Return Id of the entity created.
 
-		static vector<void (*)(Timer)> lateSystems;
-		static vector<void (*)(Timer)> systems;
+		static vector<void (*)(float)> lateSystems;
+		static vector<void (*)(float)> systems;
 		size_t entitiesCount;
 };

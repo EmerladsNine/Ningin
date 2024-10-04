@@ -5,4 +5,4 @@
 
 #pragma once
 
-void RendererSystem(Timer timer);
+void RendererSystem(float deltatime);
