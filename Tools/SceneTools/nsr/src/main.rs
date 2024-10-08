@@ -11,11 +11,11 @@ use std::{env, fs};
 fn main() {
     let args: Vec<String> = env::args().collect();
 
-    //let args = vec!["./nsr.exe" , "../../../example/Config.ningin" ,  "../../../example/Scene.ningin" , "../../../Ningin/target/debug/Scene"]; 
+    let args = vec!["./nsr.exe" , "../../../example/Config.ningin" ,  "../../../example/Scene.ningin" , "../../../Ningin/target/debug/Scene"]; 
 
-    if args.len() < 4 {
-        panic!("Usage : nsr <Config-Path> <path> <output-path>");
-    }
+    //if args.len() < 4 {
+      //  panic!("Usage : nsr <Config-Path> <path> <output-path>");
+    //}
 
     let configpath = &args[1];
     let path = &args[2];
