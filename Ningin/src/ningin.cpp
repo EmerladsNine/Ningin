@@ -143,9 +143,7 @@ void Game::MainLoop()
 				glfwDestroyWindow(openedWindow.value().glfwWin);
 				break;
 			}
-
 			glfwSwapBuffers(openedWindow.value().glfwWin);
-
 		}
 
 	}

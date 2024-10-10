@@ -1,10 +1,12 @@
 ﻿using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Classification;
 using Microsoft.VisualStudio.Text.Tagging;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace NinginToolsExtension
 {
@@ -17,7 +19,13 @@ namespace NinginToolsExtension
         /// Classification type.
         /// </summary>
         private readonly IClassificationType classificationType;
-        private readonly IClassificationType _keywordType;
+        private readonly IClassificationType _IdentifierType;
+        private readonly IClassificationType _HeadIdentifierType;
+        private readonly IClassificationType _ChildIdentifierType;
+        private readonly IClassificationType _TypeIdentifierType;
+        private readonly IClassificationType _StringType;
+        private readonly IClassificationType _BoolType;
+        private readonly IClassificationType _NumberType;
         private readonly IClassificationType _commentType;
 
 
@@ -29,7 +37,13 @@ namespace NinginToolsExtension
         {
             Debug.WriteLine("GetClassifier called for buffer: " + buffer);
             this.classificationType = registry.GetClassificationType("NinginScene");
-            _keywordType = registry.GetClassificationType("NinginSceneKeyword");
+            _IdentifierType = registry.GetClassificationType("NinginSceneIdentifier");
+            _HeadIdentifierType = registry.GetClassificationType("NinginSceneHeadIdentifier");
+            _ChildIdentifierType = registry.GetClassificationType("NinginSceneChildIdentifier");
+            _TypeIdentifierType = registry.GetClassificationType("NinginSceneTypeIdentifier");
+            _StringType = registry.GetClassificationType("NinginSceneString");
+            _BoolType = registry.GetClassificationType("NinginSceneBool");
+            _NumberType = registry.GetClassificationType("NinginSceneNumber");
             _commentType = registry.GetClassificationType("NinginSceneComment");
         }
 
@@ -59,53 +73,77 @@ namespace NinginToolsExtension
         /// <param name="span">The span currently being classified.</param>
         /// <returns>A list of ClassificationSpans that represent spans identified to be of this classification.</returns>
         public IList<ClassificationSpan> GetClassificationSpans(SnapshotSpan span)
-        {
+        { 
+            int tokenCount;
+            IntPtr fileInputPtr = Marshal.StringToHGlobalAnsi(span.Snapshot.GetText());
+            string text = span.Snapshot.GetText();
 
-            string text = span.GetText();
+            IntPtr tokenPtr = RustCalls.getTokens(fileInputPtr, out tokenCount);
 
-            // Example: Check for keywords in the text
-            if (IsKeyword(text))
+            Marshal.FreeHGlobal(fileInputPtr);
+
+            if (tokenPtr == IntPtr.Zero)
             {
-                var result2 = new List<ClassificationSpan>()
-                {
-                    new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(span.Start, span.Length)), this._keywordType)
-                };
-
-                return result2;
+                Console.WriteLine("Error occurred while getting tokens.");
             }
 
-            // Example: Check for comments in the text
-            if (IsComment(text))
+            Token[] tokens = new Token[tokenCount];
+            for (int i = 0; i < tokenCount; i++)
             {
-                var result2 = new List<ClassificationSpan>()
-                {
-                    new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(span.Start, span.Length)), this._commentType)
-                };
-
-                return result2;
+                tokens[i] = Marshal.PtrToStructure<Token>(IntPtr.Add(tokenPtr, i * Marshal.SizeOf<Token>()));
             }
 
-            var result = new List<ClassificationSpan>()
+            var result2 = new List<ClassificationSpan>();
+            for (int i = 0; i < tokenCount; i++)
+            {
+                IntPtr tokenType = tokens[i].token_type;
+                if (tokenType == IntPtr.Zero)
                 {
-                    new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(span.Start, span.Length)), this.classificationType)
-                };
-
-            return result;
+                    result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 1].start, tokens[i].start.ToInt32()).ToInt32())), this._IdentifierType));
+                }
+                else if (tokenType == new IntPtr(10))
+                {
+                    if (tokens[i + 1].token_type == IntPtr.Zero)
+                    {
+                        result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 2].start, tokens[i].start.ToInt32()).ToInt32())), this._HeadIdentifierType));
+                        i++;
+                    }
+                }
+                else if (tokenType == new IntPtr(11))
+                {
+                    if (tokens[i + 1].token_type == IntPtr.Zero)
+                    {
+                        result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 2].start, tokens[i].start.ToInt32()).ToInt32())), this._ChildIdentifierType));
+                        i++;
+                    }
+                }
+                else if (tokenType == new IntPtr(12))
+                {
+                    if (tokens[i + 1].token_type == IntPtr.Zero)
+                    {
+                        result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 2].start, tokens[i].start.ToInt32()).ToInt32())), this._TypeIdentifierType));
+                        i++;
+                    }
+                }
+                else if (tokenType == new IntPtr(1))
+                {
+                    result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 1].start, tokens[i].start.ToInt32()).ToInt32())), this._StringType));
+                }
+                else if (tokenType == new IntPtr(2))
+                {
+                    result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 1].start, tokens[i].start.ToInt32()).ToInt32())), this._BoolType));
+                }
+                else if (tokenType == new IntPtr(20) || tokenType == new IntPtr(21))
+                {
+                    result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 1].start, tokens[i].start.ToInt32()).ToInt32())), this._NumberType));
+                }
+                else if ( tokenType == new IntPtr(22) )
+                {
+                    result2.Add(new ClassificationSpan(new SnapshotSpan(span.Snapshot, new Span(tokens[i].start.ToInt32(), IntPtr.Subtract(tokens[i + 1].start, tokens[i].start.ToInt32()).ToInt32())), this._commentType));
+                }
+            }
+            return result2;
         }
-
-        private bool IsKeyword(string text)
-        {
-            // List of keywords for the custom language
-            var keywords = new[] { "if", "else", "while", "return" };
-            return keywords.Contains(text);
-        }
-
-        // Dummy method to check if text is a comment
-        private bool IsComment(string text)
-        {
-            return text.StartsWith("//");
-        }
-
         #endregion
     }
 }

@@ -26,16 +26,100 @@ namespace NinginToolsExtension
     }
 
     [Export(typeof(EditorFormatDefinition))]
-    [ClassificationType(ClassificationTypeNames = "NinginSceneKeyword")]
-    [Name("NinginSceneKeyword")]
+    [ClassificationType(ClassificationTypeNames = "NinginSceneIdentifier")]
+    [Name("NinginSceneIdentifier")]
     [UserVisible(true)]
     [Order(Before = Priority.Default)]
-    internal sealed class NinginSceneKeywordFormat : ClassificationFormatDefinition
+    internal sealed class NinginSceneIdentifierFormat : ClassificationFormatDefinition
     {
-        public NinginSceneKeywordFormat()
+        public NinginSceneIdentifierFormat()
         {
-            this.DisplayName = "Ningin Scene Keyword";
-            this.ForegroundColor = Colors.Blue; // Set the color for keywords
+            this.DisplayName = "Ningin Scene Identifier";
+            this.ForegroundColor = Colors.Wheat;
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = "NinginSceneHeadIdentifier")]
+    [Name("NinginSceneHeadIdentifier")]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class NinginSceneHeadIdentifierFormat : ClassificationFormatDefinition
+    {
+        public NinginSceneHeadIdentifierFormat()
+        {
+            this.DisplayName = "Ningin Scene Head Identifier";
+            this.ForegroundColor = Color.FromRgb(79, 193, 255);
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = "NinginSceneChildIdentifier")]
+    [Name("NinginSceneChildIdentifier")]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class NinginSceneChildIdentifierFormat : ClassificationFormatDefinition
+    {
+        public NinginSceneChildIdentifierFormat()
+        {
+            this.DisplayName = "Ningin Scene Child Identifier";
+            this.ForegroundColor = Colors.SpringGreen;
+        }
+    }
+    
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = "NinginSceneTypeIdentifier")]
+    [Name("NinginSceneTypeIdentifier")]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class NinginSceneTypeIdentifierFormat : ClassificationFormatDefinition
+    {
+        public NinginSceneTypeIdentifierFormat()
+        {
+            this.DisplayName = "Ningin Scene Type Identifier";
+            this.ForegroundColor = Color.FromRgb(86, 156, 214);
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = "NinginSceneString")]
+    [Name("NinginSceneString")]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class NinginSceneStringFormat : ClassificationFormatDefinition
+    {
+        public NinginSceneStringFormat()
+        {
+            this.DisplayName = "Ningin Scene String";
+            this.ForegroundColor = Color.FromRgb(214, 157, 133);
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = "NinginSceneBool")]
+    [Name("NinginSceneBool")]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class NinginSceneBoolFormat : ClassificationFormatDefinition
+    {
+        public NinginSceneBoolFormat()
+        {
+            this.DisplayName = "Ningin Scene Bool";
+            this.ForegroundColor = Color.FromRgb(86, 156, 214);
+        }
+    }
+
+    [Export(typeof(EditorFormatDefinition))]
+    [ClassificationType(ClassificationTypeNames = "NinginSceneNumber")]
+    [Name("NinginSceneNumber")]
+    [UserVisible(true)]
+    [Order(Before = Priority.Default)]
+    internal sealed class NinginSceneNumberFormat : ClassificationFormatDefinition
+    {
+        public NinginSceneNumberFormat()
+        {
+            this.DisplayName = "Ningin Scene Number";
+            this.ForegroundColor = Colors.LightGreen;
         }
     }
 

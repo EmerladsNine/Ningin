@@ -1,39 +1,43 @@
+use std::{os::raw::c_void, ptr::null_mut};
+
 use crate::pos::Pos;
 
 #[derive(Clone)]
+#[repr(C)]
+#[repr(usize)]
 pub enum Tokens {
-    Identifier([u8; 200], usize),
-    String(Vec<u8>),
-    Bool(bool),
-    Lparanth,
-    Rparanth,
-    Lcb,
-    Rcb,
-    Comma,
-    Colon,
-    SemiColon,
-    HeadDefiner,
-    ChildDefiner,
-    TypeDefiner,
-    ScriptStart,
-    ScriptEnd,
-    Separator,
-    Plus,
-    Minus,
-    Times,
-    Divide,
+    Identifier = 0,
+    String = 1,
+    Bool = 2,
+    Lparanth = 3,
+    Rparanth = 4,
+    Lcb = 5,
+    Rcb = 6,
+    Comma = 7,
+    Colon = 8,
+    SemiColon = 9,
+    HeadDefiner = 10,
+    ChildDefiner = 11,
+    TypeDefiner = 12,
+    ScriptStart = 13,
+    ScriptEnd = 14,
+    Separator = 15,
+    Plus = 16,
+    Minus = 17,
+    Times = 18,
+    Divide = 19,
+    DecimalNumber = 20,
+    IntegerNumber = 21,
+    Comment = 22,
 
     Unknown,
     EOF,
 
     //These Used for More Than One Char
-    Number([u8; 40], usize, bool), // arr, arr_size , is_decimal , is_signed
-    DecimalNumber(f64),
-    IntegerNumber(i128),
-    IdentifierUncomplete([u8; 200], usize),
-    StringUncompleted(Vec<u8>,bool),
-    SeparatorUncomplete(usize, usize, usize),
-    Comment,
+    Number(Box<NumberData>), // arr, arr_size , is_decimal , is_signed
+    IdentifierUncomplete(Box<IdentData>),
+    StringUncompleted(Box<UnCompleteStringData>),
+    SeparatorUncomplete(Box<SeparatorData>),
 }
 
 impl Tokens {}
@@ -60,6 +64,7 @@ impl Lexer {
     }
 
     pub fn lex(&mut self, input: String) {
+        let mut current_index = 0;
         for captured in input.bytes() {
             if self.is_in_comment {
                 if captured == b'\n' {
@@ -68,152 +73,168 @@ impl Lexer {
                     self.line += 1;
                     self.column = 1;
                 }
+                current_index += 1;
                 continue;
             }
-
+            
             if !self.is_token_ready {
                 match &mut self.working_token {
-                    Tokens::SeparatorUncomplete(mut id, line, column) => {
+                    Tokens::SeparatorUncomplete(data) => {
+                        
                         if captured == b'\n' {
                             self.line += 1;
-                            id = 0;
+                            
+                            data.id = 0;
                             self.column = 1;
-                            self.working_token = Tokens::SeparatorUncomplete(id, *line, *column);
+                            self.working_token = Tokens::SeparatorUncomplete(Box::new(SeparatorData { id: data.id, line: data.line, column: data.column, start: data.start }));
                         } else if captured.is_ascii_whitespace() {
-                            id += 1;
-                            self.working_token = Tokens::SeparatorUncomplete(id, *line, *column);
+                            data.id += 1;
+                            self.working_token = Tokens::SeparatorUncomplete(Box::new(SeparatorData { id: data.id, line: data.line, column: data.column, start: data.start }));
                         } else {
                             self.tokens
-                                .push(Token::new(Tokens::Separator, Pos::new(*line, *column)));
-                            self.column += id;
-                            self.create_and_add(captured);
+                                .push(Token::new(Tokens::Separator,data.start, null_mut(), Pos::new(data.line, data.column)));
+                            self.column += data.id;
+                            self.create_and_add(captured,current_index);
                         }
                     }
 
-                    Tokens::Number(mut v, mut id, is_decimal) => {
+                    Tokens::Number(data) => {
                         if captured.is_ascii_digit() {
-                            id += 1;
-                            if id < 40 {
-                                v[id] = captured;
+                            data.id += 1;
+                            if data.id < 40 {
+                                data.val[data.id] = captured;
                             } else {
                                 panic!("Number Larger Than Expected {}:{}", self.line, self.column)
                             }
-                            self.working_token = Tokens::Number(v, id, *is_decimal);
+                            self.working_token = Tokens::Number(Box::new(NumberData { val: data.val, id: data.id, is_decimal: data.is_decimal, start: data.start }));
                         } else if captured == b'.' {
-                            id += 1;
-                            if id < 40 {
-                                v[id] = captured;
+                            data.id += 1;
+                            if data.id < 40 {
+                                data.val[data.id] = captured;
                             } else {
                                 panic!("Number Larger Than Expected {}:{}", self.line, self.column)
                             }
-                            self.working_token = Tokens::Number(v, id, true);
+                            self.working_token = Tokens::Number(Box::new(NumberData { val: data.val, id: data.id, is_decimal: true, start: data.start }));
                         } else {
-                            if *is_decimal {
-                                let num = std::str::from_utf8(&v[0..=id])
+                            if data.is_decimal {
+                                let num = std::str::from_utf8(&data.val[0..=data.id])
                                     .unwrap()
                                     .parse::<f64>()
                                     .unwrap();
-                                self.working_token = Tokens::DecimalNumber(num);
+                                
+                                self.tokens.push(Token::new(
+                                    Tokens::DecimalNumber,
+                                    data.start,
+                                    Box::into_raw(Box::new(num)) as *mut c_void,
+                                    Pos::new(self.line, self.column),
+                                ));
                             } else {
-                                let num = std::str::from_utf8(&v[0..=id])
+                                let num = std::str::from_utf8(&data.val[0..=data.id])
                                     .unwrap()
                                     .parse::<i128>()
                                     .unwrap();
-                                self.working_token = Tokens::IntegerNumber(num);
+                                self.tokens.push(Token::new(
+                                    Tokens::IntegerNumber,
+                                    data.start,
+                                    Box::into_raw(Box::new(num)) as *mut c_void,
+                                    Pos::new(self.line, self.column),
+                                ));
                             }
-                            self.tokens.push(Token::new(
-                                self.working_token.clone(),
-                                Pos::new(self.line, self.column),
-                            ));
-                            self.column += id + 1;
-                            self.create_and_add(captured);
+                            self.column += data.id + 1;
+                            self.create_and_add(captured,current_index);
                         }
                     }
 
-                    Tokens::IdentifierUncomplete(mut v, mut id) => {
+                    Tokens::IdentifierUncomplete(data) => {
                         if captured.is_ascii_alphanumeric() || captured == b'_' {
-                            id += 1;
-                            if id < 200 {
-                                v[id] = captured;
+                            data.id += 1;
+                            if data.id < 200 {
+                                data.val[data.id] = captured;
                             } else {
                                 panic!(
                                     "Expected name maximum chars 200 at {}:{}",
                                     self.line, self.column
                                 )
                             }
-                            self.working_token = Tokens::IdentifierUncomplete(v, id);
+                            self.working_token = Tokens::IdentifierUncomplete(Box::new(IdentData { val: data.val, id: data.id, start: data.start }));
                         } else {
-                            if v[0..=id] == [b'f', b'a', b'l', b's', b'e'] {
+                            if data.val[0..=data.id] == [b'f', b'a', b'l', b's', b'e'] {
                                 self.tokens.push(Token::new(
-                                    Tokens::Bool(false),
+                                    Tokens::Bool,
+                                    data.start,
+                                    &false as *const bool as *mut c_void,
                                     Pos::new(self.line, self.column),
                                 ));
-                            } else if v[0..=id] == [b't', b'r', b'u', b'e'] {
+                            } else if data.val[0..=data.id] == [b't', b'r', b'u', b'e'] {
                                 self.tokens.push(Token::new(
-                                    Tokens::Bool(true),
+                                    Tokens::Bool,
+                                    data.start,
+                                    &true as *const bool as *mut c_void,
                                     Pos::new(self.line, self.column),
                                 ));
                             } else {
                                 self.tokens.push(Token::new(
-                                    Tokens::Identifier(v, id),
+                                    Tokens::Identifier,
+                                    data.start,
+                                    Box::into_raw(Box::new(Identifier{name : data.val, size: data.id})) as *mut c_void,
                                     Pos::new(self.line, self.column),
                                 ));
                             }
-                            self.column += id + 1;
-                            self.create_and_add(captured);
+                            self.column += data.id + 1;
+                            self.create_and_add(captured, current_index);
                         }
                     }
 
                     Tokens::Comment => {
                         if captured == b'/' {
                             self.is_in_comment = true;
+                            self.tokens.push(Token::new(
+                                Tokens::Comment,
+                                current_index-1,
+                                null_mut(),
+                                Pos::new(self.line, self.column),
+                            ));
                         } else {
                             self.working_token = Tokens::Divide;
                             self.tokens.push(Token::new(
                                 self.working_token.clone(),
+                                current_index-1,
+                                null_mut(),
                                 Pos::new(self.line, self.column),
                             ));
-                            self.create_and_add(captured);
+                            self.create_and_add(captured, current_index);
                         }
                     }
 
-                    Tokens::StringUncompleted(s,last_is_escape_sequence) => {
+                    Tokens::StringUncompleted(data) => {
                         self.column += 1;
-                        if *last_is_escape_sequence {
+                        if data.last_is_escape_sequence {
                             if captured == b'n'{
-                                s.push(b'\n');
+                                data.data.push(b'\n');
                             }
                             else if captured == b'\\'
                             {
-                                s.push(b'\\');
+                                data.data.push(b'\\');
                             }
-                            else{
-                                panic!(
-                                    "Expected an escape character at {} ",
-                                    Pos::new(self.line, self.column)
-                                )
-                            } 
-                            *last_is_escape_sequence = false;    
+                            else{} 
+                            data.last_is_escape_sequence = false;    
                         } 
                         else if captured == b'"' {
                             self.tokens.push(
                                 Token::new(
-                                Tokens::String(s.clone()),
+                                Tokens::String,
+                                data.start,
+                                Box::into_raw(Box::new(data.data.clone())) as *mut c_void,
                                 Pos::new(self.line, self.column),
                             ));
                             self.column += 1;
                             self.is_token_ready = true;
-                        } else if captured == b'\n' {
-                            panic!(
-                                "Expected a second \" at {} ",
-                                Pos::new(self.line, self.column)
-                            )
                         }
                         else if captured == b'\\' {
-                            *last_is_escape_sequence = true;
+                            data.last_is_escape_sequence = true;
                         }
                         else {
-                            s.push(captured);
+                            data.data.push(captured);
                         }
                     }
 
@@ -222,40 +243,43 @@ impl Lexer {
                     }
                 }
             } else {
-                self.create_and_add(captured);
+                self.create_and_add(captured,current_index);
             }
+            current_index += 1;
         }
         if self.is_token_ready == false {
-            match self.working_token {
-                Tokens::SeparatorUncomplete(id, line, column) => {
+            match &mut self.working_token {
+                Tokens::SeparatorUncomplete( data) => {
                     self.tokens
-                        .push(Token::new(Tokens::Separator, Pos::new(line, column)));
-                    self.column += id;
+                        .push(Token::new(Tokens::Separator, data.start, null_mut(), Pos::new(data.line, data.column)));
+                    self.column += data.id;
                 }
                 Tokens::Comment => {
                     self.line += 1;
                     self.column = 1;
                 }
                 _ => {
-                    panic!("Unexpected character at {}:{}", self.line, self.column);
+                    
                 }
             }
         }
         self.tokens
-            .push(Token::new(Tokens::EOF, Pos::new(self.line, self.column)));
+            .push(Token::new(Tokens::EOF,current_index, null_mut(), Pos::new(self.line, self.column)));
     }
-    pub fn create_and_add(&mut self, captured: u8) {
+    pub fn create_and_add(&mut self, captured: u8,start : usize) {
         self.is_token_ready = false;
-        self.create(captured);
+        self.create(captured, start);
         if self.is_token_ready {
             self.tokens.push(Token::new(
                 self.working_token.clone(),
+                start,
+                null_mut(),
                 Pos::new(self.line, self.column),
             ));
             self.column += 1;
         }
     }
-    pub fn create(&mut self, token: u8) {
+    pub fn create(&mut self, token: u8 , start : usize) {
         match token {
             b'(' => {
                 self.working_token = Tokens::Lparanth;
@@ -318,23 +342,24 @@ impl Lexer {
                 self.working_token = Tokens::ScriptEnd;
                 self.is_token_ready = true;
             }
-            b'"' => self.working_token = Tokens::StringUncompleted(Vec::new(),false),
+            b'"' => self.working_token = Tokens::StringUncompleted(Box::new(UnCompleteStringData { data: Vec::new(), last_is_escape_sequence: false, start: start })),
             b'\n' => {
                 self.line += 1;
                 self.column = 1;
-                self.working_token = Tokens::SeparatorUncomplete(1, self.line, self.column);
+                self.working_token = Tokens::SeparatorUncomplete(Box::new(SeparatorData { id: 1, line: self.line, column: self.column, start: start }));
             }
             _ => {
-                if token.is_ascii_digit() || token == b'.' {
+                if token.is_ascii_digit() {
                     let mut ar = [0; 40];
                     ar[0] = token;
-                    self.working_token = Tokens::Number(ar, 0, false);
-                } else if token.is_ascii_alphabetic() || token == b'_' {
+                    self.working_token = Tokens::Number(Box::new(NumberData { val: ar, id: 0, is_decimal: false, start: start }));
+                }
+                else if token.is_ascii_alphabetic() || token == b'_' {
                     let mut ar = [0; 200];
                     ar[0] = token;
-                    self.working_token = Tokens::IdentifierUncomplete(ar, 0);
+                    self.working_token = Tokens::IdentifierUncomplete(Box::new(IdentData { val: ar, id: 0, start: start }));
                 } else if token.is_ascii_whitespace() {
-                    self.working_token = Tokens::SeparatorUncomplete(1, self.line, self.column);
+                    self.working_token = Tokens::SeparatorUncomplete(Box::new(SeparatorData { id: 1, line: self.line, column: self.column, start: start}));
                 } else {
                     self.working_token = Tokens::Unknown;
                     self.is_token_ready = true;
@@ -343,21 +368,67 @@ impl Lexer {
         };
     }
 }
+
+#[repr(C)]
 pub struct Token {
     pub pos: Pos,
+    pub value : *mut c_void,
+    pub start : usize,
     pub token: Tokens,
 }
 
 impl Token {
-    pub fn new(token: Tokens, pos: Pos) -> Self {
-        Self { token, pos }
+    pub fn new(token: Tokens, start : usize, value : *mut c_void, pos: Pos) -> Self {
+        Self { token, start, value , pos }
     }
 }
 impl Clone for Token {
     fn clone(&self) -> Self {
         Self {
             pos: self.pos,
+            start: self.start,
+            value: self.value,
             token: self.token.clone(),
         }
     }
+}
+
+#[repr(C)]
+pub struct Identifier{
+    pub name : [u8;200],
+    pub size : usize
+}
+
+#[derive(Clone)]
+#[repr(C)]
+pub struct NumberData {
+    pub val: [u8; 40],
+    pub id: usize,
+    pub is_decimal: bool,
+    pub start: usize,
+}
+
+#[derive(Clone)]
+#[repr(C)]
+pub struct IdentData {
+    pub val: [u8; 200],
+    pub id: usize,
+    pub start: usize,
+}
+
+#[derive(Clone)]
+#[repr(C)]
+pub struct UnCompleteStringData {
+    pub data: Vec<u8>,
+    pub last_is_escape_sequence: bool,
+    pub start: usize,
+}
+
+#[derive(Clone)]
+#[repr(C)]
+pub struct SeparatorData {
+    pub id: usize,
+    pub line: usize,
+    pub column: usize,
+    pub start: usize,
 }

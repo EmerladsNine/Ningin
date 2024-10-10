@@ -1,5 +1,5 @@
 use crate::{
-    lexer::{Token, Tokens},
+    lexer::{self, Token, Tokens},
     scene_system::{
         component::Component,
         id::Identifier,
@@ -54,7 +54,7 @@ impl Parser {
                     self.scene.types.push(typ);
                 }
 
-                Tokens::Separator => {}
+                Tokens::Separator | Tokens::Comment => {}
 
                 Tokens::EOF => {
                     break;
@@ -73,10 +73,17 @@ impl Parser {
             Tokens::Colon => {
                 token = self.advance().unwrap().clone();
                 match token.token {
-                    Tokens::IntegerNumber(num) => match num.try_into() {
+                    Tokens::IntegerNumber => 
+                    {
+                        let val_ptr = token.value as *mut i128;
+                        let val = unsafe {
+                            *val_ptr
+                        };
+                        match val.try_into() {
                         Ok(i) => i,
                         Err(_) => {
                             panic!("Expected U32 Id at {}", token.pos);
+                        }
                         }
                     },
                     _ => {
@@ -101,10 +108,15 @@ impl Parser {
         loop {
             let token = self.peek().unwrap().clone();
             match token.token {
-                Tokens::Identifier(name, size) => {
+                Tokens::Identifier => {
                     self.pos += 1;
+                    let identifier_ptr = token.value as *mut lexer::Identifier ;
+                    let identifier = unsafe {
+                        &mut *identifier_ptr
+                    };
+                
                     typ.properties.push(PropertyDefinition::new(
-                        Identifier::new(name, size),
+                        Identifier::new( identifier.name, identifier.size),
                         self.read_signature(),
                     ));
                 }
@@ -113,7 +125,7 @@ impl Parser {
                     panic!("A type can't have children {}", token.pos);
                 }
 
-                Tokens::Separator => {
+                Tokens::Separator | Tokens::Comment => {
                     self.pos += 1;
                 }
                 _ => {
@@ -142,7 +154,7 @@ impl Parser {
         loop {
             let token = self.peek().unwrap().clone();
             match token.token {
-                Tokens::Identifier(_, _) => {
+                Tokens::Identifier => {
                     let result = self.read_component();
                     if obj.components.iter().any(|comp| comp.name == result.name) {
                         panic!(
@@ -175,7 +187,7 @@ impl Parser {
                     }
                     obj.children.push(result);
                 }
-                Tokens::Separator => {
+                Tokens::Separator | Tokens::Comment => {
                     self.pos += 1;
                 }
                 _ => {
@@ -201,10 +213,14 @@ impl Parser {
         loop {
             let token = self.peek().unwrap().clone();
             match token.token {
-                Tokens::Identifier(val, id) => {
+                Tokens::Identifier => {
                     self.pos += 1;
+                    let identifier_ptr = token.value as *mut lexer::Identifier ;
+                    let identifier = unsafe {
+                        &mut *identifier_ptr
+                    };
                     comp.properties
-                        .push(Property::new(Identifier::new(val, id), self.read_values()));
+                        .push(Property::new(Identifier::new(identifier.name, identifier.size), self.read_values()));
                 }
 
                 Tokens::ScriptStart => {
@@ -214,7 +230,7 @@ impl Parser {
                 Tokens::ChildDefiner => {
                     panic!("A component can't have a child , error at {}", token.pos)
                 }
-                Tokens::Separator => {
+                Tokens::Separator | Tokens::Comment => {
                     self.pos += 1;
                 }
                 _ => {
@@ -232,9 +248,13 @@ impl Parser {
         let token = self.peek().unwrap().clone();
         let mut script = Vec::new();
         match token.token {
-            Tokens::Identifier(val, id) => {
+            Tokens::Identifier => {
+                let identifier_ptr = token.value as *mut lexer::Identifier ;
+                let identifier = unsafe {
+                    &mut *identifier_ptr
+                };
                 self.pos += 1;
-                script = val[0..=id].to_vec();
+                script = identifier.name[0..=identifier.size].to_vec();
                 script.push(b'.');
             }
             _ => {}
@@ -244,11 +264,15 @@ impl Parser {
         loop {
             let token = self.peek().unwrap().clone();
             match token.token {
-                Tokens::String(val) => {
+                Tokens::String => {
                     if comma_in_use {
                         self.pos += 1;
+                        let val_ptr = token.value as *mut Vec<u8>;
+                        let val = unsafe {
+                           &mut *val_ptr
+                        };
                         let mut script = script.clone();
-                        script.extend(val);
+                        script.extend(val.clone());
                         scripts.push(script);
                         comma_in_use = false;
                     } else {
@@ -265,7 +289,7 @@ impl Parser {
                     }
                 }
 
-                Tokens::Separator => {
+                Tokens::Separator | Tokens::Comment => {
                     self.pos += 1;
                 }
 
@@ -289,10 +313,14 @@ impl Parser {
         loop {
             let token = self.peek().unwrap().clone();
             match &token.token {
-                Tokens::Identifier(val, id) => {
+                Tokens::Identifier => {
                     if comma_in_use {
                         self.pos += 1;
-                        let val = std::str::from_utf8(&val[0..=*id]).unwrap();
+                        let identifier_ptr = token.value as *mut lexer::Identifier ;
+                        let identifier = unsafe {
+                            &mut *identifier_ptr
+                        };
+                        let val = std::str::from_utf8(&identifier.name[0..=identifier.size]).unwrap();
                         if val == "Double" || val == "F64" {
                             vals.push(ValueTypes::F64);
                         } else if val == "Float" || val == "F32" {
@@ -338,7 +366,7 @@ impl Parser {
                     }
                 }
 
-                Tokens::Separator => {
+                Tokens::Separator | Tokens::Comment=> {
                     self.pos += 1;
                 }
 
@@ -358,7 +386,7 @@ impl Parser {
         loop {
             let token = self.peek().unwrap().clone();
             match &token.token {
-                Tokens::Bool(_) => {
+                Tokens::Bool => {
                     if comma_in_use {
                         self.pos += 1;
                         vals.push(token);
@@ -370,8 +398,8 @@ impl Parser {
 
                 Tokens::Plus
                 | Tokens::Minus
-                | Tokens::DecimalNumber(..)
-                | Tokens::IntegerNumber(..) => {
+                | Tokens::DecimalNumber
+                | Tokens::IntegerNumber => {
                     if comma_in_use {
                         vals.push(self.parse_expression());
                         comma_in_use = false;
@@ -380,7 +408,7 @@ impl Parser {
                     }
                 }
 
-                Tokens::String(_) => {
+                Tokens::String => {
                     if comma_in_use {
                         self.pos += 1;
                         vals.push(token);
@@ -399,7 +427,7 @@ impl Parser {
                     }
                 }
 
-                Tokens::Separator => {
+                Tokens::Separator | Tokens::Comment=> {
                     self.pos += 1;
                 }
 
@@ -415,8 +443,12 @@ impl Parser {
     pub fn read_id(&mut self) -> ([u8; 200], usize) {
         let token = self.advance().unwrap().clone();
         match token.token {
-            Tokens::Identifier(name, id) => {
-                return (name, id);
+            Tokens::Identifier => {
+                let identifier_ptr = token.value as *mut lexer::Identifier ;
+                let identifier = unsafe {
+                    &mut *identifier_ptr
+                };
+                return (identifier.name, identifier.size);
             }
             _ => {
                 panic!("Expected an Identifier at {}", token.pos);
@@ -425,7 +457,6 @@ impl Parser {
     }
 
     pub fn opened_curly(&mut self) -> bool {
-        let firsttoken = self.peek().unwrap().clone();
         loop {
             let token = self.advance().unwrap().clone();
             match token.token {
@@ -435,25 +466,24 @@ impl Parser {
                 Tokens::SemiColon => {
                     return false;
                 }
-                Tokens::Separator => {}
+                Tokens::Separator | Tokens::Comment => {}
                 _ => {
-                    panic!("Expected opened curly braces at {}", firsttoken.pos);
+                    panic!("Expected opened curly braces at {}", token.pos);
                 }
             }
         }
     }
 
     pub fn closed_curly(&mut self) {
-        let firsttoken = self.peek().unwrap().clone();
         loop {
             let token = self.advance().unwrap().clone();
             match token.token {
                 Tokens::Rcb => {
                     break;
                 }
-                Tokens::Separator => {}
+                Tokens::Separator | Tokens::Comment => {}
                 _ => {
-                    panic!("Expected closed curly braces at {}", firsttoken.pos);
+                    panic!("Expected closed curly braces at {}", token.pos);
                 }
             }
         }
@@ -466,7 +496,7 @@ impl Parser {
                 Tokens::Lparanth => {
                     break;
                 }
-                Tokens::Separator => {}
+                Tokens::Separator | Tokens::Comment => {}
                 _ => {
                     panic!("Expected opening parenthesis at {}", firsttoken.pos);
                 }
@@ -482,11 +512,10 @@ impl Parser {
                 Tokens::Rparanth => {
                     break;
                 }
-                Tokens::Separator => {}
-                Tokens::Identifier(val, _) => {
+                Tokens::Separator | Tokens::Comment => {}
+                Tokens::Identifier => {
                     panic!(
-                        "Expected a valid value not '{}' at {}",
-                        std::str::from_utf8(&val).unwrap(),
+                        "Expected a valid value  at {}",
                         token.pos
                     );
                 }

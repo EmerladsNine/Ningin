@@ -1,5 +1,6 @@
 use std::fmt::{Display, Result};
 
+#[repr(C)]
 pub struct Pos {
     pub line: usize,
     pub column: usize,

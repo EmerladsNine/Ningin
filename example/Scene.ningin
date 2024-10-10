@@ -7,7 +7,7 @@
         Rotation(0.0,0.0,0.0)
         Scale(1.0,1.0,1.0)
    }
-
+   
    //Text{
      //  TextColor(255, 255, 100, 255)
      //  FontName("arial.ttf")
@@ -16,7 +16,7 @@
      //  Shader("text")
      //  UseMultiLine(true)
    //}
-
+   
    Sprite{
       useAlpha(true)
       UseTint(true)

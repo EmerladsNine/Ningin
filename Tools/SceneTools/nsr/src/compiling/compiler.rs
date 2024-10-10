@@ -153,8 +153,13 @@ impl Compiler {
                                 ValueTypes::Bool => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::Bool(v) => {
-                                                let bytes = v as u8;
+                                            Tokens::Bool => {
+                                                let bool_ptr = val.value as *const bool;
+
+                                                let bool_value= unsafe { *bool_ptr };
+
+                                                let bytes: u8 = bool_value as u8;
+
                                                 self.properties_section.extend(bytes.to_be_bytes());
                                             }
                                             _ => {
@@ -167,7 +172,11 @@ impl Compiler {
                                 ValueTypes::I64 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => {
+                                            Tokens::IntegerNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 match i64::try_from(num) {
                                                     Ok(i) => {
                                                         self.properties_section
@@ -188,7 +197,11 @@ impl Compiler {
                                 ValueTypes::U64 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => {
+                                            Tokens::IntegerNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 match u64::try_from(num) {
                                                     Ok(i) => {
                                                         self.properties_section
@@ -209,7 +222,11 @@ impl Compiler {
                                 ValueTypes::I32 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => {
+                                            Tokens::IntegerNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 match i32::try_from(num) {
                                                     Ok(i) => {
                                                         self.properties_section
@@ -230,7 +247,11 @@ impl Compiler {
                                 ValueTypes::U32 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => {
+                                            Tokens::IntegerNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 match u32::try_from(num) {
                                                     Ok(i) => {
                                                         self.properties_section
@@ -251,7 +272,11 @@ impl Compiler {
                                 ValueTypes::I16 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => {
+                                            Tokens::IntegerNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 match i16::try_from(num) {
                                                     Ok(i) => {
                                                         self.properties_section
@@ -272,7 +297,11 @@ impl Compiler {
                                 ValueTypes::U16 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => {
+                                            Tokens::IntegerNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 match u16::try_from(num) {
                                                     Ok(i) => {
                                                         self.properties_section
@@ -293,14 +322,21 @@ impl Compiler {
                                 ValueTypes::I8 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => match i8::try_from(num) {
+                                            Tokens::IntegerNumber => 
+                                        {
+                                            let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
+                                            match i8::try_from(num) {
                                                 Ok(i) => {
                                                     self.properties_section.extend(i.to_be_bytes());
                                                 }
                                                 Err(_) => {
                                                     panic!("Expected I8 at {}", val.pos);
                                                 }
-                                            },
+                                            }
+                                        },
                                             _ => {
                                                 panic!("Expected I8 at {} ", val.pos)
                                             }
@@ -311,13 +347,19 @@ impl Compiler {
                                 ValueTypes::U8 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::IntegerNumber(num) => match u8::try_from(num) {
+                                            Tokens::IntegerNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
+                                                match u8::try_from(num) {
                                                 Ok(i) => {
                                                     self.properties_section.extend(i.to_be_bytes());
                                                 }
                                                 Err(_) => {
                                                     panic!("Expected U8 at {}", val.pos);
                                                 }
+                                               }
                                             },
                                             _ => {
                                                 panic!("Expected U8 at {} ", val.pos)
@@ -329,7 +371,11 @@ impl Compiler {
                                 ValueTypes::F32 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::DecimalNumber(num) => {
+                                            Tokens::DecimalNumber => {
+                                                let num_ptr = val.value as *mut f64;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 self.properties_section
                                                     .extend((num as f32).to_be_bytes());
                                             }
@@ -343,7 +389,11 @@ impl Compiler {
                                 ValueTypes::F64 => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::DecimalNumber(num) => {
+                                            Tokens::DecimalNumber => {
+                                                let num_ptr = val.value as *mut i128;
+                                                let num = unsafe {
+                                                    *num_ptr
+                                                };
                                                 self.properties_section.extend(num.to_be_bytes());
                                             }
                                             _ => {
@@ -356,9 +406,13 @@ impl Compiler {
                                 ValueTypes::String => {
                                     if let Some(val) = prop_iter.next() {
                                         match val.token.clone() {
-                                            Tokens::String(v) => {
+                                            Tokens::String => {
                                                 let i = self.strings.len();
-                                                let mut property_value = v;
+                                                let val_ptr = val.value as *mut Vec<u8>;
+                                                let v = unsafe {
+                                                    &mut *val_ptr
+                                                };
+                                                let mut property_value = v.clone();
                                                 property_value.push(b'\0');
                                                 self.strings.push(property_value.clone());
                                                 self.string_section.extend(property_value);

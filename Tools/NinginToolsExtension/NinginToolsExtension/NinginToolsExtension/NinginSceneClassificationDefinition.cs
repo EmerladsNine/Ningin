@@ -23,8 +23,32 @@ namespace NinginToolsExtension
 #pragma warning restore 169
 
         [Export(typeof(ClassificationTypeDefinition))]
-        [Name("NinginSceneKeyword")]
-        internal static ClassificationTypeDefinition NinginSceneKeywordType = null;
+        [Name("NinginSceneIdentifier")]
+        internal static ClassificationTypeDefinition NinginSceneIdentifierType = null;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name("NinginSceneHeadIdentifier")]
+        internal static ClassificationTypeDefinition NinginSceneHeadIdentifierType = null;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name("NinginSceneChildIdentifier")]
+        internal static ClassificationTypeDefinition NinginSceneChildIdentifierType = null;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name("NinginSceneTypeIdentifier")]
+        internal static ClassificationTypeDefinition NinginSceneTypeIdentifierType = null;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name("NinginSceneString")]
+        internal static ClassificationTypeDefinition NinginSceneStringType = null;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name("NinginSceneBool")]
+        internal static ClassificationTypeDefinition NinginSceneBoolType = null;
+
+        [Export(typeof(ClassificationTypeDefinition))]
+        [Name("NinginSceneNumber")]
+        internal static ClassificationTypeDefinition NinginSceneNumberType = null;
 
         [Export(typeof(ClassificationTypeDefinition))]
         [Name("NinginSceneComment")]

@@ -1,5 +1,5 @@
 use crate::{
-    lexer::Tokens,
+    lexer::{self, Tokens},
     parser::parser::Parser,
     scene_system::{id::Identifier, property::Property},
 };
@@ -18,8 +18,12 @@ impl Parser {
                 }
                 let val = prop.values[0].clone();
                 match val.token {
-                    Tokens::String(name) => {
-                        self.scene.name = name;
+                    Tokens::String => {
+                        let val_ptr = val.value as *mut Vec<u8>;
+                        let name = unsafe {
+                           &mut *val_ptr
+                        };
+                        self.scene.name = name.clone();
                     }
                     _ => {
                         panic!("Wrong Argument given, expected String at {}", val.pos)
@@ -35,8 +39,12 @@ impl Parser {
     pub fn get_head_property(&mut self) -> Property {
         let token = self.advance().unwrap().clone();
         match token.token {
-            Tokens::Identifier(name, id) => {
-                return Property::new(Identifier::new(name, id), self.read_values());
+            Tokens::Identifier => {
+                let identifier_ptr = token.value as *mut lexer::Identifier ;
+                let identifier = unsafe {
+                    &mut *identifier_ptr
+                };
+                return Property::new(Identifier::new(identifier.name, identifier.size), self.read_values());
             }
             _ => {
                 panic!("Expected an Identifier at {}", token.pos);
