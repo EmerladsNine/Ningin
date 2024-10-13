@@ -5,7 +5,7 @@ namespace example
 {
     public class Class1 : Entity
     {
-        SpriteRenderer spr;
+        TextRenderer spr;
         void Start()
         {
             var vec = new Vector2(-10, -60);
@@ -13,7 +13,7 @@ namespace example
             Debug.LogInfo("Hi C#");
             Debug.LogInfo(v2.ToString());
             Debug.LogInfo(entityId.ToString());
-            spr = GetComponent<SpriteRenderer>();
+            spr = GetComponent<TextRenderer>();
             throw new Exception("Testing EXCEPTIONS !!");
         }
         // bool is_updated = false;
@@ -35,7 +35,7 @@ namespace example
             uint blue = (uint)(System.Math.Sin(time * 4) * 127 + 128);  // Different frequency for blue
             uint alpha = 255;  // Full opacity
 
-            spr.SetTintingColor(Color.FromRGBA(red, green, blue, alpha));
+            spr.SetTextColor(Color.FromRGBA(red, green, blue, alpha));
             if (time >= nextsecond)
             {
                 Console.WriteLine(nextsecond);

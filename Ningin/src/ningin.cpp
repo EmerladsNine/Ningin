@@ -151,7 +151,7 @@ void Game::MainLoop()
 
 int main()
 {
-	Game::Init("Example", WindowOptions::FullScreen, new Dimensions2(500, 500), { "Scene" },
+	Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
 		MonoPaths("mono/lib","example.dll"), false);
 	Game::Start();
 	return 0;

@@ -319,6 +319,7 @@ void TextRenderer::SetDrawingUniforms(int32_t length)
 void TextRenderer::ComputeTextTransform(Transform& transform)
 {
 	Vector3 pos = transform.position;
+	_baseModel = glm::mat4(1.0f);
 
 	Vector2 textCenter = { _textDimensions.width / 2.0f, _textDimensions.height / 2.0f };
 

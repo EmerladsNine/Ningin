@@ -8,22 +8,22 @@
         Scale(1.0,1.0,1.0)
    }
    
-   //Text{
-     //  TextColor(255, 255, 100, 255)
-     //  FontName("arial.ttf")
-     //  FontSize(36)
-     //  Text("Hello")
-     //  Shader("text")
-     //  UseMultiLine(true)
-   //}
-   
-   Sprite{
-      useAlpha(true)
-      UseTint(true)
-      TintingColor(205, 155, 0, 255)
-      TextureName("sprite")
-      Shader("sprite")     
+   Text{
+       TextColor(255, 255, 100, 255)
+       FontName("arial.ttf")
+       FontSize(36)
+       Text("Hello")
+       Shader("text")
+       UseMultiLine(true)
    }
+   
+   //Sprite{
+    //  useAlpha(true)
+    //  UseTint(true)
+    //  TintingColor(205, 155, 0, 255)
+    //  TextureName("sprite")
+    //  Shader("sprite")
+   //}
 }
 
 @potato{
