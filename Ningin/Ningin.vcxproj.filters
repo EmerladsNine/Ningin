@@ -157,6 +157,12 @@
     <Filter Include="Header Files\resourceManager\opengl">
       <UniqueIdentifier>{66a74642-8f03-40be-9aa5-45b6def17188}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\input">
+      <UniqueIdentifier>{8ab0630f-411b-4434-a66c-dd737db520ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\input">
+      <UniqueIdentifier>{af3b0ee6-82be-4da7-992a-2a3f3003c659}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -374,6 +380,9 @@
     </ClCompile>
     <ClCompile Include="src\sceneSystem\entity\Entity.cpp">
       <Filter>Source Files\sceneSystem\entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\input\KeyInput.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -628,6 +637,9 @@
     </ClInclude>
     <ClInclude Include="src\sceneSystem\entity\EntityId.h">
       <Filter>Header Files\sceneSystem\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\KeyInput.h">
+      <Filter>Source Files\input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

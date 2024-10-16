@@ -2,6 +2,7 @@
 #include "sceneSystem/World.h"
 #include "scripting/ScriptingEngine.h"
 #include "utils/Timer.h"
+#include "input/KeyInput.h"
 #include <filesystem>
 
 ResourceManager resourceManager = ResourceManager();
@@ -44,6 +45,7 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 	//Initialise first window scene manager
 	if(openedWindow.has_value())
 	{
+		KeyInput::SetupKeyInputs(openedWindow.value().glfwWin);
 		openedWindow.value().sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
 	}
 }

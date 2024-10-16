@@ -1,5 +1,6 @@
 ﻿using System;
 using NinginCore;
+using NinginCore.input;
 
 namespace example
 {
@@ -26,8 +27,12 @@ namespace example
             {
                 Debug.LogInfo("HHUUHHH");
             }
-            transform.Position += new Vector3(10, 50, 0) * deltatime;
-            transform.Rotation += new Vector3(0, 0, 30) * deltatime;
+
+            if(KeyInput.IsKeyDown(KeyCode.KEY_ESCAPE))
+            {
+                transform.Position += new Vector3(10, 50, 0) * deltatime;
+                transform.Rotation += new Vector3(0, 0, 30) * deltatime;
+            }
 
             // Cycle through colors by modifying RGB values based on time
             uint red = (uint)(System.Math.Sin(time * 2) * 127 + 128);  // Oscillates between 0 and 255

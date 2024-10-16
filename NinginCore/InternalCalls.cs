@@ -242,5 +242,10 @@ namespace NinginCore
         internal static extern void MonoColorToString(ref Color color, out string str);
         #endregion
 
+        #region KeyInput
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern bool IsKeyDown(int key);
+        #endregion
+
     }
 }

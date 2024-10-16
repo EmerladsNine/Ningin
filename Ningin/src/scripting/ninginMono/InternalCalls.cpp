@@ -14,6 +14,7 @@
 #include "../../sceneSystem/components/TextRenderer.h"
 #include "../../resourceManager/color/Color.h"
 #include "../../sceneSystem/entity/Entity.h"
+#include "../../input/KeyInput.h"
 
 void AddInternalCalls()
 {
@@ -151,4 +152,9 @@ void AddInternalCalls()
         AddInternalCall(DebugLogWarning);
         AddInternalCall(DebugLogError);
     #pragma endregion
+
+    #pragma region KeyInput
+        AddInternalCall(IsKeyDown);
+    #pragma endregion
+
 }

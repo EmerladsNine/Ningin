@@ -1,7 +1,7 @@
 #Title("A Scene")
 
 @test{
-    <example "Class1">
+    <example "Class1"> 
     Transform{
         Position(0.0,0.0,0.0)
         Rotation(0.0,0.0,0.0)

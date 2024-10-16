@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lib\stb_image.cpp" />
+    <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
     <ClCompile Include="src\physicsManager\Axes.cpp" />
     <ClCompile Include="src\physicsManager\colliders\Point.cpp" />
@@ -93,6 +94,7 @@
     <ClCompile Include="src\utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\input\KeyInput.h" />
     <ClInclude Include="src\math\Range.h" />
     <ClInclude Include="src\physicsManager\Axes.h" />
     <ClInclude Include="src\physicsManager\BodyTypes.h" />
