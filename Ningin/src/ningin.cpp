@@ -3,7 +3,10 @@
 #include "scripting/ScriptingEngine.h"
 #include "utils/Timer.h"
 #include "input/KeyInput.h"
+#include "paex_record.h"
 #include <filesystem>
+#include <portaudio.h>
+
 
 ResourceManager resourceManager = ResourceManager();
 glm::mat4 projectionMatrix = glm::mat4(1.0f);
@@ -48,6 +51,8 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 		KeyInput::SetupKeyInputs(openedWindow.value().glfwWin);
 		openedWindow.value().sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
 	}
+
+	JUSTTEST();
 }
 
 void Game::Start()
@@ -147,7 +152,6 @@ void Game::MainLoop()
 			}
 			glfwSwapBuffers(openedWindow.value().glfwWin);
 		}
-
 	}
 }
 

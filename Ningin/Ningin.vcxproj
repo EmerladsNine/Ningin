@@ -96,6 +96,7 @@
   <ItemGroup>
     <ClInclude Include="src\input\KeyInput.h" />
     <ClInclude Include="src\math\Range.h" />
+    <ClInclude Include="src\paex_record.h" />
     <ClInclude Include="src\physicsManager\Axes.h" />
     <ClInclude Include="src\physicsManager\BodyTypes.h" />
     <ClInclude Include="src\physicsManager\colliders\Circle.h" />
@@ -229,6 +230,9 @@
     <Font Include="resourceFiles\default\fonts\Roboto-ThinItalic.ttf" />
   </ItemGroup>
   <ItemGroup>
+    <CopyFileToFolders Include="dependencies\portaudio_x64.dll">
+      <FileType>Document</FileType>
+    </CopyFileToFolders>
     <None Include="resourceFiles\shaders\sprite_fs.frag" />
     <None Include="resourceFiles\shaders\sprite_vs.vs" />
     <None Include="resourceFiles\shaders\text_fs.frag" />
@@ -324,7 +328,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;$(ProjectDir)\external\glfw-3.4.bin.WIN64\include;$(ProjectDir)\external\mono\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;$(ProjectDir)\external\glfw-3.4.bin.WIN64\include;$(ProjectDir)\external\mono\include;$(ProjectDir)\external\portaudio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -332,8 +336,8 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>.\external\jsoncpp-1.9.5\out\build\x64-Debug\lib;.\external\mono;.\external\glew-2.1.0\lib\Release\x64;$(ProjectDir)\external\freetype-2.13.3\objs;$(ProjectDir)\external\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies);jsoncpp.lib;mono-2.0-sgen.lib;libmono-static-sgen.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>.\external\jsoncpp-1.9.5\out\build\x64-Debug\lib;.\external\mono;.\external\glew-2.1.0\lib\Release\x64;$(ProjectDir)\external\freetype-2.13.3\objs;$(ProjectDir)\external\glfw-3.4.bin.WIN64\lib-vc2022;$(ProjectDir)\external\glew-2.1.0\lib\Release\x64;$(ProjectDir)\external\portaudio;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;user32.lib;gdi32.lib;shell32.lib;freetype.lib;glew32.lib;%(AdditionalDependencies);jsoncpp.lib;mono-2.0-sgen.lib;libmono-static-sgen.lib;portaudio_x64.lib</AdditionalDependencies>
       <IgnoreSpecificDefaultLibraries>MSCVRT.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
       <AdditionalOptions>/NODEFAULTLIB:MSVCRT %(AdditionalOptions)</AdditionalOptions>
     </Link>
