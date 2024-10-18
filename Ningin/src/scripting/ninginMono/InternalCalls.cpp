@@ -157,4 +157,12 @@ void AddInternalCalls()
         AddInternalCall(IsKeyDown);
     #pragma endregion
 
+    #pragma region StaticAudioPlayer
+        AddInternalCall(StaticAudioPlayerPlayAudio);
+        AddInternalCall(StaticAudioPlayerStopAudio);
+    #pragma endregion
+
+    #pragma region Environment
+        AddInternalCall(EnvironmentGetGameDirectory);
+    #pragma endregion
 }

@@ -163,6 +163,12 @@
     <Filter Include="Source Files\input">
       <UniqueIdentifier>{af3b0ee6-82be-4da7-992a-2a3f3003c659}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\audio">
+      <UniqueIdentifier>{4e4a0f5a-8dc2-4da0-b792-fccf12d37422}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\audio">
+      <UniqueIdentifier>{1dfd966c-6aa3-4dcc-ba64-1ad99591c3c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -386,6 +392,9 @@
     </ClCompile>
     <ClCompile Include="lib\drlibs.cpp">
       <Filter>lib</Filter>
+    </ClCompile>
+    <ClCompile Include="src\audio\StaticAudioPlayer.cpp">
+      <Filter>Source Files\audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -641,11 +650,14 @@
     <ClInclude Include="src\sceneSystem\entity\EntityId.h">
       <Filter>Header Files\sceneSystem\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\paex_record.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="src\input\KeyInput.h">
       <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio\AudioData.h">
+      <Filter>Header Files\audio</Filter>
+    </ClInclude>
+    <ClInclude Include="src\audio\StaticAudioPlayer.h">
+      <Filter>Header Files\audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

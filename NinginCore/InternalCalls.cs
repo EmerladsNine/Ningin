@@ -247,5 +247,17 @@ namespace NinginCore
         internal static extern bool IsKeyDown(int key);
         #endregion
 
+        #region StaticAudioPlayer
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void StaticAudioPlayerPlayAudio(string path);
+
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void StaticAudioPlayerStopAudio();
+        #endregion
+
+        #region Environment
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void EnvironmentGetGameDirectory(out string path);
+        #endregion
     }
 }

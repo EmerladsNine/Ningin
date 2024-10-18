@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using NinginCore;
+using NinginCore.audio;
 using NinginCore.input;
 
 namespace example
@@ -20,6 +22,7 @@ namespace example
         // bool is_updated = false;
         float time = 0f;
         int nextsecond = 1;
+        bool is_playing = false;
         void Update(float deltatime)
         {
             time += deltatime;
@@ -28,12 +31,40 @@ namespace example
                 Debug.LogInfo("HHUUHHH");
             }
 
-            if(KeyInput.IsKeyDown(KeyCode.KEY_ESCAPE))
+            if(KeyInput.IsKeyDown(KeyCode.KEY_W))
             {
-                transform.Position += new Vector3(10, 50, 0) * deltatime;
-                transform.Rotation += new Vector3(0, 0, 30) * deltatime;
+                transform.Position -= new Vector3(0, 50, 0) * deltatime;
+            }
+            else if (KeyInput.IsKeyDown(KeyCode.KEY_S))
+            {
+                transform.Position += new Vector3(0, 50, 0) * deltatime;
+            }
+            
+            if (KeyInput.IsKeyDown(KeyCode.KEY_A))
+            {
+                transform.Position -= new Vector3(50, 0, 0) * deltatime;
+            }
+            else if (KeyInput.IsKeyDown(KeyCode.KEY_D))
+            {
+                transform.Position += new Vector3(50, 0, 0) * deltatime;
             }
 
+            if (KeyInput.IsKeyDown(KeyCode.KEY_ENTER))
+            {
+                if(is_playing)
+                {
+                    StaticAudioPlayer.StopAudio();
+                    is_playing = false;
+                }
+                else
+                {
+                    string GameDirectory = NinginCore.Environment.GetGameDirectory();
+                    StaticAudioPlayer.PlayAudio(GameDirectory + "/sample_song.mp3");
+                    is_playing=true;
+                }
+                Thread.Sleep(1000);
+            }
+            
             // Cycle through colors by modifying RGB values based on time
             uint red = (uint)(System.Math.Sin(time * 2) * 127 + 128);  // Oscillates between 0 and 255
             uint green = (uint)(System.Math.Sin(time * 3) * 127 + 128); // Different frequency for green

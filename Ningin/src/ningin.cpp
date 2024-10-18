@@ -3,7 +3,6 @@
 #include "scripting/ScriptingEngine.h"
 #include "utils/Timer.h"
 #include "input/KeyInput.h"
-#include "paex_record.h"
 #include <filesystem>
 #include <portaudio.h>
 
@@ -51,8 +50,6 @@ void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimen
 		KeyInput::SetupKeyInputs(openedWindow.value().glfwWin);
 		openedWindow.value().sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
 	}
-
-	JUSTTEST();
 }
 
 void Game::Start()

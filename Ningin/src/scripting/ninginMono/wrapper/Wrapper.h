@@ -13,6 +13,8 @@
 #include "../../../resourceManager/color/Color.h"
 #include "../../../utils/Debug.h"
 #include "../../ScriptingEngine.h"
+#include "../../../audio/StaticAudioPlayer.h"
+#include "../../../environment.h"
 #include <mono/jit/jit.h>
 
 #pragma region Debug
@@ -61,4 +63,12 @@
 
 #pragma region Color
 	void MonoColorToString(Color& color, MonoString** out);
+#pragma endregion
+
+#pragma region StaticAudioPlayer
+	void StaticAudioPlayerPlayAudio(MonoString* path);
+#pragma endregion
+
+#pragma region Environment
+	void EnvironmentGetGameDirectory(MonoString** out);
 #pragma endregion

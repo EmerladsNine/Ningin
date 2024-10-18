@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="lib\drlibs.cpp" />
     <ClCompile Include="lib\stb_image.cpp" />
+    <ClCompile Include="src\audio\StaticAudioPlayer.cpp" />
     <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
     <ClCompile Include="src\physicsManager\Axes.cpp" />
@@ -95,9 +96,10 @@
     <ClCompile Include="src\utils\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\audio\AudioData.h" />
+    <ClInclude Include="src\audio\StaticAudioPlayer.h" />
     <ClInclude Include="src\input\KeyInput.h" />
     <ClInclude Include="src\math\Range.h" />
-    <ClInclude Include="src\paex_record.h" />
     <ClInclude Include="src\physicsManager\Axes.h" />
     <ClInclude Include="src\physicsManager\BodyTypes.h" />
     <ClInclude Include="src\physicsManager\colliders\Circle.h" />

@@ -109,3 +109,19 @@
 		*out = ScriptingEngine::mono.GetMonoString(text.c_str());
 	}
 #pragma endregion
+
+#pragma region StaticAudioPlayer
+	void StaticAudioPlayerPlayAudio(MonoString* path)
+	{
+		char* pathCstr = mono_string_to_utf8(path);
+		StaticAudioPlayer::PlayAudio(pathCstr);
+	}
+#pragma endregion
+
+#pragma region Environment
+	void EnvironmentGetGameDirectory(MonoString** out)
+	{
+		std::filesystem::path path = Environment::GetGameDirectory();
+		*out = ScriptingEngine::mono.GetMonoString(path.string().c_str());
+	}
+#pragma endregion
