@@ -382,7 +382,10 @@
       <Filter>Source Files\sceneSystem\entity</Filter>
     </ClCompile>
     <ClCompile Include="src\input\KeyInput.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="drlibs.cpp">
+      <Filter>lib</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -638,11 +641,11 @@
     <ClInclude Include="src\sceneSystem\entity\EntityId.h">
       <Filter>Header Files\sceneSystem\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="src\input\KeyInput.h">
-      <Filter>Source Files\input</Filter>
-    </ClInclude>
     <ClInclude Include="src\paex_record.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\input\KeyInput.h">
+      <Filter>Header Files\input</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

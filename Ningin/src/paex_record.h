@@ -44,6 +44,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "portaudio.h"
+#include "dr_mp3.h"
+#include "environment.h"
 
 /* #define SAMPLE_RATE  (17932) // Test failure to open with this value. */
 #define SAMPLE_RATE  (44100)
@@ -85,6 +87,130 @@ typedef struct
     SAMPLE      *recordedSamples;
 }
 paTestData;
+
+typedef struct {
+    float* samples;
+    size_t frameIndex;    // Current frame index
+    size_t maxFrameIndex; // Total frames in the sample
+    int channels;         // Number of channels (1 = mono, 2 = stereo)
+} AudioData;
+
+static int audioCallback(const void* inputBuffer, void* outputBuffer,
+    unsigned long framesPerBuffer,
+    const PaStreamCallbackTimeInfo* timeInfo,
+    PaStreamCallbackFlags statusFlags,
+    void* userData) {
+    AudioData* data = (AudioData*)userData;
+    float* out = (float*)outputBuffer;
+    unsigned long framesLeft = data->maxFrameIndex - data->frameIndex;
+    unsigned long framesToPlay = (framesPerBuffer < framesLeft) ? framesPerBuffer : framesLeft;
+
+    // Copy audio samples to output buffer
+    for (unsigned long i = 0; i < framesToPlay; ++i) {
+        for (int ch = 0; ch < data->channels; ++ch) {
+            *out++ = data->samples[data->frameIndex * data->channels + ch];
+        }
+        data->frameIndex++;
+    }
+
+    // If we run out of frames, fill the rest of the buffer with silence
+    for (unsigned long i = framesToPlay; i < framesPerBuffer; ++i) {
+        for (int ch = 0; ch < data->channels; ++ch) {
+            *out++ = 0.0f; // silence
+        }
+    }
+
+    // End stream when all frames are played
+    return (data->frameIndex < data->maxFrameIndex) ? paContinue : paComplete;
+}
+
+
+static void LoadFile()
+{
+    auto file_name = "sample_song.mp3";
+    auto file_path = Environment::GetGameDirectory() / file_name;
+    drmp3 mp3;
+    if (!drmp3_init_file(&mp3, file_path.string().c_str(), NULL)) {
+        printf("Failed to load MP3 file: %s\n", file_name);
+        return;
+    }
+    drmp3_uint64 totalPCMFrameCount = drmp3_get_pcm_frame_count(&mp3);
+    drmp3_uint64 totalSampleCount =   totalPCMFrameCount * mp3.channels;
+    float* pSampleData = (float*)malloc((size_t)totalSampleCount * sizeof(float));
+    if (pSampleData == NULL) {
+        printf("Failed to allocate memory for PCM data\n");
+        drmp3_uninit(&mp3);
+        return;
+    }
+
+    drmp3_uint64 samplesDecoded = drmp3_read_pcm_frames_f32(&mp3, totalPCMFrameCount, pSampleData);
+    if (samplesDecoded > 0) {
+        printf("Successfully decoded %llu PCM frames\n", samplesDecoded);
+    }
+    else {
+        printf("Failed to decode MP3\n");
+    }
+
+    drmp3_uninit(&mp3);
+
+    // Set up audio data for PortAudio
+    AudioData audioData;
+    audioData.samples = pSampleData;
+    audioData.frameIndex = 0;
+    audioData.maxFrameIndex = (size_t)totalPCMFrameCount;
+    audioData.channels = mp3.channels;
+
+    // Initialize PortAudio
+    PaError err = Pa_Initialize();
+    if (err != paNoError) {
+        printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        free(pSampleData);
+        return;
+    }
+
+    // Open PortAudio stream
+    PaStream* stream;
+    err = Pa_OpenDefaultStream(&stream,
+        0,                    // No input channels
+        audioData.channels,    // Number of output channels
+        paFloat32,             // Output sample format
+        mp3.sampleRate,        // Sample rate
+        256,                   // Frames per buffer
+        audioCallback,         // Callback function
+        &audioData);           // User data (our audio data)
+
+    if (err != paNoError) {
+        printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        Pa_Terminate();
+        free(pSampleData);
+        return;
+    }
+
+    // Start the audio stream
+    err = Pa_StartStream(stream);
+    if (err != paNoError) {
+        printf("PortAudio error: %s\n", Pa_GetErrorText(err));
+        Pa_Terminate();
+        free(pSampleData);
+        return;
+    }
+
+    // Wait for the stream to finish
+    while (Pa_IsStreamActive(stream) == 1) {
+       Pa_Sleep(100); // Sleep 100ms while waiting for stream to finish
+    }
+
+    // Stop the stream
+    Pa_StopStream(stream);
+    Pa_CloseStream(stream);
+    Pa_Terminate();
+
+    // Clean up
+    free(pSampleData);
+
+    printf("Finished playing audio.\n");
+    return;
+}
 
 /* This routine will be called by the PortAudio engine when audio is needed.
 ** It may be called at interrupt level on some machines so don't do anything
@@ -195,6 +321,7 @@ static int playCallback( const void *inputBuffer, void *outputBuffer,
 int JUSTTEST(void);
 int JUSTTEST(void)
 {
+    LoadFile();
     PaStreamParameters  inputParameters,
                         outputParameters;
     PaStream*           stream;

@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="drlibs.cpp" />
     <ClCompile Include="lib\stb_image.cpp" />
     <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
@@ -328,7 +329,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;$(ProjectDir)\external\glfw-3.4.bin.WIN64\include;$(ProjectDir)\external\mono\include;$(ProjectDir)\external\portaudio\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\external\glew-2.1.0\include;$(ProjectDir)\external\jsoncpp-1.9.5\include;$(ProjectDir)\external\stb_image;$(ProjectDir)\external\glm-1.0.1\glm;$(ProjectDir)\external\freetype-2.13.3\include;$(ProjectDir)\external\glfw-3.4.bin.WIN64\include;$(ProjectDir)\external\mono\include;$(ProjectDir)\external\portaudio\include;$(ProjectDir)\external\dr_libs;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
