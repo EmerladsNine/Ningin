@@ -384,7 +384,7 @@
     <ClCompile Include="src\input\KeyInput.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
-    <ClCompile Include="drlibs.cpp">
+    <ClCompile Include="lib\drlibs.cpp">
       <Filter>lib</Filter>
     </ClCompile>
   </ItemGroup>

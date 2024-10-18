@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="drlibs.cpp" />
+    <ClCompile Include="lib\drlibs.cpp" />
     <ClCompile Include="lib\stb_image.cpp" />
     <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
