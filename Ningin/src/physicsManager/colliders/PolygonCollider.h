@@ -4,13 +4,13 @@
 #include <vector>
 #include <format>
 
-class Polygon {
+struct PolygonCollider {
 	private:
 		std::vector<Vector2> _vertices;
 	public:
 		Vector2 position;
 
-		Polygon(std::vector<Vector2>& vertices, Vector2& position) : _vertices(vertices), position(position) {}
+		PolygonCollider(std::vector<Vector2>& vertices, Vector2& position) : _vertices(vertices), position(position) {}
 
 		void AddVertex(Vector2& vertex);
 		std::string ToString();

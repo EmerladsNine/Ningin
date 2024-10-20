@@ -1,11 +1,11 @@
-#include "polygon.h"
+#include "PolygonCollider.h"
 
-void Polygon::AddVertex(Vector2& vertex)
+void PolygonCollider::AddVertex(Vector2& vertex)
 {
 	_vertices.push_back(vertex);
 }
 
-string Polygon::ToString()
+string PolygonCollider::ToString()
 {
 	string polygon_string = std::format("Polygon Pos(x={}, y={})\nVertices:", position.x, position.y);
 

@@ -2,10 +2,8 @@
 
 namespace NinginCore
 {
-    public class RigidBody2d
+    public class RigidBody2d : Component
     {
-        internal IntPtr rigidBody2d;
 
-        internal RigidBody2d() { }
     }
 }

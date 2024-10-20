@@ -659,6 +659,12 @@
     <ClInclude Include="src\audio\StaticAudioPlayer.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
+    <ClInclude Include="src\sceneSystem\components\Collider2D.h">
+      <Filter>Header Files\sceneSystem\components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsManager\colliders\ColliderShape.h">
+      <Filter>Header Files\physicsManager\colliders</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="dependencies\freetype.dll">

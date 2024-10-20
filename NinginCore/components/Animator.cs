@@ -2,10 +2,8 @@
 
 namespace NinginCore
 {
-    public class Animator
+    public class Animator : Component
     {
-        internal IntPtr animator;
 
-        internal Animator() { }
     }
 }

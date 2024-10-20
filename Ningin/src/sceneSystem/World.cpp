@@ -1,6 +1,7 @@
 #include "components/SpriteRenderer.h"
 #include "../scripting/Scriptable.h"
 #include "components/TextRenderer.h"
+#include "components/Collider2D.h"
 #include "../system/renderer.h"
 #include "components/Transform.h"
 #include "components/ScriptVec.h"
@@ -32,6 +33,7 @@ void World::InitDefaultComponentSystem()
 	EntityManager::RegisterComponent<SpriteRenderer>();
 	EntityManager::RegisterComponent<Transform>();
 	EntityManager::RegisterComponent<TextRenderer>();
+	EntityManager::RegisterComponent<Collider2D>();
 }
 
 EntityId World::NewEntity()

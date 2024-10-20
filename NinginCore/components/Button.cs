@@ -2,10 +2,8 @@
 
 namespace NinginCore
 {
-    public class Button
+    public class Button : Component
     {
-        internal IntPtr button;
 
-        internal Button() { }
     }
 }
