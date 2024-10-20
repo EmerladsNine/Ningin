@@ -1,7 +1,6 @@
 #include "components/SpriteRenderer.h"
 #include "../scripting/Scriptable.h"
 #include "components/TextRenderer.h"
-#include "components/Collider2D.h"
 #include "../system/renderer.h"
 #include "components/Transform.h"
 #include "components/ScriptVec.h"
@@ -10,6 +9,10 @@
 #include "entity/Name.h"
 #include "entity/Id.h"
 #include "World.h"
+#include "../physicsManager/colliders/BoxCollider.h"
+#include "../physicsManager/colliders/CircleCollider.h"
+#include "../physicsManager/colliders/PointCollider.h"
+#include "../physicsManager/colliders/PolygonCollider.h"
 
 using namespace std;
 
@@ -33,7 +36,11 @@ void World::InitDefaultComponentSystem()
 	EntityManager::RegisterComponent<SpriteRenderer>();
 	EntityManager::RegisterComponent<Transform>();
 	EntityManager::RegisterComponent<TextRenderer>();
-	EntityManager::RegisterComponent<Collider2D>();
+
+	EntityManager::RegisterComponent<CircleCollider>();
+	EntityManager::RegisterComponent<PointCollider>();
+	EntityManager::RegisterComponent<PolygonCollider>();
+	EntityManager::RegisterComponent<BoxCollider>();
 }
 
 EntityId World::NewEntity()
