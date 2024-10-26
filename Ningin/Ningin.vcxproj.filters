@@ -49,24 +49,6 @@
     <Filter Include="lib">
       <UniqueIdentifier>{8d80d73f-744e-4d80-b36e-07c7cd02e753}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\physicsManager">
-      <UniqueIdentifier>{9ffc58cd-bf14-4b8a-9c8f-d1f51cfb91c5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\physicsManager\colliders">
-      <UniqueIdentifier>{db0e671a-cdfb-4035-bfe5-3524c646cf8c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\physicsManager\force">
-      <UniqueIdentifier>{3c31da47-dace-4d78-8f61-aa4a9f07863b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\physicsManager">
-      <UniqueIdentifier>{f00962c7-a9da-4e3b-af12-54085a444579}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\physicsManager\colliders">
-      <UniqueIdentifier>{416d0d89-30d3-4d1a-a24b-a478110db286}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\physicsManager\force">
-      <UniqueIdentifier>{6b75986c-35e7-4efc-98de-25cf960d239c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\resourceManager">
       <UniqueIdentifier>{73a8ef6d-25dd-49c3-b5f5-999c53e444d7}</UniqueIdentifier>
     </Filter>
@@ -169,6 +151,24 @@
     <Filter Include="Source Files\audio">
       <UniqueIdentifier>{1dfd966c-6aa3-4dcc-ba64-1ad99591c3c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\physicsEngine">
+      <UniqueIdentifier>{d5093873-4b32-4a96-b5b8-80a462681865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\physicsEngine\force">
+      <UniqueIdentifier>{f8390c55-d038-429b-9081-0854f4f7281d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\physicsEngine\colliders">
+      <UniqueIdentifier>{e518a4bc-20a3-4175-a8a4-301f826d3419}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physicsEngine">
+      <UniqueIdentifier>{9936c9ac-43be-476a-8ac8-05a9afdaa1bc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physicsEngine\force">
+      <UniqueIdentifier>{5ef0a784-1cbb-4ff0-b5e0-321acde71997}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physicsEngine\colliders">
+      <UniqueIdentifier>{33ead9ca-808a-47e7-aa61-aae295c1598c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -224,30 +224,6 @@
     </ClCompile>
     <ClCompile Include="src\scripting\ninginMono\InternalCalls.cpp">
       <Filter>Source Files\scripting\mono</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\force\Force.cpp">
-      <Filter>Source Files\physicsManager\force</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\force\ForceComputation.cpp">
-      <Filter>Source Files\physicsManager\force</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\colliders\Polygon.cpp">
-      <Filter>Source Files\physicsManager\colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\colliders\Point.cpp">
-      <Filter>Source Files\physicsManager\colliders</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\Axes.cpp">
-      <Filter>Source Files\physicsManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\Mask2.cpp">
-      <Filter>Source Files\physicsManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\Mask3.cpp">
-      <Filter>Source Files\physicsManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsManager\SurfaceInteractionModes.cpp">
-      <Filter>Source Files\physicsManager</Filter>
     </ClCompile>
     <ClCompile Include="src\sceneSystem\entity\Children.cpp">
       <Filter>Source Files\sceneSystem\entity</Filter>
@@ -396,6 +372,30 @@
     <ClCompile Include="src\audio\StaticAudioPlayer.cpp">
       <Filter>Source Files\audio</Filter>
     </ClCompile>
+    <ClCompile Include="src\physicsEngine\Axes.cpp">
+      <Filter>Source Files\physicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\Mask2.cpp">
+      <Filter>Source Files\physicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\Mask3.cpp">
+      <Filter>Source Files\physicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\SurfaceInteractionModes.cpp">
+      <Filter>Source Files\physicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\force\Force.cpp">
+      <Filter>Source Files\physicsEngine\force</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\force\ForceComputation.cpp">
+      <Filter>Source Files\physicsEngine\force</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\colliders\PointCollider.cpp">
+      <Filter>Source Files\physicsEngine\colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\colliders\PolygonCollider.cpp">
+      <Filter>Source Files\physicsEngine\colliders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\math\Vector3.h">
@@ -457,57 +457,6 @@
     </ClInclude>
     <ClInclude Include="src\scripting\ninginMono\MonoPaths.h">
       <Filter>Header Files\scripting\mono</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\colliders\Circle.h">
-      <Filter>Header Files\physicsManager\colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\colliders\Point.h">
-      <Filter>Header Files\physicsManager\colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\colliders\Polygon.h">
-      <Filter>Header Files\physicsManager\colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\colliders\Rect.h">
-      <Filter>Header Files\physicsManager\colliders</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\force\Force.h">
-      <Filter>Header Files\physicsManager\force</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\force\ForceComputation.h">
-      <Filter>Header Files\physicsManager\force</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\force\ForceDynamics.h">
-      <Filter>Header Files\physicsManager\force</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\force\ForceType.h">
-      <Filter>Header Files\physicsManager\force</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\Axes.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\BodyTypes.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\CollisionDetectionMode.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\InterpolationMode.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\Mask2.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\Mask3.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\PhysicsMaterial2D.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\SleepMode.h">
-      <Filter>Header Files\physicsManager</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsManager\SurfaceInteractionModes.h">
-      <Filter>Header Files\physicsManager</Filter>
     </ClInclude>
     <ClInclude Include="src\sceneSystem\Scene.h">
       <Filter>Header Files\sceneSystem</Filter>
@@ -659,11 +608,56 @@
     <ClInclude Include="src\audio\StaticAudioPlayer.h">
       <Filter>Header Files\audio</Filter>
     </ClInclude>
-    <ClInclude Include="src\sceneSystem\components\Collider2D.h">
-      <Filter>Header Files\sceneSystem\components</Filter>
+    <ClInclude Include="src\physicsEngine\Axes.h">
+      <Filter>Header Files\physicsEngine</Filter>
     </ClInclude>
-    <ClInclude Include="src\physicsManager\colliders\ColliderShape.h">
-      <Filter>Header Files\physicsManager\colliders</Filter>
+    <ClInclude Include="src\physicsEngine\BodyTypes.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\CollisionDetectionMode.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\InterpolationMode.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\Mask2.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\Mask3.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\PhysicsMaterial2D.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\SleepMode.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\SurfaceInteractionModes.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\force\Force.h">
+      <Filter>Header Files\physicsEngine\force</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\force\ForceComputation.h">
+      <Filter>Header Files\physicsEngine\force</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\force\ForceDynamics.h">
+      <Filter>Header Files\physicsEngine\force</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\force\ForceType.h">
+      <Filter>Header Files\physicsEngine\force</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\colliders\BoxCollider.h">
+      <Filter>Header Files\physicsEngine\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\colliders\CircleCollider.h">
+      <Filter>Header Files\physicsEngine\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\colliders\PointCollider.h">
+      <Filter>Header Files\physicsEngine\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\colliders\PolygonCollider.h">
+      <Filter>Header Files\physicsEngine\colliders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
