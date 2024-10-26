@@ -5,9 +5,9 @@
 #include "../../math/Vector3.h"
 #include "../../math/Range.h"
 #include "../../math/Math.h"
-#include "../../physicsManager/colliders/Point.h"
-#include "../../physicsManager/Mask2.h"
-#include "../../physicsManager/Mask3.h"
+#include "../../sceneSystem/components/colliders/PointCollider.h"
+#include "../../physicsEngine/Mask2.h"
+#include "../../physicsEngine/Mask3.h"
 #include "wrapper/Wrapper.h"
 #include "../../sceneSystem/components/Transform.h"
 #include "../../sceneSystem/components/SpriteRenderer.h"
@@ -15,6 +15,8 @@
 #include "../../resourceManager/color/Color.h"
 #include "../../sceneSystem/entity/Entity.h"
 #include "../../input/KeyInput.h"
+
+using namespace Ningin::Components;
 
 void AddInternalCalls()
 {

@@ -10,8 +10,10 @@
 
 using namespace std;
 
-class Font
+namespace Ningin
 {
+	class Font
+	{
 	public:
 		Font(const filesystem::path& path);
 
@@ -31,4 +33,5 @@ class Font
 		void AddGlyph(FT_GlyphSlot glyph, GLchar charCode);
 
 		void FreeResources(FT_Face face);
-};
+	};
+}

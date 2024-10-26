@@ -17,21 +17,23 @@
 
 using namespace std;
 
-extern ResourceManager resourceManager;
-extern glm::mat4 projectionMatrix;
-extern Dimensions2 windowDimensions;
-extern FT_Library ftLibrary;
-
-extern UBO projectionUBO;
-
-extern int ARRAY_LIMIT;
-extern const int ATLAS_LIMIT;
-
-extern const Range AnimationTimeRange;
-extern const Range colorRange;
-
-class Game
+namespace Ningin
 {
+	extern ResourceManager resourceManager;
+	extern glm::mat4 projectionMatrix;
+	extern Dimensions2 windowDimensions;
+	extern FT_Library ftLibrary;
+
+	extern UBO projectionUBO;
+
+	extern int ARRAY_LIMIT;
+	extern const int ATLAS_LIMIT;
+
+	extern const Range AnimationTimeRange;
+	extern const Range colorRange;
+
+	class Game
+	{
 	public:
 		static std::optional<Window> openedWindow;
 		static SceneLoader sceneLoader;
@@ -48,4 +50,5 @@ class Game
 		static void InitFreetype();
 		static void SetUBO(Dimensions2* dimensions);
 		static void MainLoop();
-};
+	};
+}

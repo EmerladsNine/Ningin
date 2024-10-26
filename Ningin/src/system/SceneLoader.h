@@ -9,8 +9,10 @@
 
 using namespace std;
 
-class SceneLoader
+namespace Ningin
 {
+	class SceneLoader
+	{
 	public:
 		SceneLoader();
 
@@ -29,4 +31,5 @@ class SceneLoader
 			uint8_t* filePropertiesPointer);
 
 		vector<Scene> _scenes;
-};
+	};
+}

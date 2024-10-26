@@ -1,6 +1,12 @@
 #pragma once
 
-enum ForceType {
-	AppliedForce,
-	DynamicForce
-};
+namespace Ningin 
+{
+	namespace Physics
+	{
+		enum ForceType {
+			AppliedForce,
+			DynamicForce
+		};
+	}
+}

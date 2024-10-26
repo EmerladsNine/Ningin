@@ -1,6 +1,12 @@
 #pragma once
 
-enum CollisionDetectionMode {
-	Discrete,
-	Continuous
-};
+namespace Ningin
+{
+	namespace Physics
+	{
+		enum CollisionDetectionMode {
+			Discrete,
+			Continuous
+		};
+	}
+}

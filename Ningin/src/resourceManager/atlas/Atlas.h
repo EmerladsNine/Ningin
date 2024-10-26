@@ -15,8 +15,10 @@
 
 using namespace std;
 
-class Atlas
+namespace Ningin
 {
+	class Atlas
+	{
 	public:
 		Atlas(size_t id);
 
@@ -25,7 +27,7 @@ class Atlas
 		void AddSprite(const filesystem::path& path, string& name);
 		void AddSpritesWithJson(filesystem::path& spriteSheetPath, filesystem::path& infoPath);
 		void AddSprites(filesystem::path& spriteSheetPath, SpriteSheetInfo& info);
-		
+
 		bool CanAddSprite();
 		bool CanAddSpriteSheet(SpriteSheetInfo& spriteSheet);
 
@@ -47,4 +49,5 @@ class Atlas
 		void SetupSpriteTexture();
 		void CreateSpriteTexture(Dimensions2& dimensions, vector<uint8_t>& data);
 		SpriteSheetInfo ParseJson(filesystem::path& infoPath);
-};
+	};
+}

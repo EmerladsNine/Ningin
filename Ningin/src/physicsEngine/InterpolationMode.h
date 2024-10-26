@@ -1,7 +1,13 @@
 #pragma once
 
-enum InterpolationMode {
-	None,
-	Interpolate,
-	Extrapolate
-};
+namespace Ningin
+{
+	namespace Physics
+	{
+		enum InterpolationMode {
+			None,
+			Interpolate,
+			Extrapolate
+		};
+	}
+}

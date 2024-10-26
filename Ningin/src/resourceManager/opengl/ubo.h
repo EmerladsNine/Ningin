@@ -5,7 +5,9 @@
 
 using namespace std;
 
-class UBO {
+namespace Ningin
+{
+	class UBO {
 	public:
 		UBO(vector<Shader> shadersUniforms, const string uboName, unsigned long long uniformSize);
 		UBO();
@@ -19,4 +21,5 @@ class UBO {
 		void GenUBO(unsigned long long uniformSize);
 
 		GLuint _ubo;
-};
+	};
+}

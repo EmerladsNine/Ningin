@@ -1,7 +1,13 @@
 #pragma once
 
-enum BodyTypes {
-	Kinematic,
-	Dynamic,
-	Static
-};
+namespace Ningin
+{
+	namespace Physics
+	{
+		enum BodyTypes {
+			Kinematic,
+			Dynamic,
+			Static
+		};
+	}
+}

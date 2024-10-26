@@ -1,56 +1,64 @@
 #pragma once
 
-#include "../../physicsManager/CollisionDetectionMode.h"
-#include "../../physicsManager/PhysicsMaterial2D.h"
-#include "../../physicsManager/InterpolationMode.h"
-#include "../../physicsManager/force/force.h"
-#include "../../physicsManager/SleepMode.h"
-#include "../../physicsManager/bodyTypes.h"
-#include "../../physicsManager/mask2.h"
+#include "../../physicsEngine/CollisionDetectionMode.h"
+#include "../../physicsEngine/PhysicsMaterial2D.h"
+#include "../../physicsEngine/InterpolationMode.h"
+#include "../../physicsEngine/force/force.h"
+#include "../../physicsEngine/SleepMode.h"
+#include "../../physicsEngine/bodyTypes.h"
+#include "../../physicsEngine/mask2.h"
 #include "../../math/vector2.h"
 #include "../../ningin.h"
 #include <vector>
 
-class RigidBody2D {
-	public:
-		RigidBody2D();
-		~RigidBody2D();
+namespace Ningin
+{
+	using namespace Physics;
 
-		static void System(EntityManager* entityManager);
+	namespace Components
+	{
+		class RigidBody2D {
+		public:
+			RigidBody2D();
+			~RigidBody2D();
 
-	private:
-		float _mass;
-		float _inertia;
+			static void System(EntityManager* entityManager);
 
-		float _linearDamping;
-		float _angularDamping;
+		private:
+			float _mass;
+			float _inertia;
 
-		bool _simulated; // Forces are no longer applied
-		bool _useAutoInertia; // Calculates inertia using the mass
+			float _linearDamping;
+			float _angularDamping;
 
-		BodyTypes _bodyType;
+			bool _simulated; // Forces are no longer applied
+			bool _useAutoInertia; // Calculates inertia using the mass
 
-		PhyscicsMaterial2D _physcisMaterial;
+			BodyTypes _bodyType;
 
-		CollisionDetectionMode _collisionDetectionMode;
-		InterpolationMode _interpolationMode;
-		SleepMode _sleepMode;
+			PhyscicsMaterial2D _physcisMaterial;
 
-		std::vector<Force2D> _forces;
-		//std::vector<Torque2D> _torques;
+			CollisionDetectionMode _collisionDetectionMode;
+			InterpolationMode _interpolationMode;
+			SleepMode _sleepMode;
 
-		Force2D _constantForce; // Total positional forces applied during each frame
-		//Torque2D _constantTorque; // Total rotational forces applied during each frame
+			std::vector<Force2D> _forces;
+			//std::vector<Torque2D> _torques;
 
-		Force2D _gravity;
+			Force2D _constantForce; // Total positional forces applied during each frame
+			//Torque2D _constantTorque; // Total rotational forces applied during each frame
 
-		Vector2 _centerOfMass;
+			Force2D _gravity;
 
-		Vector2 _linearVelocity;
-		Vector2 _angularVelocity;
+			Vector2 _centerOfMass;
 
-		Mask2 _freezePosition;
-		bool _freezeRotation;
+			Vector2 _linearVelocity;
+			Vector2 _angularVelocity;
 
-		void Update();
-};
+			Mask2 _freezePosition;
+			bool _freezeRotation;
+
+			void Update();
+		};
+	}
+}

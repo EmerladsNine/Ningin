@@ -6,8 +6,10 @@
 
 using namespace std;
 
-class World
+namespace Ningin
 {
+	class World
+	{
 	public:
 		World();
 
@@ -18,4 +20,5 @@ class World
 		static vector<void (*)(float)> lateSystems;
 		static vector<void (*)(float)> systems;
 		size_t entitiesCount;
-};
+	};
+}

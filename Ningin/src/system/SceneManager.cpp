@@ -1,8 +1,11 @@
 #include "SceneManager.h"
 
-SceneManager::SceneManager(Scene* currentScene) : currentScene(currentScene) {}
-
-void SceneManager::NewFrame(float deltatime)
+namespace Ningin
 {
-	currentScene->NewFrame(deltatime);
+	SceneManager::SceneManager(Scene* currentScene) : currentScene(currentScene) {}
+
+	void SceneManager::NewFrame(float deltatime)
+	{
+		currentScene->NewFrame(deltatime);
+	}
 }

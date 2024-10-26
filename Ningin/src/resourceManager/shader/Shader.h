@@ -10,8 +10,10 @@
 
 using namespace std;
 
-class Shader
+namespace Ningin
 {
+	class Shader
+	{
 	public:
 		Shader(const filesystem::path vertexPath, const filesystem::path fragmentPath,
 			const filesystem::path* geometryPath = nullptr);
@@ -51,4 +53,5 @@ class Shader
 
 		string LoadShader(filesystem::path& path);
 		GLuint CompileShader(GLenum shaderType, string& source);
-};
+	};
+}

@@ -20,8 +20,10 @@
 
 using namespace std;
 
-class TextRenderer
+namespace Ningin::Components
 {
+	class TextRenderer
+	{
 	public:
 		TextRenderer(string& fontName, string& shaderName, Color& textColor, string& text, uint8_t fontSize,
 			bool useMultiLine);
@@ -50,7 +52,7 @@ class TextRenderer
 		void SetupVertexAttrib();
 
 		void FreeResources(bool unbindTexture);
-		
+
 		pair<vector<vector<char>>, size_t> GetTextInfo();
 		void ComputeTextTransform(Transform& transform);
 		float CalculateWordWidth(string& word);
@@ -83,9 +85,10 @@ class TextRenderer
 		VAO _vao;
 		Buffer _vbo;
 		Font _font;
-};
+	};
 
-void TextSetTextColor(TextRenderer& textRenderer, Color& color);
-void TextSetText(TextRenderer& textRenderer, string& text);
-void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize);
-void TextSetFont(TextRenderer& textRenderer, const string& fontName);
+	void TextSetTextColor(TextRenderer& textRenderer, Color& color);
+	void TextSetText(TextRenderer& textRenderer, string& text);
+	void TextSetFontSize(TextRenderer& textRenderer, uint8_t fontSize);
+	void TextSetFont(TextRenderer& textRenderer, const string& fontName);
+}

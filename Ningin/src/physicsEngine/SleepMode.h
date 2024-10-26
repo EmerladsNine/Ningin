@@ -1,7 +1,13 @@
 #pragma once
 
-enum SleepMode {
-	StartAwake,
-	StartAsleep,
-	NeverSleep
-};
+namespace Ningin 
+{
+	namespace Physics
+	{
+		enum SleepMode {
+			StartAwake,
+			StartAsleep,
+			NeverSleep
+		};
+	}
+}

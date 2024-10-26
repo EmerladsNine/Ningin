@@ -6,9 +6,9 @@
 #include "../../../math/Vector3.h"
 #include "../../../math/Range.h"
 #include "../../../math/Math.h"
-#include "../../../physicsManager/colliders/Point.h"
-#include "../../../physicsManager/Mask2.h"
-#include "../../../physicsManager/Mask3.h"
+#include "../../../sceneSystem/components/colliders/PointCollider.h"
+#include "../../../physicsEngine/Mask2.h"
+#include "../../../physicsEngine/Mask3.h"
 #include "../../../sceneSystem/components/Transform.h"
 #include "../../../resourceManager/color/Color.h"
 #include "../../../utils/Debug.h"
@@ -16,6 +16,10 @@
 #include "../../../audio/StaticAudioPlayer.h"
 #include "../../../environment.h"
 #include <mono/jit/jit.h>
+
+using namespace Ningin::Physics;
+using namespace Ningin::Components;
+using namespace Ningin;
 
 #pragma region Debug
 	void DebugLogInfo(MonoString* message);
@@ -54,7 +58,7 @@
 #pragma endregion
 
 #pragma region Point
-	void MonoPointToString(Point& point, MonoString** out);
+	void MonoPointToString(PointCollider& point, MonoString** out);
 #pragma endregion
 
 #pragma region Transform

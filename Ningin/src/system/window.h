@@ -9,8 +9,10 @@
 
 using namespace std;
 
-class Window
+namespace Ningin
 {
+	class Window
+	{
 	public:
 		GLFWwindow* glfwWin;
 		SceneManager sceneManager;
@@ -24,6 +26,7 @@ class Window
 
 		GLFWwindow* StartWindow(string title, bool isFullscreen, Dimensions2* dimensions);
 
-};
+	};
 
-void setProjection(Dimensions2* dimensions);
+	void setProjection(Dimensions2* dimensions);
+}

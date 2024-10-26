@@ -7,21 +7,27 @@
 #include "forceType.h"
 #include "../Axes.h"
 
-struct Force2D {
-	private:
-		Vector3 _direction;
-		Vector2 _magnitude;
-		Vector2 _normalizedMagnitude;
+namespace Ningin
+{
+	namespace Physics 
+	{
+		struct Force2D {
+		private:
+			Vector3 _direction;
+			Vector2 _magnitude;
+			Vector2 _normalizedMagnitude;
 
-		ForceComputation _computation;
-		ForceType _forceType;
+			ForceComputation _computation;
+			ForceType _forceType;
 
-		float _angle;
+			float _angle;
 
-	public:
-		Force2D(float forceMagnitude, float angle, Axes direction, ForceComputation computation,
-			ForceType forceType);
+		public:
+			Force2D(float forceMagnitude, float angle, Axes direction, ForceComputation computation,
+				ForceType forceType);
 
-		Force2D(Vector2 forceMagnitude, ForceType forceType, Axes direction,
-			AppliedForceComputation computation);
-};
+			Force2D(Vector2 forceMagnitude, ForceType forceType, Axes direction,
+				AppliedForceComputation computation);
+		};
+	}
+}

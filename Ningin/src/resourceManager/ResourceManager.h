@@ -17,8 +17,10 @@
 
 using namespace std;
 
-class ResourceManager
+namespace Ningin
 {
+	class ResourceManager
+	{
 	public:
 		ResourceManager() = default;
 
@@ -50,4 +52,6 @@ class ResourceManager
 		vector<Atlas> _atlases;
 
 		//unordered_map<string, PhyscicsMaterial2D> physicsMaterials2D;
-};
+	};
+
+}

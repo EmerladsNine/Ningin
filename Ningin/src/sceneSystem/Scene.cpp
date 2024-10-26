@@ -1,18 +1,21 @@
 #include "Scene.h"
 
-Scene::Scene(string name) : name(name) {}
-
-void Scene::NewFrame(float deltatime)
+namespace Ningin
 {
-	// Systems
-	for (auto& system : World::systems)
-	{
-		system(deltatime);
-	}
+	Scene::Scene(string name) : name(name) {}
 
-	// Late systems.
-	for (auto& system : World::lateSystems)
+	void Scene::NewFrame(float deltatime)
 	{
-		system(deltatime);
+		// Systems
+		for (auto& system : World::systems)
+		{
+			system(deltatime);
+		}
+
+		// Late systems.
+		for (auto& system : World::lateSystems)
+		{
+			system(deltatime);
+		}
 	}
 }

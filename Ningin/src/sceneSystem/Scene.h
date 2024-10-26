@@ -6,14 +6,17 @@
 
 using namespace std;
 
-class Scene
+namespace Ningin
 {
-	public:
-		Scene(string name);
+	class Scene
+	{
+		public:
+			Scene(string name);
 
-		void NewFrame(float deltatime);
+			void NewFrame(float deltatime);
 
-		string name;
-		World world;
+			string name;
+			World world;
 
-};
+	};
+}

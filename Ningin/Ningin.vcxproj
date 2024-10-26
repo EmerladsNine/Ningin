@@ -25,8 +25,6 @@
     <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
     <ClCompile Include="src\physicsEngine\Axes.cpp" />
-    <ClCompile Include="src\physicsEngine\colliders\PointCollider.cpp" />
-    <ClCompile Include="src\physicsEngine\colliders\PolygonCollider.cpp" />
     <ClCompile Include="src\physicsEngine\force\Force.cpp" />
     <ClCompile Include="src\physicsEngine\force\ForceComputation.cpp" />
     <ClCompile Include="src\physicsEngine\Mask2.cpp" />
@@ -61,6 +59,8 @@
     <ClCompile Include="src\resourceManager\texture\TextureInfo.cpp" />
     <ClCompile Include="src\sceneSystem\components\Animator.cpp" />
     <ClCompile Include="src\sceneSystem\components\Button.cpp" />
+    <ClCompile Include="src\sceneSystem\components\colliders\PointCollider.cpp" />
+    <ClCompile Include="src\sceneSystem\components\colliders\PolygonCollider.cpp" />
     <ClCompile Include="src\sceneSystem\components\RigidBody2D.cpp" />
     <ClCompile Include="src\sceneSystem\components\ScriptVec.cpp" />
     <ClCompile Include="src\sceneSystem\components\SpriteRenderer.cpp" />
@@ -102,10 +102,6 @@
     <ClInclude Include="src\math\Range.h" />
     <ClInclude Include="src\physicsEngine\Axes.h" />
     <ClInclude Include="src\physicsEngine\BodyTypes.h" />
-    <ClInclude Include="src\physicsEngine\colliders\BoxCollider.h" />
-    <ClInclude Include="src\physicsEngine\colliders\CircleCollider.h" />
-    <ClInclude Include="src\physicsEngine\colliders\PointCollider.h" />
-    <ClInclude Include="src\physicsEngine\colliders\PolygonCollider.h" />
     <ClInclude Include="src\physicsEngine\CollisionDetectionMode.h" />
     <ClInclude Include="src\physicsEngine\force\Force.h" />
     <ClInclude Include="src\physicsEngine\force\ForceComputation.h" />
@@ -146,6 +142,10 @@
     <ClInclude Include="src\resourceManager\texture\TextureInfo.h" />
     <ClInclude Include="src\sceneSystem\components\Animator.h" />
     <ClInclude Include="src\sceneSystem\components\Button.h" />
+    <ClInclude Include="src\sceneSystem\components\colliders\BoxCollider.h" />
+    <ClInclude Include="src\sceneSystem\components\colliders\CircleCollider.h" />
+    <ClInclude Include="src\sceneSystem\components\colliders\PointCollider.h" />
+    <ClInclude Include="src\sceneSystem\components\colliders\PolygonCollider.h" />
     <ClInclude Include="src\sceneSystem\components\RigidBody2D.h" />
     <ClInclude Include="src\sceneSystem\components\ScriptVec.h" />
     <ClInclude Include="src\sceneSystem\components\SpriteRenderer.h" />

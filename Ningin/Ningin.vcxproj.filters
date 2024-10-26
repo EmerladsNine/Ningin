@@ -157,17 +157,17 @@
     <Filter Include="Header Files\physicsEngine\force">
       <UniqueIdentifier>{f8390c55-d038-429b-9081-0854f4f7281d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\physicsEngine\colliders">
-      <UniqueIdentifier>{e518a4bc-20a3-4175-a8a4-301f826d3419}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\physicsEngine">
       <UniqueIdentifier>{9936c9ac-43be-476a-8ac8-05a9afdaa1bc}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\physicsEngine\force">
       <UniqueIdentifier>{5ef0a784-1cbb-4ff0-b5e0-321acde71997}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\physicsEngine\colliders">
-      <UniqueIdentifier>{33ead9ca-808a-47e7-aa61-aae295c1598c}</UniqueIdentifier>
+    <Filter Include="Source Files\sceneSystem\components\colliders">
+      <UniqueIdentifier>{ad421a7f-1ec4-418c-98df-b6a2ea3700e5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\sceneSystem\components\colliders">
+      <UniqueIdentifier>{ae2fd1bf-ca37-4827-8864-a664c6224749}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -390,11 +390,11 @@
     <ClCompile Include="src\physicsEngine\force\ForceComputation.cpp">
       <Filter>Source Files\physicsEngine\force</Filter>
     </ClCompile>
-    <ClCompile Include="src\physicsEngine\colliders\PointCollider.cpp">
-      <Filter>Source Files\physicsEngine\colliders</Filter>
+    <ClCompile Include="src\sceneSystem\components\colliders\PointCollider.cpp">
+      <Filter>Source Files\sceneSystem\components\colliders</Filter>
     </ClCompile>
-    <ClCompile Include="src\physicsEngine\colliders\PolygonCollider.cpp">
-      <Filter>Source Files\physicsEngine\colliders</Filter>
+    <ClCompile Include="src\sceneSystem\components\colliders\PolygonCollider.cpp">
+      <Filter>Source Files\sceneSystem\components\colliders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -647,17 +647,17 @@
     <ClInclude Include="src\physicsEngine\force\ForceType.h">
       <Filter>Header Files\physicsEngine\force</Filter>
     </ClInclude>
-    <ClInclude Include="src\physicsEngine\colliders\BoxCollider.h">
-      <Filter>Header Files\physicsEngine\colliders</Filter>
+    <ClInclude Include="src\sceneSystem\components\colliders\BoxCollider.h">
+      <Filter>Header Files\sceneSystem\components\colliders</Filter>
     </ClInclude>
-    <ClInclude Include="src\physicsEngine\colliders\CircleCollider.h">
-      <Filter>Header Files\physicsEngine\colliders</Filter>
+    <ClInclude Include="src\sceneSystem\components\colliders\CircleCollider.h">
+      <Filter>Header Files\sceneSystem\components\colliders</Filter>
     </ClInclude>
-    <ClInclude Include="src\physicsEngine\colliders\PointCollider.h">
-      <Filter>Header Files\physicsEngine\colliders</Filter>
+    <ClInclude Include="src\sceneSystem\components\colliders\PointCollider.h">
+      <Filter>Header Files\sceneSystem\components\colliders</Filter>
     </ClInclude>
-    <ClInclude Include="src\physicsEngine\colliders\PolygonCollider.h">
-      <Filter>Header Files\physicsEngine\colliders</Filter>
+    <ClInclude Include="src\sceneSystem\components\colliders\PolygonCollider.h">
+      <Filter>Header Files\sceneSystem\components\colliders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

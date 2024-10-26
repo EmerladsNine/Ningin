@@ -1,5 +1,8 @@
 #include "Wrapper.h"
 
+using namespace Ningin;
+using namespace Ningin::Physics;
+
 #pragma region Debug
 	void DebugLogInfo(MonoString* message)
 	{
@@ -84,7 +87,7 @@
 #pragma endregion
 
 #pragma region Point
-	void MonoPointToString(Point& point, MonoString** out)
+	void MonoPointToString(PointCollider& point, MonoString** out)
 	{
 		string text;
 		PointToString(point, text);

@@ -17,8 +17,10 @@
 
 using namespace std;
 
-class SpriteRenderer
+namespace Ningin::Components
 {
+	class SpriteRenderer
+	{
 	public:
 		SpriteRenderer(string& textureName, string& shaderName, Color& tintingColor, bool usetint, bool alpha);
 
@@ -54,7 +56,8 @@ class SpriteRenderer
 		Shader _shader;
 		bool _useTint;
 		bool _alpha;
-};
+	};
 
-void SpriteSetTintingColor(SpriteRenderer& spriteRenderer, Color& color);
-void SpriteSetUseTint(SpriteRenderer& spriteRenderer, bool useTint);
+	void SpriteSetTintingColor(SpriteRenderer& spriteRenderer, Color& color);
+	void SpriteSetUseTint(SpriteRenderer& spriteRenderer, bool useTint);
+}

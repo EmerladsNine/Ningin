@@ -1,29 +1,35 @@
 #include "ForceComputation.h"
 
-// Default Force Computation
-DefaultForceComputation::DefaultForceComputation(DefaultForceDynamics dynamics)
-    : getMagnitudeFunc(dynamics.getMagnitudeFunc), _arg(dynamics.arg) {}
-
-DefaultForceComputation DefaultForceComputation::create_default_force(DefaultForceDynamics dynamics)
+namespace Ningin
 {
-    return DefaultForceComputation(dynamics);
-}
+    namespace Physics 
+    {
+        // Default Force Computation
+        DefaultForceComputation::DefaultForceComputation(DefaultForceDynamics dynamics)
+            : getMagnitudeFunc(dynamics.getMagnitudeFunc), _arg(dynamics.arg) {}
 
-float DefaultForceComputation::getMagnitude()
-{
-    return getMagnitudeFunc(_arg);
-}
+        DefaultForceComputation DefaultForceComputation::create_default_force(DefaultForceDynamics dynamics)
+        {
+            return DefaultForceComputation(dynamics);
+        }
 
-// Applied Force Computation
-AppliedForceComputation::AppliedForceComputation(AppliedForceDynamics dynamics)
-    : _magnitude(dynamics.forceMagnitude) {}
+        float DefaultForceComputation::getMagnitude()
+        {
+            return getMagnitudeFunc(_arg);
+        }
 
-AppliedForceComputation AppliedForceComputation::create_applied_force(AppliedForceDynamics dynamics)
-{
-    return AppliedForceComputation(dynamics);
-}
+        // Applied Force Computation
+        AppliedForceComputation::AppliedForceComputation(AppliedForceDynamics dynamics)
+            : _magnitude(dynamics.forceMagnitude) {}
 
-float AppliedForceComputation::getMagnitude()
-{
-    return _magnitude;
+        AppliedForceComputation AppliedForceComputation::create_applied_force(AppliedForceDynamics dynamics)
+        {
+            return AppliedForceComputation(dynamics);
+        }
+
+        float AppliedForceComputation::getMagnitude()
+        {
+            return _magnitude;
+        }
+    }
 }

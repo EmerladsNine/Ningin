@@ -4,15 +4,21 @@
 
 using namespace std;
 
-class Mask2
+namespace Ningin
 {
-	public:
-		Mask2(bool x, bool y);
-		Mask2();
+	namespace Physics
+	{
+		class Mask2
+		{
+		public:
+			Mask2(bool x, bool y);
+			Mask2();
 
-		pair<bool, bool> Deconstruct();
+			pair<bool, bool> Deconstruct();
 
-		bool x, y;
-};
+			bool x, y;
+		};
 
-void Mask2ToString(Mask2 mask, string& out);
+		void Mask2ToString(Mask2 mask, string& out);
+	}
+}

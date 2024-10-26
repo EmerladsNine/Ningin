@@ -3,12 +3,15 @@
 #include "../sceneSystem/Scene.h"
 #include "../utils/Timer.h"
 
-class SceneManager
+namespace Ningin
 {
+	class SceneManager
+	{
 	public:
 		SceneManager(Scene* currentScene);
 
 		void NewFrame(float deltatime);
 
 		Scene* currentScene;
-};
+	};
+}
