@@ -23,6 +23,60 @@ class Vector3
 		// Constructors
 		Vector3(float x = 0.0f, float y = 0.0f, float z = 0.0f);
 		Vector3(Vector2& vec);
+
+		void operator*=(const float value)
+		{
+			Vector3 out;
+			Vector3MultiplyByFloat(const_cast<Vector3&>(*this), value, out);
+			x = out.x;
+			y = out.y;
+			z = out.z;
+		}
+
+		Vector3 operator*(const float value)
+		{
+			Vector3 out;
+			Vector3MultiplyByFloat(const_cast<Vector3&>(*this), value, out);
+			return out;
+		}
+
+		float operator*(const Vector3 value)
+		{
+			return Vector3Dot(const_cast<Vector3&>(*this), const_cast<Vector3&>(value));
+		}
+
+
+		void operator+=(const Vector3 value)
+		{
+			Vector3 out;
+			Vector3Add(const_cast<Vector3&>(*this), const_cast<Vector3&>(value), out);
+			x = out.x;
+			y = out.y;
+			z = out.z;
+		}
+
+		Vector3 operator+(const Vector3 value)
+		{
+			Vector3 out;
+			Vector3Add(const_cast<Vector3&>(*this), const_cast<Vector3&>(value), out);
+			return out;
+		}
+
+		void operator-=(const Vector3 value)
+		{
+			Vector3 out;
+			Vector3Subtract(const_cast<Vector3&>(*this), const_cast<Vector3&>(value), out);
+			x = out.x;
+			y = out.y;
+			z = out.z;
+		}
+
+		Vector3 operator-(const Vector3 value)
+		{
+			Vector3 out;
+			Vector3Subtract(const_cast<Vector3&>(*this), const_cast<Vector3&>(value), out);
+			return out;
+		}
 };
 
 void Vector3Abs(Vector3& vec, Vector3& out);

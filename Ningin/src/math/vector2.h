@@ -22,6 +22,56 @@ class Vector2
 		Vector2(float x, float y) : x(x), y(y)
 		{
 		}
+
+		void operator*=(const float value)
+		{
+			Vector2 out;
+			Vector2MultiplyByFloat(const_cast<Vector2&>(*this), value, out);
+			x = out.x;
+			y = out.y;
+		}
+
+		Vector2 operator*(const float value)
+		{
+			Vector2 out;
+			Vector2MultiplyByFloat(const_cast<Vector2&>(*this), value, out);
+			return out;
+		}
+
+		float operator*(const Vector2 value)
+		{
+			return Vector2Dot(const_cast<Vector2&>(*this), const_cast<Vector2&>(value));
+		}
+
+		void operator+=(const Vector2 value)
+		{
+			Vector2 out;
+			Vector2Add(const_cast<Vector2&>(*this), const_cast<Vector2&>(value), out);
+			x = out.x;
+			y = out.y;
+		}
+
+		Vector2 operator+(const Vector2 value)
+		{
+			Vector2 out;
+			Vector2Add(const_cast<Vector2&>(*this), const_cast<Vector2&>(value), out);
+			return out;
+		}
+
+		void operator-=(const Vector2 value)
+		{
+			Vector2 out;
+			Vector2Subtract(const_cast<Vector2&>(*this), const_cast<Vector2&>(value), out);
+			x = out.x;
+			y = out.y;
+		}
+
+		Vector2 operator-(const Vector2 value)
+		{
+			Vector2 out;
+			Vector2Subtract(const_cast<Vector2&>(*this), const_cast<Vector2&>(value), out);
+			return out;
+		}
 };
 
 void Vector2Abs(Vector2& vec, Vector2& out);
