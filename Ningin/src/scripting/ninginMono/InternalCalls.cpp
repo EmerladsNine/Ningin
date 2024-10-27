@@ -84,6 +84,7 @@ void AddInternalCalls()
         AddInternalCall(Vector3LE);
         AddInternalCall(Vector3G);
         AddInternalCall(Vector3GE);
+        AddInternalCall(Vector3Cross);
     #pragma endregion
 
     #pragma region Math

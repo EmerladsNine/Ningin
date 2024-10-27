@@ -63,6 +63,12 @@ namespace NinginCore
             return result;
         }
 
+        public Vector3 CrossProduct(Vector3 rightVector)
+        {
+            InternalCalls.Vector3Cross(ref this, ref rightVector, out Vector3 result);
+            return result;
+        }
+
         public float Distance(Vector3 Other) => InternalCalls.Vector3Distance(ref this, ref Other);
         public float Dot(Vector3 Other) => InternalCalls.Vector3Dot(ref this, ref Other);
         public float Magnitude() => InternalCalls.Vector3Magnitude(ref this);

@@ -103,7 +103,8 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void Vector3Clamp(ref Vector3 to_clamp, ref Vector3 min, ref Vector3 max,
             out Vector3 result);
-
+        [MethodImpl(MethodImplOptions.InternalCall)]
+        internal static extern void Vector3Cross(ref Vector3 V1, ref Vector3 V2, out Vector3 result);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void MonoVector3ToString(ref Vector3 vec, out string str);
 

@@ -136,6 +136,13 @@ bool Vector3GE(Vector3& v1, Vector3& v2){
 	return v1.x >= v2.x && v1.y >= v2.y && v1.z >= v2.z;
 }
 
+void Vector3Cross(Vector3& v1, Vector3& v2, Vector3& out)
+{
+	out.x = v1.y * v2.z - v1.z * v2.y;
+	out.y = v1.z * v2.x - v1.x * v2.z;
+	out.z = v1.x * v2.y - v1.y * v2.x;
+}
+
 void Vector3ToString(Vector3& vec, string& out)
 {
 	out = format("Vector3 - x: {}, y: {}, z: {}", vec.x, vec.y, vec.z);
