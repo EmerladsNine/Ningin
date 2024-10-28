@@ -169,6 +169,12 @@
     <Filter Include="Header Files\sceneSystem\components\colliders">
       <UniqueIdentifier>{ae2fd1bf-ca37-4827-8864-a664c6224749}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\physicsEngine\space">
+      <UniqueIdentifier>{0e48e422-0625-4746-aac3-d56b633e1bbc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physicsEngine\space">
+      <UniqueIdentifier>{17fede27-1728-467e-9cea-f8cf8678707d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -395,6 +401,12 @@
     </ClCompile>
     <ClCompile Include="src\sceneSystem\components\colliders\PolygonCollider.cpp">
       <Filter>Source Files\sceneSystem\components\colliders</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\space\Pointmass.cpp">
+      <Filter>Source Files\physicsEngine\space</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\space\Acceleration.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -658,6 +670,12 @@
     </ClInclude>
     <ClInclude Include="src\sceneSystem\components\colliders\PolygonCollider.h">
       <Filter>Header Files\sceneSystem\components\colliders</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\space\Pointmass.h">
+      <Filter>Header Files\physicsEngine\space</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\space\Time.h">
+      <Filter>Header Files\physicsEngine\space</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

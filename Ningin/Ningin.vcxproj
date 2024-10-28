@@ -29,6 +29,8 @@
     <ClCompile Include="src\physicsEngine\force\ForceComputation.cpp" />
     <ClCompile Include="src\physicsEngine\Mask2.cpp" />
     <ClCompile Include="src\physicsEngine\Mask3.cpp" />
+    <ClCompile Include="src\physicsEngine\space\Acceleration.cpp" />
+    <ClCompile Include="src\physicsEngine\space\Pointmass.cpp" />
     <ClCompile Include="src\physicsEngine\SurfaceInteractionModes.cpp" />
     <ClCompile Include="src\resourceManager\animation\AnimationFrame.cpp" />
     <ClCompile Include="src\resourceManager\atlas\Atlas.cpp" />
@@ -112,6 +114,8 @@
     <ClInclude Include="src\physicsEngine\Mask3.h" />
     <ClInclude Include="src\physicsEngine\PhysicsMaterial2D.h" />
     <ClInclude Include="src\physicsEngine\SleepMode.h" />
+    <ClInclude Include="src\physicsEngine\space\Pointmass.h" />
+    <ClInclude Include="src\physicsEngine\space\Time.h" />
     <ClInclude Include="src\physicsEngine\SurfaceInteractionModes.h" />
     <ClInclude Include="src\resourceManager\animation\AnimationFrame.h" />
     <ClInclude Include="src\resourceManager\atlas\Atlas.h" />
