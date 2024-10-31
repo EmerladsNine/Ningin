@@ -26,7 +26,7 @@ namespace Ningin
 		Vector3 ReadVector3(uint8_t** filePointer);
 		Color ReadColor(uint8_t** filePointer);
 
-		void AddComponent(uint8_t id, EntityId entityId, World& world,
+		void AddComponent(uint8_t id, EntityId entityId, EntityManager& entityManager,
 			const vector<string>& strings, const vector<uint32_t>& propertiesPointers,
 			uint8_t* filePropertiesPointer);
 

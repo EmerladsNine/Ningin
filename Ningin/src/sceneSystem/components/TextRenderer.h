@@ -37,7 +37,7 @@ namespace Ningin::Components
 		void SetUserUniforms(function<void()> initFunc, function<void()> initDrawingFunc,
 			function<void()> drawingFunc);
 
-		static void System();
+		static void System(ArchetypeManager& archetypeManager);
 		void Draw(Transform& transform);
 
 	private:

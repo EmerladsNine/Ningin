@@ -21,8 +21,8 @@ namespace Ningin
 		setProjection(&windowDimensions);
 	}
 
-	Window::Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions)
-		: sceneManager(SceneManager(scene)), dimensions(dimensions)
+	Window::Window(string title, bool isFullscreen, Dimensions2* dimensions)
+		:  dimensions(dimensions)
 	{
 		InitGlfw();
 		GLFWmonitor* monitor = glfwGetPrimaryMonitor();

@@ -2,19 +2,19 @@
 #include "../sceneSystem/ecs/EntityManager.h"
 #include "../sceneSystem/components/ScriptVec.h"
 
-void ScriptSystem(float deltatime)
+void ScriptSystem(float deltatime, ArchetypeManager& archetypeManager)
 {
-	ScriptUpdate(false, deltatime);
+	ScriptUpdate(false, deltatime, archetypeManager);
 }
 
-void ScriptLateSystem(float deltatime)
+void ScriptLateSystem(float deltatime, ArchetypeManager& archetypeManager)
 {
-	ScriptUpdate(true, deltatime);
+	ScriptUpdate(true, deltatime, archetypeManager);
 }
 
-void ScriptUpdate(bool isLate, float deltatime)
+void ScriptUpdate(bool isLate, float deltatime, ArchetypeManager& archetypeManager)
 {
-	for (auto& scriptVecArchetype : EntityManager::archetypeManager.componentIndex[typeid(ScriptVec)])
+	for (auto& scriptVecArchetype : archetypeManager.componentIndex[typeid(ScriptVec)])
 	{
 		for (void* scriptsData : scriptVecArchetype.second.archetype
 			->components[scriptVecArchetype.second.column])

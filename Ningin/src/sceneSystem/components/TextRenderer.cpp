@@ -345,10 +345,10 @@ namespace Ningin::Components
 		_userUniforms["drawing"] = drawingFunc;
 	}
 
-	void TextRenderer::System()
+	void TextRenderer::System(ArchetypeManager& archetypeManager)
 	{
-		auto& transformArchetypeMap = EntityManager::archetypeManager.componentIndex[typeid(Transform)];
-		for (auto& TextArchetype : EntityManager::archetypeManager.componentIndex[typeid(TextRenderer)])
+		auto& transformArchetypeMap = archetypeManager.componentIndex[typeid(Transform)];
+		for (auto& TextArchetype : archetypeManager.componentIndex[typeid(TextRenderer)])
 		{
 			auto it = transformArchetypeMap.find(TextArchetype.first);
 

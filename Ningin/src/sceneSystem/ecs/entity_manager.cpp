@@ -4,12 +4,9 @@
 #include <stdexcept>
 #include <string>
 
-unordered_map<EntityId, Record> EntityManager::entityIndex;
-ArchetypeManager EntityManager::archetypeManager;
-EntityId EntityManager::_entityIdState;
-
 EntityId EntityManager::CreateNewEntity()
 {
+	entitiesCount++;
 	EntityId entityId = _entityIdState;
 	_entityIdState++;
 
@@ -150,9 +147,9 @@ void EntityManager::SetComponent(Record& entityRecord, ComponentId componentId, 
 	ArchetypeRecord* archetypeRecord = &archetypeIterator->second;
 
 	// delete old data
-	auto it = ArchetypeManager::deleters.find(componentId);
+	auto it = archetypeManager.deleters.find(componentId);
 
-	if (it != ArchetypeManager::deleters.end())
+	if (it != archetypeManager.deleters.end())
 	{
 		it->second(archetype->components[archetypeRecord->column][entityRecord.row]);
 		// Assign new data.

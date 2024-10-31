@@ -175,6 +175,12 @@
     <Filter Include="Source Files\physicsEngine\space">
       <UniqueIdentifier>{17fede27-1728-467e-9cea-f8cf8678707d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\physicsEngine\space\force">
+      <UniqueIdentifier>{8fd144bf-ac4a-498a-8275-4fc1300e8786}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physicsEngine\space\force">
+      <UniqueIdentifier>{231146fe-5c06-417f-81bb-3d5fa4eb1cca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -242,9 +248,6 @@
     </ClCompile>
     <ClCompile Include="src\sceneSystem\entity\Parent.cpp">
       <Filter>Source Files\sceneSystem\entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sceneSystem\World.cpp">
-      <Filter>Source Files\sceneSystem</Filter>
     </ClCompile>
     <ClCompile Include="src\sceneSystem\Scene.cpp">
       <Filter>Source Files\sceneSystem</Filter>
@@ -405,8 +408,8 @@
     <ClCompile Include="src\physicsEngine\space\Pointmass.cpp">
       <Filter>Source Files\physicsEngine\space</Filter>
     </ClCompile>
-    <ClCompile Include="src\physicsEngine\space\Acceleration.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\physicsEngine\space\force\ForceGenerator.cpp">
+      <Filter>Source Files\physicsEngine\space\force</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -471,9 +474,6 @@
       <Filter>Header Files\scripting\mono</Filter>
     </ClInclude>
     <ClInclude Include="src\sceneSystem\Scene.h">
-      <Filter>Header Files\sceneSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="src\sceneSystem\World.h">
       <Filter>Header Files\sceneSystem</Filter>
     </ClInclude>
     <ClInclude Include="src\sceneSystem\entity\id.h">
@@ -676,6 +676,9 @@
     </ClInclude>
     <ClInclude Include="src\physicsEngine\space\Time.h">
       <Filter>Header Files\physicsEngine\space</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\space\force\ForceGenerator.h">
+      <Filter>Header Files\physicsEngine\space\force</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

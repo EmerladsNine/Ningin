@@ -1,8 +1,7 @@
 #include "Pointmass.h"
 
-Ningin::Physics::Pointmass::Pointmass(float mass) : _InverseMass(1/mass)
-{
-}
+Ningin::Physics::Pointmass::Pointmass(float mass, float gravity, bool is_static) : _InverseMass(1/mass), gravity(gravity), is_static(is_static)
+{}
 
 void Ningin::Physics::Pointmass::Integrate(Time duration)
 {
@@ -11,8 +10,26 @@ void Ningin::Physics::Pointmass::Integrate(Time duration)
 
 	//Update Acceleration by forces.
 	Vector3 resultAcceleration = _Acceleration;
-	resultAcceleration += forceAccum * _InverseMass;
+	resultAcceleration += _ForceAccum * _InverseMass;
 
 	//Update Linear Velocity.
 	_Velocity += resultAcceleration * duration;
+
+	//Clear forces
+	ClearAccumulator();
+}
+
+void Ningin::Physics::Pointmass::AddForce(const Vector3& force)
+{
+	_ForceAccum += force;
+}
+
+void Ningin::Physics::Pointmass::RemoveForce(const Vector3& force)
+{
+	_ForceAccum -= force;
+}
+
+void Ningin::Physics::Pointmass::ClearAccumulator()
+{
+	_ForceAccum = Vector3::ZERO;
 }

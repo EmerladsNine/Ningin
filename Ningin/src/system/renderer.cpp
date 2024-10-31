@@ -4,8 +4,8 @@
 
 using namespace Ningin::Components;
 
-void RendererSystem(float deltatime)
+void RendererSystem(float deltatime, ArchetypeManager& archetypeManager)
 {
-	TextRenderer::System();
-	SpriteRenderer::System();
+	TextRenderer::System(archetypeManager);
+	SpriteRenderer::System(archetypeManager);
 }

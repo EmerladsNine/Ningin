@@ -15,10 +15,9 @@ namespace Ningin
 	{
 	public:
 		GLFWwindow* glfwWin;
-		SceneManager sceneManager;
 		Dimensions2* dimensions;
 
-		Window(string title, bool isFullscreen, Scene* scene, Dimensions2* dimensions);
+		Window(string title, bool isFullscreen, Dimensions2* dimensions);
 
 	private:
 		void InitOpenGL(GLFWwindow* window);

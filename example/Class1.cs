@@ -21,17 +21,21 @@ namespace example
         }
         // bool is_updated = false;
         float time = 0f;
+        int frames = 0;
         int nextsecond = 1;
         bool is_playing = false;
         void Update(float deltatime)
         {
             time += deltatime;
-            if(deltatime == 0)
+            frames++;
+            if (time >= nextsecond)
             {
-                Debug.LogInfo("HHUUHHH");
+                Console.WriteLine("[FPS] :"+frames);
+                frames = 0;
+                nextsecond++;
             }
 
-            if(KeyInput.IsKeyDown(KeyCode.KEY_W))
+            if (KeyInput.IsKeyDown(KeyCode.KEY_W))
             {
                 transform.Position -= new Vector3(0, 50, 0) * deltatime;
             }
@@ -72,11 +76,6 @@ namespace example
             uint alpha = 255;  // Full opacity
 
             spr.SetTextColor(Color.FromRGBA(red, green, blue, alpha));
-            if (time >= nextsecond)
-            {
-                Console.WriteLine(nextsecond);
-                nextsecond++;
-            }
         }
 
         bool is_lupdated = false;

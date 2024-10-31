@@ -25,8 +25,8 @@ Mono::~Mono()
 	}
 }
 
-unordered_map<MonoType*, std::function<bool(EntityId)>> Mono::HasComponent;
-unordered_map<MonoType*, std::function<void* (EntityId)>> Mono::GetComponent;
+unordered_map<MonoType*, std::function<bool(EntityId, EntityManager&)>> Mono::HasComponent;
+unordered_map<MonoType*, std::function<void* (EntityId, EntityManager&)>> Mono::GetComponent;
 
 void Mono::Init(string libPath, string gameAssemblyFileName, bool loadPDB)
 {

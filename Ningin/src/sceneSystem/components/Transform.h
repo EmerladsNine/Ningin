@@ -6,8 +6,10 @@
 
 using namespace std;
 
-class Transform
+namespace Ningin::Components
 {
+	class Transform
+	{
 	public:
 		Transform(Vector3& position, Vector3& scale, Vector3& rotation);
 		Transform();
@@ -15,14 +17,15 @@ class Transform
 		Vector3 position;
 		Vector3 scale;
 		Vector3 rotation;
-};
+	};
 
-void TransformSetPosition(Transform& transform, Vector3& position);
-void TransformSetRotation(Transform& transform, Vector3& rotation);
-void TransformSetScale(Transform& transform, Vector3& scale);
+	void TransformSetPosition(Transform& transform, Vector3& position);
+	void TransformSetRotation(Transform& transform, Vector3& rotation);
+	void TransformSetScale(Transform& transform, Vector3& scale);
 
-void TransformGetPosition(Transform& transform, Vector3& out);
-void TransformGetRotation(Transform& transform, Vector3& out);
-void TransformGetScale(Transform& transform, Vector3& out);
+	void TransformGetPosition(Transform& transform, Vector3& out);
+	void TransformGetRotation(Transform& transform, Vector3& out);
+	void TransformGetScale(Transform& transform, Vector3& out);
 
-void TransformToString(Transform& transform, string& out);
+	void TransformToString(Transform& transform, string& out);
+}

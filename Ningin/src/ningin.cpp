@@ -1,5 +1,4 @@
 #include "Ningin.h"
-#include "sceneSystem/World.h"
 #include "scripting/ScriptingEngine.h"
 #include "utils/Timer.h"
 #include "input/KeyInput.h"
@@ -37,8 +36,6 @@ namespace Ningin
 		SetUBO(dimensions);
 
 		ScriptingEngine::Init(monoPath,debugMode);
-	
-		World::InitDefaultComponentSystem();
 
 		for (auto& scene : scenes)
 		{
@@ -49,7 +46,7 @@ namespace Ningin
 		if(openedWindow.has_value())
 		{
 			KeyInput::SetupKeyInputs(openedWindow.value().glfwWin);
-			openedWindow.value().sceneManager = SceneManager(sceneLoader.GetSceneFromId(0));
+			SceneManager::currentScene = sceneLoader.GetSceneFromId(0);
 		}
 	}
 
@@ -66,12 +63,12 @@ namespace Ningin
 			case NoWindow: break;
 
 			case FullScreen:
-				openedWindow = Window(windowName, true, sceneLoader.GetSceneFromId(sceneId),
+				openedWindow = Window(windowName, true,
 					dimensions);
 				break;
 
 			case Windowed:
-				openedWindow = Window(windowName, false, sceneLoader.GetSceneFromId(sceneId),
+				openedWindow = Window(windowName, false,
 					dimensions);
 				break;
 
@@ -142,7 +139,7 @@ namespace Ningin
 			if(openedWindow.has_value())
 			{
 			
-				if (!glfwWindowShouldClose(openedWindow.value().glfwWin)) openedWindow.value().sceneManager.NewFrame(deltatime);
+				if (!glfwWindowShouldClose(openedWindow.value().glfwWin)) SceneManager::NewFrame(deltatime);
 				else 
 				{
 					glfwDestroyWindow(openedWindow.value().glfwWin);

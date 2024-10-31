@@ -2,7 +2,7 @@
 
 namespace Ningin
 {
-	SceneManager::SceneManager(Scene* currentScene) : currentScene(currentScene) {}
+	Scene* SceneManager::currentScene;
 
 	void SceneManager::NewFrame(float deltatime)
 	{

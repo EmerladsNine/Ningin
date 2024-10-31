@@ -40,11 +40,6 @@ namespace NinginCore
                 };
                 return transform;
             }
-
-            set
-            {
-                InternalCalls.EntitySetTransform(entityId, value.data);
-            }
         }
     }
 }

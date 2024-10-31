@@ -71,6 +71,7 @@ namespace Ningin
 	{
 		string name;
 		Scene scene = Scene(name);
+		scene.InitDefaultComponentSystem();
 		std::filesystem::path path = Environment::GetGameDirectory() / sceneName;
 		vector<uint8_t> file = FileReader::ReadFileBytes(path);
 
@@ -147,27 +148,27 @@ namespace Ningin
 		stopPoint = filePointer + objectsSize;
 
 		// create a scene entity so ids will start from 1 not 0
-		scene.world.NewEntity();
+		scene.entityManager.CreateNewEntity();
 
 		while (filePointer < stopPoint)
 		{
-			EntityId entityId = scene.world.NewEntity();
+			EntityId entityId = scene.entityManager.CreateNewEntity();
 			// This Contains the entity id .. which is the same given from the function new_entity().
 			filePointer += 4;
 
 			// The name of the entity
 			uint32_t nameIndex = Read<uint32_t>(&filePointer);
 			Name* name = new Name(strings[nameIndex]);
-			EntityManager::AddComponent(entityId, typeid(Name), name);
+			scene.entityManager.AddComponent(entityId, typeid(Name), name);
 
 			// parent id
 			uint32_t parentIndex = Read<uint32_t>(&filePointer);
 			Parent* parent = new Parent(parentIndex);
-			EntityManager::AddComponent(entityId, typeid(Parent), parent);
+			scene.entityManager.AddComponent(entityId, typeid(Parent), parent);
 
 			// Children
 			Children* children = new Children(vector<EntityId>{});
-			EntityManager::AddComponent(entityId, typeid(Children), children);
+			scene.entityManager.AddComponent(entityId, typeid(Children), children);
 
 			uint16_t componentsCount = Read<uint16_t>(&filePointer);
 			uint16_t componentPosition = 0;
@@ -187,7 +188,7 @@ namespace Ningin
 					propertyPosition++;
 				}
 
-				AddComponent(componentId, entityId, scene.world, strings, properties,
+				AddComponent(componentId, entityId, scene.entityManager, strings, properties,
 					filePropertiesPointer);
 
 				componentPosition++;
@@ -206,18 +207,18 @@ namespace Ningin
 				scriptPositon++;
 			}
 
-			EntityManager::AddComponent(entityId, typeid(ScriptVec), scriptVec);
+			scene.entityManager.AddComponent(entityId, typeid(ScriptVec), scriptVec);
 
 			if (parentIndex != 0)
 			{
-				Children* parentChildren = static_cast<Children*>(EntityManager::GetComponent(parentIndex, typeid(Children)));
+				Children* parentChildren = static_cast<Children*>(scene.entityManager.GetComponent(parentIndex, typeid(Children)));
 				parentChildren->children.push_back(entityId);
 			}
 		}
 		_scenes.push_back(std::move(scene));
 	}
 
-	void SceneLoader::AddComponent(uint8_t id, EntityId entityId, World& world, const vector<string>& strings,
+	void SceneLoader::AddComponent(uint8_t id, EntityId entityId, EntityManager& entityManager, const vector<string>& strings,
 		const vector<uint32_t>& propertiesPointers, uint8_t* filePropertiesPointer)
 	{
 		switch (id)
@@ -247,7 +248,7 @@ namespace Ningin
 					}
 				}
 
-				EntityManager::AddComponent(entityId, typeid(Transform), transform);
+				entityManager.AddComponent(entityId, typeid(Transform), transform);
 				break;
 			}
 
@@ -287,7 +288,7 @@ namespace Ningin
 				}
 
 				SpriteRenderer* sprite = new SpriteRenderer(textureName, shader, tintingColor, useTint, alpha);
-				EntityManager::AddComponent(entityId, typeid(SpriteRenderer), sprite);
+				entityManager.AddComponent(entityId, typeid(SpriteRenderer), sprite);
 				break;
 			}
 
@@ -334,7 +335,7 @@ namespace Ningin
 				TextRenderer* textRenderer = new TextRenderer(fontName, shader, textColor, text, fontSize,
 					useMultiLine);
 
-				EntityManager::AddComponent(entityId, typeid(TextRenderer), textRenderer);
+				entityManager.AddComponent(entityId, typeid(TextRenderer), textRenderer);
 				break;
 			}
 

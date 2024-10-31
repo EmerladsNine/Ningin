@@ -5,6 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <functional>
+#include "../../sceneSystem/ecs/EntityManager.h"
 #include "../../sceneSystem/entity/EntityId.h"
 #include "ScriptClass.h"
 #include "Script.h"
@@ -19,8 +20,8 @@ class Mono
 
         void Init(string libPath, string gameAssemblyFileName,bool loadPDB);
 
-        static unordered_map<MonoType*, std::function<bool(EntityId)>> HasComponent;
-        static unordered_map<MonoType*, std::function<void*(EntityId)>> GetComponent;
+        static unordered_map<MonoType*, std::function<bool(EntityId, EntityManager&)>> HasComponent;
+        static unordered_map<MonoType*, std::function<void*(EntityId, EntityManager&)>> GetComponent;
         template <typename T> MonoType* GetComponentManagedType()
         {
             const string_view mangledName = typeid(T).name();

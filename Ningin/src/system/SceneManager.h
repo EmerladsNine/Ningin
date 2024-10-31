@@ -8,10 +8,8 @@ namespace Ningin
 	class SceneManager
 	{
 	public:
-		SceneManager(Scene* currentScene);
+		static void NewFrame(float deltatime);
 
-		void NewFrame(float deltatime);
-
-		Scene* currentScene;
+		static Scene* currentScene;
 	};
 }

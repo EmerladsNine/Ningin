@@ -1,5 +1,6 @@
 #pragma once
 #include "../utils/Timer.h"
+#include "../sceneSystem/ecs/ArchetypeManager.h"
 
 class Scriptable
 {
@@ -14,10 +15,10 @@ class Scriptable
 		virtual void Destroy() = 0;
 };
 
-void ScriptSystem(float deltatime);
+void ScriptSystem(float deltatime, ArchetypeManager& archetypeManager);
 
-void ScriptLateSystem(float deltatime);
+void ScriptLateSystem(float deltatime, ArchetypeManager& archetypeManager);
 
-void ScriptUpdate(bool isLate, float deltatime);
+void ScriptUpdate(bool isLate, float deltatime, ArchetypeManager& archetypeManager);
 
 void HandleScript(Scriptable* script, bool isLate, float deltatime);

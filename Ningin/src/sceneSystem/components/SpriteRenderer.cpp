@@ -137,11 +137,11 @@ namespace Ningin::Components
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
-	void SpriteRenderer::System()
+	void SpriteRenderer::System(ArchetypeManager& archetypeManager)
 	{
-		auto& transformArchetypeMap = EntityManager::archetypeManager.componentIndex[typeid(Transform)];
+		auto& transformArchetypeMap = archetypeManager.componentIndex[typeid(Transform)];
 
-		for (auto& SpriteArchetype : EntityManager::archetypeManager.componentIndex[typeid(SpriteRenderer)])
+		for (auto& SpriteArchetype : archetypeManager.componentIndex[typeid(SpriteRenderer)])
 		{
 			auto it = transformArchetypeMap.find(SpriteArchetype.first);
 

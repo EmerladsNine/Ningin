@@ -2,8 +2,9 @@
 #include "../components/Transform.h"
 #include "../../ningin.h"
 
-void EntitySetTransform(EntityId entityId, Transform** transform);
+namespace Ningin::Components
+{
+	bool EntityHasComponent(EntityId entityId, MonoReflectionType* type);
 
-bool EntityHasComponent(EntityId entityId, MonoReflectionType* type);
-
-void EntityGetComponent(EntityId entityId, MonoReflectionType* type,void** data);
+	void EntityGetComponent(EntityId entityId, MonoReflectionType* type, void** data);
+}

@@ -7,8 +7,6 @@ namespace NinginCore
     {
         #region Entity
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void EntitySetTransform(ulong entityId, IntPtr transform);
-        [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern bool EntityHasComponent(ulong entityId, Type type);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void EntityGetComponent(ulong entityId,Type type, out IntPtr data);

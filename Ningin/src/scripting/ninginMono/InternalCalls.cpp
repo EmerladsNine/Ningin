@@ -21,7 +21,6 @@ using namespace Ningin::Components;
 void AddInternalCalls()
 {
     #pragma region Entity
-        AddInternalCall(EntitySetTransform);
         AddInternalCall(EntityHasComponent);
         AddInternalCall(EntityGetComponent);
     #pragma endregion

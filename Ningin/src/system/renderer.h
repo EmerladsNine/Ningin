@@ -5,4 +5,4 @@
 
 #pragma once
 
-void RendererSystem(float deltatime);
+void RendererSystem(float deltatime, ArchetypeManager& archetypeManager);
