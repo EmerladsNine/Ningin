@@ -212,6 +212,10 @@ impl Lexer {
                             if captured == b'n'{
                                 data.data.push(b'\n');
                             }
+                            else if captured == b'"'
+                            {
+                                data.data.push(b'"');
+                            }
                             else if captured == b'\\'
                             {
                                 data.data.push(b'\\');

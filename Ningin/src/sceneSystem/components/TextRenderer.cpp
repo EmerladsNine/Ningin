@@ -146,11 +146,12 @@ namespace Ningin::Components
 			if (c == '\n')
 			{
 				IndentNewLine(&pos, &xOffSet, true);
-				wordIndex++;
+				if (_text[letterIndex + 1] != ' ' && _text[letterIndex + 1] != '\n')
+					wordIndex++;
 			}
 			else if (c == ' ')
 			{
-				if (_text[letterIndex + 1] != ' ')
+				if (_text[letterIndex + 1] != ' ' && _text[letterIndex + 1] != '\n')
 					wordIndex++;
 
 				_shouldCheckWord = true;

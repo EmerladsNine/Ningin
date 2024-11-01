@@ -1,4 +1,20 @@
 #Title("A Scene")
+@test2{
+    Transform{
+        Position(100.0,100.0,0.0)
+        Rotation(0.0,0.0,0.0)
+        Scale(1.0,1.0,1.0)
+   }
+   
+   Text{
+       TextColor(255, 255, 100, 255)
+       FontName("arial.ttf")
+       FontSize(70)
+       Text("Use WaSD To Move \n Use \"Enter\" To Play audio")
+       Shader("text")
+       UseMultiLine(true)
+   }
+}
 
 @potato{
     <example "FPS">
@@ -34,12 +50,5 @@
        Shader("text")
        UseMultiLine(true)
    }
-   
-   //Sprite{
-    //  useAlpha(true)
-    //  UseTint(true)
-    //  TintingColor(205, 155, 0, 255)
-    //  TextureName("sprite")
-    //  Shader("sprite")
-   //}
 }
+

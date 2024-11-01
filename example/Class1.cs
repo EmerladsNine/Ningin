@@ -16,8 +16,8 @@ namespace example
             Debug.LogInfo("Hi C#");
             Debug.LogInfo(v2.ToString());
             Debug.LogInfo(entityId.ToString());
-            //spr = GetComponent<TextRenderer>();
-//            throw new Exception("Testing EXCEPTIONS !!");
+            spr = GetComponent<TextRenderer>();
+            throw new Exception("Testing EXCEPTIONS !!");
         }
 
         float time = 0f;
@@ -61,12 +61,12 @@ namespace example
             }
 
             // Cycle through colors by modifying RGB values based on time
-            //uint red = (uint)(System.Math.Sin(time * 2) * 127 + 128);  // Oscillates between 0 and 255
-            //uint green = (uint)(System.Math.Sin(time * 3) * 127 + 128); // Different frequency for green
-            //uint blue = (uint)(System.Math.Sin(time * 4) * 127 + 128);  // Different frequency for blue
-            //uint alpha = 255;  // Full opacity
+            uint red = (uint)(System.Math.Sin(time * 2) * 127 + 128);  // Oscillates between 0 and 255
+            uint green = (uint)(System.Math.Sin(time * 3) * 127 + 128); // Different frequency for green
+            uint blue = (uint)(System.Math.Sin(time * 4) * 127 + 128);  // Different frequency for blue
+            uint alpha = 255;  // Full opacity
 
-            //spr.SetTextColor(Color.FromRGBA(red, green, blue, alpha));
+            spr.SetTextColor(Color.FromRGBA(red, green, blue, alpha));
         }
 
         bool is_lupdated = false;
