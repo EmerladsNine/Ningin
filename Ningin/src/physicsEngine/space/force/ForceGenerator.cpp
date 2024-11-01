@@ -7,5 +7,7 @@ void Ningin::Physics::ForceGenerator::updateForces(Pointmass* pointmass, Time du
 	{
 		Vector3 test(0, -pointmass->gravity, 0);
 		pointmass->AddForce(test);
+
+		//Todo Add Drag Force
 	}
 }

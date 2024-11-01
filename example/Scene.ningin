@@ -1,4 +1,5 @@
 #Title("A Scene")
+
 @test2{
     Transform{
         Position(100.0,100.0,0.0)
@@ -12,7 +13,7 @@
        FontSize(70)
        Text("Use WaSD To Move \n Use \"Enter\" To Play audio")
        Shader("text")
-       UseMultiLine(true)
+       UseMultiLine(false)
    }
 }
 
