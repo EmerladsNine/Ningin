@@ -8,18 +8,21 @@ using namespace Ningin::Physics;
 	{
 		char* messageCstr = mono_string_to_utf8(message);
 		LogInfo(messageCstr);
+		mono_free(messageCstr);
 	}
 
 	void DebugLogError(MonoString* message)
 	{
 		char* messageCstr = mono_string_to_utf8(message);
-		LogInfo(messageCstr);
+		LogError(messageCstr);
+		mono_free(messageCstr);
 	}
 
 	void DebugLogWarning(MonoString* message)
 	{
 		char* messageCstr = mono_string_to_utf8(message);
-		LogInfo(messageCstr);
+		LogWarning(messageCstr);
+		mono_free(messageCstr);
 	}
 #pragma endregion
 
@@ -118,6 +121,7 @@ using namespace Ningin::Physics;
 	{
 		char* pathCstr = mono_string_to_utf8(path);
 		StaticAudioPlayer::PlayAudio(pathCstr);
+		mono_free(pathCstr);
 	}
 #pragma endregion
 
@@ -126,5 +130,21 @@ using namespace Ningin::Physics;
 	{
 		std::filesystem::path path = Environment::GetGameDirectory();
 		*out = ScriptingEngine::mono.GetMonoString(path.string().c_str());
+	}
+#pragma endregion
+
+#pragma region TextRenderer
+	void MonoTextSetText(TextRenderer* textRenderer, MonoString* text)
+	{
+		char* textCstr = mono_string_to_utf8(text);
+		if (!textCstr) {
+			// Handle the error, possibly by setting a default text or logging an error.
+			string empty("");
+			TextSetText(*textRenderer, empty); // Default empty text if conversion fails
+			return;
+		}
+		string textStr(textCstr);
+		TextSetText(*textRenderer,textStr);
+		mono_free(textCstr);
 	}
 #pragma endregion

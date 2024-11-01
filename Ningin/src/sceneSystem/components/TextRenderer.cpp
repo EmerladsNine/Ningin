@@ -1,6 +1,7 @@
 #include "TextRenderer.h"
 #include <gtc/matrix_transform.hpp>
 #include <iostream>
+#include "../../utils/Debug.h"
 
 namespace Ningin::Components
 {
@@ -262,7 +263,7 @@ namespace Ningin::Components
 
 	void TextRenderer::SetText(string& text)
 	{
-		this->_text = text;
+		_text = text;
 		CalculateTextDimensions();
 		SplitText();
 		CalculateWordsWidth();

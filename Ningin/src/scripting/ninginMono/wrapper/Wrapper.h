@@ -14,6 +14,7 @@
 #include "../../../utils/Debug.h"
 #include "../../ScriptingEngine.h"
 #include "../../../audio/StaticAudioPlayer.h"
+#include "../../../sceneSystem/components/TextRenderer.h"
 #include "../../../environment.h"
 #include <mono/jit/jit.h>
 
@@ -75,4 +76,8 @@ using namespace Ningin;
 
 #pragma region Environment
 	void EnvironmentGetGameDirectory(MonoString** out);
+#pragma endregion
+
+#pragma region TextRenderer
+	void MonoTextSetText(TextRenderer* textRenderer, MonoString* text);
 #pragma endregion

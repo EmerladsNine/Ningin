@@ -16,25 +16,16 @@ namespace example
             Debug.LogInfo("Hi C#");
             Debug.LogInfo(v2.ToString());
             Debug.LogInfo(entityId.ToString());
-            spr = GetComponent<TextRenderer>();
-            throw new Exception("Testing EXCEPTIONS !!");
+            //spr = GetComponent<TextRenderer>();
+//            throw new Exception("Testing EXCEPTIONS !!");
         }
-        // bool is_updated = false;
+
         float time = 0f;
-        int frames = 0;
-        int nextsecond = 1;
         bool is_playing = false;
+
         void Update(float deltatime)
         {
             time += deltatime;
-            frames++;
-            if (time >= nextsecond)
-            {
-                Console.WriteLine("[FPS] :"+frames);
-                frames = 0;
-                nextsecond++;
-            }
-
             if (KeyInput.IsKeyDown(KeyCode.KEY_W))
             {
                 transform.Position -= new Vector3(0, 50, 0) * deltatime;
@@ -43,7 +34,7 @@ namespace example
             {
                 transform.Position += new Vector3(0, 50, 0) * deltatime;
             }
-            
+            //Console.WriteLine(transform.ToString());
             if (KeyInput.IsKeyDown(KeyCode.KEY_A))
             {
                 transform.Position -= new Vector3(50, 0, 0) * deltatime;
@@ -55,7 +46,7 @@ namespace example
 
             if (KeyInput.IsKeyDown(KeyCode.KEY_ENTER))
             {
-                if(is_playing)
+                if (is_playing)
                 {
                     StaticAudioPlayer.StopAudio();
                     is_playing = false;
@@ -64,18 +55,18 @@ namespace example
                 {
                     string GameDirectory = NinginCore.Environment.GetGameDirectory();
                     StaticAudioPlayer.PlayAudio(GameDirectory + "/sample_song.mp3");
-                    is_playing=true;
+                    is_playing = true;
                 }
                 Thread.Sleep(1000);
             }
-            
-            // Cycle through colors by modifying RGB values based on time
-            uint red = (uint)(System.Math.Sin(time * 2) * 127 + 128);  // Oscillates between 0 and 255
-            uint green = (uint)(System.Math.Sin(time * 3) * 127 + 128); // Different frequency for green
-            uint blue = (uint)(System.Math.Sin(time * 4) * 127 + 128);  // Different frequency for blue
-            uint alpha = 255;  // Full opacity
 
-            spr.SetTextColor(Color.FromRGBA(red, green, blue, alpha));
+            // Cycle through colors by modifying RGB values based on time
+            //uint red = (uint)(System.Math.Sin(time * 2) * 127 + 128);  // Oscillates between 0 and 255
+            //uint green = (uint)(System.Math.Sin(time * 3) * 127 + 128); // Different frequency for green
+            //uint blue = (uint)(System.Math.Sin(time * 4) * 127 + 128);  // Different frequency for blue
+            //uint alpha = 255;  // Full opacity
+
+            //spr.SetTextColor(Color.FromRGBA(red, green, blue, alpha));
         }
 
         bool is_lupdated = false;

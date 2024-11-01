@@ -29,16 +29,20 @@ namespace NinginCore
             return component;
         }
 
+        private Transform _transform = null;
         public Transform transform
         {
             get
             {
-                InternalCalls.EntityGetComponent(entityId, typeof(Transform), out IntPtr transformResult);
-                Transform transform = new Transform
+                if (_transform == null)
                 {
-                    data = transformResult
-                };
-                return transform;
+                    InternalCalls.EntityGetComponent(entityId, typeof(Transform), out IntPtr transformResult);
+                    _transform = new Transform
+                    {
+                        data = transformResult
+                    };
+                }
+                return _transform;
             }
         }
     }

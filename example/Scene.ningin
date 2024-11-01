@@ -1,5 +1,23 @@
 #Title("A Scene")
 
+@potato{
+    <example "FPS">
+    Transform {
+        Position(1000.0,0.0,0.0)
+        Rotation(0.0,0.0,0.0)
+        Scale(1.0,1.0,1.0)
+    }
+
+    Text{
+       TextColor(255, 255, 100, 255)
+       FontName("arial.ttf")
+       FontSize(70)
+       Text("[FPS] : 0")
+       Shader("text")
+       UseMultiLine(false)
+   }
+}
+
 @test{
     <example "Class1"> 
     Transform{
@@ -11,7 +29,7 @@
    Text{
        TextColor(255, 255, 100, 255)
        FontName("arial.ttf")
-       FontSize(36)
+       FontSize(70)
        Text("Hello")
        Shader("text")
        UseMultiLine(true)
@@ -24,16 +42,4 @@
     //  TextureName("sprite")
     //  Shader("sprite")
    //}
-}
-
-@potato{
-    @potato2{
-        @potato3{
-            Transform {
-                Position(1.0,2.0,1.0)
-                Rotation(28.0,10.0,9.0)
-                Scale(28.0,10.0,9.0)
-            }
-        }
-    }
 }

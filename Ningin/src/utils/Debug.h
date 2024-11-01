@@ -4,6 +4,8 @@
 
 using namespace std;
 
+void SetConsoleColor(const std::string& color);
+
 void LogInfo(const string& message);
 
 void LogError(const string& message);

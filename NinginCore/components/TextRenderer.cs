@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Runtime.InteropServices;
 
 namespace NinginCore
 {
@@ -12,7 +14,7 @@ namespace NinginCore
 
         public void SetText(string text)
         {
-            InternalCalls.TextSetText(this.data, ref text);
+            InternalCalls.MonoTextSetText(this.data, text);
         }
 
         public void SetFontSize(uint fontSize)

@@ -137,7 +137,7 @@ void AddInternalCalls()
     #pragma region TextRenderer
         AddInternalCall(TextSetFontSize);
         AddInternalCall(TextSetFont);
-        AddInternalCall(TextSetText);
+        AddInternalCall(MonoTextSetText);
         AddInternalCall(TextSetTextColor);
     #pragma endregion
 

@@ -214,7 +214,7 @@ namespace NinginCore
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void TextSetTextColor(IntPtr textRenderer, ref Color color);
         [MethodImpl(MethodImplOptions.InternalCall)]
-        internal static extern void TextSetText(IntPtr textRenderer, ref string text);
+        internal static extern void MonoTextSetText(IntPtr textRenderer, string text);
         [MethodImpl(MethodImplOptions.InternalCall)]
         internal static extern void TextSetFontSize(IntPtr textRenderer, uint fontSize);
         [MethodImpl(MethodImplOptions.InternalCall)]

@@ -153,7 +153,7 @@ namespace Ningin
 
 int main()
 {
-	Ningin::Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
+	Ningin::Game::Init("Example", WindowOptions::FullScreen, new Dimensions2(500, 500), { "Scene" },
 		MonoPaths("mono/lib", "example.dll"), false);
 	Ningin::Game::Start();
 	return 0;

@@ -222,6 +222,11 @@ MonoMethod* GetMethod(MonoClass* klass, string name, int paramsCount)
 
 void* InvokeMethod(MonoObject* obj, MonoMethod* method,vector<void*> params)
 {
+	if (method == nullptr)
+	{
+		return nullptr;
+	}
+
 	MonoObject* exception = nullptr;
 
 	//Invoke Method
