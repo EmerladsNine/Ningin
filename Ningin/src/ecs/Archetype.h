@@ -6,7 +6,7 @@
 #include <optional>
 #include <cstddef>
 #include <vector>
-#include "../entity/EntityId.h"
+#include "../sceneSystem/entity/EntityId.h"
 
 using namespace std;
 

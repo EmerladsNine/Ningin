@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../sceneSystem/ecs/EntityManager.h"
+#include "../ecs/EntityManager.h"
 #include "../utils/Timer.h"
 
 #pragma once

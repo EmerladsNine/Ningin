@@ -1,5 +1,5 @@
 #include "scriptable.h"
-#include "../sceneSystem/ecs/EntityManager.h"
+#include "../ecs/EntityManager.h"
 #include "../sceneSystem/components/ScriptVec.h"
 
 void ScriptSystem(float deltatime, ArchetypeManager& archetypeManager)

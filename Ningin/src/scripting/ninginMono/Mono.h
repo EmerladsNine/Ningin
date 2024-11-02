@@ -5,7 +5,7 @@
 #include <string>
 #include <unordered_map>
 #include <functional>
-#include "../../sceneSystem/ecs/EntityManager.h"
+#include "../../ecs/EntityManager.h"
 #include "../../sceneSystem/entity/EntityId.h"
 #include "ScriptClass.h"
 #include "Script.h"

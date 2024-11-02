@@ -1,5 +1,5 @@
 #include "Archetype.h"
-#include "../entity/Id.h"
+#include "../sceneSystem/entity/Id.h"
 #include "ArchetypeManager.h"
 
 Archetype::Archetype(size_t archetype_id, ArchetypeType* type) : archetypeId(archetype_id), type(type)

@@ -1,6 +1,6 @@
 #pragma once
 #include "../utils/Timer.h"
-#include "../sceneSystem/ecs/ArchetypeManager.h"
+#include "../ecs/ArchetypeManager.h"
 
 class Scriptable
 {

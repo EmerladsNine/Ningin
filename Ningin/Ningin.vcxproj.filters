@@ -73,9 +73,6 @@
     <Filter Include="Source Files\sceneSystem\components">
       <UniqueIdentifier>{9a4a42df-4852-4fae-9303-88bddc4517a7}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\sceneSystem\ecs">
-      <UniqueIdentifier>{621a7aa6-2377-49b3-880f-13e6fffb5279}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\sceneSystem\entity">
       <UniqueIdentifier>{1f5729d3-aca2-40f8-858e-ebc402593254}</UniqueIdentifier>
     </Filter>
@@ -181,6 +178,12 @@
     <Filter Include="Source Files\physicsEngine\space\force">
       <UniqueIdentifier>{231146fe-5c06-417f-81bb-3d5fa4eb1cca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\ecs">
+      <UniqueIdentifier>{371e970c-f21e-4805-8a07-6bea6bcb92ad}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ecs">
+      <UniqueIdentifier>{5ecaccec-7ba8-4ff6-8453-0065b605be55}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -254,24 +257,6 @@
     </ClCompile>
     <ClCompile Include="src\resourceManager\ResourceManager.cpp">
       <Filter>Source Files\resourceManager</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sceneSystem\ecs\record.cpp">
-      <Filter>Source Files\sceneSystem\ecs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sceneSystem\ecs\archetype.cpp">
-      <Filter>Source Files\sceneSystem\ecs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sceneSystem\ecs\archetype_manager.cpp">
-      <Filter>Source Files\sceneSystem\ecs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sceneSystem\ecs\archetype_edge.cpp">
-      <Filter>Source Files\sceneSystem\ecs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sceneSystem\ecs\archetype_record.cpp">
-      <Filter>Source Files\sceneSystem\ecs</Filter>
-    </ClCompile>
-    <ClCompile Include="src\sceneSystem\ecs\entity_manager.cpp">
-      <Filter>Source Files\sceneSystem\ecs</Filter>
     </ClCompile>
     <ClCompile Include="src\sceneSystem\components\TextRenderer.cpp">
       <Filter>Source Files\sceneSystem\components</Filter>
@@ -410,6 +395,27 @@
     </ClCompile>
     <ClCompile Include="src\physicsEngine\space\force\ForceGenerator.cpp">
       <Filter>Source Files\physicsEngine\space\force</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\space\force\DragForce.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\archetype.cpp">
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\archetype_edge.cpp">
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\archetype_manager.cpp">
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\archetype_record.cpp">
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\entity_manager.cpp">
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\record.cpp">
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -679,6 +685,33 @@
     </ClInclude>
     <ClInclude Include="src\physicsEngine\space\force\ForceGenerator.h">
       <Filter>Header Files\physicsEngine\space\force</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\space\force\DragForce.h">
+      <Filter>Header Files\physicsEngine\space\force</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\PhysicsEngine.h">
+      <Filter>Header Files\physicsEngine</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\Archetype.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ArchetypeEdge.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ArchetypeManager.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ArchetypeRecord.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ArchetypeTypeHasher.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\EntityManager.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\Record.h">
+      <Filter>Header Files\ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

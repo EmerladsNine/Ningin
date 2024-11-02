@@ -154,4 +154,7 @@ class Vector3
 			y = out.y;
 			z = out.z;
 		}
+
+		float Magnitude() const;
+		Vector3& Normalize() const;
 };

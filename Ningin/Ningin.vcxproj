@@ -22,6 +22,12 @@
     <ClCompile Include="lib\drlibs.cpp" />
     <ClCompile Include="lib\stb_image.cpp" />
     <ClCompile Include="src\audio\StaticAudioPlayer.cpp" />
+    <ClCompile Include="src\ecs\archetype.cpp" />
+    <ClCompile Include="src\ecs\archetype_edge.cpp" />
+    <ClCompile Include="src\ecs\archetype_manager.cpp" />
+    <ClCompile Include="src\ecs\archetype_record.cpp" />
+    <ClCompile Include="src\ecs\entity_manager.cpp" />
+    <ClCompile Include="src\ecs\record.cpp" />
     <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
     <ClCompile Include="src\physicsEngine\Axes.cpp" />
@@ -29,6 +35,7 @@
     <ClCompile Include="src\physicsEngine\force\ForceComputation.cpp" />
     <ClCompile Include="src\physicsEngine\Mask2.cpp" />
     <ClCompile Include="src\physicsEngine\Mask3.cpp" />
+    <ClCompile Include="src\physicsEngine\space\force\DragForce.cpp" />
     <ClCompile Include="src\physicsEngine\space\force\ForceGenerator.cpp" />
     <ClCompile Include="src\physicsEngine\space\Pointmass.cpp" />
     <ClCompile Include="src\physicsEngine\SurfaceInteractionModes.cpp" />
@@ -68,12 +75,6 @@
     <ClCompile Include="src\sceneSystem\components\SpriteRenderer.cpp" />
     <ClCompile Include="src\sceneSystem\components\TextRenderer.cpp" />
     <ClCompile Include="src\sceneSystem\components\Transform.cpp" />
-    <ClCompile Include="src\sceneSystem\ecs\archetype.cpp" />
-    <ClCompile Include="src\sceneSystem\ecs\archetype_edge.cpp" />
-    <ClCompile Include="src\sceneSystem\ecs\archetype_manager.cpp" />
-    <ClCompile Include="src\sceneSystem\ecs\archetype_record.cpp" />
-    <ClCompile Include="src\sceneSystem\ecs\entity_manager.cpp" />
-    <ClCompile Include="src\sceneSystem\ecs\record.cpp" />
     <ClCompile Include="src\sceneSystem\entity\Children.cpp" />
     <ClCompile Include="src\sceneSystem\entity\Entity.cpp" />
     <ClCompile Include="src\sceneSystem\entity\Id.cpp" />
@@ -99,6 +100,13 @@
   <ItemGroup>
     <ClInclude Include="src\audio\AudioData.h" />
     <ClInclude Include="src\audio\StaticAudioPlayer.h" />
+    <ClInclude Include="src\ecs\Archetype.h" />
+    <ClInclude Include="src\ecs\ArchetypeEdge.h" />
+    <ClInclude Include="src\ecs\ArchetypeManager.h" />
+    <ClInclude Include="src\ecs\ArchetypeRecord.h" />
+    <ClInclude Include="src\ecs\ArchetypeTypeHasher.h" />
+    <ClInclude Include="src\ecs\EntityManager.h" />
+    <ClInclude Include="src\ecs\Record.h" />
     <ClInclude Include="src\input\KeyInput.h" />
     <ClInclude Include="src\math\Range.h" />
     <ClInclude Include="src\physicsEngine\Axes.h" />
@@ -111,8 +119,10 @@
     <ClInclude Include="src\physicsEngine\InterpolationMode.h" />
     <ClInclude Include="src\physicsEngine\Mask2.h" />
     <ClInclude Include="src\physicsEngine\Mask3.h" />
+    <ClInclude Include="src\physicsEngine\PhysicsEngine.h" />
     <ClInclude Include="src\physicsEngine\PhysicsMaterial2D.h" />
     <ClInclude Include="src\physicsEngine\SleepMode.h" />
+    <ClInclude Include="src\physicsEngine\space\force\DragForce.h" />
     <ClInclude Include="src\physicsEngine\space\force\ForceGenerator.h" />
     <ClInclude Include="src\physicsEngine\space\Pointmass.h" />
     <ClInclude Include="src\physicsEngine\space\Time.h" />

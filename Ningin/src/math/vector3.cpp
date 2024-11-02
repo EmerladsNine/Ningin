@@ -16,6 +16,18 @@ Vector3::Vector3(float x, float y, float z) : x(x), y(y), z(z) {}
 
 Vector3::Vector3(Vector2& vec) : x(vec.x), y(vec.y), z(0.0f) {}
 
+float Vector3::Magnitude() const
+{
+	return Vector3Magnitude(const_cast<Vector3&>(*this));
+}
+
+Vector3& Vector3::Normalize() const
+{
+	Vector3 normalizedVec;
+	Vector3Normalize(const_cast<Vector3&>(*this), normalizedVec);
+	return normalizedVec;
+}
+
 void Vector3Abs(Vector3& vec, Vector3& out)
 {
 	out = Vector3(abs(vec.x), abs(vec.y), abs(vec.z));

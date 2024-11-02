@@ -3,7 +3,7 @@
 #include "ninginMono/MonoPaths.h"
 #include "ninginMono/mono.h"
 #include "ScriptLanguage.h"
-#include "../sceneSystem/ecs/EntityManager.h"
+#include "../ecs/EntityManager.h"
 #include <optional>
 #include <string>
 

@@ -1,5 +1,5 @@
 #include "EntityManager.h"
-#include "../entity/id.h"
+#include "../sceneSystem/entity/id.h"
 #include <algorithm>
 #include <stdexcept>
 #include <string>
