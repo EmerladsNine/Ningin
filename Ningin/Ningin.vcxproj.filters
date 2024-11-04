@@ -172,17 +172,17 @@
     <Filter Include="Source Files\physicsEngine\space">
       <UniqueIdentifier>{17fede27-1728-467e-9cea-f8cf8678707d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\physicsEngine\space\force">
-      <UniqueIdentifier>{8fd144bf-ac4a-498a-8275-4fc1300e8786}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\physicsEngine\space\force">
-      <UniqueIdentifier>{231146fe-5c06-417f-81bb-3d5fa4eb1cca}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\ecs">
       <UniqueIdentifier>{371e970c-f21e-4805-8a07-6bea6bcb92ad}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\ecs">
       <UniqueIdentifier>{5ecaccec-7ba8-4ff6-8453-0065b605be55}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\physicsEngine\forceGenerators">
+      <UniqueIdentifier>{a2cf8253-cbb0-443d-a1b4-299a905a6578}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\physicsEngine\forceGenerators">
+      <UniqueIdentifier>{37b5c408-789b-4d00-85ae-0f82ba335d5e}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -393,12 +393,6 @@
     <ClCompile Include="src\physicsEngine\space\Pointmass.cpp">
       <Filter>Source Files\physicsEngine\space</Filter>
     </ClCompile>
-    <ClCompile Include="src\physicsEngine\space\force\ForceGenerator.cpp">
-      <Filter>Source Files\physicsEngine\space\force</Filter>
-    </ClCompile>
-    <ClCompile Include="src\physicsEngine\space\force\DragForce.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\ecs\archetype.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
@@ -416,6 +410,12 @@
     </ClCompile>
     <ClCompile Include="src\ecs\record.cpp">
       <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\PhysicsEngine.cpp">
+      <Filter>Source Files\physicsEngine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\forceGenerators\GravityForceGenerator.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -683,12 +683,6 @@
     <ClInclude Include="src\physicsEngine\space\Time.h">
       <Filter>Header Files\physicsEngine\space</Filter>
     </ClInclude>
-    <ClInclude Include="src\physicsEngine\space\force\ForceGenerator.h">
-      <Filter>Header Files\physicsEngine\space\force</Filter>
-    </ClInclude>
-    <ClInclude Include="src\physicsEngine\space\force\DragForce.h">
-      <Filter>Header Files\physicsEngine\space\force</Filter>
-    </ClInclude>
     <ClInclude Include="src\physicsEngine\PhysicsEngine.h">
       <Filter>Header Files\physicsEngine</Filter>
     </ClInclude>
@@ -712,6 +706,9 @@
     </ClInclude>
     <ClInclude Include="src\ecs\Record.h">
       <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="src\physicsEngine\forceGenerators\GravityForceGenerator.h">
+      <Filter>Header Files\physicsEngine\forceGenerators</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

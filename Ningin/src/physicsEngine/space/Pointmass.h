@@ -1,6 +1,5 @@
 #pragma once
 #include "../../math/vector3.h"
-#include "force/DragForce.h"
 #include "Time.h"
 
 namespace Ningin::Physics
@@ -8,12 +7,11 @@ namespace Ningin::Physics
 	class Pointmass
 	{
 	public:
-		Pointmass(float mass, float gravity, DragForce dragForce, bool is_static);
+		Pointmass(float mass, float gravity, bool is_static);
 		void Integrate(Time duration);
 		void AddForce(const Vector3& force);
 		void RemoveForce(const Vector3& force);
 		const Vector3& GetVelocity();
-		DragForce dragForce;
 		float gravity;
 		bool is_static;
 	private:

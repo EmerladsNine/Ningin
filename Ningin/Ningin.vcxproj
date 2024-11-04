@@ -31,12 +31,12 @@
     <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
     <ClCompile Include="src\physicsEngine\Axes.cpp" />
+    <ClCompile Include="src\physicsEngine\forceGenerators\GravityForceGenerator.cpp" />
     <ClCompile Include="src\physicsEngine\force\Force.cpp" />
     <ClCompile Include="src\physicsEngine\force\ForceComputation.cpp" />
     <ClCompile Include="src\physicsEngine\Mask2.cpp" />
     <ClCompile Include="src\physicsEngine\Mask3.cpp" />
-    <ClCompile Include="src\physicsEngine\space\force\DragForce.cpp" />
-    <ClCompile Include="src\physicsEngine\space\force\ForceGenerator.cpp" />
+    <ClCompile Include="src\physicsEngine\PhysicsEngine.cpp" />
     <ClCompile Include="src\physicsEngine\space\Pointmass.cpp" />
     <ClCompile Include="src\physicsEngine\SurfaceInteractionModes.cpp" />
     <ClCompile Include="src\resourceManager\animation\AnimationFrame.cpp" />
@@ -112,6 +112,7 @@
     <ClInclude Include="src\physicsEngine\Axes.h" />
     <ClInclude Include="src\physicsEngine\BodyTypes.h" />
     <ClInclude Include="src\physicsEngine\CollisionDetectionMode.h" />
+    <ClInclude Include="src\physicsEngine\forceGenerators\GravityForceGenerator.h" />
     <ClInclude Include="src\physicsEngine\force\Force.h" />
     <ClInclude Include="src\physicsEngine\force\ForceComputation.h" />
     <ClInclude Include="src\physicsEngine\force\ForceDynamics.h" />
@@ -122,8 +123,6 @@
     <ClInclude Include="src\physicsEngine\PhysicsEngine.h" />
     <ClInclude Include="src\physicsEngine\PhysicsMaterial2D.h" />
     <ClInclude Include="src\physicsEngine\SleepMode.h" />
-    <ClInclude Include="src\physicsEngine\space\force\DragForce.h" />
-    <ClInclude Include="src\physicsEngine\space\force\ForceGenerator.h" />
     <ClInclude Include="src\physicsEngine\space\Pointmass.h" />
     <ClInclude Include="src\physicsEngine\space\Time.h" />
     <ClInclude Include="src\physicsEngine\SurfaceInteractionModes.h" />

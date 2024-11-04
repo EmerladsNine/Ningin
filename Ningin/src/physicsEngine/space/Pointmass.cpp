@@ -1,6 +1,6 @@
 #include "Pointmass.h"
 
-Ningin::Physics::Pointmass::Pointmass(float mass, float gravity, DragForce dragForce, bool is_static) : _InverseMass(1 / mass), gravity(gravity), is_static(is_static) , dragForce(dragForce)
+Ningin::Physics::Pointmass::Pointmass(float mass, float gravity, bool is_static) : _InverseMass(1 / mass), gravity(gravity), is_static(is_static)
 {}
 
 void Ningin::Physics::Pointmass::Integrate(Time duration)

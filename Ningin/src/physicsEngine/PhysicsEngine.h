@@ -4,7 +4,5 @@ class PhysicsEngine
 {
 public:
 	PhysicsEngine();
-	
-private:
-
+	EntityManager physicsWorld;
 };

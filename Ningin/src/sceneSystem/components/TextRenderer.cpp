@@ -364,14 +364,14 @@ namespace Ningin::Components
 				{
 					if (textData == nullptr)
 					{
-						return;
+						continue;
 					}
 
 					void* transformData = TextArchetype.second.archetype->components[transformColumn][row];
 
 					if (transformData == nullptr)
 					{
-						return;
+						continue;
 					}
 
 					TextRenderer* text = static_cast<TextRenderer*>(textData);

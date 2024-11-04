@@ -2,6 +2,7 @@
 #include "scripting/ScriptingEngine.h"
 #include "utils/Timer.h"
 #include "input/KeyInput.h"
+#include "utils/Debug.h"
 #include <filesystem>
 #include <portaudio.h>
 
@@ -126,16 +127,20 @@ namespace Ningin
 
 	void Game::MainLoop()
 	{
+		int statistics_count = 0;
+		float result = 0;
 		Timer timer;
 
-		while (true)
+		while (statistics_count < 1000)
 		{
+			statistics_count++;
 			glfwPollEvents();
 			glClearColor(0.3f, 0.2f, 0.5f, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			float deltatime = timer.GetDeltaTime();
 			timer.ResetDeltaTime();
+			result += deltatime;
 			if(openedWindow.has_value())
 			{
 			
@@ -148,6 +153,7 @@ namespace Ningin
 				glfwSwapBuffers(openedWindow.value().glfwWin);
 			}
 		}
+		LogInfo(format("Average 1:{}\n" , (result / 1000) * 10000000));
 	}
 }
 
