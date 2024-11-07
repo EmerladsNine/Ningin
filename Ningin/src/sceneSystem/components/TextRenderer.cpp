@@ -360,25 +360,12 @@ namespace Ningin::Components
 				size_t transformColumn = it->second.column;
 				int row = 0;
 
-				for (void* textData : TextArchetype.second.archetype->components[textColumn])
+				std::vector<TextRenderer>& textRendererVec = *static_cast<std::vector<TextRenderer>*>(TextArchetype.second.archetype->components[typeid(TextRenderer)]);
+				for (auto& text : textRendererVec)
 				{
-					if (textData == nullptr)
-					{
-						continue;
-					}
-
-					void* transformData = TextArchetype.second.archetype->components[transformColumn][row];
-
-					if (transformData == nullptr)
-					{
-						continue;
-					}
-
-					TextRenderer* text = static_cast<TextRenderer*>(textData);
-					Transform* transform = static_cast<Transform*>(transformData);
-
-					text->Draw(*transform);
-
+					std::vector<Transform>& transformVec = *static_cast<std::vector<Transform>*>(TextArchetype.second.archetype->components[typeid(Transform)]);
+					auto& transform = transformVec[row];
+					text.Draw(transform);
 					row++;
 				}
 			}

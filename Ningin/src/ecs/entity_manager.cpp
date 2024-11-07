@@ -23,13 +23,13 @@ EntityId EntityManager::CreateNewEntity()
 	}
 	else
 	{ // Doesn't exist so we create it.
-		ArchetypeManager::RegisterComponentTypeDeleter<Id>();
+		ArchetypeManager::RegisterComponentType<Id>();
 		archetype = archetypeManager.GenerateArchetype(move(type));
 	}
 
 	// Create Entity
 	size_t entityRow = archetype->CreateEntity();
-	archetype->components[0][entityRow] = new Id(entityId);
+	ArchetypeManager::pushBack[typeid(Id)](archetype->components[typeid(Id)], new Id(entityId));
 	entityIndex.try_emplace(entityId, archetype, entityRow);
 
 	return entityId;
@@ -83,27 +83,7 @@ void* EntityManager::GetComponent(EntityId entityId, ComponentId componentId)
 void* EntityManager::GetComponent(Record* entityRecord, ComponentId componentId)
 {
 	Archetype* archetype = entityRecord->archetypePtr;
-
-	// Find the archetypeMap of the component
-	auto componentIterator = archetypeManager.componentIndex.find(componentId);
-
-	if (componentIterator == archetypeManager.componentIndex.end())
-	{
-		return nullptr;
-	}
-	ArchetypeMap* archetypes = &componentIterator->second;
-
-	// Get the archetypeRecord of the component.
-	auto archetypeIterator = archetypes->find(archetype->archetypeId);
-
-	if (archetypeIterator == archetypes->end())
-	{
-		return nullptr;
-	}
-
-	ArchetypeRecord* archetypeRecord = &archetypeIterator->second;
-
-	return archetype->components[archetypeRecord->column][entityRecord->row];
+	return ArchetypeManager::getRow[componentId](archetype->components[componentId], entityRecord->row);
 }
 
 void EntityManager::SetComponent(EntityId entityId, ComponentId componentId, void* data)
@@ -125,40 +105,7 @@ void EntityManager::SetComponent(EntityId entityId, ComponentId componentId, voi
 void EntityManager::SetComponent(Record& entityRecord, ComponentId componentId, void* data)
 {
 	Archetype* archetype = entityRecord.archetypePtr;
-
-	// Find the archetypeMap of the component
-	auto componentIterator = archetypeManager.componentIndex.find(componentId);
-
-	if (componentIterator == archetypeManager.componentIndex.end())
-	{
-		return;
-	}
-
-	ArchetypeMap* archetypes = &componentIterator->second;
-
-	// Get the archetypeRecord of the component.
-	auto archetypeIterator = archetypes->find(archetype->archetypeId);
-
-	if (archetypeIterator == archetypes->end())
-	{
-		return;
-	}
-
-	ArchetypeRecord* archetypeRecord = &archetypeIterator->second;
-
-	// delete old data
-	auto it = archetypeManager.deleters.find(componentId);
-
-	if (it != archetypeManager.deleters.end())
-	{
-		it->second(archetype->components[archetypeRecord->column][entityRecord.row]);
-		// Assign new data.
-		archetype->components[archetypeRecord->column][entityRecord.row] = data;
-	}
-	else
-	{
-		throw runtime_error("Unknown component type");
-	}
+	ArchetypeManager::insert[componentId](archetype->components[componentId], entityRecord.row, data);
 }
 
 void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, void* data)
@@ -222,16 +169,14 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	Record newRecord(newArchetype, row);
 
 	// Insert data into the created component.
-	SetComponent(newRecord, componentId, data);
+	ArchetypeManager::pushBack[componentId](newArchetype->components[componentId], data);
 
 	// Move overlapping components over to the destination archetype.
-	size_t oldColumnIndex = 0;
 
 	for (auto& component : *oldArchetype->type)
 	{
-		void* compData = oldArchetype->components[oldColumnIndex][record->row];
-		SetComponent(newRecord, component, compData);
-		oldColumnIndex++;
+		void* compData = ArchetypeManager::getRow[component](oldArchetype->components[component], record->row);
+		ArchetypeManager::pushBack[component](newArchetype->components[component], compData);
 	}
 
 	// Remove the entity from the current archetype.
@@ -308,12 +253,10 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 	size_t row = newArchetype->CreateEntity();
 
 	// Move overlapping components over to the destination archetype.
-	size_t newColumnIndex = 0;
 
 	for (auto& component : *newArchetype->type)
 	{
-		newArchetype->components[newColumnIndex][row] = GetComponent(record, component);
-		newColumnIndex++;
+		ArchetypeManager::pushBack[component](newArchetype->components[component], GetComponent(record, component));
 	}
 
 	// Remove the entity from the current archetype.

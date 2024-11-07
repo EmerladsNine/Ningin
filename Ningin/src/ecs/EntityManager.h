@@ -11,8 +11,7 @@ class EntityManager
 
 		template <typename T> static void RegisterComponent()
 		{
-			//Init Destructor
-			ArchetypeManager::RegisterComponentTypeDeleter<T>();
+			ArchetypeManager::RegisterComponentType<T>();
 		}
 
 		void AddComponent(EntityId entityId, ComponentId componentId, void* data);

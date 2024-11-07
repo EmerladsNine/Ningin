@@ -196,6 +196,7 @@ namespace Ningin
 
 			uint16_t scriptsCount = Read<uint16_t>(&filePointer);
 			uint16_t scriptPositon = 0;
+			
 			ScriptVec* scriptVec = new ScriptVec();
 
 			while (scriptPositon < scriptsCount)

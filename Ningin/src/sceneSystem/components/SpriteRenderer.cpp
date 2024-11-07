@@ -147,30 +147,13 @@ namespace Ningin::Components
 
 			if (it != transformArchetypeMap.end())
 			{
-				size_t spriteColumn = SpriteArchetype.second.column;
-				size_t transformColumn = it->second.column;
-
 				int row = 0;
-
-				for (void* spriteData : SpriteArchetype.second.archetype->components[spriteColumn])
+				std::vector<SpriteRenderer>& spriteRendererVec = *static_cast<std::vector<SpriteRenderer>*>(SpriteArchetype.second.archetype->components[typeid(SpriteRenderer)]);
+				for (auto& sprite : spriteRendererVec)
 				{
-					if (spriteData == nullptr)
-					{
-						return;
-					}
-
-					void* transformData = SpriteArchetype.second.archetype->components[transformColumn][row];
-
-					if (transformData == nullptr)
-					{
-						return;
-					}
-
-					SpriteRenderer* sprite = static_cast<SpriteRenderer*>(spriteData);
-					Transform* transform = static_cast<Transform*>(transformData);
-
-					sprite->Draw(*transform);
-
+					std::vector<Transform>& transformVec = *static_cast<std::vector<Transform>*>(SpriteArchetype.second.archetype->components[typeid(Transform)]);
+					auto& transform = transformVec[row];
+					sprite.Draw(transform);
 					row++;
 				}
 			}

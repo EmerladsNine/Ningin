@@ -16,11 +16,10 @@ void ScriptUpdate(bool isLate, float deltatime, ArchetypeManager& archetypeManag
 {
 	for (auto& scriptVecArchetype : archetypeManager.componentIndex[typeid(ScriptVec)])
 	{
-		for (void* scriptsData : scriptVecArchetype.second.archetype
-			->components[scriptVecArchetype.second.column])
+		std::vector<ScriptVec>& scriptVecVec = *static_cast<std::vector<ScriptVec>*>(scriptVecArchetype.second.archetype->components[typeid(ScriptVec)]);
+		for (auto& scriptVec : scriptVecVec)
 		{
-			ScriptVec* scripts = static_cast<ScriptVec*>(scriptsData);
-			for (Scriptable* script : scripts->scripts)
+			for (Scriptable* script : scriptVec.scripts)
 			{
 				HandleScript(script, isLate, deltatime);
 			}

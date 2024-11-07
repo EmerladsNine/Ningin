@@ -9,7 +9,6 @@ class ScriptVec
 {
 	public:
 		ScriptVec();
-		~ScriptVec();
 
 		vector<Scriptable*> scripts;
 };
