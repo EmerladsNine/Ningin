@@ -147,14 +147,11 @@ namespace Ningin::Components
 
 			if (it != transformArchetypeMap.end())
 			{
-				int row = 0;
-				std::vector<SpriteRenderer>& spriteRendererVec = *static_cast<std::vector<SpriteRenderer>*>(SpriteArchetype.second.archetype->components[typeid(SpriteRenderer)]);
-				for (auto& sprite : spriteRendererVec)
+				for (int row = 0; row < SpriteArchetype.second.archetype->size;row++)
 				{
-					std::vector<Transform>& transformVec = *static_cast<std::vector<Transform>*>(SpriteArchetype.second.archetype->components[typeid(Transform)]);
-					auto& transform = transformVec[row];
+					Transform& transform = *reinterpret_cast<Transform*>(SpriteArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(Transform)));
+					SpriteRenderer& sprite = *reinterpret_cast<SpriteRenderer*>(SpriteArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(SpriteRenderer)));
 					sprite.Draw(transform);
-					row++;
 				}
 			}
 		}

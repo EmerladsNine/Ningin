@@ -184,6 +184,12 @@
     <Filter Include="Header Files\physicsEngine\forceGenerators">
       <UniqueIdentifier>{37b5c408-789b-4d00-85ae-0f82ba335d5e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ecs\util">
+      <UniqueIdentifier>{d3a6f337-0808-4a77-ae66-bea63cff86d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ecs\util">
+      <UniqueIdentifier>{034ec67d-fa02-4a04-b530-36cd1180b786}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\math\Vector3.cpp">
@@ -415,6 +421,9 @@
       <Filter>Source Files\physicsEngine</Filter>
     </ClCompile>
     <ClCompile Include="src\physicsEngine\forceGenerators\GravityForceGenerator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\util\ECSVector.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -709,6 +718,12 @@
     </ClInclude>
     <ClInclude Include="src\physicsEngine\forceGenerators\GravityForceGenerator.h">
       <Filter>Header Files\physicsEngine\forceGenerators</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\util\ECSVector.h">
+      <Filter>Header Files\ecs\util</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ecs\ComponentId.h">
+      <Filter>Header Files\ecs</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -29,7 +29,8 @@ EntityId EntityManager::CreateNewEntity()
 
 	// Create Entity
 	size_t entityRow = archetype->CreateEntity();
-	ArchetypeManager::pushBack[typeid(Id)](archetype->components[typeid(Id)], new Id(entityId));
+	Id* idPtr = reinterpret_cast<Id*>(archetype->components.GetEntityComponentPointer(entityRow, typeid(Id)));
+	new (idPtr) Id(entityId);
 	entityIndex.try_emplace(entityId, archetype, entityRow);
 
 	return entityId;
@@ -83,7 +84,7 @@ void* EntityManager::GetComponent(EntityId entityId, ComponentId componentId)
 void* EntityManager::GetComponent(Record* entityRecord, ComponentId componentId)
 {
 	Archetype* archetype = entityRecord->archetypePtr;
-	return ArchetypeManager::getRow[componentId](archetype->components[componentId], entityRecord->row);
+	return archetype->components.GetEntityComponentPointer(entityRecord->row,componentId);
 }
 
 void EntityManager::SetComponent(EntityId entityId, ComponentId componentId, void* data)
@@ -105,7 +106,8 @@ void EntityManager::SetComponent(EntityId entityId, ComponentId componentId, voi
 void EntityManager::SetComponent(Record& entityRecord, ComponentId componentId, void* data)
 {
 	Archetype* archetype = entityRecord.archetypePtr;
-	ArchetypeManager::insert[componentId](archetype->components[componentId], entityRecord.row, data);
+	void* componentPtr = archetype->components.GetEntityComponentPointer(entityRecord.row, componentId);
+	ArchetypeManager::insert[componentId](componentPtr, data);
 }
 
 void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, void* data)
@@ -169,14 +171,17 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	Record newRecord(newArchetype, row);
 
 	// Insert data into the created component.
-	ArchetypeManager::pushBack[componentId](newArchetype->components[componentId], data);
+	void* componentPtr = newArchetype->components.GetEntityComponentPointer(row, componentId);
+	ArchetypeManager::insert[componentId](componentPtr, data);
 
 	// Move overlapping components over to the destination archetype.
 
 	for (auto& component : *oldArchetype->type)
 	{
-		void* compData = ArchetypeManager::getRow[component](oldArchetype->components[component], record->row);
-		ArchetypeManager::pushBack[component](newArchetype->components[component], compData);
+		void* componentdataPtr = oldArchetype->components.GetEntityComponentPointer(record->row, component);
+		void* componentPtr = newArchetype->components.GetEntityComponentPointer(newRecord.row, component);
+
+		ArchetypeManager::insert[component](componentPtr, componentdataPtr);
 	}
 
 	// Remove the entity from the current archetype.
@@ -256,7 +261,9 @@ void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, 
 
 	for (auto& component : *newArchetype->type)
 	{
-		ArchetypeManager::pushBack[component](newArchetype->components[component], GetComponent(record, component));
+		void* componentdataPtr = oldArchetype->components.GetEntityComponentPointer(record->row, component);
+		void* componentPtr = newArchetype->components.GetEntityComponentPointer(row, component);
+		ArchetypeManager::insert[component](componentPtr, componentdataPtr);
 	}
 
 	// Remove the entity from the current archetype.

@@ -2,23 +2,23 @@
 
 #include "ArchetypeEdge.h"
 #include <unordered_map>
-#include <typeindex>
 #include <optional>
 #include <cstddef>
 #include <vector>
+#include "ComponentId.h"
 #include "../sceneSystem/entity/EntityId.h"
+#include "util/ECSVector.h"
 
 using namespace std;
 
-using ComponentId = type_index;
 using Column = vector<void*>;
 using ArchetypeType = vector<ComponentId>;
 
 class Archetype
 {
 	public:
-		Archetype(size_t archetypeId, ArchetypeType* type);
-		~Archetype();
+		Archetype(size_t archetypeId);
+		void Init();
 		size_t size;
 		size_t CreateEntity(); // Returns row of the entity.
 
@@ -26,7 +26,8 @@ class Archetype
 		optional<EntityId> SwapRemoveEntity(size_t row);
 
 		unordered_map<ComponentId, ArchetypeEdge> edges; // Cache for adding / removing components.
-		unordered_map<ComponentId,void*> components; // The Data of the entities of this archetype.
+		ECSVector components; // The Data of the entities of this archetype.
+
 		const ArchetypeType* type;
 		size_t archetypeId;
 

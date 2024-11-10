@@ -28,6 +28,7 @@
     <ClCompile Include="src\ecs\archetype_record.cpp" />
     <ClCompile Include="src\ecs\entity_manager.cpp" />
     <ClCompile Include="src\ecs\record.cpp" />
+    <ClCompile Include="src\ecs\util\ECSVector.cpp" />
     <ClCompile Include="src\input\KeyInput.cpp" />
     <ClCompile Include="src\math\Range.cpp" />
     <ClCompile Include="src\physicsEngine\Axes.cpp" />
@@ -105,8 +106,10 @@
     <ClInclude Include="src\ecs\ArchetypeManager.h" />
     <ClInclude Include="src\ecs\ArchetypeRecord.h" />
     <ClInclude Include="src\ecs\ArchetypeTypeHasher.h" />
+    <ClInclude Include="src\ecs\ComponentId.h" />
     <ClInclude Include="src\ecs\EntityManager.h" />
     <ClInclude Include="src\ecs\Record.h" />
+    <ClInclude Include="src\ecs\util\ECSVector.h" />
     <ClInclude Include="src\input\KeyInput.h" />
     <ClInclude Include="src\math\Range.h" />
     <ClInclude Include="src\physicsEngine\Axes.h" />

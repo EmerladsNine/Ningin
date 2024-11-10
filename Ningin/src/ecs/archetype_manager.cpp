@@ -1,12 +1,7 @@
 #include "ArchetypeManager.h"
 
 unordered_map<type_index, function<void(void*)>> ArchetypeManager::deleters;
-unordered_map<type_index, function<void(void*, size_t)>> ArchetypeManager::swapRemove;
-unordered_map<type_index, function<void(void*)>> ArchetypeManager::removeLast;
-unordered_map<type_index, function<void(void*, void*)>> ArchetypeManager::pushBack;
-unordered_map<type_index, function<void(void*, size_t, void*)>> ArchetypeManager::insert;
-unordered_map<type_index, function<void* (void*, size_t)>> ArchetypeManager::getRow;
-unordered_map<type_index, function<void* ()>> ArchetypeManager::createColumn;
+unordered_map<type_index, function<void(void*, void*)>> ArchetypeManager::insert;
 
 ArchetypeManager::ArchetypeManager() : _archetypeCount(0) {}
 
@@ -31,16 +26,17 @@ Archetype* ArchetypeManager::GenerateArchetype(ArchetypeType&& type)
 	_archetypeCount++;
 
 	// Create Archetype instance
-	auto [it, inserted] = archetypeIndex.try_emplace(move(type), archetypeId, nullptr);
+	auto [it, inserted] = archetypeIndex.try_emplace(move(type), archetypeId);
 
 	Archetype& archetype = it->second;
 	archetype.type = &it->first;
+
+	archetype.Init();
 
 	uint32_t i = 0; // update component index
 
 	for (auto& componentId : it->first)
 	{
-		archetype.components.insert_or_assign(componentId,ArchetypeManager::createColumn[componentId]());
 		auto iterator = componentIndex.find(componentId);
 
 		if (iterator != componentIndex.end()) // Component exists we can update it.

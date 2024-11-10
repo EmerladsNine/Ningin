@@ -2,20 +2,29 @@
 #include "../sceneSystem/entity/Id.h"
 #include "ArchetypeManager.h"
 
-Archetype::Archetype(size_t archetype_id, ArchetypeType* type) : archetypeId(archetype_id), type(type) , size(0)
+Archetype::Archetype(size_t archetype_id) : archetypeId(archetype_id), type(nullptr) , size(0) {}
+
+void Archetype::Init()
 {
-	
+	int bytes = 0;
+	for (auto& componentType : *type)
+	{
+		components.AddComponentPosition(componentType, bytes / 4);
+		bytes += sizeof(componentType);
+	}
+	components.entitySize = bytes / 4;
 }
 
 size_t Archetype::CreateEntity()
 {
 	size++;
+	components.CreateEntity();
 	return size - 1;
 }
 
 optional<EntityId> Archetype::SwapRemoveEntity(size_t row)
 {
-	if (components.empty())
+	if (components.Empty())
 	{
 		return nullopt;
 	}
@@ -24,18 +33,11 @@ optional<EntityId> Archetype::SwapRemoveEntity(size_t row)
 	size--;
 	if (row != lastRow)
 	{
-		for (auto column : components)
-		{
-			// Removes row without shifting other rows index. (replaces last row with this row)
-			ArchetypeManager::swapRemove[column.first](column.second,row);
-		}
+		components.SwapRemove(row);
 	}
 	else
 	{
-		for (auto& column : components)
-		{
-			ArchetypeManager::removeLast[column.first](column.second);
-		}
+		components.PopBack();
 		return nullopt;
 	}
 
@@ -44,27 +46,6 @@ optional<EntityId> Archetype::SwapRemoveEntity(size_t row)
 
 EntityId Archetype::GetEntityId(size_t row)
 {
-	Id* id = static_cast<Id*>( ArchetypeManager::getRow[typeid(Id)](components[typeid(Id)],row));
+	Id* id = reinterpret_cast<Id*>(components.GetEntityComponentPointer(row, typeid(Id)));
 	return id->id;
-}
-
-Archetype::~Archetype()
-{
-	uint32_t columnIndex = 0;
-	for (auto& column : components)
-	{
-		for (size_t row = 0; row < size; row++)
-		{
-			void* component = ArchetypeManager::getRow[column.first](column.second,row);
-
-			auto it = ArchetypeManager::deleters.find((*type)[columnIndex]);
-			if (it != ArchetypeManager::deleters.end())
-			{
-				it->second(component);
-			}
-			else { /*Memory Leak !*/ }
-		}
-
-		columnIndex++;
-	}
 }

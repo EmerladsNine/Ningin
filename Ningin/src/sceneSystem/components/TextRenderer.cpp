@@ -356,17 +356,11 @@ namespace Ningin::Components
 
 			if (it != transformArchetypeMap.end())
 			{
-				size_t textColumn = TextArchetype.second.column;
-				size_t transformColumn = it->second.column;
-				int row = 0;
-
-				std::vector<TextRenderer>& textRendererVec = *static_cast<std::vector<TextRenderer>*>(TextArchetype.second.archetype->components[typeid(TextRenderer)]);
-				for (auto& text : textRendererVec)
+				for (int row = 0; row < TextArchetype.second.archetype->size; row++)
 				{
-					std::vector<Transform>& transformVec = *static_cast<std::vector<Transform>*>(TextArchetype.second.archetype->components[typeid(Transform)]);
-					auto& transform = transformVec[row];
+					Transform& transform = *reinterpret_cast<Transform*>(TextArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(Transform)));
+					TextRenderer& text = *reinterpret_cast<TextRenderer*>(TextArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(TextRenderer)));
 					text.Draw(transform);
-					row++;
 				}
 			}
 		}
