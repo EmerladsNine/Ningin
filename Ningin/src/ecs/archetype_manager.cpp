@@ -2,6 +2,7 @@
 
 unordered_map<type_index, function<void(void*)>> ArchetypeManager::deleters;
 unordered_map<type_index, function<void(void*, void*)>> ArchetypeManager::insert;
+unordered_map<type_index, function<int()>> ArchetypeManager::sizeOf;
 
 ArchetypeManager::ArchetypeManager() : _archetypeCount(0) {}
 
@@ -26,7 +27,7 @@ Archetype* ArchetypeManager::GenerateArchetype(ArchetypeType&& type)
 	_archetypeCount++;
 
 	// Create Archetype instance
-	auto [it, inserted] = archetypeIndex.try_emplace(move(type), archetypeId);
+	auto [it, inserted] = archetypeIndex.try_emplace(move(type), archetypeId, nullptr);
 
 	Archetype& archetype = it->second;
 	archetype.type = &it->first;

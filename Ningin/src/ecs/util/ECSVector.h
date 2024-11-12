@@ -10,12 +10,15 @@ public:
 	int entitySize;
 
 	ECSVector();
-	ECSVector(int entitySize);
+	~ECSVector();
+	void Init(int entitySize);
 	void AddComponentPosition(ComponentId componentId, int position);
 	bool Empty() const;
 	void CreateEntity();
 	void SwapRemove(size_t row);
 	void PopBack();
+
+	void Insert(size_t row, ComponentId componentId, void* data);
 
 	void* GetEntityComponentPointer(size_t row,ComponentId componentId)
 	{
@@ -23,7 +26,13 @@ public:
 		return reinterpret_cast<void*>(&data[row + componentPositions[componentId]]);
 	}
 
+	void Test();
+
 private :
-	std::vector<int> data;
+	int* data;
+	int capacity;
+	int current;
 	std::unordered_map<ComponentId, int> componentPositions;
+	void push();
+	void pop();
 };

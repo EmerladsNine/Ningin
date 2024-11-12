@@ -24,6 +24,7 @@ class ArchetypeManager
 		// These are used to remove components data depending on the component type
 		static unordered_map<type_index, function<void(void*)>> deleters;
 		static unordered_map<type_index, function<void(void*,void*)>> insert;
+		static unordered_map<type_index, function<int()>> sizeOf;
 
 		template <typename T> static void RegisterComponentType()
 		{
@@ -36,6 +37,12 @@ class ArchetypeManager
 
 				//*static_cast<T*>(dest) = std::move(dataRef);
 			};
+			
+			ArchetypeManager::sizeOf[typeid(T)] = []() -> int
+			{
+				return sizeof(T);
+			};
+
 		}
 
 		optional<Archetype*> GetArchetypeByType(const ArchetypeType& type);

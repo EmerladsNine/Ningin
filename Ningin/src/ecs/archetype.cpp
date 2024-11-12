@@ -2,7 +2,10 @@
 #include "../sceneSystem/entity/Id.h"
 #include "ArchetypeManager.h"
 
-Archetype::Archetype(size_t archetype_id) : archetypeId(archetype_id), type(nullptr) , size(0) {}
+Archetype::Archetype(size_t archetype_id, ArchetypeType* type) : archetypeId(archetype_id), type(type) , size(0)
+{
+	
+}
 
 void Archetype::Init()
 {
@@ -10,9 +13,10 @@ void Archetype::Init()
 	for (auto& componentType : *type)
 	{
 		components.AddComponentPosition(componentType, bytes / 4);
-		bytes += sizeof(componentType);
+		bytes += ArchetypeManager::sizeOf[componentType]();
 	}
-	components.entitySize = bytes / 4;
+	int entitySize = bytes / 4;
+	components.Init(entitySize);
 }
 
 size_t Archetype::CreateEntity()

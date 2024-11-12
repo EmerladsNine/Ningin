@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ecs/Archetype.h"
+#include "../../ecs/Archetype.h"
 #include <vector>
 
 using namespace std;

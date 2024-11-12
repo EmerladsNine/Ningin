@@ -17,7 +17,7 @@ using ArchetypeType = vector<ComponentId>;
 class Archetype
 {
 	public:
-		Archetype(size_t archetypeId);
+		Archetype(size_t archetypeId, ArchetypeType* type);
 		void Init();
 		size_t size;
 		size_t CreateEntity(); // Returns row of the entity.

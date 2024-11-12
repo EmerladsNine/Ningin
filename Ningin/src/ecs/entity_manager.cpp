@@ -196,7 +196,9 @@ void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, voi
 	}
 
 	// Update entity record.
+	newArchetype->components.Test();
 	entityIndex.insert_or_assign(entityId, newRecord);
+	newArchetype->components.Test();
 }
 
 void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, void* data)

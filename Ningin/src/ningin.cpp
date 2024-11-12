@@ -152,8 +152,9 @@ namespace Ningin
 				}
 				glfwSwapBuffers(openedWindow.value().glfwWin);
 			}
+			LogInfo(format("Average {}:{}\n",statistics_count , result /  statistics_count));
 		}
-		LogInfo(format("Average 1:{}\n" , (result / 1000) * 10000000));
+		LogInfo(format("Final Average 1:{}\n" , (result / statistics_count)));
 	}
 }
 
