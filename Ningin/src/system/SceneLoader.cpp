@@ -207,7 +207,7 @@ namespace Ningin
 				scriptPositon++;
 			}
 
-			scene.entityManager.AddComponent(entityId, typeid(ScriptVec), scriptVec);
+			//scene.entityManager.AddComponent(entityId, typeid(ScriptVec), scriptVec);
 
 			if (parentIndex != 0)
 			{
