@@ -14,15 +14,25 @@
 #include <string>
 #include <vector>
 #include <optional>
+#include "system/RenderingApi.h"
 
 using namespace std;
 
 namespace Ningin
 {
+	#ifdef NDEBUG
+		constexpr bool enableValidationLayers = false;
+	#else
+		constexpr bool enableValidationLayers = true;
+	#endif
+
 	extern ResourceManager resourceManager;
 	extern glm::mat4 projectionMatrix;
 	extern Dimensions2 windowDimensions;
 	extern FT_Library ftLibrary;
+
+	extern RenderingApi renderingApi;
+
 
 	extern UBO projectionUBO;
 
@@ -39,10 +49,10 @@ namespace Ningin
 		static SceneLoader sceneLoader;
 
 		static void Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
-			vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode);
+			vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode, RenderingApi renderingApi);
 		static void Start();
 		static void NewWindow(string windowName, WindowOptions windowOptions,
-			uint16_t sceneId, Dimensions2* dimensions);
+			uint16_t sceneId, Dimensions2* dimensions, RenderingApi renderingApi);
 
 	private:
 		static void InitGl2d(Dimensions2* dimensions);

@@ -13,6 +13,8 @@ namespace Ningin
 	Dimensions2 windowDimensions(100, 100);
 	FT_Library ftLibrary;
 
+	RenderingApi renderingApi;
+
 	UBO projectionUBO = UBO();
 
 	int ARRAY_LIMIT;
@@ -25,9 +27,9 @@ namespace Ningin
 	SceneLoader Game::sceneLoader;
 
 	void Game::Init(string gameName, WindowOptions windowOptions, Dimensions2* dimensions,
-		vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode)
+		vector<string> scenes, optional<MonoPaths> monoPath, bool debugMode, RenderingApi renderingApi)
 	{
-		NewWindow(gameName, windowOptions, -1, dimensions); // Create new window with no scene
+		NewWindow(gameName, windowOptions, -1, dimensions, renderingApi); // Create new window with no scene
 
 		glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &ARRAY_LIMIT);
 
@@ -57,7 +59,7 @@ namespace Ningin
 	}
 
 	void Game::NewWindow(string windowName, WindowOptions windowOptions, uint16_t sceneId,
-		Dimensions2* dimensions)
+		Dimensions2* dimensions, RenderingApi renderingApi)
 	{
 		switch (windowOptions)
 		{
@@ -65,12 +67,12 @@ namespace Ningin
 
 			case FullScreen:
 				openedWindow = Window(windowName, true,
-					dimensions);
+					dimensions, renderingApi);
 				break;
 
 			case Windowed:
 				openedWindow = Window(windowName, false,
-					dimensions);
+					dimensions, renderingApi);
 				break;
 
 			default: break;
@@ -131,7 +133,7 @@ namespace Ningin
 		float result = 0;
 		Timer timer;
 
-		while (statistics_count < 1000)
+		while (true) // statistics_count < 1000
 		{
 			statistics_count++;
 			glfwPollEvents();
@@ -147,7 +149,23 @@ namespace Ningin
 				if (!glfwWindowShouldClose(openedWindow.value().glfwWin)) SceneManager::NewFrame(deltatime);
 				else 
 				{
+					if (openedWindow.value().vkInstance != nullptr)
+					{
+						vkDestroyDevice(openedWindow.value().getDevice(), nullptr);
+
+						if (enableValidationLayers) {
+							DestroyDebugUtilsMessengerEXT(*(openedWindow.value().vkInstance),
+								openedWindow.value().getDebugMessenger(), nullptr);
+						}
+
+						vkDestroySurfaceKHR(*(openedWindow.value().vkInstance),
+							openedWindow.value().getSurface(), nullptr);
+
+						vkDestroyInstance(*(openedWindow.value().vkInstance), nullptr);
+					}
+
 					glfwDestroyWindow(openedWindow.value().glfwWin);
+
 					break;
 				}
 				glfwSwapBuffers(openedWindow.value().glfwWin);
@@ -161,7 +179,7 @@ namespace Ningin
 int main()
 {
 	Ningin::Game::Init("Example", WindowOptions::Windowed, new Dimensions2(500, 500), { "Scene" },
-		MonoPaths("mono/lib", "example.dll"), false);
+		MonoPaths("mono/lib", "example.dll"), false, RenderingApi::Opengl);
 	Ningin::Game::Start();
 	return 0;
 }
