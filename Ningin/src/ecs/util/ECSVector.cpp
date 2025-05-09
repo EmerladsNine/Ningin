@@ -2,7 +2,7 @@
 
 ECSVector::ECSVector() : entitySize(0), capacity(1), current(0)
 {
-	data = new int[1];
+	data = new char[1];
 }
 
 ECSVector::~ECSVector()
@@ -15,7 +15,7 @@ void ECSVector::Init(int entitySize)
 	delete[] data;
 	capacity = entitySize;
 	this->entitySize = entitySize;
-	data = new int[entitySize];
+	data = new char[entitySize];
 }
 
 void ECSVector::AddComponentPosition(ComponentId componentId, int position)
@@ -28,28 +28,16 @@ bool ECSVector::Empty() const
 	return current == 0;
 }
 
-#include "../../sceneSystem/components/ScriptVec.h"
-void ECSVector::Test()
-{
-	for (int row = 0; row < 2; row++)
-	{
-		ScriptVec& vec = *reinterpret_cast<ScriptVec*>(GetEntityComponentPointer(row, typeid(ScriptVec)));
-		int i = 0;
-	}
-}
-
 void ECSVector::push()
 {
 	if (current == capacity) {
-		Test();
-		int* temp = new int[capacity * 2];
+		char* temp = new char[capacity * 2];
 		for (int i = 0; i < capacity; i++) {
 			temp[i] = data[i];
 		}
 		delete[] data;
 		capacity *= 2;
 		data = temp;
-		Test();
 	}
 
 	data[current] = 0;
@@ -87,10 +75,3 @@ void ECSVector::PopBack()
 		pop();
 	}
 }
-
-void ECSVector::Insert(size_t row, ComponentId componentId, void* data)
-{
-	void* dest = GetEntityComponentPointer(row, componentId);
-
-}
-

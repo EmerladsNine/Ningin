@@ -12,10 +12,10 @@ void Archetype::Init()
 	int bytes = 0;
 	for (auto& componentType : *type)
 	{
-		components.AddComponentPosition(componentType, bytes / 4);
+		components.AddComponentPosition(componentType, bytes);
 		bytes += ArchetypeManager::sizeOf[componentType]();
 	}
-	int entitySize = bytes / 4;
+	int entitySize = bytes;
 	components.Init(entitySize);
 }
 

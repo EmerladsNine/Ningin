@@ -356,11 +356,25 @@ namespace Ningin::Components
 
 			if (it != transformArchetypeMap.end())
 			{
-				for (int row = 0; row < TextArchetype.second.archetype->size; row++)
+				int row = 0;
+				char* pointer = reinterpret_cast<char*>(TextArchetype.second.archetype->components.GetEntityPointer(row));
+				int entitySize = TextArchetype.second.archetype->components.entitySize;
+				int transformPos = TextArchetype.second.archetype->components.GetComponentPosition(typeid(Transform));
+				int TextRendererPos = TextArchetype.second.archetype->components.GetComponentPosition(typeid(TextRenderer));
+
+				for (row = 0; row < TextArchetype.second.archetype->size; row++)
 				{
-					Transform& transform = *reinterpret_cast<Transform*>(TextArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(Transform)));
-					TextRenderer& text = *reinterpret_cast<TextRenderer*>(TextArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(TextRenderer)));
-					text.Draw(transform);
+					if (transformPos > TextRendererPos) {
+						Transform& transform = *reinterpret_cast<Transform*>(pointer + transformPos);
+						TextRenderer& text = *reinterpret_cast<TextRenderer*>(pointer + TextRendererPos);
+						text.Draw(transform);
+					}
+					else {
+						TextRenderer& text = *reinterpret_cast<TextRenderer*>(pointer + TextRendererPos);
+						Transform& transform = *reinterpret_cast<Transform*>(pointer + transformPos);
+						text.Draw(transform);
+					}
+					pointer += entitySize;
 				}
 			}
 		}

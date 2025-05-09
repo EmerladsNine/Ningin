@@ -147,11 +147,24 @@ namespace Ningin::Components
 
 			if (it != transformArchetypeMap.end())
 			{
-				for (int row = 0; row < SpriteArchetype.second.archetype->size;row++)
+				int row = 0;
+				char* pointer = reinterpret_cast<char*>(SpriteArchetype.second.archetype->components.GetEntityPointer(row));
+				int entitySize = SpriteArchetype.second.archetype->components.entitySize;
+				int transformPos = SpriteArchetype.second.archetype->components.GetComponentPosition(typeid(Transform));
+				int SpriteRendererPos = SpriteArchetype.second.archetype->components.GetComponentPosition(typeid(SpriteRenderer));
+				for (row = 0; row < SpriteArchetype.second.archetype->size;row++)
 				{
-					Transform& transform = *reinterpret_cast<Transform*>(SpriteArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(Transform)));
-					SpriteRenderer& sprite = *reinterpret_cast<SpriteRenderer*>(SpriteArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(SpriteRenderer)));
-					sprite.Draw(transform);
+					if (transformPos > SpriteRendererPos) {
+						Transform& transform = *reinterpret_cast<Transform*>(pointer + transformPos);
+						SpriteRenderer& sprite = *reinterpret_cast<SpriteRenderer*>(pointer + SpriteRendererPos);
+						sprite.Draw(transform);
+					}
+					else {
+						SpriteRenderer& sprite = *reinterpret_cast<SpriteRenderer*>(pointer + SpriteRendererPos);
+						Transform& transform = *reinterpret_cast<Transform*>(pointer + transformPos);
+						sprite.Draw(transform);
+					}
+					pointer += entitySize;
 				}
 			}
 		}

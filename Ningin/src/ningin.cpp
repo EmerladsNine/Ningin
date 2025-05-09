@@ -7,7 +7,7 @@
 #include <portaudio.h>
 
 namespace Ningin
-{
+{ 
 	ResourceManager resourceManager = ResourceManager();
 	glm::mat4 projectionMatrix = glm::mat4(1.0f);
 	Dimensions2 windowDimensions(100, 100);
@@ -121,7 +121,7 @@ namespace Ningin
 			resourceManager.GetShader(string("text")) };
 
 		projectionUBO = UBO(shadersUniforms, "Matrix", sizeof(glm::mat4));
-
+		
 		setProjection(dimensions);
 	}
 

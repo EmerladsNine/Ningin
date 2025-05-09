@@ -18,20 +18,27 @@ public:
 	void SwapRemove(size_t row);
 	void PopBack();
 
-	void Insert(size_t row, ComponentId componentId, void* data);
-
 	void* GetEntityComponentPointer(size_t row,ComponentId componentId)
 	{
 		row *= entitySize;
 		return reinterpret_cast<void*>(&data[row + componentPositions[componentId]]);
 	}
+		
+	void* GetEntityPointer(size_t row)
+	{
+		row *= entitySize;
+		return data + row;
+	}
 
-	void Test();
-
+	int GetComponentPosition(ComponentId componentId)
+	{
+		return componentPositions[componentId];
+	}
 private :
-	int* data;
+	//binary data
+	char* data;
 	int capacity;
-	int current;
+	size_t current;
 	std::unordered_map<ComponentId, int> componentPositions;
 	void push();
 	void pop();

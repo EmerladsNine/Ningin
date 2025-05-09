@@ -30,8 +30,8 @@ class EntityManager
 		unordered_map<EntityId, Record> entityIndex;
 		ArchetypeManager archetypeManager;
 
-		vector<void (*)(float, ArchetypeManager&)> lateSystems;
-		vector<void (*)(float, ArchetypeManager&)> systems;
+		vector<void (*)(float deltaTime, ArchetypeManager&)> lateSystems;
+		vector<void (*)(float deltaTime, ArchetypeManager&)> systems;
 		size_t entitiesCount;
 	private:
 		void edgeRemove(Archetype* oldArchetype, Archetype* newArchetype, ComponentId componentId);

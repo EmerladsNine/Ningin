@@ -113,92 +113,57 @@ void EntityManager::SetComponent(Record& entityRecord, ComponentId componentId, 
 void EntityManager::AddComponent(EntityId entityId, ComponentId componentId, void* data)
 {
 	auto entityIterator = entityIndex.find(entityId);
-
 	// Read entity record.
 	Record* record = nullptr;
-	if (entityIterator != entityIndex.end())
-	{
-		record = &entityIterator->second;
-	}
-	else
+	if (entityIterator == entityIndex.end())
 	{
 		throw runtime_error("Entity Not Found, Id :" + to_string(entityId));
 	}
-
+    record = &entityIterator->second;
 	Archetype* oldArchetype = record->archetypePtr;
 	Archetype* newArchetype = nullptr;
-
 	// Use Cache If exists so we don't need to waste time on search.
 	auto edgeComponentIterator = oldArchetype->edges.find(componentId);
-
 	if (edgeComponentIterator != oldArchetype->edges.end() && edgeComponentIterator->second.add != nullptr)
 	{
 		newArchetype = edgeComponentIterator->second.add;
 	}
-	else // Cache Doesn't Exist We need to create one.
+	else
 	{
+        // Cache Doesn't Exist We need to create one.
 		ArchetypeType newType(*oldArchetype->type); // Clone The Type.
-
-		// Define the new type after adding component
-		if (find(newType.begin(), newType.end(), componentId) != newType.end())
-		{
-			// Component Already Exists !!
-			return;
-		}
-
+		if (find(newType.begin(), newType.end(), componentId) != newType.end()) 
+			return; // Component Already Exists !!
 		newType.push_back(componentId);
 		sort(newType.begin(), newType.end());
-
 		// Create Cache.
 		auto result = archetypeManager.GetArchetypeByType(newType);
-
 		if (result.has_value())
-		{
 			newArchetype = result.value();
-		}
 		else
-		{
 			newArchetype = archetypeManager.GenerateArchetype(move(newType));
-		}
-
 		edgeAdd(oldArchetype, newArchetype, componentId);
 	}
-
-	// Insert a new row into the destination archetype.
 	size_t row = newArchetype->CreateEntity();
-
-	// New Record
 	Record newRecord(newArchetype, row);
-
-	// Insert data into the created component.
 	void* componentPtr = newArchetype->components.GetEntityComponentPointer(row, componentId);
 	ArchetypeManager::insert[componentId](componentPtr, data);
-
 	// Move overlapping components over to the destination archetype.
-
 	for (auto& component : *oldArchetype->type)
 	{
 		void* componentdataPtr = oldArchetype->components.GetEntityComponentPointer(record->row, component);
 		void* componentPtr = newArchetype->components.GetEntityComponentPointer(newRecord.row, component);
-
 		ArchetypeManager::insert[component](componentPtr, componentdataPtr);
 	}
-
 	// Remove the entity from the current archetype.
 	auto result = oldArchetype->SwapRemoveEntity(record->row);
-
 	if (result.has_value())
 	{
 		auto entityIterator = entityIndex.find(result.value());
-
 		// Update swapped entity record.
 		entityIterator->second.row = record->row;
 	}
-
-	// Update entity record.
-	newArchetype->components.Test();
 	entityIndex.insert_or_assign(entityId, newRecord);
-	newArchetype->components.Test();
 }
 
 void EntityManager::RemoveComponent(EntityId entityId, ComponentId componentId, void* data)

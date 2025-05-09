@@ -16,13 +16,18 @@ void ScriptUpdate(bool isLate, float deltatime, ArchetypeManager& archetypeManag
 {
 	for (auto& scriptVecArchetype : archetypeManager.componentIndex[typeid(ScriptVec)])
 	{
-		for (int row = 0; row < scriptVecArchetype.second.archetype->size; row++)
+		int row = 0;
+		char* pointer = reinterpret_cast<char*>(scriptVecArchetype.second.archetype->components.GetEntityPointer(row));
+		int entitySize = scriptVecArchetype.second.archetype->components.entitySize;
+		int scriptVecPos = scriptVecArchetype.second.archetype->components.GetComponentPosition(typeid(ScriptVec));
+		for (row = 0; row < scriptVecArchetype.second.archetype->size; row++)
 		{
-			ScriptVec& scriptVec = *reinterpret_cast<ScriptVec*>(scriptVecArchetype.second.archetype->components.GetEntityComponentPointer(row, typeid(ScriptVec)));
+			ScriptVec& scriptVec = *reinterpret_cast<ScriptVec*>(pointer + scriptVecPos);
 			for (Scriptable* script : scriptVec.scripts)
 			{
 				HandleScript(script, isLate, deltatime);
 			}
+			pointer += entitySize;
 		}
 	}
 }
