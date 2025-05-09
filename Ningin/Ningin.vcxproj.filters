@@ -420,17 +420,17 @@
     <ClCompile Include="src\physicsEngine\PhysicsEngine.cpp">
       <Filter>Source Files\physicsEngine</Filter>
     </ClCompile>
-    <ClCompile Include="src\physicsEngine\forceGenerators\GravityForceGenerator.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ecs\util\ECSVector.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\system\RenderingApi.cpp">
       <Filter>Source Files\system</Filter>
     </ClCompile>
     <ClCompile Include="src\system\QueueFamilyIndices.cpp">
       <Filter>Source Files\system</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ecs\util\ECSVector.cpp">
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\physicsEngine\forceGenerators\GravityForceGenerator.cpp">
+      <Filter>Source Files\physicsEngine\forceGenerators</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
