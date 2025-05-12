@@ -14,4 +14,12 @@
         Shader("text")
         UseMultiLine(true)
     }
+
+    //Sprite {
+    //  useAlpha(true)
+    //  UseTint(true)
+    //  TintingColor(127, 8, 58, 255)
+    //  TextureName("sprite")
+    //  Shader("sprite")
+    //}
 }

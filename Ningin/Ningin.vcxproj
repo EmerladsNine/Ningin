@@ -259,6 +259,7 @@
     <None Include="resourceFiles\shaders\sprite_vs.vs" />
     <None Include="resourceFiles\shaders\text_fs.frag" />
     <None Include="resourceFiles\shaders\text_vs.vs" />
+    <None Include="text_layout.comp" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

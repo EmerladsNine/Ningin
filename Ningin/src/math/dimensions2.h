@@ -14,7 +14,9 @@ class Dimensions2
 
 		Dimensions2();
 
-		std::pair<unsigned int, unsigned int> Deconstruct();
+		std::pair<unsigned int, unsigned int> Deconstruct(); 
+
+		bool Equal(Dimensions2 dim);
 };
 
 void Dimensions2ToString(Dimensions2& dimensions, string& out);

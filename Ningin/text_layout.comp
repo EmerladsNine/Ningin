@@ -1,0 +1,49 @@
+layout(local_size_x = 128) in;
+
+// Input SSBO 0: [uint count, uint codes[count]]
+layout(std430, binding = 0) readonly buffer CharCodes {
+    uint charCount;
+    uint codes[];
+};
+
+// Input SSBO 1: font metadata
+layout(std430, binding = 1) readonly buffer FontMeta {
+    // assume advance and bearing packed in parallel arrays
+    float advance[256];
+    vec2 bearing[256];
+};
+
+// Output SSBO 2: [uint instanceCount, vec4 data[charCount]]
+layout(std430, binding = 2) writeonly buffer InstanceData {
+    uint instanceCount;
+    vec4 data[];
+};
+
+uniform float u_scale;
+uniform float u_windowWidth;
+
+void main() {
+    uint idx = gl_GlobalInvocationID.x;
+    if (idx >= charCount) return;
+
+    // Simple linear layout; replace with your wrapping logic
+    float xOff = 0.0;
+    float yOff = 0.0;
+    for (uint i = 0; i < idx; ++i) {
+        uint c = codes[i];
+        xOff += advance[c] * u_scale;
+        if (xOff > u_windowWidth) {
+            xOff = 0.0;
+            yOff -= advance[uint('\n')] * u_scale;
+        }
+    }
+
+    uint c = codes[idx];
+    vec2 pos = vec2(
+        xOff + bearing[c].x * u_scale,
+        yOff - bearing[c].y * u_scale
+    );
+
+    uint outIdx = atomicAdd(instanceCount, 1);
+    data[outIdx] = vec4(pos, float(c), 0.0);
+}
