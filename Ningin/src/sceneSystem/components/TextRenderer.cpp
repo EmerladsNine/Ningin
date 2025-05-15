@@ -129,64 +129,64 @@ namespace Ningin::Components
 		}
 
 		Vector3 pos = transform.position;
-		float hBearing = float(_fontCharsMap.at('H').bearing.height);
+		const float hBearing = static_cast<float>(_fontCharsMap.at('H').bearing.height);
 
-		int workingIndex = 0;
-		int wordIndex = 0;
-		int letterIndex = 0;
-
+		int workingIndex = 0, wordIndex = 0;
 		float xOffSet = 0.0f;
-		float xpos = 0;
-		float ypos = 0;
 
-		for (char c : _text)
+		const size_t textLength = _text.length();
+		for (size_t i = 0; i < textLength; ++i)
 		{
-			Character ch = _fontCharsMap[static_cast<unsigned char>(c)];
+			char c = _text[i];
+			char nextChar = (i + 1 < textLength) ? _text[i + 1] : '\0';
 
 			if (c == '\n')
 			{
 				IndentNewLine(&pos, &xOffSet, true);
-				if (_text[letterIndex + 1] != ' ' && _text[letterIndex + 1] != '\n')
+				if (nextChar != ' ' && nextChar != '\n' && nextChar != '\0')
 					wordIndex++;
+				continue;
 			}
-			else if (c == ' ')
+
+			const Character& ch = _fontCharsMap[static_cast<unsigned char>(c)];
+
+			if (c == ' ')
 			{
-				if (_text[letterIndex + 1] != ' ' && _text[letterIndex + 1] != '\n')
+				if (nextChar != ' ' && nextChar != '\n' && nextChar != '\0')
 					wordIndex++;
 
 				_shouldCheckWord = true;
-				xOffSet += float(static_cast<unsigned int>(ch.advance) >> 6) * _scale;
+				xOffSet += (ch.advance >> 6) * _scale;
+				continue;
 			}
-			else
+
+			float advance = (ch.advance >> 6) * _scale;
+
+			if (_shouldCheckWord && _useMultiLine &&
+				xOffSet + _wordsWidth[wordIndex] >= static_cast<float>(windowDimensions.width))
 			{
-				float xpos = pos.x + float(ch.bearing.width) * _scale;
-
-				if (_shouldCheckWord && _useMultiLine && xOffSet + _wordsWidth[wordIndex]
-					>= float(windowDimensions.width))
-				{
-					IndentNewLine(&pos, &xOffSet, false);
-				}
-
-				float ypos = pos.y + (hBearing - float(ch.bearing.height)) * _scale;
-
-				_lettersPositions[workingIndex] = glm::vec2(xOffSet + xpos, ypos);
-				_textAsciiIndices[workingIndex] = ch.asciiIndex;
-
-				if (workingIndex == ARRAY_LIMIT - 1)
-				{
-					RenderText(workingIndex);
-					workingIndex = 0;
-				}
-
-				xOffSet += float(static_cast<unsigned int>(ch.advance) >> 6) * _scale;
-				_shouldCheckWord = false;
-				workingIndex++;
+				IndentNewLine(&pos, &xOffSet, false);
 			}
 
-			letterIndex++;
+			float xpos = pos.x + ch.bearing.width * _scale;
+			float ypos = pos.y + (hBearing - ch.bearing.height) * _scale;
+
+			_lettersPositions[workingIndex] = glm::vec2(xOffSet + xpos, ypos);
+			_textAsciiIndices[workingIndex] = ch.asciiIndex;
+
+			if (workingIndex++ == ARRAY_LIMIT)
+			{
+				RenderText(workingIndex);
+				workingIndex = 0;
+			}
+
+			xOffSet += advance;
+			_shouldCheckWord = false;
 		}
 
-		RenderText(workingIndex);
+		if (workingIndex > 0)
+			RenderText(workingIndex);
+
 		glBindVertexArray(0);
 	}
 
@@ -197,6 +197,13 @@ namespace Ningin::Components
 			SetDrawingUniforms(length);
 			glDrawArraysInstanced(GL_TRIANGLE_STRIP, 0, 4, length);
 		}
+	}
+
+	void TextRenderer::RecalculateLayout(bool splitText)
+	{
+		if (splitText) SplitText();
+		CalculateWordsWidth();
+		CalculateTextDimensions();
 	}
 
 	void TextRenderer::CalculateTextDimensions()
@@ -265,9 +272,7 @@ namespace Ningin::Components
 	void TextRenderer::SetText(string& text)
 	{
 		_text = text;
-		CalculateTextDimensions();
-		SplitText();
-		CalculateWordsWidth();
+		RecalculateLayout(true);
 		_mustCalculate = true;
 	}
 
@@ -278,8 +283,7 @@ namespace Ningin::Components
 		_fontSize = fontSize;
 		_scale = float(_fontSize) / 256.0f;
 
-		CalculateTextDimensions();
-		CalculateWordsWidth();
+		RecalculateLayout();
 
 		_shader.SetFloat("scale", fontSize);
 		_mustCalculate = true;

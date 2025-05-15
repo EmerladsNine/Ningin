@@ -836,5 +836,8 @@
     <None Include="resourceFiles\shaders\text_vs.vs">
       <Filter>Resource Files\shaders</Filter>
     </None>
+    <None Include="text_layout.comp">
+      <Filter>Resource Files\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

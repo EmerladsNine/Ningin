@@ -63,6 +63,7 @@ namespace Ningin::Components
 		void ConfigureDrawingContext();
 		void IndentNewLine(Vector3* position, float* xOffSet, bool CheckWord);
 		void RenderText(int32_t length);
+		void RecalculateLayout(bool splitText = false);
 
 		unordered_map<string, function<void()>> _userUniforms;
 		vector<glm::vec2> _lettersPositions;
