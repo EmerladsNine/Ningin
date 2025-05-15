@@ -742,9 +742,6 @@
     <CopyFileToFolders Include="dependencies\freetype.dll">
       <Filter>Dependencies</Filter>
     </CopyFileToFolders>
-    <CopyFileToFolders Include="dependencies\glew32.dll">
-      <Filter>Dependencies</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="dependencies\glfw3.dll">
       <Filter>Dependencies</Filter>
     </CopyFileToFolders>
@@ -755,6 +752,9 @@
       <Filter>Dependencies\mono</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="dependencies\portaudio_x64.dll">
+      <Filter>Dependencies</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="dependencies\glew32.dll">
       <Filter>Dependencies</Filter>
     </CopyFileToFolders>
   </ItemGroup>
