@@ -17,6 +17,5 @@ float Timer::GetDeltaTime()
 
 void Timer::ResetDeltaTime() 
 {
-    auto currentTime = std::chrono::high_resolution_clock::now();
-    lastTime = currentTime;
+    lastTime = std::chrono::high_resolution_clock::now();
 }
